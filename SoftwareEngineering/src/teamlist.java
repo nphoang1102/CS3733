@@ -18,5 +18,6 @@ public class teamlist {
         System.out.println("Victor Pina");
         System.out.println("Evan Goldstein");
         System.out.println("Matt Fortmeyer");
+        System.out.println("Manuel Gonsalves");
     }
 }
