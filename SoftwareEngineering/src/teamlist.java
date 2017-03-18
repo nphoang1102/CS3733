@@ -15,5 +15,6 @@ public class teamlist {
         System.out.println("Bailey Sostek ");
         System.out.println("Hoang Nguyen");
         System.out.println("Daniel Yun");
+        System.out.println("Victor Pina");
     }
 }
