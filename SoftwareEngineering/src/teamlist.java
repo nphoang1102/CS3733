@@ -14,6 +14,7 @@ public class teamlist {
     public static void main(String[] args){
         System.out.println("Bailey Sostek ");
         System.out.println("Hoang Nguyen");
-        System.out.println("Evan Goldstein");
+        System.out.println("Daniel Yun");
+        System.out.println("Victor Pina");
     }
 }
