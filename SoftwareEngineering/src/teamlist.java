@@ -12,6 +12,6 @@ public class teamlist {
     
 
     public static void main(String[] args){
-        System.out.println("Bailey Sostek");
+        System.out.println("Bailey Sostek ");
     }
 }
