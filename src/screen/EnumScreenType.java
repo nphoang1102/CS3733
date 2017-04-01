@@ -1,7 +1,7 @@
 package screen;
 
 /**
- * Created by Bayjose on 4/1/17.
+ * Created by Bailey Sostek on 4/1/17.
  */
 public enum EnumScreenType {
     LOG_IN(),
