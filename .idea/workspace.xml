@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/Main.java" afterPath="$PROJECT_DIR$/src/base/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/ColaSearchScreenManager.java" afterPath="$PROJECT_DIR$/src/screen/ColaSearchScreenManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/EnumScreenType.java" afterPath="$PROJECT_DIR$/src/screen/EnumScreenType.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" afterPath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\spartanvice\Documents\csgetdegrees\.idea\shelf/" />
@@ -610,7 +606,7 @@
       <workItem from="1491076392278" duration="1153000" />
       <workItem from="1491153799345" duration="2689000" />
       <workItem from="1491156586876" duration="417000" />
-      <workItem from="1491157027008" duration="5289000" />
+      <workItem from="1491157027008" duration="5311000" />
     </task>
     <task id="LOCAL-00001" summary="Login screen push test">
       <created>1491145327458</created>
@@ -647,11 +643,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491161464963</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="ColaSearchScreen integrated">
+      <created>1491172200780</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1491172200781</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9850000" />
+    <option name="totallyTimeSpent" value="9872000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="6" />
@@ -699,7 +702,8 @@
     <MESSAGE value="Main now launches a window, the window has a window listener to listen for the close event" />
     <MESSAGE value="refactored the location of our main class" />
     <MESSAGE value="Screen Manager now Works" />
-    <option name="LAST_COMMIT_MESSAGE" value="Screen Manager now Works" />
+    <MESSAGE value="ColaSearchScreen integrated" />
+    <option name="LAST_COMMIT_MESSAGE" value="ColaSearchScreen integrated" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
