@@ -1,10 +1,6 @@
 package screen;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import base.LogManager;
 
 import java.util.LinkedList;
 
@@ -26,6 +22,7 @@ public class ScreenManager {
         for(Screen screen : screens){
             if(screen.getType().equals(type)){
                 //Code to set the main screen here
+                LogManager.println("Setting screen to:"+type.toString());
                 break;
             }
         }

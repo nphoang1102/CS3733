@@ -1,3 +1,5 @@
+package base;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,7 +8,6 @@ import javafx.stage.Stage;
 import screen.ScreenManager;
 
 import java.io.File;
-import java.net.URL;
 
 public class Main extends Application implements Runnable {
 

@@ -1,6 +1,7 @@
+package base;
+
 import java.io.File;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 
 /**
  * Created by Bailey Sostek on 4/2/17.
