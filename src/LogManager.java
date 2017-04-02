@@ -5,8 +5,9 @@ import java.util.LinkedList;
  */
 public class LogManager {
 
-    private LinkedList<String> lines = new LinkedList<String>();
-    private final String fileName = "Log.txt";
+    private static LinkedList<String> lines = new LinkedList<String>();
+    private static final String fileName = "Log.txt";
+    private static boolean lineTerminated = true;
 
     public LogManager(){
 
@@ -17,10 +18,23 @@ public class LogManager {
 
         This function both prints the parameter line to the console, and to the log file.
      */
-    public void print(String line){
+    public static void print(String line){
         System.out.print(line);
-        lines.add(line);
-
+        if(lines.size()>0) {
+            //if the last line printed was not terminated, then print this line on the last line
+            if(!lineTerminated) {
+                //print on the last line
+                String lastLine = lines.getFirst();
+                lines.removeFirst();
+                lines.add(lastLine + line);
+            }else{
+                //if the line was terminated, then print on a new line, and indicate that this new line is not terminated
+                lines.add(line);
+            }
+        }else{
+            lines.add(line);
+        }
+        lineTerminated = false;
     }
 
     /*
@@ -28,9 +42,9 @@ public class LogManager {
 
         This function both prints the parameter line to the console, and to the log file followed by a new line character.
      */
-    public void println(String line){
+    public static void println(String line){
         System.out.println(line);
-        lines.add(line);
+        printSilent(line);
     }
 
     /*
@@ -38,8 +52,21 @@ public class LogManager {
 
         This function prints the paramater line to the log file.
      */
-    public void printSilent(String line){
-        lines.add(line);
+    public static void printSilent(String line){
+        //if the last printed line was not terminated, print on that line then indicate that that line is now terminated
+        if(!lineTerminated){
+            //print on the last line
+            if(lines.size()>0) {
+                String lastLine = lines.getFirst();
+                lines.removeFirst();
+                lines.add(lastLine + line);
+            }else{
+                lines.add(line);
+            }
+        }else {
+            lines.add(line);
+        }
+        lineTerminated = true;
     }
 
 
@@ -50,6 +77,6 @@ public class LogManager {
             out[index] = line;
             index++;
         }
-        StringUtilities.saveData(Main.PATH+Main.LOG+fileName, out);
+        StringUtilities.saveData(Main.LOG+"/"+fileName, out);
     }
 }

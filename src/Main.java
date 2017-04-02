@@ -26,8 +26,6 @@ public class Main implements Runnable {
     private static boolean running = false;
 
 
-
-
     /*
         This is the initialization call, where all Managers are initialized
      */
@@ -35,8 +33,13 @@ public class Main implements Runnable {
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
 
+
+        //Initialize all Managers
         screenManager = new ScreenManager();
         logManager = new LogManager();
+
+
+
         /*
             Check to see if local directories for Saves and Log files exist,
             if any directories are not found, create them.
@@ -76,11 +79,9 @@ public class Main implements Runnable {
         This method is called when close is requested for the application.
      */
     private void shutdown(){
+        logManager.println("Shutting down.");
         logManager.shutdown();
     }
-
-
-
 
 
 
@@ -121,7 +122,7 @@ public class Main implements Runnable {
         long age = System.currentTimeMillis();
         long extra = 0;
 
-        while(this.running){
+        while(this.running && screenManager.isOpen()){
             long now = System.nanoTime();
 
             while((now-last)+extra>=(1000000000.0/updatesPerSecond)){
@@ -141,6 +142,11 @@ public class Main implements Runnable {
                 updates = 0;
                 frames = 0;
             }
+        }
+
+        if(!screenManager.isOpen()){
+            running = false;
+            shutdown();
         }
     }
 

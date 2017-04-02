@@ -15,17 +15,31 @@ public class ScreenManager extends Application {
 
 
     private LinkedList<Screen> screens = new LinkedList<Screen>();
+    private boolean isOpen = false;
 
     public ScreenManager(){
-
+        //start the screen manager
+        if(!isOpen) {
+            launch();
+            isOpen = true;
+        }
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 400, 400));
         primaryStage.show();
+    }
+
+    @Override
+    public void stop(){
+        isOpen = false;
+    }
+
+    public boolean isOpen(){
+        return isOpen;
     }
 
 
