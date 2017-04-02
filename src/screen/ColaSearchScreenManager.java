@@ -2,8 +2,6 @@ package screen;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.Label;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.*;
@@ -29,4 +27,12 @@ public class ColaSearchScreenManager {
     Polygon backButton;
     @FXML
     CheckBox beer, wine;
+
+    /* Class attributes */
+    private String keywords;
+    private String type;
+
+    /* Class methods */
+
+
 }
