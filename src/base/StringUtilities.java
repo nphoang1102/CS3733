@@ -1,6 +1,7 @@
+package base;
+
 import java.io.File;
 import java.io.PrintWriter;
-import java.net.URISyntaxException;
 
 /**
  * Created by Bailey Sostek on 4/2/17.
@@ -46,7 +47,8 @@ public class StringUtilities {
             }
             p.close();
         } catch (Exception e) {
-            Main.logManager.println("Error, File:"+Main.PATH+path+" cannot be saved.");
+            LogManager.println("Error, File:"+Main.PATH+path+" cannot be saved.");
+            e.printStackTrace();
         }
     }
 }

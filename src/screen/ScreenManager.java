@@ -1,40 +1,28 @@
 package screen;
 
-import javafx.application.Application;
+import base.LogManager;
+import base.Main;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
  * Created by Bailey Sostek on 4/1/17.
  */
-public class ScreenManager extends Application {
+public class ScreenManager {
 
+    private static Stage stage;
 
-    private LinkedList<Screen> screens = new LinkedList<Screen>();
-
-    public ScreenManager(){
-
+    public ScreenManager(Stage primaryStage){
+        stage = primaryStage;
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 400, 400));
-        primaryStage.show();
-    }
-
-
-    public void setScreen(EnumScreenType type){
-        for(Screen screen : screens){
-            if(screen.getType().equals(type)){
-                //Code to set the main screen here
-                break;
-            }
-        }
+    public static void setScreen(EnumScreenType type){
+        LogManager.println("Setting screen to:"+type.toString());
+        stage.setScene(new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
     }
 }
