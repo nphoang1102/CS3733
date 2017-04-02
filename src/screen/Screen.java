@@ -10,6 +10,9 @@ public abstract class Screen {
         this.type = type;
     }
 
+
+
+
     /*
     @return returns an EnumScreenType object representing the type of screen
      */
