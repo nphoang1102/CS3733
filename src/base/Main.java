@@ -18,8 +18,8 @@ public class Main extends Application{
     private ScreenManager screenManager;
     private LogManager logManager;
 
-    public static final int WIDTH = 680;
-    public static final int HEIGHT = 480;
+    public static final int WIDTH = 1200;
+    public static final int HEIGHT = 800;
     public static final String NAME = "COLA Databse Search Thing";
 
 

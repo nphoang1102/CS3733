@@ -1,5 +1,6 @@
 package screen;
 
+import base.LogManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Ellipse;
@@ -41,7 +42,8 @@ public class LoginScreenManager extends Screen{
     @FXML
     void goBack() {
         //tell the screen manager to set the screen to COLA screen
-        //screenManager.setScreen(EnumScreenType.LOG_IN);
+        LogManager.println("Back Button");
+        ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
     }
 
     @FXML
