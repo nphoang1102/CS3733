@@ -1,10 +1,10 @@
 package screen;
 
 import javafx.fxml.FXML;
-        import javafx.scene.control.TextField;
-        import javafx.scene.shape.Ellipse;
-        import javafx.scene.shape.Polygon;
-        import javafx.scene.text.Text;
+import javafx.scene.control.TextField;
+import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Polygon;
+import javafx.scene.text.Text;
 
 public class LoginScreenManager {
 
