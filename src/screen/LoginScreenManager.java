@@ -6,7 +6,7 @@ import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
-public class LoginScreenManager {
+public class LoginScreenManager extends Screen{
 
     @FXML
     private TextField unsernameField;
@@ -20,9 +20,14 @@ public class LoginScreenManager {
     @FXML
     private Text loginLabel;
 
+    public LoginScreenManager(EnumScreenType type) {
+        super(type);
+    }
+
 
     @FXML
     void userLogin() {
+
 
     }
 

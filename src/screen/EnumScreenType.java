@@ -12,5 +12,6 @@ public enum EnumScreenType {
     MANUFACTURER_ADD_FORM(),
     MANUFACTURER_EDIT(),
     AGENT_INBOX(),
+    AGENT_APP_SCREEN(),
     ;
 }
