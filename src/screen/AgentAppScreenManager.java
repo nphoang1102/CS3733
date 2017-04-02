@@ -10,6 +10,11 @@ import javafx.scene.input.MouseEvent;
  */
 public class AgentAppScreenManager extends Screen{
 
+
+    public AgentAppScreenManager() {
+        super(EnumScreenType.AGENT_APP_SCREEN);
+    }
+
     //all the Labels on the screen
     @FXML
     Label repId, brewNo, productSrc, productType, brandName, applicantName, applicantAdd, tradeName, alternateAdd, phoneNum, emailAdd, appDate, appName;
@@ -17,10 +22,6 @@ public class AgentAppScreenManager extends Screen{
     //all the Buttons on the screen
     @FXML
     Button acceptButton, rejectButton;
-
-    public AgentAppScreenManager(EnumScreenType type) {
-        super(EnumScreenType.AGENT_APP_SCREEN);
-    }
 
     /*
         Sets up the screen with the correct information in each of the Labels

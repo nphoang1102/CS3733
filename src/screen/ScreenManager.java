@@ -11,39 +11,18 @@ import java.util.LinkedList;
 /**
  * Created by Bailey Sostek on 4/1/17.
  */
-public class ScreenManager extends Application {
+public class ScreenManager {
 
 
-    private LinkedList<Screen> screens = new LinkedList<Screen>();
-    private boolean isOpen = false;
+    private static LinkedList<Screen> screens = new LinkedList<Screen>();
 
     public ScreenManager(){
-        //start the screen manager
-        if(!isOpen) {
-            launch();
-            isOpen = true;
-        }
-    }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("LoginScreen.fxml"));
-        primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 400, 400));
-        primaryStage.show();
-    }
-
-    @Override
-    public void stop(){
-        isOpen = false;
-    }
-
-    public boolean isOpen(){
-        return isOpen;
     }
 
 
-    public void setScreen(EnumScreenType type){
+
+    public static void setScreen(EnumScreenType type){
         for(Screen screen : screens){
             if(screen.getType().equals(type)){
                 //Code to set the main screen here

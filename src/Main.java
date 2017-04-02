@@ -1,16 +1,22 @@
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import screen.ScreenManager;
 
 import java.io.File;
+import java.net.URL;
 
-public class Main implements Runnable {
+public class Main extends Application implements Runnable {
 
     /*
         This is where all of the overall Entity Controllers go
             ScreenManager
             DatabaseManager
      */
-    public static ScreenManager screenManager;
-    public static LogManager logManager;
+    private ScreenManager screenManager;
+    private LogManager logManager;
 
 
     private static Class reference = Main.class;
@@ -26,10 +32,23 @@ public class Main implements Runnable {
     private static boolean running = false;
 
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        if(!running){
+            this.thread = new Thread(this);
+            this.thread.start();
+            this.running = true;
+        }
+        Parent root = FXMLLoader.load(this.getClass().getResource("/screen/AgentAppScreen.fxml"));
+        primaryStage.setTitle("Hello World");
+        primaryStage.setScene(new Scene(root, 1280, 720));
+        primaryStage.show();
+    }
+
     /*
         This is the initialization call, where all Managers are initialized
      */
-    private void init(){
+    private void initialize(){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
 
@@ -75,29 +94,15 @@ public class Main implements Runnable {
 
     }
 
-    /*
-        This method is called when close is requested for the application.
-     */
-    private void shutdown(){
+
+    @Override
+    public void stop() throws Exception {
+        running = false;
         logManager.println("Shutting down.");
         logManager.shutdown();
     }
 
 
-
-
-
-
-    /*
-    This function starts the thread and sets the local variable running to true
-    */
-    private synchronized void start(){
-        if(!running){
-            this.thread = new Thread(this);
-            this.thread.start();
-            this.running = true;
-        }
-    }
 
 
     /*
@@ -114,7 +119,7 @@ public class Main implements Runnable {
      */
     @Override
     public void run() {
-        init();
+        initialize();
         long last = System.nanoTime();
         final float updatesPerSecond = 60.0f;
         int frames = 0;
@@ -122,7 +127,7 @@ public class Main implements Runnable {
         long age = System.currentTimeMillis();
         long extra = 0;
 
-        while(this.running && screenManager.isOpen()){
+        while(this.running){
             long now = System.nanoTime();
 
             while((now-last)+extra>=(1000000000.0/updatesPerSecond)){
@@ -138,18 +143,12 @@ public class Main implements Runnable {
 
             if(System.currentTimeMillis() - age > 1000){
                 age = System.currentTimeMillis();
-                System.out.println("Updates:"+updates+" Frames:"+frames);
+//                System.out.println("Updates:"+updates+" Frames:"+frames);
                 updates = 0;
                 frames = 0;
             }
         }
-
-        if(!screenManager.isOpen()){
-            running = false;
-            shutdown();
-        }
     }
-
 
     /*
         This is the main call to start the application.
@@ -157,6 +156,6 @@ public class Main implements Runnable {
      */
     public static void main(String[] args) {
         Main main = new Main();
-        main.start();
+        main.launch(args);
     }
 }

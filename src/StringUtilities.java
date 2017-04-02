@@ -46,7 +46,7 @@ public class StringUtilities {
             }
             p.close();
         } catch (Exception e) {
-            Main.logManager.println("Error, File:"+Main.PATH+path+" cannot be saved.");
+            LogManager.println("Error, File:"+Main.PATH+path+" cannot be saved.");
             e.printStackTrace();
         }
     }
