@@ -1,5 +1,7 @@
 package screen;
 
+import base.EnumWarningType;
+import base.LogManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -14,7 +16,7 @@ public enum EnumScreenType {
     COLA_SEARCH("ColaSearchScreen.fxml"),
     COLA_SEARCH_RESULT(""),
     MANUFACTURER_SCREEN(""),
-    MANUFACTURER_VIEW_FORMS(""),
+    MANUFACTURER_VIEW_FORMS("test"),
     MANUFACTURER_ADD_FORM(""),
     MANUFACTURER_EDIT(""),
     AGENT_INBOX("AgentInbox.fxml"),
@@ -24,8 +26,9 @@ public enum EnumScreenType {
     private Parent scene;
     EnumScreenType (String file){
         try {
-            this.scene = FXMLLoader.load(this.getClass().getResource("/screen/"+file));
+            this.scene = FXMLLoader.load(this.getClass().getResource("/screen/fxml/"+file));
         } catch (IOException e) {
+            LogManager.println("FXML file not found:"+(e.getMessage().replaceAll("\n", ""))+this.getFXMLFile(), EnumWarningType.ERROR);
 //            e.printStackTrace();
         }
     }
