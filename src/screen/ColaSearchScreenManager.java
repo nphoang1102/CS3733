@@ -1,5 +1,6 @@
 package screen;
 
+import base.LogManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -59,15 +60,15 @@ public class ColaSearchScreenManager extends Screen{
     public void buttonPressed() {
         this.keywords = entryField.getText();
         this.searchType = type.getValue() + "";
-        System.out.println(this.keywords);
-        System.out.println(this.searchType);
+        LogManager.println(this.keywords);
+        LogManager.println(this.searchType);
         this.entryField.clear();
         return;
     }
 
     // What to do when the back button is pressed
     public void backPressed() {
-        System.out.println("Back button pressed");
+        LogManager.println("Back button pressed");
         return;
     }
 }

@@ -35,7 +35,7 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         initialize(primaryStage);
         primaryStage.setTitle(NAME);
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
         primaryStage.show();
 
     }
