@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="957.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.CreateAccountManager">
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#96ffe8" height="680.0" stroke="BLACK" strokeType="INSIDE" width="957.0" />
+        <Text layoutX="462.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Sphere layoutX="632.0" layoutY="348.0" radius="0.77" />
+        <Text layoutX="190.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
+            <font>
+                <Font size="48.0" />
+            </font>
+        </Text>
+        <Text layoutX="209.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Text>
+        <TextField fx:id="username" layoutX="367.0" layoutY="266.0" />
+        <Button fx:id="createAccount" layoutX="641.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#makeAccount" text="Create Account" />
+        <Text layoutX="824.0" layoutY="604.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
+            <font>
+                <Font name="Arial" size="23.0" />
+            </font>
+        </Text>
+        <Polygon fill="#247f6d" layoutX="838.0" layoutY="568.0" rotate="270.0" scaleX="0.5" scaleY="0.75" stroke="BLACK" strokeType="INSIDE">
+            <points>
+                <Double fx:value="-50.0" />
+                <Double fx:value="40.0" />
+                <Double fx:value="50.0" />
+                <Double fx:value="40.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="-60.0" />
+            </points>
+            <effect>
+                <Bloom />
+            </effect>
+        </Polygon>
+    </children>
+</Pane>
