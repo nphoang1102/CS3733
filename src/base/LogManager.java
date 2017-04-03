@@ -15,7 +15,7 @@ public class LogManager{
     private static boolean lineTerminated = true;
 
     public LogManager(){
-
+        println("LogManager initialized.");
     }
 
     /*
@@ -160,7 +160,7 @@ public class LogManager{
 
     public static void printStackTrace(StackTraceElement[] stackTrace){
         for(StackTraceElement element: stackTrace){
-            println(element.getClassName()+"."+element.getMethodName()+"["+element.getLineNumber()+"]", EnumWarningType.ERROR);
+            printSilent(element.getClassName() + "." + element.getMethodName() + "[" + element.getLineNumber() + "]", EnumWarningType.ERROR);
         }
     }
 

@@ -1,12 +1,13 @@
 package base;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
 import screen.EnumScreenType;
 import screen.ScreenManager;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.PrintStream;
 
 public class Main extends Application{
 
@@ -37,7 +38,7 @@ public class Main extends Application{
         primaryStage.setTitle(NAME);
         ScreenManager.setScreen(EnumScreenType.LOG_IN);
         primaryStage.show();
-
+        LogManager.println("Application Started.");
     }
 
     /*
