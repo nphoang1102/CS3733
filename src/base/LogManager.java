@@ -139,7 +139,9 @@ public class LogManager{
 
 
 
+    /*
 
+     */
     public void shutdown(){
         String[] out = new String[lines.size()];
         int index = 0;
@@ -154,6 +156,12 @@ public class LogManager{
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss ");
         Date date = new Date();
         return dateFormat.format(date);
+    }
+
+    public static void printStackTrace(StackTraceElement[] stackTrace){
+        for(StackTraceElement element: stackTrace){
+            println(element.getClassName()+"."+element.getMethodName()+"["+element.getLineNumber()+"]", EnumWarningType.ERROR);
+        }
     }
 
 }

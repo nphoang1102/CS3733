@@ -28,8 +28,8 @@ public enum EnumScreenType {
         try {
             this.scene = FXMLLoader.load(this.getClass().getResource("/screen/fxml/"+file));
         } catch (IOException e) {
-            LogManager.println("FXML file not found:"+(e.getMessage().replaceAll("\n", ""))+this.getFXMLFile(), EnumWarningType.ERROR);
-//            e.printStackTrace();
+//            LogManager.println("FXML file not found:"+(e.getMessage().replaceAll("\n", ""))+this.getFXMLFile(), EnumWarningType.ERROR);
+            LogManager.printStackTrace(e.getStackTrace());
         }
     }
 
