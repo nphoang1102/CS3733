@@ -10,28 +10,25 @@ import javafx.scene.text.Text;
 import java.awt.*;
 
 public class LoginScreenManager extends Screen{
-
+    /* Class attributes */
     private EnumScreenType type;
-    //set up the fxml fields and stuff
-    @FXML
-    private TextField usernameField;
 
-    @FXML
-    private Ellipse loginButton;
-
-    @FXML
-    private Polygon backButton;
-
-    @FXML
-    private Text loginLabel;
-
-    @FXML
-    private Button signSup;
-
-    //constructor
+    /* Constructor */
     public LoginScreenManager() {
         super(EnumScreenType.LOG_IN);
     }
+
+    /* FXML objects */
+    @FXML
+    private TextField usernameField;
+    @FXML
+    private Ellipse loginButton;
+    @FXML
+    private Polygon backButton;
+    @FXML
+    private Text loginLabel;
+    @FXML
+    private Button signSup;
 
     //fxml methods
     @FXML

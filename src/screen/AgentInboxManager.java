@@ -8,20 +8,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.shape.Polygon;
 
-public class AgentInboxManager {
+public class AgentInboxManager extends Screen {
+    /* Class constructor */
+    public AgentInboxManager() {
+        super(EnumScreenType.AGENT_INBOX);
+    }
 
+    /* Objects on UI */
     @FXML
-    private Button pullNewBatch;
-
+    private Button pullNewBatch, newApplication;
     @FXML
     private Polygon backButton;
-
     @FXML
     private TextArea results;
 
-    @FXML
-    private Button newApplication;
-
+    /* Class methods */
     @FXML
     void goBack() {
 

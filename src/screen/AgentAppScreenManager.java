@@ -10,7 +10,7 @@ import javafx.scene.input.MouseEvent;
  */
 public class AgentAppScreenManager extends Screen{
 
-
+    /* Constructors */
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
     }

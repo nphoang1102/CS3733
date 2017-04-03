@@ -5,18 +5,21 @@ package screen;
  */
 
 import javafx.fxml.FXML;
-        import javafx.scene.control.Button;
-        import javafx.scene.control.TextField;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
-public class CreateAccountManager {
-    //fxml fields and stuff
+public class CreateAccountManager extends Screen{
+    public CreateAccountManager() {
+        super(EnumScreenType.CREATE_ACCOUNT);
+    }
+
+    /* FXML objects */
     @FXML
     private Button createAccount;
-
     @FXML
     private TextField username;
 
-    //fxml methods
+    /* Class methods */
     @FXML
     private void goBack(){
 

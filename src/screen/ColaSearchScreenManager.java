@@ -14,6 +14,15 @@ import javafx.scene.text.Text;
  * Created by Hoang Nguyen on 4/2/2017.
  */
 public class ColaSearchScreenManager extends Screen{
+    /* Class attributes */
+    private String keywords;
+    private String searchType = "Beer";
+
+    /* Class constructor */
+    public ColaSearchScreenManager() {
+        super(EnumScreenType.COLA_SEARCH);
+    }
+
     /* Building the control objects */
     @FXML
     Pane colaSearchPanel;
@@ -27,14 +36,6 @@ public class ColaSearchScreenManager extends Screen{
     Polygon backButton;
     @FXML
     ChoiceBox type;
-
-    /* Class attributes */
-    private String keywords;
-    private String searchType = "Beer";
-
-    public ColaSearchScreenManager() {
-        super(EnumScreenType.COLA_SEARCH);
-    }
 
     /* Class methods */
 
