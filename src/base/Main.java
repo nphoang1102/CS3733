@@ -20,7 +20,7 @@ public class Main extends Application{
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
-    public static final String NAME = "COLA Databse Search Thing";
+    public static final String NAME = "COLA Database Search Thing";
 
 
     private static Class reference = Main.class;
@@ -35,7 +35,7 @@ public class Main extends Application{
     public void start(Stage primaryStage) throws Exception {
         initialize(primaryStage);
         primaryStage.setTitle(NAME);
-        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
         primaryStage.show();
 
     }

@@ -18,6 +18,7 @@ public class ColaSearchScreenManager extends Screen{
     /* Class attributes */
     private String keywords;
     private String searchType = "Beer";
+    private Boolean isEntry = Boolean.FALSE;
 
     /* Class constructor */
     public ColaSearchScreenManager() {
@@ -43,6 +44,7 @@ public class ColaSearchScreenManager extends Screen{
     // Initialize the choicebox
     @FXML
     public void initialize() {
+        this.isEntry = Boolean.FALSE;
         ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Both");
         type.setItems(typeList);
         type.setValue("Beer");
@@ -52,7 +54,6 @@ public class ColaSearchScreenManager extends Screen{
     // Whenever the enter key is hit, it is the same as clicking the search button
     public void onEnter() {
         this.buttonPressed();
-        this.entryField.clear();
         return;
     }
 
@@ -60,15 +61,21 @@ public class ColaSearchScreenManager extends Screen{
     public void buttonPressed() {
         this.keywords = entryField.getText();
         this.searchType = type.getValue() + "";
-        LogManager.println(this.keywords);
-        LogManager.println(this.searchType);
+        this.isEntry = Boolean.TRUE;
+        String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
+        LogManager.println(toPrint);
         this.entryField.clear();
         return;
     }
 
     // What to do when the back button is pressed
     public void backPressed() {
-        LogManager.println("Back button pressed");
+        LogManager.println("Back button pressed from ColaSearchScreen");
         return;
+    }
+
+    // Has the user entered the desired search field?
+    public Boolean isEntered() {
+        return this.isEntry;
     }
 }

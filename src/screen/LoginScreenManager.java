@@ -3,15 +3,14 @@ package screen;
 import base.LogManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.shape.Ellipse;
+import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
-
-import java.awt.*;
 
 public class LoginScreenManager extends Screen{
     /* Class attributes */
     private EnumScreenType type;
+    private String userName;
 
     /* Constructor */
     public LoginScreenManager() {
@@ -22,25 +21,44 @@ public class LoginScreenManager extends Screen{
     @FXML
     private TextField usernameField;
     @FXML
-    private Ellipse loginButton;
+    private Button loginButton;
     @FXML
     private Polygon backButton;
-    @FXML
-    private Text loginLabel;
-    @FXML
-    private Button signSup;
 
     //fxml methods
     @FXML
-    void userLogin() {
-        String username = usernameField.getText();
+    void loginClicked() {
+        this.userName = usernameField.getText();
+        this.usernameField.clear();
+        /* To be replaced in the future with actual database query */
+        if (this.userName.equals("user")) {
+            ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
+            LogManager.println("Public user sign in");
+        }
+        // Currently not implemented since manufacturerScreen is not made
+        /*else if (this.userName.equals("manufacturer")) {
+            ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+            LogManager.println("Manufacturer sign in");
+        }*/
+        else if (this.userName.equals("agent")) {
+            ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
+            LogManager.println("Agent sign in");
+        }
+        return;
+    }
+
+    @FXML
+    void enterHit() {
+        this.loginClicked();
+        return;
     }
 
     @FXML
     void goBack() {
-        //tell the screen manager to set the screen to COLA screen
+        // Tell the screen manager to set the screen to COLA screen
         LogManager.println("Back Button");
-        ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
+        // ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
+        return;
     }
 
     @FXML

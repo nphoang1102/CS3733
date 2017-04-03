@@ -11,9 +11,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1160.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.LoginScreenManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.LoginScreenManager">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#94ffe9" height="798.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1160.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#94ffe9" height="809.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1210.0" />
         <Text layoutX="345.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
             <font>
                 <Font size="24.0" />
@@ -37,8 +37,8 @@
                 <Font name="Arial" size="23.0" />
             </font>
         </Text>
-        <Button layoutX="748.0" layoutY="360.0" mnemonicParsing="false" text="Login" />
-      <TextField fx:id="usernameField" layoutX="470.0" layoutY="356.0">
+        <Button fx:id="loginButton" layoutX="754.0" layoutY="360.0" mnemonicParsing="false" onAction="#loginClicked" text="Login" />
+      <TextField fx:id="usernameField" layoutX="470.0" layoutY="356.0" onAction="#enterHit">
          <font>
             <Font size="18.0" />
          </font>

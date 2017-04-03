@@ -15,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="colaSearchPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="792.0" prefWidth="1160.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ColaSearchScreenManager">
+<Pane fx:id="colaSearchPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ColaSearchScreenManager">
    <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4a7f75" height="798.0" layoutY="-6.0" stroke="BLACK" strokeType="INSIDE" width="1160.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#4a7f75" height="809.0" layoutY="-4.0" stroke="BLACK" strokeType="INSIDE" width="1200.0" />
       <Ellipse fx:id="searchButton" layoutX="955.0" layoutY="183.0" onMouseClicked="#buttonPressed" radiusX="98.0" radiusY="57.0" stroke="BLACK" strokeType="INSIDE">
          <effect>
             <Glow level="1.0" />
