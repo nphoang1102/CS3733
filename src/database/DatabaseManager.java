@@ -14,7 +14,7 @@ public class DatabaseManager {
     private static Statement stmt = null;
     private static Connection connection = null;
 
-    public static void DatabaseManager() {
+    public DatabaseManager() {
         LogManager.println("Attempting Database Connection.");
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -80,9 +80,10 @@ public class DatabaseManager {
 
     }
 
-    public static void AddEntery() {
+    public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class) {
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName,BrandName, Origin, Class) VALUES (07029001000247, 'IL-I-15080', '07FR50','2016-03-01', NULL, 'ERIC MORGAT', 51, 80)");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName,BrandName, Origin, Class) VALUES ("+ TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + ")");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
