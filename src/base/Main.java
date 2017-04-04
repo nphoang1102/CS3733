@@ -1,5 +1,6 @@
 package base;
 
+import database.DatabaseManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import screen.EnumScreenType;
@@ -18,7 +19,7 @@ public class Main extends Application{
      */
     private ScreenManager screenManager;
     private LogManager logManager;
-
+    private DatabaseManager databaseManager;
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     public static final String NAME = "COLA Database Search Thing";
