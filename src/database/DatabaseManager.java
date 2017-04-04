@@ -3,6 +3,7 @@ package database;
  * Created by Evan Goldstein on 4/1/17.
  */
 
+import base.EnumWarningType;
 import base.LogManager;
 
 import java.sql.Connection;
@@ -26,7 +27,10 @@ public class DatabaseManager {
         System.out.println("    Java DB driver registered!");
         try {
             //connection = DriverManager.getConnection("jdbc:mysql://haproxy.internal.icarusnet.me/JDBCTest?");
-            connection = DriverManager.getConnection("jdbc:mysql://haproxy.internal.icarusnet.me:3306/JDBCTest?" + "user=jdbc");
+            connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" +
+                    "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
+
+            //.getConnection("jdbc:mysql://icarusnet.me:3306/TTB?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
         } catch (SQLException e) {
             System.out.println("    Connection failed. Check output console.");
             e.printStackTrace();
@@ -46,43 +50,28 @@ public class DatabaseManager {
 
         ResultSet resultSet = null;
 
-        boolean tableExists = false;
         try {
-            resultSet = connection.getMetaData().getTables(null, null, "My_Table_Name", new String[]{"TABLE"});
-            while (resultSet.next()) {
-                String tableName = resultSet.getString("TABLE_NAME");
-                if (tableName.equals("Alcohol")) {
-                    tableExists = true;
-                }
-            }
-            resultSet.close();
+            stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
+                    "  TTBID REAL PRIMARY KEY,\n" +
+                    "  PermitNo VARCHAR(30) NOT NULL,\n" +
+                    "  SerialNo VARCHAR(30) NOT NULL,\n" +
+                    "  CompletedDate DATE,\n" +
+                    "  FancifulName VARCHAR(100),\n" +
+                    "  BrandName VARCHAR(100) NOT NULL,\n" +
+                    "  Origin INT NOT NULL,\n" +
+                    "  Class INT NOT NULL\n" +
+                    ")");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LogManager.println("Table Alcohol exists.", EnumWarningType.NOTE);
         }
-
-        if (!tableExists) {
-            try {
-                stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
-                        "  TTBID REAL PRIMARY KEY,\n" +
-                        "  PermitNo VARCHAR(30) NOT NULL,\n" +
-                        "  SerialNo VARCHAR(30) NOT NULL,\n" +
-                        "  CompletedDate DATE,\n" +
-                        "  FancifulName VARCHAR(100),\n" +
-                        "  BrandName VARCHAR(100) NOT NULL,\n" +
-                        "  Origin INT NOT NULL,\n" +
-                        "  Class INT NOT NULL\n" +
-                        ")");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+        //TODO - Add manufacturers table and applications table
 
 
     }
 
     public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class) {
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName,BrandName, Origin, Class) VALUES ("+ TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + ")");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName,BrandName, Origin, Class) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + ")");
 
         } catch (SQLException e) {
             e.printStackTrace();
