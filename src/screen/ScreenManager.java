@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
@@ -16,6 +17,7 @@ import java.util.LinkedList;
 public class ScreenManager {
 
     private static Stage stage;
+    private static HashMap<String, Scene> scenes = new HashMap<String, Scene>();
 
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
@@ -23,6 +25,11 @@ public class ScreenManager {
 
     public static void setScreen(EnumScreenType type){
         LogManager.println("Setting screen to:"+type.toString());
-        stage.setScene(new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
+        if(scenes.containsKey(type.toString())){
+            stage.setScene(scenes.get(type.toString()));
+        }else {
+            scenes.put(type.toString(), new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
+            stage.setScene(scenes.get(type.toString()));
+        }
     }
 }

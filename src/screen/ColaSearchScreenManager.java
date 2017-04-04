@@ -31,11 +31,9 @@ public class ColaSearchScreenManager extends Screen{
     @FXML
     TextField entryField;
     @FXML
-    Ellipse searchButton;
+    Button searchButton;
     @FXML
-    Text searchLabel;
-    @FXML
-    Polygon backButton;
+    Button backButton;
     @FXML
     ChoiceBox type;
 
@@ -71,6 +69,7 @@ public class ColaSearchScreenManager extends Screen{
     // What to do when the back button is pressed
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchScreen");
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
 
