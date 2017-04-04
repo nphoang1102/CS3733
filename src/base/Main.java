@@ -21,7 +21,7 @@ public class Main extends Application{
 
 
     public static final int WIDTH = 1200;
-    public static final int HEIGHT = 800;
+    public static final int HEIGHT = 650;
     public static final String NAME = "COLA Database Search Thing";
 
 
@@ -55,7 +55,7 @@ public class Main extends Application{
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
-
+        //databaseManager.entryTest();
         /*
             Check to see if local directories for Saves and Log files exist,
             if any directories are not found, create them.

@@ -1,5 +1,6 @@
 package screen;
 
+import database.DataSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -23,11 +24,17 @@ public class AgentAppScreenManager extends Screen{
     @FXML
     Button acceptButton, rejectButton;
 
+    private DataSet data;
+
+
+    public void setData(DataSet aData){
+        data = aData;
+    }
     /*
         Sets up the screen with the correct information in each of the Labels
      */
     public void setUpScreen(){
-        //fill Labels
+        //fill the labels
     }
 
 

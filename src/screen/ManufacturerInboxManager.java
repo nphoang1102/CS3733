@@ -1,5 +1,6 @@
 package screen;
 
+import base.LogManager;
 import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -19,4 +20,9 @@ public class ManufacturerInboxManager {
     @FXML
     private Button BackButton;
 
+    public void goBack() {
+        LogManager.println("Back button pressed from ManufacturerInboxScreen");
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        return;
+    }
 }
