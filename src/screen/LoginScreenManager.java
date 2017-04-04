@@ -24,6 +24,8 @@ public class LoginScreenManager extends Screen{
     private Button loginButton;
     @FXML
     private Polygon backButton;
+    @FXML
+    private Button newUser;
 
     //fxml methods
     @FXML
@@ -57,12 +59,14 @@ public class LoginScreenManager extends Screen{
     void goBack() {
         // Tell the screen manager to set the screen to COLA screen
         LogManager.println("Back Button");
-        // ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
+        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
         return;
     }
 
     @FXML
     void userSignUp(){
         //tell the screen manager to go to the create account screen
+        ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
+        return;
     }
 }

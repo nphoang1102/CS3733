@@ -23,7 +23,7 @@ public class Main extends Application{
 
 
     public static final int WIDTH = 1200;
-    public static final int HEIGHT = 800;
+    public static final int HEIGHT = 650;
     public static final String NAME = "COLA Database Search Thing";
 
 

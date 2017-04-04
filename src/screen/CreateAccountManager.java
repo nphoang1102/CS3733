@@ -7,6 +7,7 @@ package screen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.shape.Polygon;
 
 public class CreateAccountManager extends Screen{
     public CreateAccountManager() {
@@ -18,11 +19,15 @@ public class CreateAccountManager extends Screen{
     private Button createAccount;
     @FXML
     private TextField username;
+    @FXML
+    private Polygon backButton;
 
     /* Class methods */
     @FXML
     private void goBack(){
-
+        //go back to the login screen
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        return;
     }
 
     @FXML
