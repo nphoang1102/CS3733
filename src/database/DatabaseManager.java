@@ -30,7 +30,6 @@ public class DatabaseManager {
             connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" +
                     "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
 
-            //.getConnection("jdbc:mysql://icarusnet.me:3306/TTB?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
         } catch (SQLException e) {
             LogManager.println("    Connection failed. Check output console.");
             e.printStackTrace();
@@ -48,6 +47,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
+
         ResultSet resultSet = null;
 
         try {
@@ -59,30 +59,46 @@ public class DatabaseManager {
                     "  FancifulName VARCHAR(100),\n" +
                     "  BrandName VARCHAR(100) NOT NULL,\n" +
                     "  Origin INT NOT NULL,\n" +
-                    "  Class INT NOT NULL\n" +
-                    ")");
+                    "  Class INT NOT NULL,\n" +
+                    "  Type VARCHAR(10) NOT NULL\n" +
+                    ");\n");
         } catch (SQLException e) {
             LogManager.println("Table Alcohol exists.", EnumWarningType.NOTE);
         }
 
         try {
+            LogManager.println("Attempting to add manufacturers table.", EnumWarningType.NOTE);
             stmt.executeUpdate("CREATE TABLE Manufacturers(\n" +
                     "  Username VARCHAR(30) PRIMARY KEY,\n" +
                     "  Company VARCHAR(100) NOT NULL,\n" +
-                    "  UUID VARCHAR(30) NOT NULL,\n" +
-                   ")");
+                    "  UUID VARCHAR(30) NOT NULL\n" +
+                   ")\n");
         } catch (SQLException e) {
             LogManager.println("Table Manufacturers exists.", EnumWarningType.NOTE);
+            e.printStackTrace();
         }
 
         //TODO - Add applications table
 
 
     }
-
-    public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class) {
+    public void entryTest(){
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName,BrandName, Origin, Class) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + ")");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (12309847, 'FakePermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', 123, 456, 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.executeUpdate("INSERT INTO Manufacturers (Username, Company, UUID) VALUES ('TheAlcoholic12', 'AlcoholicsAnonymous', 'FakeUUID123')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -93,6 +109,14 @@ public class DatabaseManager {
         String query1 = "SELECT " + terms + " FROM Alcohol";
         try {
             ResultSet search = stmt.executeQuery(query1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void QueryAlcohol(String query){
+        try {
+            stmt.executeUpdate("SELECT * FROM Alcohol WHERE " + query + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
