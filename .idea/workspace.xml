@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="fixed create account">
+    <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/AgentInboxManager.java" afterPath="$PROJECT_DIR$/src/screen/AgentInboxManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\spartanvice\Documents\csgetdegrees\.idea\shelf/" />
@@ -495,7 +493,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491156747724</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixed create account">
+      <created>1491334769089</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1491334769089</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -546,7 +551,8 @@
     <MESSAGE value="Login screen push test" />
     <MESSAGE value="Login screen connected controller to screen" />
     <MESSAGE value="Preliminary agent inbox" />
-    <option name="LAST_COMMIT_MESSAGE" value="Preliminary agent inbox" />
+    <MESSAGE value="fixed create account" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed create account" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
