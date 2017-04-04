@@ -1,9 +1,7 @@
-package base;
-
-import screen.EnumUserType;
+package screen;
 
 /**
- * Created by Bailey Sostek on 4/3/17.
+ * Created by ${Victor} on 4/2/2017.
  */
 public class User {
     private EnumUserType userType;
@@ -26,5 +24,4 @@ public class User {
     public String getEmail() {
         return this.email;
     }
-
 }
