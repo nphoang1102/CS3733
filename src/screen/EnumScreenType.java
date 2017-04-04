@@ -30,7 +30,7 @@ public enum EnumScreenType {
         try {
             this.scene = FXMLLoader.load(this.getClass().getResource("/screen/fxml/"+file));
         }catch (IOException e) {
-            LogManager.println("FXML file not found for:"+this.toString()+":"+ Main.PATH+Main.LOG+"/"+this.getFXMLFile(), EnumWarningType.ERROR);
+            LogManager.println("FXML file not found for:"+this.toString()+":"+ Main.PATH+Main.LOG+"/"+this.getFXMLFile(), EnumWarningType.WARNING);
         }catch(Exception e){
             LogManager.println(e.toString(), EnumWarningType.ERROR);
             LogManager.printStackTrace(e.getStackTrace());
