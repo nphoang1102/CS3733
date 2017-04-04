@@ -7,12 +7,13 @@ import java.util.HashMap;
  */
 public class DataSet{
     private HashMap<String, String> dataSet = new HashMap<String, String>();
+    String table;
 
-    public DataSet(){
-
+    public DataSet(String table){
+        this.table = table;
     }
 
-    public void setValueForKey(String key, String obj){
+    public void addField(String key, String obj){
         dataSet.put(key,  obj);
     }
 
