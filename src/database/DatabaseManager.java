@@ -24,7 +24,7 @@ public class DatabaseManager {
             e.printStackTrace();
             return;
         }
-        System.out.println("    Java DB driver registered!");
+        LogManager.println("    Java DB driver registered!");
         try {
             //connection = DriverManager.getConnection("jdbc:mysql://haproxy.internal.icarusnet.me/JDBCTest?");
             connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" +
@@ -32,14 +32,14 @@ public class DatabaseManager {
 
             //.getConnection("jdbc:mysql://icarusnet.me:3306/TTB?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
         } catch (SQLException e) {
-            System.out.println("    Connection failed. Check output console.");
+            LogManager.println("    Connection failed. Check output console.");
             e.printStackTrace();
             LogManager.printStackTrace(e.getStackTrace());
             e.printStackTrace();
 
             return;
         }
-        System.out.println("    Java DB connection established!");
+        LogManager.println("    Java DB connection established!");
 
         try {
             stmt = connection.createStatement();

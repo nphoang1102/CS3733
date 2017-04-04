@@ -161,6 +161,12 @@ public class LogManager{
         return dateFormat.format(date);
     }
 
+    public static String StringGetNumericDate(){
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+        Date date = new Date();
+        return dateFormat.format(date);
+    }
+
     public static void printStackTrace(StackTraceElement[] stackTrace){
         for(StackTraceElement element: stackTrace){
             printSilent(element.getClassName() + "." + element.getMethodName() + "[" + element.getLineNumber() + "]", EnumWarningType.ERROR);
