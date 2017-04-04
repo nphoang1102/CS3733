@@ -18,7 +18,6 @@ public class ColaSearchScreenManager extends Screen{
     /* Class attributes */
     private String keywords;
     private String searchType = "Beer";
-    private Boolean isEntry = Boolean.FALSE;
 
     /* Class constructor */
     public ColaSearchScreenManager() {
@@ -42,7 +41,6 @@ public class ColaSearchScreenManager extends Screen{
     // Initialize the choicebox
     @FXML
     public void initialize() {
-        this.isEntry = Boolean.FALSE;
         ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Both");
         type.setItems(typeList);
         type.setValue("Beer");
@@ -59,7 +57,6 @@ public class ColaSearchScreenManager extends Screen{
     public void buttonPressed() {
         this.keywords = entryField.getText();
         this.searchType = type.getValue() + "";
-        this.isEntry = Boolean.TRUE;
         String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
         LogManager.println(toPrint);
         this.entryField.clear();
@@ -71,10 +68,5 @@ public class ColaSearchScreenManager extends Screen{
         LogManager.println("Back button pressed from ColaSearchScreen");
         ScreenManager.setScreen(EnumScreenType.LOG_IN);
         return;
-    }
-
-    // Has the user entered the desired search field?
-    public Boolean isEntered() {
-        return this.isEntry;
     }
 }

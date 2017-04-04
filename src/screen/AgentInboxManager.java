@@ -61,7 +61,9 @@ public class AgentInboxManager extends Screen{
 
     @FXML
     void goBack() {
-
+        LogManager.println("Back button pressed from AgentInboxScreen");
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        return;
     }
 
     /*
