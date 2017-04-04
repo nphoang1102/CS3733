@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
+import java.util.LinkedList;
 
 public class DatabaseManager {
     private static Statement stmt = null;
@@ -87,7 +88,8 @@ public class DatabaseManager {
 
 
     }
-    public void entryTest(){
+
+    public void entryTest() {
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (12309847, 'FakePermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', 123, 456, 'Beer')");
         } catch (SQLException e) {
@@ -125,7 +127,7 @@ public class DatabaseManager {
         }
     }
 
-    public static void queryAlcohol(String query){
+    public static void queryAlcohol(String query) {
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query2);
@@ -135,23 +137,49 @@ public class DatabaseManager {
         }
     }
 
-    public static void queryManufacturers(String entry){
+    public static LinkedList<DataSet> queryManufactures() {
+        return queryManufacturers("SELECT * FROM Manufactures");
+    }
+
+    public static LinkedList<DataSet> queryManufactures(String manufacturer) {
+        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = " + manufacturer);
+    }
+
+    public static LinkedList<DataSet> queryManufactures(LinkedList<String> manufacturers) {
+        String query = "SELECT * FROM Manufactures WHERE";
+        for (String m : manufacturers) {
+            query = query + " Company = " + m + " OR";
+        }
+        query = query + " Company = END";
+        return queryManufacturers(query);
+    }
+
+    public static LinkedList<DataSet> queryManufacturers(String entry) {
         String query = entry;
+        LinkedList<DataSet> data = new LinkedList<>();
         try {
             ResultSet searchManufacturers = stmt.executeQuery(query);
-            while(searchManufacturers.next()){
+            while (searchManufacturers.next()) {
                 String UUID = searchManufacturers.getString("UUID");
                 String username = searchManufacturers.getString("Username");
                 String company = searchManufacturers.getString("Company");
-
-                System.out.println("UUID: " + UUID);
-                System.out.println("Username: " + username);
-                System.out.println("Company: " + company);
-                System.out.println("");
+                DataSet dataSet = new DataSet("Manufacturer");
+                dataSet.addField("UUID", UUID);
+                dataSet.addField("Username", username);
+                dataSet.addField("Company", company);
+                data.add(dataSet);
+                /*
+                LogManager.println("UUID: " + UUID);
+                LogManager.println("Username: " + username);
+                LogManager.println("Company: " + company);
+                LogManager.println("");*/
             }
             searchManufacturers.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return data;
     }
 }
+
+
