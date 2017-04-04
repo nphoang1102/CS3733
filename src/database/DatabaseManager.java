@@ -48,7 +48,7 @@ public class DatabaseManager {
 
 
         //INSERTING TABLES
-        /*try {
+        try {
             stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
                     " TTBID REAL PRIMARY KEY,\n" +
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
@@ -75,17 +75,15 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
-        //TODO - Add proper fields to applications table
-        /*try {
+        try {
             stmt.executeUpdate("CREATE TABLE Applications(\n" +
-                    " Username VARCHAR(30) PRIMARY KEY,\n" +
-                    " Company VARCHAR(100) NOT NULL,\n" +
-                    " UUID VARCHAR(30) NOT NULL\n" +
+                    " ApplicationNo BIGINT PRIMARY KEY,\n" +
+                    " Manufacturer VARCHAR(100) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table Applications exists.", EnumWarningType.NOTE);
             e.printStackTrace();
-        }*/
+        }
 
 
     }
@@ -127,7 +125,7 @@ public class DatabaseManager {
         }
     }
 
-    public static void QueryAlcohol(String query){
+    public static void queryAlcohol(String query){
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query2);
@@ -137,10 +135,10 @@ public class DatabaseManager {
         }
     }
 
-    public static void QueryManufacturers(){
-        String query2 = "SELECT * FROM Manufacturers";
+    public static void queryManufacturers(String entry){
+        String query = entry;
         try {
-            ResultSet searchManufacturers = stmt.executeQuery(query2);
+            ResultSet searchManufacturers = stmt.executeQuery(query);
             while(searchManufacturers.next()){
                 String UUID = searchManufacturers.getString("UUID");
                 String username = searchManufacturers.getString("Username");
