@@ -7,8 +7,6 @@ import screen.EnumScreenType;
 import screen.ScreenManager;
 
 import java.io.File;
-import java.io.InputStream;
-import java.io.PrintStream;
 
 public class Main extends Application{
 
@@ -37,11 +35,11 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        LogManager.println("Application Started.");
         initialize(primaryStage);
         primaryStage.setTitle(NAME);
         ScreenManager.setScreen(EnumScreenType.LOG_IN);
         primaryStage.show();
-        LogManager.println("Application Started.");
     }
 
     /*

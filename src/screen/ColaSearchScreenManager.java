@@ -71,6 +71,7 @@ public class ColaSearchScreenManager extends Screen{
     // What to do when the back button is pressed
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchScreen");
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
 
