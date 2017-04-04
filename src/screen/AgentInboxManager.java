@@ -3,19 +3,21 @@ package screen;
 /**
  * Created by ${Victor} on 4/2/2017.
  */
+import base.LogManager;
 import database.DataSet;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+
 import java.util.Date;
 import java.util.LinkedList;
+
 
 
 
@@ -33,14 +35,16 @@ public class AgentInboxManager extends Screen{
     @FXML
     private Button newApplication;
 
+    @FXML
+    private ChoiceBox typeOfAlcBox;
 
     @FXML
     private Pane Inbox;
 
 
     //lists for keeping track of data sets
-    private LinkedList<DataSet> pull = new LinkedList<>();
-    private LinkedList<Label> clicks = new LinkedList<>();
+    private LinkedList<Result> inboxData = new LinkedList<>();
+
 
 
 
@@ -49,19 +53,55 @@ public class AgentInboxManager extends Screen{
         super(EnumScreenType.AGENT_INBOX);
     }
 
+    public void initialize() {
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine");
+        typeOfAlcBox.setItems(typeList);
+        typeOfAlcBox.setValue("Beer");
+    }
 
     @FXML
     void goBack() {
 
     }
 
+    /*
+        fills the users inbox with new information
+     */
     @FXML
-    void pullNewBatch(){
+    public void pullNewBatch(){
         //check if the inbox is empty if its not dont pull new batch
-        //for loop 10 times
-            //get a data set
-            //populate table with said data set
-            //fill in linked list with the actual data set
+        if(inboxData.size() == 0){
+            //fill linked list of data with correct type
+            String key = typeOfAlcBox.getAccessibleText();
+
+            //create temps for getting stuff from the data base and filling the table
+            DataSet tempData = new DataSet();
+            Label tempLabel = new Label();
+
+            for(int i = 0; i < 10; i++){
+                //get tempData from database
+                String Manufacturer = null;
+                String BrandName = null;
+                //fill Manuefacturer and BrandName from temp
+                tempLabel.setText(Manufacturer + "  |  " + BrandName);
+
+
+                //add the Label to the pane
+                Inbox.getChildren().add(tempLabel);
+
+                //add the result to the linked list
+                Result tempResult = new Result(tempLabel, tempData);
+                inboxData.add(tempResult);
+
+                //set an onclick command to send screen to application screen
+                //tempLabel.setOnMouseClicked();
+
+
+            }
+        }
+        else {
+            LogManager.println("Agent Inbox is not empty no new applications can be added");
+        }
     }
 
     @FXML
@@ -72,41 +112,11 @@ public class AgentInboxManager extends Screen{
 
 
     /*
-        adds a new label to the pane
-     */
-    @FXML
-    public void addLabel(){
-        Label newLabel = new Label();
-        Inbox.getChildren().add(newLabel);
-    }
-
-    /*
         remove a label from a pane
      */
     public void removeLabel(Label rLabel){
         Inbox.getChildren().remove(rLabel);
     }
-
-    /*
-        gets applications from the database
-     */
-    private LinkedList<DataSet> getPendingApps(String key){
-        //creates a temp DataSet to store information
-        DataSet temp = new DataSet();
-
-        for(int i = 0; i < 10; i++){
-            //get temp from database
-            pull.add(temp);
-
-        }
-
-
-        //get one of right kind of key (beer or wine) set from the data base
-
-        return pull;
-    }
-
-
 
 
 
