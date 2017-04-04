@@ -619,7 +619,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491267714861</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Agent Inbox futher along">
+      <created>1491267748329</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1491267748329</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -676,7 +683,8 @@
     <MESSAGE value="LogManager fixes + FXML package, put your fxml files there" />
     <MESSAGE value="LogManager now has the ability to print a stack trace" />
     <MESSAGE value="Log Manager can PrintStackTrace, and Error no Longer exists" />
-    <option name="LAST_COMMIT_MESSAGE" value="Log Manager can PrintStackTrace, and Error no Longer exists" />
+    <MESSAGE value="Agent Inbox futher along" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agent Inbox futher along" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
