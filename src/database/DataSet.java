@@ -7,10 +7,11 @@ import java.util.HashMap;
  */
 public class DataSet{
     private HashMap<String, String> dataSet = new HashMap<String, String>();
-    String table;
+    //String table;
+    EnumTableType tableType;
 
-    public DataSet(String table){
-        this.table = table;
+    public DataSet(EnumTableType tableType){
+        this.tableType = tableType;
     }
 
     public void addField(String key, String obj){
