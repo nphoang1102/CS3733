@@ -36,10 +36,10 @@ public class LoginScreenManager extends Screen{
             LogManager.println("Public user sign in");
         }
         // Currently not implemented since manufacturerScreen is not made
-        /*else if (this.userName.equals("manufacturer")) {
+        else if (this.userName.equals("manufacturer")) {
             ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer sign in");
-        }*/
+        }
         else if (this.userName.equals("agent")) {
             ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
             LogManager.println("Agent sign in");
