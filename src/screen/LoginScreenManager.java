@@ -35,16 +35,16 @@ public class LoginScreenManager extends Screen{
         /* To be replaced in the future with actual database query */
         if (this.userName.equals("user")) {
             ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
-            LogManager.println("Public user sign in");
+            LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
         else if (this.userName.equals("manufacturer")) {
             ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-            LogManager.println("Manufacturer sign in");
+            LogManager.println("Manufacturer " + userName + " has signed in");
         }
         else if (this.userName.equals("agent")) {
             ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
-            LogManager.println("Agent sign in");
+            LogManager.println("Agent " + userName + " has signed in");
         }
         return;
     }
@@ -59,6 +59,7 @@ public class LoginScreenManager extends Screen{
     void goBack() {
         // Tell the screen manager to set the screen to COLA screen
         LogManager.println("Back Button");
+        usernameField.clear();
         ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
         return;
     }
@@ -66,6 +67,7 @@ public class LoginScreenManager extends Screen{
     @FXML
     void userSignUp(){
         //tell the screen manager to go to the create account screen
+        usernameField.clear();
         ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         return;
     }
