@@ -7,51 +7,51 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="447.0" prefWidth="600.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="screen.AgentAppScreenManager">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1280.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="screen.AgentAppScreenManager">
   <children>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" height="449.0" layoutX="1.0" layoutY="-2.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.3" width="438.0">
+    <Rectangle arcHeight="5.0" arcWidth="5.0" height="720.0" layoutX="1.0" layoutY="-2.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.3" width="1280.0">
       <fill>
         <Color blue="0.875" green="0.875" red="0.875" fx:id="x1" />
       </fill>
     </Rectangle>
-    <Label layoutX="37.0" layoutY="42.0" prefWidth="67.99990844726562" text="Rep ID NO. " />
-    <Label fx:id="repId" layoutX="37.0" layoutY="57.0" text="repId" />
-    <Label layoutX="151.0" layoutY="41.0" prefWidth="227.0" text="Plant Registry/ Basic Permit/ Brewers No.  " />
-    <Label fx:id="brewNo" layoutX="151.0" layoutY="58.0" text="brewNo" />
-    <Label layoutX="37.0" layoutY="86.0" text="Source of Product" />
-    <Label fx:id="productSrc" layoutX="37.0" layoutY="102.0" text="productSrc" />
-    <Label layoutX="225.0" layoutY="86.0" text="Type of Product" />
-    <Label fx:id="productType" layoutX="225.0" layoutY="102.0" text="productType" />
-    <Label layoutX="37.0" layoutY="142.0" text="Brand Name" />
-    <Label fx:id="brandName" layoutX="36.0" layoutY="158.0" text="brandName" />
-    <Label layoutX="38.0" layoutY="187.0" text="Name of Applicant" />
-    <Label fx:id="applicantName" layoutX="38.0" layoutY="200.0" text="applicantName" />
-    <Label layoutX="224.0" layoutY="187.0" prefWidth="116.9998779296875" text="Address of Applicant" />
-    <Label fx:id="applicantAdd" layoutX="224.0" layoutY="200.0" text="applicantAdd" />
-    <Label layoutX="38.0" layoutY="237.0" text="Approved DBA or Trade Name" />
-    <Label fx:id="tradeName" layoutX="38.0" layoutY="253.0" text="tradeName" />
-    <Label layoutX="225.0" layoutY="237.0" text="Alternate Mailing Address" />
-    <Label fx:id="alternateAdd" layoutX="224.0" layoutY="253.0" text="alternateAdd" />
-    <Label layoutX="38.0" layoutY="290.0" prefWidth="84.99990844726562" text="Phone Number" />
-    <Label fx:id="phoneNum" layoutX="38.0" layoutY="306.0" text="phoneNum" />
-    <Label layoutX="139.0" layoutY="290.0" prefWidth="80.99990844726562" text="Email Address" />
-    <Label fx:id="emailAdd" layoutX="140.0" layoutY="306.0" text="emailAdd" />
-    <Label layoutX="254.0" layoutY="290.0" text="Date of Submission" />
-    <Label fx:id="appDate" layoutX="255.0" layoutY="306.0" text="appDate" />
-    <Label layoutX="37.0" layoutY="344.0" prefWidth="95.0" text="Applicant Name" />
-    <Label fx:id="appName" layoutX="38.0" layoutY="360.0" text="appName" />
-    <SplitPane dividerPositions="0.4988814317673378" focusTraversable="true" layoutX="439.0" layoutY="-2.0" orientation="VERTICAL" prefHeight="449.0" prefWidth="162.0">
+    <Label layoutX="163.0" layoutY="39.0" prefWidth="67.99990844726562" text="Rep ID NO. " />
+    <Label fx:id="repId" layoutX="163.0" layoutY="54.0" text="repId" />
+    <Label layoutX="553.0" layoutY="37.0" prefWidth="227.0" text="Plant Registry/ Basic Permit/ Brewers No.  " />
+    <Label fx:id="brewNo" layoutX="553.0" layoutY="54.0" text="brewNo" />
+    <Label layoutX="165.0" layoutY="155.0" text="Source of Product" />
+    <Label fx:id="productSrc" layoutX="165.0" layoutY="171.0" text="productSrc" />
+    <Label layoutX="556.0" layoutY="155.0" text="Type of Product" />
+    <Label fx:id="productType" layoutX="556.0" layoutY="171.0" text="productType" />
+    <Label layoutX="164.0" layoutY="254.0" text="Brand Name" />
+    <Label fx:id="brandName" layoutX="163.0" layoutY="270.0" text="brandName" />
+    <Label layoutX="162.0" layoutY="372.0" text="Name of Applicant" />
+    <Label fx:id="applicantName" layoutX="162.0" layoutY="390.0" text="applicantName" />
+    <Label layoutX="553.0" layoutY="372.0" prefWidth="116.9998779296875" text="Address of Applicant" />
+    <Label fx:id="applicantAdd" layoutX="553.0" layoutY="383.0" text="applicantAdd" />
+    <Label layoutX="166.0" layoutY="465.0" text="Approved DBA or Trade Name" />
+    <Label fx:id="tradeName" layoutX="166.0" layoutY="481.0" text="tradeName" />
+    <Label layoutX="554.0" layoutY="465.0" text="Alternate Mailing Address" />
+    <Label fx:id="alternateAdd" layoutX="553.0" layoutY="481.0" text="alternateAdd" />
+    <Label layoutX="165.0" layoutY="558.0" prefWidth="84.99990844726562" text="Phone Number" />
+    <Label fx:id="phoneNum" layoutX="165.0" layoutY="574.0" text="phoneNum" />
+    <Label layoutX="556.0" layoutY="558.0" prefWidth="80.99990844726562" text="Email Address" />
+    <Label fx:id="emailAdd" layoutX="553.0" layoutY="574.0" text="emailAdd" />
+    <Label layoutX="553.0" layoutY="638.0" text="Date of Submission" />
+    <Label fx:id="appDate" layoutX="553.0" layoutY="652.0" text="appDate" />
+    <Label layoutX="165.0" layoutY="636.0" prefWidth="95.0" text="Applicant Name" />
+    <Label fx:id="appName" layoutX="166.0" layoutY="652.0" text="appName" />
+    <SplitPane dividerPositions="0.4986072423398329" focusTraversable="true" layoutX="980.0" layoutY="0.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="300.0">
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" visible="true">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x1" height="232.0" layoutX="-2.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.5" width="162.0" />
-            <Button fx:id="acceptButton" layoutX="52.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#acceptApp" text="Accept" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x1" height="360.0" layoutX="-2.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.5" width="300.0" />
+            <Button fx:id="acceptButton" layoutX="121.0" layoutY="167.0" mnemonicParsing="false" onMouseClicked="#acceptApp" text="Accept" />
           </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="259.0" prefWidth="160.0">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x1" height="220.0" layoutX="-2.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.5" width="163.0" />
-            <Button fx:id="rejectButton" layoutX="52.0" layoutY="100.0" mnemonicParsing="false" onMouseClicked="#rejectApp" text="Reject" />
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x1" height="360.0" layoutX="-2.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.5" width="300.0" />
+            <Button fx:id="rejectButton" layoutX="123.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#rejectApp" text="Reject" />
           </children>
         </AnchorPane>
       </items>

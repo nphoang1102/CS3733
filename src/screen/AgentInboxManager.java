@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -53,17 +54,59 @@ public class AgentInboxManager extends Screen{
         super(EnumScreenType.AGENT_INBOX);
     }
 
+    /*
+        sets up the entire screent including the choice box and the specific agents inbox
+     */
     public void initialize() {
         ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine");
         typeOfAlcBox.setItems(typeList);
         typeOfAlcBox.setValue("Beer");
+
+        ArrayList<String> uuidCodes = new ArrayList<>();
+
+        //query database for UUID's that current Agent has in inbox
+
+        int i = 0;
+        while(true){
+
+            String tempCode = uuidCodes.get(i);
+            if(tempCode != null) {
+
+                Label tempLabel = new Label();
+
+                //query database for said UUID Code
+                DataSet tempData = new DataSet();
+
+                //get tempData from database
+                String Manufacturer = null;
+                String BrandName = null;
+                //fill Manuefacturer and BrandName from temp
+                tempLabel.setText(Manufacturer + "  |  " + BrandName);
+
+                //add the Label to the pane
+                Inbox.getChildren().add(tempLabel);
+
+                Result tempResult = new Result(tempLabel, tempData);
+
+                //add the label to the linked list of possible labels
+                inboxData.add(tempResult);
+
+                //set an onclick command to send screen to application screen
+                //tempLabel.setOnMouseClicked();
+
+            }
+            else{
+                break;
+            }
+        }
+
     }
 
     @FXML
     void goBack() {
         LogManager.println("Back button pressed from AgentInboxScreen");
         ScreenManager.setScreen(EnumScreenType.LOG_IN);
-        return;
+
     }
 
     /*
@@ -87,6 +130,10 @@ public class AgentInboxManager extends Screen{
                 //fill Manuefacturer and BrandName from temp
                 tempLabel.setText(Manufacturer + "  |  " + BrandName);
 
+                //holds  the UUID code for the pulled Data from the DataSet
+
+                String tempCode;
+                //add UUID to Specific Agents Database of codes
 
                 //add the Label to the pane
                 Inbox.getChildren().add(tempLabel);
@@ -107,18 +154,12 @@ public class AgentInboxManager extends Screen{
     }
 
     @FXML
-    void newApplication(){
+    public void newApplication(){
+
 
 
     }
 
-
-    /*
-        remove a label from a pane
-     */
-    public void removeLabel(Label rLabel){
-        Inbox.getChildren().remove(rLabel);
-    }
 
 
 
