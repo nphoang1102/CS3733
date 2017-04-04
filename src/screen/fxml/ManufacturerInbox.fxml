@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="701.0" prefWidth="927.0" style="-fx-background-color: #39CCAE;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ManufacturerInboxManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1200.0" style="-fx-background-color: #39CCAE;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ManufacturerInboxManager">
     <children>
         <Button fx:id="NewApplication" layoutX="373.0" layoutY="27.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="182.0" text="New Application">
             <font>
@@ -47,7 +47,7 @@
                 <Font size="18.0" />
             </font>
         </Button>
-      <Button fx:id="BackButton" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="94.0" text="Back">
+      <Button fx:id="BackButton" layoutX="25.0" layoutY="37.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="39.0" prefWidth="94.0" text="Back">
          <font>
             <Font size="18.0" />
          </font>
