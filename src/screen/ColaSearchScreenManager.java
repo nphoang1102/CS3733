@@ -31,11 +31,9 @@ public class ColaSearchScreenManager extends Screen{
     @FXML
     TextField entryField;
     @FXML
-    Ellipse searchButton;
+    Button searchButton;
     @FXML
-    Text searchLabel;
-    @FXML
-    Polygon backButton;
+    Button backButton;
     @FXML
     ChoiceBox type;
 
