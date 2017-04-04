@@ -20,6 +20,8 @@ public class Main extends Application{
     private ScreenManager screenManager;
     private LogManager logManager;
     private DatabaseManager databaseManager;
+
+
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
     public static final String NAME = "COLA Database Search Thing";
@@ -53,6 +55,7 @@ public class Main extends Application{
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
+        databaseManager = new DatabaseManager();
 
         /*
             Check to see if local directories for Saves and Log files exist,
