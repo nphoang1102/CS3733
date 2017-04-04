@@ -20,7 +20,7 @@ public enum EnumScreenType {
     MANUFACTURER_SCREEN(""),
     MANUFACTURER_VIEW_FORMS(""),
     MANUFACTURER_ADD_FORM(""),
-    MANUFACTURER_EDIT("test"),
+    MANUFACTURER_EDIT(""),
     AGENT_INBOX("AgentInbox.fxml"),
     AGENT_APP_SCREEN("AgentAppScreen.fxml"),
     ;
