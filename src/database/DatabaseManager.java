@@ -64,7 +64,18 @@ public class DatabaseManager {
         } catch (SQLException e) {
             LogManager.println("Table Alcohol exists.", EnumWarningType.NOTE);
         }
-        //TODO - Add manufacturers table and applications table
+
+        try {
+            stmt.executeUpdate("CREATE TABLE Manufacturers(\n" +
+                    "  Username VARCHAR(30) PRIMARY KEY,\n" +
+                    "  Company VARCHAR(100) NOT NULL,\n" +
+                    "  UUID VARCHAR(30) NOT NULL,\n" +
+                   ")");
+        } catch (SQLException e) {
+            LogManager.println("Table Manufacturers exists.", EnumWarningType.NOTE);
+        }
+
+        //TODO - Add applications table
 
 
     }
