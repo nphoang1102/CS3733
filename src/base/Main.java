@@ -38,6 +38,7 @@ public class Main extends Application{
         LogManager.println("Application Started.");
         initialize(primaryStage);
         primaryStage.setTitle(NAME);
+        primaryStage.setResizable(false);
         ScreenManager.setScreen(EnumScreenType.LOG_IN);
         primaryStage.show();
     }
