@@ -1,5 +1,7 @@
 package base;
 
+import database.DataSet;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +18,7 @@ public class LogManager{
 
     public LogManager(){
         println("LogManager initialized.");
+        DataSet dataSet = new DataSet();
     }
 
     /*
