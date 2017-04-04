@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="screen.AgentInboxManager">
+<Pane fx:id="Inbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="screen.AgentInboxManager">
   <children>
     <Rectangle id="inbox" arcHeight="5.0" arcWidth="5.0" fill="#94ffe9" height="720.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
     <Button fx:id="pullNewBatch" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onMouseClicked="#pullNewBatch" text="Pull New Batch" />
@@ -36,15 +36,6 @@
         <Font name="Arial" size="23.0" />
       </font>
     </Text>
-    <Pane fx:id="Inbox" layoutX="0.0" layoutY="226.0" prefHeight="493.96484375" prefWidth="1280.0">
-      <children>
-        <Text layoutX="596.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inbox">
-          <font>
-            <Font size="36.0" />
-          </font>
-        </Text>
-      </children>
-    </Pane>
     <ChoiceBox fx:id="tpyeOfAlcBox" layoutX="56.0" layoutY="126.0">
       <items>
         <FXCollections fx:factory="observableArrayList">
@@ -54,5 +45,11 @@
         </FXCollections>
       </items>
     </ChoiceBox>
+    <TableView id="inbox" fx:id="Inbox" layoutX="0.0" layoutY="320.0" prefHeight="400.0" prefWidth="1280.0">
+      <columns>
+        <TableColumn prefWidth="400.0" text="Manufacturer Name" fx:id="manufactuerName" />
+        <TableColumn prefWidth="400.0" text="Brand Name" fx:id="specificBrandName" />
+      </columns>
+    </TableView>
   </children>
 </Pane>

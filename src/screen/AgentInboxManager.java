@@ -7,8 +7,10 @@ import base.LogManager;
 import database.DataSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -40,10 +42,14 @@ public class AgentInboxManager extends Screen{
     private ChoiceBox typeOfAlcBox;
 
     @FXML
-    private Pane Inbox;
+    private TableView Inbox;
+
+    @FXML
+    private TableColumn manufacturerName, specificBrandName;
 
 
     //lists for keeping track of data sets
+    @FXML
     private LinkedList<Result> inboxData = new LinkedList<>();
 
 
@@ -84,7 +90,13 @@ public class AgentInboxManager extends Screen{
                 tempLabel.setText(Manufacturer + "  |  " + BrandName);
 
                 //add the Label to the pane
-                Inbox.getChildren().add(tempLabel);
+                manufacturerName.setCellValueFactory(
+                        new PropertyValueFactory<DataSet, Label>("Manufacturer Name")
+                );
+                manufacturerName.setCellValueFactory(
+                        new PropertyValueFactory<DataSet, String>("Manufacturer Name")
+                );
+
 
                 Result tempResult = new Result(tempLabel, tempData);
 
@@ -92,7 +104,24 @@ public class AgentInboxManager extends Screen{
                 inboxData.add(tempResult);
 
                 //set an onclick command to send screen to application screen
-                //tempLabel.setOnMouseClicked();
+                tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
+                    }
+                });
+                tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        tempLabel.setTextFill(Color.web("#0000FF"));
+                    }
+                });
+                tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        tempLabel.setTextFill(Color.web("#0000FF"));
+                    }
+                });
 
             }
             else{
@@ -136,14 +165,19 @@ public class AgentInboxManager extends Screen{
                 //add UUID to Specific Agents Database of codes
 
                 //add the Label to the pane
-                Inbox.getChildren().add(tempLabel);
+
 
                 //add the result to the linked list
                 Result tempResult = new Result(tempLabel, tempData);
                 inboxData.add(tempResult);
 
                 //set an onclick command to send screen to application screen
-                //tempLabel.setOnMouseClicked();
+                tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
+                    }
+                });
 
 
             }
