@@ -3,6 +3,7 @@ package screen;
 /**
  * Created by ${Victor} on 4/2/2017.
  */
+import base.LogManager;
 import database.DataSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -52,7 +53,9 @@ public class AgentInboxManager extends Screen{
 
     @FXML
     void goBack() {
-
+        LogManager.println("Back button pressed from AgentInboxScreen");
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        return;
     }
 
     @FXML
