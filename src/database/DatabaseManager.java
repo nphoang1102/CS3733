@@ -48,7 +48,9 @@ public class DatabaseManager {
         }
 
 
-        //INSERTING TABLES
+        //////////////////////////////////
+        /////////CREATING TABLES//////////
+        //////////////////////////////////
         try {
             stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
                     " TTBID REAL PRIMARY KEY,\n" +
@@ -96,7 +98,7 @@ public class DatabaseManager {
 
     }
 
-    public void entryTest() {
+    /*public void entryTest() {
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (12309847, 'FakePermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', 123, 456, 'Beer')");
         } catch (SQLException e) {
@@ -113,9 +115,11 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-
+    //////////////////////////////////
+    ///////////ADD ALCOHOL////////////
+    //////////////////////////////////
     public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
@@ -123,7 +127,9 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
+    //////////////////////////////////
+    ////////ALCOHOL SEARCH////////////
+    //////////////////////////////////
     public static void Search(String entered, String type){
         String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
         try {
@@ -132,7 +138,9 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
+    //////////////////////////////////
+    /////////QUERY ALCOHOL////////////
+    //////////////////////////////////
     public static void queryAlcohol(String query) {
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";
         try {
