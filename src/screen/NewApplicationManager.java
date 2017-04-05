@@ -72,10 +72,11 @@ public class NewApplicationManager extends Screen {
     @FXML
     private Button SubmitButton;
 
-    public void Submit(){
+    public void submit(){
         String repID = REPID.getText();
         String source = Source.getText();
         String brandName = BrandName.getText();
+        String applicantName = ApplicantName.getText();
         String dba_or_tradeName = DBAorTradeName.getText();
         String phoneNum = PhoneNum.getText();
         String registry = Registry.getText();
