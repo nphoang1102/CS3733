@@ -162,7 +162,7 @@ public class DatabaseManager {
     ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> Search(String entered, String type) {
-        String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
+        String query = "SELECT * FROM Alcohol WHERE BrandName = '" + entered + "' AND Type = '" + type + "');";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query);
