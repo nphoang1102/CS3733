@@ -37,16 +37,16 @@ public class LoginScreenManager extends Screen{
         LogManager.println(userName+" wants to sign in, he is a "+userType);
 
         /* To be replaced in the future with actual database query */
-        if (DatabaseManager.getUserType(userName).equals("publicUser")) {
+        if (userType.equals("publicUser")) {
             ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
             LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
-        else if (DatabaseManager.getUserType(userName).equals("manufacturer")) {
+        else if (userType.toLowerCase().equals("manufacturer")) {
             ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
         }
-        else if (DatabaseManager.getUserType(userName)=="agent") {
+        else if (userType.toLowerCase().equals("agent")) {
             LogManager.println("we have an agent!");
             ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
             LogManager.println("Agent " + userName + " has signed in");
