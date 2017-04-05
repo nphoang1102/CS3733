@@ -50,7 +50,10 @@ public class ManufacturerInboxManager extends Screen{
     private String manufacturer;
 
     //constructer for the screen
-    public ManufacturerInboxManager() { super(EnumScreenType.MANUFACTURER_SCREEN);}
+    public ManufacturerInboxManager() {
+        super(EnumScreenType.MANUFACTURER_SCREEN);
+        initialize();
+    }
 
     public void initialize(){
         database.DatabaseManager dbManager = new DatabaseManager();

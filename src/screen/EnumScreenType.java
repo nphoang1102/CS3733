@@ -19,8 +19,8 @@ public enum EnumScreenType {
     COLA_SEARCH_RESULT(""),
     MANUFACTURER_SCREEN("ManufacturerInbox.fxml"),
     MANUFACTURER_VIEW_FORMS(""),
-    MANUFACTURER_ADD_FORM(""),
-    MANUFACTURER_EDIT(""),
+    MANUFACTURER_ADD_FORM("ManufacturerLabel"),
+    MANUFACTURER_EDIT("EditableApplication.fxml"),
     AGENT_INBOX("AgentInbox.fxml"),
     AGENT_APP_SCREEN("AgentAppScreen.fxml"),
     ;
