@@ -210,7 +210,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getApplications(String type, int num) {
+    public static LinkedList<DataSet> getApplications(String type, int num, String username) {
         String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "';";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
@@ -236,6 +236,7 @@ public class DatabaseManager {
                 dataSet.addField("PH", applications.getString("PH"));
                 dataSet.addField("InboxAgent", applications.getString("InboxAgent"));
                 dataSets.add(dataSet);
+                stmt.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + applications.getString("ApplicationNo") + "';");
                 applications.next();
             }
         } catch (SQLException e) {
@@ -298,10 +299,10 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void approveApplication(String ApplicationNo, String username) {
+    public static void approveApplication(String ApplicationNo) {
         try {
             stmt.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNo + "';");
-            stmt.executeUpdate("UPDATE Users SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
+            stmt.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -318,6 +319,19 @@ public class DatabaseManager {
         String Type = approvedApplication.getValueForKey("Type");
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PermitNo + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + BrandName + "', '" + Origin + "', '" + Class + "', '" + Type + "');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////APPROVE APPLICATION///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
+        try {
+            stmt.executeUpdate("UPDATE Users SET status = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "';");
+            stmt.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
+            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
