@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -10,26 +11,6 @@ import javafx.scene.control.TextField;
  * Created by $(mrfortmeyer) on 4/4/2017.
  */
 public class EditableApplicationManager extends Screen {
-
-    public EditableApplicationManager() {
-        super(EnumScreenType.MANUFACTURER_EDIT);
-//        REPID.setDisable(true);
-//        Source.setDisable(true);
-//        BrandName.setDisable(true);
-//        ApplicantName.setDisable(true);
-//        DBAorTradeName.setDisable(true);
-//        Registry.setDisable(true);
-//        Address.setDisable(true);
-//        AlternateAddress.setDisable(true);
-//        Email.setDisable(true);
-//        Date.setDisable(true);
-//        AlcoholContent.setDisable(true);
-//        VintageYear.setDisable(true);
-//        PHLevel.setDisable(true);
-//        BeerSelect.setDisable(true);
-//        WineSelect.setDisable(true);
-//        OtherSelect.setDisable(true);
-    }
 
     @FXML
     private TextField REPID;
@@ -91,6 +72,26 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button CancelButton;
 
+    public EditableApplicationManager() {
+        super(EnumScreenType.MANUFACTURER_EDIT);
+//        REPID.setDisable(true);
+//        Source.setDisable(true);
+//        BrandName.setDisable(true);
+//        ApplicantName.setDisable(true);
+//        DBAorTradeName.setDisable(true);
+//        Registry.setDisable(true);
+//        Address.setDisable(true);
+//        AlternateAddress.setDisable(true);
+//        Email.setDisable(true);
+//        Date.setDisable(true);
+//        AlcoholContent.setDisable(true);
+//        VintageYear.setDisable(true);
+//        PHLevel.setDisable(true);
+//        BeerSelect.setDisable(true);
+//        WineSelect.setDisable(true);
+//        OtherSelect.setDisable(true);
+    }
+
     public void submit(){
         String repID = REPID.getText();
         String source = Source.getText();
@@ -112,7 +113,7 @@ public class EditableApplicationManager extends Screen {
         Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
-        String id = Long.toString(Math.round(Math.random() * 10000000));
+        String id = DatabaseManager.generateTTBID();
 
         database.DatabaseManager.submitApplication(id, DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
 
