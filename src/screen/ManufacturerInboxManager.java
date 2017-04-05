@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -54,32 +55,15 @@ public class ManufacturerInboxManager extends Screen{
     //constructer for the screen
     public ManufacturerInboxManager() {
         super(EnumScreenType.MANUFACTURER_SCREEN);
-//        initialize();
+        initialize();
     }
 
     public void initialize(){
-        // database.DatabaseManager dbManager = new DatabaseManager();
+        manufacturer = Main.getUsername();
+        LogManager.print("Current user is "+manufacturer);
         LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer);
 
         ObservableList tableList = FXCollections.observableArrayList();
-
-        Table.setItems(tableList);
-
-        TTBIDColumn.setCellValueFactory(
-                new PropertyValueFactory<DataSet, String>("TTBID")
-        );
-
-        NameColumn.setCellValueFactory(
-                new PropertyValueFactory<DataSet, Label>("BrandName")
-        );
-
-        StatusColumn.setCellValueFactory(
-                new PropertyValueFactory<DataSet, String>("Status")
-        );
-
-        DateColumn.setCellValueFactory(
-                new PropertyValueFactory<DataSet, String>("Date")
-        );
 
         for(DataSet data : appList){
             String tempTTBID = data.getValueForKey("TTBID");
@@ -89,6 +73,22 @@ public class ManufacturerInboxManager extends Screen{
 
             ManufacturerInboxResult tempResult = new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate);
             tableList.add(tempResult);
+
+            TTBIDColumn.setCellValueFactory(
+                    new PropertyValueFactory<ManufacturerInboxResult, String>("TTBID")
+            );
+
+            NameColumn.setCellValueFactory(
+                    new PropertyValueFactory<ManufacturerInboxResult, Label>("BrandName")
+            );
+
+            StatusColumn.setCellValueFactory(
+                    new PropertyValueFactory<ManufacturerInboxResult, String>("Status")
+            );
+
+            DateColumn.setCellValueFactory(
+                    new PropertyValueFactory<ManufacturerInboxResult, String>("Date")
+            );
 
             tempName.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
