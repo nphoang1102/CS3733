@@ -71,7 +71,7 @@ public class AgentInboxManager extends Screen{
 
 
 
-
+        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
 
 
 
@@ -96,7 +96,7 @@ public class AgentInboxManager extends Screen{
             manufacturerName.setCellValueFactory(
                     new PropertyValueFactory<AgentInboxResult, Label>("manufacturerName")
             );
-            manufacturerName.setCellValueFactory(
+            specificBrandName.setCellValueFactory(
                     new PropertyValueFactory<AgentInboxManager, String>("brandName")
             );
 
@@ -157,6 +157,7 @@ public class AgentInboxManager extends Screen{
                     uuidCodes.add(tempSet);
                 }
             }
+            System.out.println("datesets: " + results);
         }
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
