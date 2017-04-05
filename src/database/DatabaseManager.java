@@ -370,7 +370,8 @@ public class DatabaseManager {
         try {
             ResultSet user = stmt.executeQuery(query);
             user.next();
-            userType = user.getString("Type");
+            userType = user.getString("userType");
+            LogManager.println("User " + username + " is type " + userType);
         } catch (SQLException e) {
             e.printStackTrace();
         }
