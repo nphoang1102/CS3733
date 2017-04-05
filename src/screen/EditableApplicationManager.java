@@ -79,7 +79,7 @@ public class EditableApplicationManager extends Screen {
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
-        initialize();
+        //initialize();
     }
 
     public void initialize(){

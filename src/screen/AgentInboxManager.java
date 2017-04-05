@@ -153,10 +153,10 @@ public class AgentInboxManager extends Screen{
             String tempType = (String) typeBox.getValue();
 
             //call Database to get number of applications
-            LinkedList<DataSet> tempData = DatabaseManager.getApplications(tempType, numAppsNeeded);
+            /*LinkedList<DataSet> tempData = DatabaseManager.getApplications(tempType, numAppsNeeded);
             for(DataSet tempSet: tempData){
                 String tempString = tempSet.getValueForKey("ApplicationNo");
-            }
+            }*/
         }
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
