@@ -57,6 +57,7 @@ public class ColaSearchResultManager extends Screen{
     }
 
     public void buttonPressed() {
+        resultTable = FXCollections.observableArrayList();
         this.keywords = entryField.getText();
         this.searchType = type.getValue() + "";
         String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
