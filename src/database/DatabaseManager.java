@@ -62,7 +62,7 @@ public class DatabaseManager {
                     " Type VARCHAR(10) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Alcohol exists.", EnumWarningType.NOTE);
+            LogManager.println("Table 'Alcohol' exists.", EnumWarningType.NOTE);
         }
 
         try {
@@ -72,8 +72,7 @@ public class DatabaseManager {
                     " Company VARCHAR(100) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Manufacturers exists.", EnumWarningType.NOTE);
-            e.printStackTrace();
+            LogManager.println("Table 'Manufacturers' exists.", EnumWarningType.NOTE);
         }
 
         try {
@@ -82,19 +81,17 @@ public class DatabaseManager {
                     " Manufacturer VARCHAR(100) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Applications exists.", EnumWarningType.NOTE);
-            e.printStackTrace();
+            LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
         }
 
         try {
             stmt.executeUpdate("CREATE TABLE Users(\n" +
                     " username BIGINT PRIMARY KEY,\n" +
                     " passwordHash VARCHAR(100) NOT NULL,\n" +
-                    " userType ENUM(AGENT,MANUFACTURER) NOT NULL\n" +
+                    " userType ENUM('AGENT','MANUFACTURER') NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Applications exists.", EnumWarningType.NOTE);
-            e.printStackTrace();
+            LogManager.println("Table 'Users' exists.", EnumWarningType.NOTE);
         }
 
     }
