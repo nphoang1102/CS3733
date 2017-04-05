@@ -1,6 +1,8 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
+import base.User;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -43,11 +45,17 @@ public class LoginScreenManager extends Screen{
         }
         // Currently not implemented since manufacturerScreen is not made
         else if (userType.toLowerCase().equals("manufacturer")) {
+            //build a manufacturer and store it globally
+            User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
+            Main.setUser(currentUser);
             ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
         }
         else if (userType.toLowerCase().equals("agent")) {
+            //build a manufacturer and store it globally
             LogManager.println("we have an agent!");
+            User currentUser = new User(EnumUserType.AGENT, userName, "");
+            Main.setUser(currentUser);
             ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
             LogManager.println("Agent " + userName + " has signed in");
         }
