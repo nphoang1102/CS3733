@@ -18,7 +18,7 @@ public class LogManager{
 
     public LogManager(){
         println("LogManager initialized.");
-        DataSet dataSet = new DataSet();
+
     }
 
     /*

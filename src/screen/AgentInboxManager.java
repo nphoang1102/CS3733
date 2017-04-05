@@ -5,6 +5,7 @@ package screen;
  */
 import base.LogManager;
 import database.DataSet;
+import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -50,7 +51,7 @@ public class AgentInboxManager extends Screen{
 
     //lists for keeping track of data sets
     @FXML
-    private LinkedList<Result> inboxData = new LinkedList<>();
+    private LinkedList<Label> inboxData = new LinkedList<>();
 
 
 
@@ -81,7 +82,7 @@ public class AgentInboxManager extends Screen{
                 Label tempLabel = new Label();
 
                 //query database for said UUID Code
-                DataSet tempData = new DataSet();
+                //DataSet tempData = DatabaseManager.queryAlcohol(tempCode);
 
                 //get tempData from database
                 String Manufacturer = null;
@@ -98,10 +99,10 @@ public class AgentInboxManager extends Screen{
                 );
 
 
-                Result tempResult = new Result(tempLabel, tempData);
+                //Result tempResult = new Result(tempLabel, tempData);
 
                 //add the label to the linked list of possible labels
-                inboxData.add(tempResult);
+                inboxData.add(tempLabel);
 
                 //set an onclick command to send screen to application screen
                 tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -110,6 +111,8 @@ public class AgentInboxManager extends Screen{
                         ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
                     }
                 });
+
+                //highlight the label that can be clicked
                 tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -119,7 +122,7 @@ public class AgentInboxManager extends Screen{
                 tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
-                        tempLabel.setTextFill(Color.web("#0000FF"));
+                        tempLabel.setTextFill(Color.web("#000000"));
                     }
                 });
 
@@ -149,7 +152,7 @@ public class AgentInboxManager extends Screen{
             String key = typeOfAlcBox.getAccessibleText();
 
             //create temps for getting stuff from the data base and filling the table
-            DataSet tempData = new DataSet();
+            //DataSet tempData = new DataSet();
             Label tempLabel = new Label();
 
             for(int i = 0; i < 10; i++){
@@ -168,8 +171,8 @@ public class AgentInboxManager extends Screen{
 
 
                 //add the result to the linked list
-                Result tempResult = new Result(tempLabel, tempData);
-                inboxData.add(tempResult);
+               // Result tempResult = new Result(tempLabel, tempData);
+                //inboxData.add(tempResult);
 
                 //set an onclick command to send screen to application screen
                 tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
