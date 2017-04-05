@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
@@ -97,7 +98,7 @@ public class NewApplicationManager extends Screen {
         Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
-        String id = Long.toString(Math.round(Math.random() * 10000000));
+        String id = DatabaseManager.generateTTBID();
 
         database.DatabaseManager.submitApplication(id, DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
 
