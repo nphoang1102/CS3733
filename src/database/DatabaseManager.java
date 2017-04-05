@@ -1,8 +1,7 @@
-package database;
 /**
  * Created by Evan Goldstein on 4/1/17.
  */
-
+package database;
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
@@ -18,6 +17,10 @@ public class DatabaseManager {
     private static Connection connection = null;
 
     public DatabaseManager() {
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///////////CONNECT TO DATABASE///////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         LogManager.println("Attempting Database Connection.");
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -48,8 +51,9 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
-
-        //INSERTING TABLES
+        /////////////////////////////////////////////////////////////////////////////////
+        ///////////CREATE TABLES/////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         try {
             stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
                     " TTBID REAL PRIMARY KEY,\n" +
@@ -97,7 +101,12 @@ public class DatabaseManager {
 
     }
 
-    public void entryTest() {
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////TESTS/////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    /*public void entryTest() {
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (12309847, 'FakePermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', 123, 456, 'Beer')");
         } catch (SQLException e) {
@@ -114,9 +123,11 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ADD ENTRY/////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
     public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
@@ -125,7 +136,10 @@ public class DatabaseManager {
         }
     }
 
-    public static LinkedList<DataSet> Search(String entered, String type){
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> Search(String entered, String type) {
         String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
@@ -150,7 +164,8 @@ public class DatabaseManager {
                 dataSet.addField("Origin", Origin);
                 dataSet.addField("Class", Class);
                 dataSet.addField("Type", Type);
-                dataSets.add(dataSet);}
+                dataSets.add(dataSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -167,6 +182,10 @@ public class DatabaseManager {
         }
     }*/
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryManufactures() {
         return queryManufacturers("SELECT * FROM Manufactures");
     }
@@ -210,6 +229,7 @@ public class DatabaseManager {
         }
         return dataSets;
     }
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 
