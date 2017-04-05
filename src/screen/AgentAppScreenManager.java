@@ -23,38 +23,35 @@ public class AgentAppScreenManager extends Screen{
     @FXML
     Button acceptButton, rejectButton;
 
-    private String data;
+    private DataSet data;
 
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
-        //initialize();
     }
 
-    /*
+
     @FXML
     public void initialize(){
-        DataSet tempData = DatabaseManager.getApplicationNo("data");
-        repId.setText(tempData.getValueForKey("AgentId"));
-        brewNo.setText(tempData.getValueForKey("PermitNo"));
-        productSrc.setText(tempData.getValueForKey("Source"));
-        productType.setText(tempData.getValueForKey("AlcoholType"));
-        brandName.setText(tempData.getValueForKey("Brand"));
-        applicantName.setText(tempData.getValueForKey(""));
-        applicantAdd.setText(tempData.getValueForKey("Address"));
-        tradeName.setText(tempData.getValueForKey(""));
-        alternateAdd.setText(tempData.getValueForKey("Address2"));
-        phoneNum.setText(tempData.getValueForKey("PhoneNo"));
-        emailAdd.setText(tempData.getValueForKey(""));
-        appDate.setText(tempData.getValueForKey(""));
-        appName.setText(tempData.getValueForKey(""));
-
-
+        repId.setText(data.getValueForKey("AgentId"));
+        brewNo.setText(data.getValueForKey("PermitNo"));
+        productSrc.setText(data.getValueForKey("Source"));
+        productType.setText(data.getValueForKey("AlcoholType"));
+        brandName.setText(data.getValueForKey("Brand"));
+        applicantName.setText(data.getValueForKey("ApplicantName"));
+        applicantAdd.setText(data.getValueForKey("Address"));
+        tradeName.setText(data.getValueForKey("DBAortrade"));
+        alternateAdd.setText(data.getValueForKey("Address2"));
+        phoneNum.setText(data.getValueForKey("PhoneNo"));
+        emailAdd.setText(data.getValueForKey("Email"));
+        appDate.setText(data.getValueForKey("DateSubmitted"));
+        appName.setText(data.getValueForKey("ApplicantName"));
     }
-    */
 
 
-    public void setData (String aData){
+
+    public void setData (DataSet aData){
         data= aData;
+        initialize();
     }
 
 
@@ -66,6 +63,9 @@ public class AgentAppScreenManager extends Screen{
     public void acceptApp(MouseEvent mouseEvent) {
         //put application into public search database
         //remove dataset from agent inbox
+        DatabaseManager.approveApplication(data.getValueForKey("ApplicationNo"));
+        //go back to agent inbox screen
+        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
 
@@ -76,6 +76,9 @@ public class AgentAppScreenManager extends Screen{
     public void rejectApp(MouseEvent mouseEvent) {
         //put application into rejected database
         //remove data set from agent inbox
+        DatabaseManager.rejectApplication(data.getValueForKey("ApplicationNo"));
+        //go back to agent inbox screen
+        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
 }

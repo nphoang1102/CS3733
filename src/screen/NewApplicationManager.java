@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -97,12 +98,11 @@ public class NewApplicationManager extends Screen {
         Boolean wineSelect = WineSelect.isSelected();
         Boolean otherSelect = OtherSelect.isSelected();
 
-        String manufacturer = "";
+        String manufacturer = Main.getUsername();
 
         //Databasessssssssssss
-        String TTBID = DatabaseManager.generateTTBID();
 
-        database.DatabaseManager.submitApplication(TTBID, manufacturer, Registry.getText(), DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
+        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
 
         LogManager.println("Submitting Application");
         ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);

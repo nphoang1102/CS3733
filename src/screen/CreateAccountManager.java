@@ -69,17 +69,17 @@ public class CreateAccountManager extends Screen{
             LogManager.println(user + " just made an account");
 
             //record the account in the database
-            if(userType == "agent") {
+            if(userType == "AGENT") {
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new agent, no password
-                DatabaseManager.addUser(user,"","agent");
+                DatabaseManager.addUser(user,"", userType);
                 ScreenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType == "manufacturer"){
+            }else if(userType == "MANUFACTURER"){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
-                DatabaseManager.addUser(user,"","manufacturer");
+                DatabaseManager.addUser(user,"", userType);
                 ScreenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType == "publicUser"){
                 //tell the system what typ of user they are
@@ -112,7 +112,7 @@ public class CreateAccountManager extends Screen{
         tickManufacturer.setIndeterminate(false);
         /*tickPublicUser.setSelected(false);
         tickPublicUser.setIndeterminate(false);*/
-        userType = "agent";
+        userType = "AGENT";
 
     }
     @FXML
@@ -122,7 +122,7 @@ public class CreateAccountManager extends Screen{
         tickAgent.setIndeterminate(false);
         /*tickPublicUser.setSelected(false);
         tickPublicUser.setIndeterminate(false);*/
-        userType = "manufacturer";
+        userType = "MANUFACTURER";
     }
    /* @FXML
     private void selectPublicUser(){
