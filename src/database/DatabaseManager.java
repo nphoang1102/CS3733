@@ -239,7 +239,7 @@ public class DatabaseManager {
     ///////////GET APPLICATION FROM ApplicationNo////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static DataSet getApplicationNo(String appNo) {
-        String query = "SELECT * FROM Applications WHERE ApplicationNo = " + appNo + ");";
+        String query = "SELECT * FROM Applications WHERE ApplicationNo = '" + appNo + "';";
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
             ResultSet application = stmt.executeQuery(query);
