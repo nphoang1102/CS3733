@@ -36,29 +36,26 @@ public class AgentInboxManager extends Screen{
     @FXML
     private TextArea results;
 
-    @FXML
-    private Button newApplication;
 
     @FXML
     private ChoiceBox typeOfAlcBox;
 
     @FXML
-    private TableView Inbox;
+    private TableView inboxData;
 
     @FXML
     private TableColumn manufacturerName, specificBrandName;
 
 
-    //lists for keeping track of data sets
-    @FXML
-    private LinkedList<Label> inboxData = new LinkedList<>();
 
 
-
+    private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
+    private LinkedList<String> uuidCodes = new LinkedList<>();
 
     //constructer for the screen
     public AgentInboxManager() {
         super(EnumScreenType.AGENT_INBOX);
+        initialize();
     }
 
     /*
@@ -66,18 +63,18 @@ public class AgentInboxManager extends Screen{
      */
     public void initialize() {
         ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine");
+        System.out.println("type of alc box: " + typeOfAlcBox);
+        System.out.println();
         typeOfAlcBox.setItems(typeList);
+
         typeOfAlcBox.setValue("Beer");
 
-        ArrayList<String> uuidCodes = new ArrayList<>();
+
 
         //query database for UUID's that current Agent has in inbox
 
         int i = 0;
-        while(true){
-
-            String tempCode = uuidCodes.get(i);
-            if(tempCode != null) {
+        for(String tempCode: uuidCodes){
 
                 Label tempLabel = new Label();
 
@@ -88,21 +85,22 @@ public class AgentInboxManager extends Screen{
                 String Manufacturer = null;
                 String BrandName = null;
                 //fill Manuefacturer and BrandName from temp
-                tempLabel.setText(Manufacturer + "  |  " + BrandName);
+                tempLabel.setText(Manufacturer);
+
+                AgentInboxResult tempResult = new AgentInboxResult(tempLabel, BrandName);
 
                 //add the Label to the pane
                 manufacturerName.setCellValueFactory(
-                        new PropertyValueFactory<DataSet, Label>("Manufacturer Name")
+                        new PropertyValueFactory<AgentInboxResult, Label>("manufacturerName")
                 );
                 manufacturerName.setCellValueFactory(
-                        new PropertyValueFactory<DataSet, String>("Manufacturer Name")
+                        new PropertyValueFactory<AgentInboxManager, String>("brandName")
                 );
 
 
                 //Result tempResult = new Result(tempLabel, tempData);
 
                 //add the label to the linked list of possible labels
-                inboxData.add(tempLabel);
 
                 //set an onclick command to send screen to application screen
                 tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -125,11 +123,6 @@ public class AgentInboxManager extends Screen{
                         tempLabel.setTextFill(Color.web("#000000"));
                     }
                 });
-
-            }
-            else{
-                break;
-            }
         }
 
     }
@@ -147,54 +140,25 @@ public class AgentInboxManager extends Screen{
     @FXML
     public void pullNewBatch(){
         //check if the inbox is empty if its not dont pull new batch
-        if(inboxData.size() == 0){
-            //fill linked list of data with correct type
-            String key = (String)typeOfAlcBox.getValue();
+        if(inboxInfo.size() <= 9){
+            int numAppsNeeded = 10 - inboxInfo.size();
+            String tempType = (String) typeOfAlcBox.getValue();
 
-            //create temps for getting stuff from the data base and filling the table
-            //DataSet tempData = new DataSet();
-            Label tempLabel = new Label();
-
-            for(int i = 0; i < 10; i++){
-                //get tempData from database
-                String Manufacturer = null;
-                String BrandName = null;
-                //fill Manuefacturer and BrandName from temp
-                tempLabel.setText(Manufacturer + "  |  " + BrandName);
-
-                //holds  the UUID code for the pulled Data from the DataSet
-
-                String tempCode;
-                //add UUID to Specific Agents Database of codes
-
-                //add the Label to the pane
-
-
-                //add the result to the linked list
-               // Result tempResult = new Result(tempLabel, tempData);
-                //inboxData.add(tempResult);
-
-                //set an onclick command to send screen to application screen
-                tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
-                    }
-                });
-
-
+            //call Database to get number of applicatoins
+            LinkedList<DataSet> tempData = DatabaseManager.getApplications(tempType, numAppsNeeded);
+            for(DataSet tempSet: tempData){
+                String tempString = tempSet.getValueForKey("ApplicationNo");
             }
         }
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
         }
+        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
-    @FXML
-    public void newApplication(){
 
-
-
+    public void removeId(String rString){
+        uuidCodes.remove(rString);
     }
 
 

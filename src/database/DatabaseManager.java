@@ -6,6 +6,7 @@ package database;
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import screen.EnumUserType;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -145,6 +146,12 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Applications (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -162,7 +169,7 @@ public class DatabaseManager {
     ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> Search(String entered, String type) {
-        String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
+        String query = "SELECT * FROM Alcohol WHERE BrandName = '" + entered + "' AND Type = '" + type + "');";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query);
@@ -198,7 +205,7 @@ public class DatabaseManager {
     ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplications(String type, int num) {
-        String query = "SELECT * FROM Applications WHERE AlcoholType = " + type + ");";
+        String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "');";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet applications = stmt.executeQuery(query);
@@ -264,7 +271,7 @@ public class DatabaseManager {
     public static void submitApplication(String ApplicationNo, String PermitNo, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
         try {
             stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, PermitNo, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
-                    "('" + ApplicationNo + " ', '" + PermitNo + " ', '" + AlcoholType + " ', '" + AgentID + " ', '" + Source + " ', '" + Brand + " ', '" + Address + " ', '" + Address2 + " ', '" + Volume + " ', '" + ABV + " ', '" + PhoneNo + " ', '" + AppType + " ', '" + VintageDate + " ', '" + PH + " ')");
+                    "('" + ApplicationNo + "', '" + PermitNo + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -280,6 +287,17 @@ public class DatabaseManager {
         }
     }*/
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ADD USERS/////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void addUser(String username, String password, EnumUserType type){
+        try {
+            stmt.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES " +
+                    "('" + username + "', '" + password + "', '" + type + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////
@@ -289,15 +307,15 @@ public class DatabaseManager {
     }
 
     public static LinkedList<DataSet> queryManufactures(String manufacturer) {
-        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = " + manufacturer);
+        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = '" + manufacturer + "');");
     }
 
     public static LinkedList<DataSet> queryManufactures(LinkedList<String> manufacturers) {
         String query = "SELECT * FROM Manufactures WHERE";
         for (String m : manufacturers) {
-            query = query + " Company = " + m + " OR";
+            query = query + " Company = '" + m + "' OR";
         }
-        query = query + " Company = END";
+        query = query + " Company = 'END'";
         return queryManufacturers(query);
     }
 
