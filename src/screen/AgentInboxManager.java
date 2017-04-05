@@ -3,7 +3,7 @@ package screen;
 /**
  * Created by ${Victor} on 4/2/2017.
  */
-import base.LogManager;
+import base.*;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -50,8 +50,8 @@ public class AgentInboxManager extends Screen{
 
 
     private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
-    private LinkedList<String> uuidCodes = new LinkedList<>();
     private ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine");
+    private LinkedList<DataSet> uuidCodes = new LinkedList<>();
 
     //constructer for the screen
     public AgentInboxManager() {
@@ -78,12 +78,11 @@ public class AgentInboxManager extends Screen{
         //query database for UUID's that current Agent has in inbox
 
         int i = 0;
-        for(String tempCode: uuidCodes){
+        //uuidCodes = DatabaseManager.
+        for(DataSet tempData: uuidCodes){
 
             Label tempLabel = new Label();
 
-            //get tempData from database
-            DataSet tempData = DatabaseManager.getApplicationNo(tempCode);
 
             //fill Manuefacturer and BrandName from temp
             String Manufacturer = tempData.getValueForKey("Manufacturer");
@@ -109,11 +108,9 @@ public class AgentInboxManager extends Screen{
             tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    int tempPlace = inboxInfo.indexOf(tempLabel);
-                    String tempCode = uuidCodes.get(tempPlace);
                     ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
                     AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
-                    currentScreen.setData(tempCode);
+                    currentScreen.setData(tempData);
                     }
             });
 
@@ -151,11 +148,14 @@ public class AgentInboxManager extends Screen{
         if(inboxInfo.size() <= 9){
             int numAppsNeeded = 10 - inboxInfo.size();
             String tempType = (String) typeBox.getValue();
+            String currentUser = Main.getUsername();
 
             //call Database to get number of applications
-            LinkedList<DataSet> tempData = DatabaseManager.getApplications(tempType, numAppsNeeded);
-            for(DataSet tempSet: tempData){
-                String tempString = tempSet.getValueForKey("ApplicationNo");
+            LinkedList<DataSet> results  = DatabaseManager.getApplications(tempType, numAppsNeeded, currentUser);
+            if(results.size() > 0){
+                for(DataSet tempSet: results) {
+                    uuidCodes.add(tempSet);
+                }
             }
         }
         else {
@@ -169,8 +169,6 @@ public class AgentInboxManager extends Screen{
     public void removeId(String rString){
         uuidCodes.remove(rString);
     }
-
-
 
 
 

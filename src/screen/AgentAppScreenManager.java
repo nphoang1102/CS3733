@@ -23,37 +23,36 @@ public class AgentAppScreenManager extends Screen{
     @FXML
     Button acceptButton, rejectButton;
 
-    private String data;
+    private DataSet data;
 
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
-        //initialize();
+       // initialize();
     }
 
-    /*
+
     @FXML
     public void initialize(){
-        DataSet tempData = DatabaseManager.getApplicationNo("data");
-        repId.setText(tempData.getValueForKey("AgentId"));
-        brewNo.setText(tempData.getValueForKey("PermitNo"));
-        productSrc.setText(tempData.getValueForKey("Source"));
-        productType.setText(tempData.getValueForKey("AlcoholType"));
-        brandName.setText(tempData.getValueForKey("Brand"));
-        applicantName.setText(tempData.getValueForKey(""));
-        applicantAdd.setText(tempData.getValueForKey("Address"));
-        tradeName.setText(tempData.getValueForKey(""));
-        alternateAdd.setText(tempData.getValueForKey("Address2"));
-        phoneNum.setText(tempData.getValueForKey("PhoneNo"));
-        emailAdd.setText(tempData.getValueForKey(""));
-        appDate.setText(tempData.getValueForKey(""));
-        appName.setText(tempData.getValueForKey(""));
+        repId.setText(data.getValueForKey("AgentId"));
+        brewNo.setText(data.getValueForKey("PermitNo"));
+        productSrc.setText(data.getValueForKey("Source"));
+        productType.setText(data.getValueForKey("AlcoholType"));
+        brandName.setText(data.getValueForKey("Brand"));
+        applicantName.setText(data.getValueForKey(""));
+        applicantAdd.setText(data.getValueForKey("Address"));
+        tradeName.setText(data.getValueForKey(""));
+        alternateAdd.setText(data.getValueForKey("Address2"));
+        phoneNum.setText(data.getValueForKey("PhoneNo"));
+        emailAdd.setText(data.getValueForKey(""));
+        appDate.setText(data.getValueForKey(""));
+        appName.setText(data.getValueForKey(""));
 
 
     }
-    */
 
 
-    public void setData (String aData){
+
+    public void setData (DataSet aData){
         data= aData;
     }
 
