@@ -79,11 +79,6 @@ public class ManufacturerInboxManager extends Screen{
         DateColumn.setCellValueFactory(
                 new PropertyValueFactory<DataSet, String>("Date")
         );
-
-
-        Integer numApps = appList.size();
-        for(int i = 0; i < numApps; i++){
-        }
     }
 
     public void newApplication(){
