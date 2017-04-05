@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -72,9 +73,34 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button CancelButton;
 
+    public DataSet data;
+
+    String manufacturer = "";
+
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
-//        REPID.setDisable(true);
+        initialize();
+    }
+
+    public void initialize(){
+
+        REPID.setText(data.getValueForKey("AgentID"));
+        Source.setText(data.getValueForKey("Source"));
+        BrandName.setText(data.getValueForKey("Brand"));
+        ApplicantName.setText("");
+        DBAorTradeName.setText("");
+        PhoneNum.setText(data.getValueForKey("PhoneNo"));
+        Registry.setText("");
+        Type.setText(data.getValueForKey("AlcoholType"));
+        Address.setText(data.getValueForKey("Address"));
+        AlternateAddress.setText(data.getValueForKey("Address2"));
+        Email.setText("");
+        Date.setText(data.getValueForKey("Completed Date"));
+        AlcoholContent.setText(data.getValueForKey("ABV"));
+        VintageYear.setText(data.getValueForKey("VintageDate"));
+        PHLevel.setText(data.getValueForKey("PH"));
+
+        //REPID.setDisable(true);
 //        Source.setDisable(true);
 //        BrandName.setDisable(true);
 //        ApplicantName.setDisable(true);
@@ -112,12 +138,10 @@ public class EditableApplicationManager extends Screen {
         Boolean wineSelect = WineSelect.isSelected();
         Boolean otherSelect = OtherSelect.isSelected();
 
-        String manufacturer = "";
-
         //Databasessssssssssss
-        String id = DatabaseManager.generateTTBID();
+        String TTBID = DatabaseManager.generateTTBID();
 
-        database.DatabaseManager.submitApplication(id, manufacturer, Registry.getText(), DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
+        database.DatabaseManager.submitApplication(TTBID, manufacturer, Registry.getText(), DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
 
         LogManager.println("Submitting Application");
         ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
