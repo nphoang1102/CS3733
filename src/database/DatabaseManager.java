@@ -305,7 +305,7 @@ public class DatabaseManager {
     }
 
     public static LinkedList<DataSet> queryManufactures(String manufacturer) {
-        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = '" + manufacturer + "');");
+        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = '" + manufacturer + "';");
     }
 
     public static LinkedList<DataSet> queryManufactures(LinkedList<String> manufacturers) {

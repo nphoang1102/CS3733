@@ -55,7 +55,7 @@ public class AgentInboxManager extends Screen{
     //constructer for the screen
     public AgentInboxManager() {
         super(EnumScreenType.AGENT_INBOX);
-        initialize();
+//        initialize();
     }
 
     /*
@@ -144,7 +144,7 @@ public class AgentInboxManager extends Screen{
             int numAppsNeeded = 10 - inboxInfo.size();
             String tempType = (String) typeOfAlcBox.getValue();
 
-            //call Database to get number of applicatoins
+            //call Database to get number of applications
             LinkedList<DataSet> tempData = DatabaseManager.getApplications(tempType, numAppsNeeded);
             for(DataSet tempSet: tempData){
                 String tempString = tempSet.getValueForKey("ApplicationNo");
