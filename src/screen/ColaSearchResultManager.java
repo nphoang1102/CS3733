@@ -43,7 +43,7 @@ public class ColaSearchResultManager extends Screen{
     /* Class methods */
     @FXML
     public void initialize() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Both");
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
         type.setItems(typeList);
         type.setValue("Beer");
         this.id.setCellValueFactory(new PropertyValueFactory("id"));
