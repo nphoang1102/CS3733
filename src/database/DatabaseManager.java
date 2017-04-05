@@ -365,9 +365,10 @@ public class DatabaseManager {
     public static String getUserType(String username) {
         String query = "SELECT * FROM Users WHERE username = '" + username + "';";
         String userType = "foo";
+        DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
-            ResultSet users = stmt.executeQuery(query);
-            userType = users.getString("userType");
+            ResultSet user = stmt.executeQuery(query);
+            userType = user.getString("Type");
         } catch (SQLException e) {
             e.printStackTrace();
         }
