@@ -1,10 +1,10 @@
-package database;
 /**
  * Created by Evan Goldstein on 4/1/17.
  */
-
+package database;
 import base.EnumWarningType;
 import base.LogManager;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,6 +17,10 @@ public class DatabaseManager {
     private static Connection connection = null;
 
     public DatabaseManager() {
+
+        /////////////////////////////////////////////////////////////////////////////////
+        ///////////CONNECT TO DATABASE///////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         LogManager.println("Attempting Database Connection.");
         try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
@@ -47,8 +51,9 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
-
-        //INSERTING TABLES
+        /////////////////////////////////////////////////////////////////////////////////
+        ///////////CREATE TABLES/////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
         try {
             stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
                     " TTBID REAL PRIMARY KEY,\n" +
@@ -62,7 +67,7 @@ public class DatabaseManager {
                     " Type VARCHAR(10) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Alcohol exists.", EnumWarningType.NOTE);
+            LogManager.println("Table 'Alcohol' exists.", EnumWarningType.NOTE);
         }
 
         try {
@@ -72,8 +77,7 @@ public class DatabaseManager {
                     " Company VARCHAR(100) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Manufacturers exists.", EnumWarningType.NOTE);
-            e.printStackTrace();
+            LogManager.println("Table 'Manufacturers' exists.", EnumWarningType.NOTE);
         }
 
         try {
@@ -82,24 +86,27 @@ public class DatabaseManager {
                     " Manufacturer VARCHAR(100) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Applications exists.", EnumWarningType.NOTE);
-            e.printStackTrace();
+            LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
         }
 
         try {
             stmt.executeUpdate("CREATE TABLE Users(\n" +
                     " username BIGINT PRIMARY KEY,\n" +
                     " passwordHash VARCHAR(100) NOT NULL,\n" +
-                    " userType ENUM(AGENT,MANUFACTURER) NOT NULL\n" +
+                    " userType ENUM('AGENT','MANUFACTURER') NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table Applications exists.", EnumWarningType.NOTE);
-            e.printStackTrace();
+            LogManager.println("Table 'Users' exists.", EnumWarningType.NOTE);
         }
 
     }
 
-    public void entryTest() {
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////TESTS/////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    /*public void entryTest() {
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (12309847, 'FakePermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', 123, 456, 'Beer')");
         } catch (SQLException e) {
@@ -116,9 +123,11 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
-
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ADD ENTRY/////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
     public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
         try {
             stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
@@ -127,16 +136,43 @@ public class DatabaseManager {
         }
     }
 
-    public static void Search(String entered, String type){
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> Search(String entered, String type) {
         String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
-            ResultSet Search = stmt.executeQuery(query);
+            ResultSet searchAlcohol = stmt.executeQuery(query);
+            while (searchAlcohol.next()) {
+                String TTBID = searchAlcohol.getString("TTBID");
+                String PermitNo = searchAlcohol.getString("PermitNo");
+                String SerialNo = searchAlcohol.getString("SerialNo");
+                String CompletedDate = searchAlcohol.getString("CompletedDate");
+                String FancifulName = searchAlcohol.getString("FancifulName");
+                String BrandName = searchAlcohol.getString("BrandName");
+                String Origin = searchAlcohol.getString("Origin");
+                String Class = searchAlcohol.getString("Class");
+                String Type = searchAlcohol.getString("Type");
+                DataSet dataSet = new DataSet(EnumTableType.ALCOHOL);
+                dataSet.addField("TTBID", TTBID);
+                dataSet.addField("PermitNo", PermitNo);
+                dataSet.addField("SerialNo", SerialNo);
+                dataSet.addField("CompletedDate", CompletedDate);
+                dataSet.addField("FancifulName", FancifulName);
+                dataSet.addField("BrandName", BrandName);
+                dataSet.addField("Origin", Origin);
+                dataSet.addField("Class", Class);
+                dataSet.addField("Type", Type);
+                dataSets.add(dataSet);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return dataSets;
     }
 
-    public static void queryAlcohol(String query) {
+    /*public static void queryAlcohol(String query) {
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query2);
@@ -144,8 +180,12 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryManufactures() {
         return queryManufacturers("SELECT * FROM Manufactures");
     }
@@ -165,7 +205,7 @@ public class DatabaseManager {
 
     public static LinkedList<DataSet> queryManufacturers(String entry) {
         String query = entry;
-        LinkedList<DataSet> data = new LinkedList<>();
+        LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet searchManufacturers = stmt.executeQuery(query);
             while (searchManufacturers.next()) {
@@ -176,7 +216,7 @@ public class DatabaseManager {
                 dataSet.addField("UUID", UUID);
                 dataSet.addField("Username", username);
                 dataSet.addField("Company", company);
-                data.add(dataSet);
+                dataSets.add(dataSet);
                 /*
                 LogManager.println("UUID: " + UUID);
                 LogManager.println("Username: " + username);
@@ -187,8 +227,9 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return data;
+        return dataSets;
     }
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 
