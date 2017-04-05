@@ -89,4 +89,8 @@ public class ManufacturerInboxManager extends Screen{
         ScreenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
+
+    public Screen getScreen(){
+        return this;
+    }
 }
