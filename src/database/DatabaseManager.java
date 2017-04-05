@@ -6,6 +6,7 @@ package database;
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import screen.EnumUserType;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -145,6 +146,12 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Applications (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -234,7 +241,7 @@ public class DatabaseManager {
     public static void submitApplication(String ApplicationNo, String PermitNo, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
         try {
             stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, PermitNo, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
-                    "('" + ApplicationNo + " ', '" + PermitNo + " ', '" + AlcoholType + " ', '" + AgentID + " ', '" + Source + " ', '" + Brand + " ', '" + Address + " ', '" + Address2 + " ', '" + Volume + " ', '" + ABV + " ', '" + PhoneNo + " ', '" + AppType + " ', '" + VintageDate + " ', '" + PH + " ')");
+                    "('" + ApplicationNo + "', '" + PermitNo + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -250,6 +257,17 @@ public class DatabaseManager {
         }
     }*/
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ADD USERS/////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void addUser(String username, String password, EnumUserType type){
+        try {
+            stmt.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES " +
+                    "('" + username + "', '" + password + "', '" + type + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////
