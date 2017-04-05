@@ -86,8 +86,12 @@ public class DatabaseManager {
         try {
             stmt.executeUpdate("CREATE TABLE Applications(\n" +
                     " ApplicationNo VARCHAR(30) PRIMARY KEY,\n" +
+                    " DateSubmitted VARCHAR(12) NOT NULL,\n" +
                     " Manufacturer VARCHAR(50) NOT NULL,\n" +
+                    " ApplicantName VARCHAR(30),\n" +
+                    " Email VARCHAR(100) NOT NULL,\n" +
                     " PermitNo VARCHAR(100) NOT NULL,\n" +
+                    " DBAorTrade VARCHAR(100) NOT NULL,\n" +
                     " Status ENUM('APPROVED','DENIED','PENDING') NOT NULL,\n" +
                     " AlcoholType VARCHAR(50) NOT NULL,\n" +
                     " AgentID VARCHAR(20) NOT NULL,\n" +
@@ -102,6 +106,7 @@ public class DatabaseManager {
                     " VintageDate VARCHAR(30),\n" +
                     " PH VARCHAR(10),\n" +
                     " InboxAgent VARCHAR(20)\n" +
+
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -236,8 +241,14 @@ public class DatabaseManager {
                 dataSet.addField("VintageDate", getApplications.getString("VintageDate"));
                 dataSet.addField("PH", getApplications.getString("PH"));
                 dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
+                dataSet.addField("ApplicantName", getApplications.getString("ApplicantName"));
+                dataSet.addField("DateSubmitted", getApplications.getString("DateSubmitted"));
+                dataSet.addField("DBAorTrade", getApplications.getString("DBAorTrade"));
+                dataSet.addField("Email", getApplications.getString("Email"));
+
+
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + applications.getString("ApplicationNo") + "';");
+                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -273,6 +284,10 @@ public class DatabaseManager {
             dataSet.addField("VintageDate", application.getString("VintageDate"));
             dataSet.addField("PH", application.getString("PH"));
             dataSet.addField("InboxAgent", application.getString("InboxAgent"));
+            dataSet.addField("ApplicantName", application.getString("ApplicantName"));
+            dataSet.addField("DateSubmitted", application.getString("DateSubmitted"));
+            dataSet.addField("DBAorTrade", application.getString("DBAorTrade"));
+            dataSet.addField("Email", application.getString("Email"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -282,12 +297,13 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void submitApplication(String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
+    public static void submitApplication(String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email) {
         try {
             String ApplicationNo = generateTTBID(); //TODO - Replace this with the correct method for generating Application Numbers
             String status = "PENDING";
-            stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
-                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "');");
+            stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH, ApplicantName, DateSubmitted, DBAorTrade, Email) VALUES " +
+                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "', '" + ApplicantName + "', '" + DateSubmitted + "', '" + DBAorTrade + "', '" + Email
+                    + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }
