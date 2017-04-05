@@ -70,4 +70,14 @@ public class ColaSearchScreenManager extends Screen{
         ScreenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
+
+    // Return entered keyword
+    public String getKeyword() {
+        return this.keywords;
+    }
+
+    // Return chosen type
+    public String getSearchType() {
+        return this.searchType;
+    }
 }
