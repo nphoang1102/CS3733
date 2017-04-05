@@ -459,23 +459,7 @@ public class DatabaseManager {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET USER TYPE/////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static String getUserType(String username) {
-        String query = "SELECT * FROM Users WHERE username = '" + username + "';";
-        String userType = "foo";
-        DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
-        try {
-            ResultSet user = stmt.executeQuery(query);
-            user.next();
-            userType = user.getString("userType");
-            LogManager.println("User " + username + " is type " + userType);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userType;
-    }
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER ID/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
