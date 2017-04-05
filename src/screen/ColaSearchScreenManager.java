@@ -60,6 +60,7 @@ public class ColaSearchScreenManager extends Screen{
         String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
         LogManager.println(toPrint);
         this.entryField.clear();
+        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
         return;
     }
 
