@@ -149,7 +149,7 @@ public class AgentInboxManager extends Screen{
         //check if the inbox is empty if its not dont pull new batch
         if(inboxData.size() == 0){
             //fill linked list of data with correct type
-            String key = typeOfAlcBox.getAccessibleText();
+            String key = (String)typeOfAlcBox.getValue();
 
             //create temps for getting stuff from the data base and filling the table
             //DataSet tempData = new DataSet();

@@ -7,7 +7,7 @@ import base.LogManager;
 public class NewApplicationManager extends Screen {
 
     public NewApplicationManager() {
-        super(EnumScreenType.MANUFACTURER_ADD_FORM);
+        super(EnumScreenType.LOG_IN);
     }
     /*fxml objects*/
 
