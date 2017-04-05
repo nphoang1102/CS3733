@@ -97,7 +97,7 @@ public class NewApplicationManager extends Screen {
         Boolean wineSelect = WineSelect.isSelected();
         Boolean otherSelect = OtherSelect.isSelected();
 
-        String manufacturer = "";
+        String manufacturer = "Evan123";
 
         //Databasessssssssssss
 
