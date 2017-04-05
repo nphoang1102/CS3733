@@ -34,7 +34,7 @@ public class LoginScreenManager extends Screen{
         this.usernameField.clear();
         /* To be replaced in the future with actual database query */
         if (this.userName.equals("user")) {
-            ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
+            ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
             LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
@@ -60,7 +60,7 @@ public class LoginScreenManager extends Screen{
         // Tell the screen manager to set the screen to COLA screen
         LogManager.println("Back Button");
         usernameField.clear();
-        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH);
+        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
         return;
     }
 

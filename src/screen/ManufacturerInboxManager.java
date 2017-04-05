@@ -52,12 +52,12 @@ public class ManufacturerInboxManager extends Screen{
     //constructer for the screen
     public ManufacturerInboxManager() {
         super(EnumScreenType.MANUFACTURER_SCREEN);
-        initialize();
+//        initialize();
     }
 
     public void initialize(){
         database.DatabaseManager dbManager = new DatabaseManager();
-        LinkedList<database.DataSet> appList = dbManager.queryManufacturers(manufacturer);
+        LinkedList<database.DataSet> appList = dbManager.queryManufactures(manufacturer);
 
         ObservableList tableList = FXCollections.observableArrayList();
 

@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 public class EditableApplicationManager extends Screen {
 
     public EditableApplicationManager() {
-        super(EnumScreenType.MANUFACTURER_EDIT);
+        super(EnumScreenType.MANUFACTURER_SCREEN);
         REPID.setDisable(true);
         Source.setDisable(true);
         BrandName.setDisable(true);
