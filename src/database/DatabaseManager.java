@@ -238,31 +238,29 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATION FROM ApplicationNo////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getApplications(String appNo) {
+    public static DataSet getApplicationNo(String appNo) {
         String query = "SELECT * FROM Applications WHERE ApplicationNo = " + appNo + ");";
-        LinkedList<DataSet> dataSets = new LinkedList<>();
+        DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
-            ResultSet applications = stmt.executeQuery(query);
-            DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
-            dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
-            dataSet.addField("PermitNo", applications.getString("PermitNo"));
-            dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
-            dataSet.addField("AgentID", applications.getString("AgentID"));
-            dataSet.addField("Source", applications.getString("Source"));
-            dataSet.addField("Brand", applications.getString("Brand"));
-            dataSet.addField("Address", applications.getString("Address"));
-            dataSet.addField("Address2", applications.getString("Address2"));
-            dataSet.addField("Volume", applications.getString("Volume"));
-            dataSet.addField("ABV", applications.getString("ABV"));
-            dataSet.addField("PhoneNo", applications.getString("PhoneNo"));
-            dataSet.addField("AppType", applications.getString("AppType"));
-            dataSet.addField("VintageDate", applications.getString("VintageDate"));
-            dataSet.addField("PH", applications.getString("PH"));
-            dataSets.add(dataSet);
+            ResultSet application = stmt.executeQuery(query);
+            dataSet.addField("ApplicationNo", application.getString("ApplicationNo"));
+            dataSet.addField("PermitNo", application.getString("PermitNo"));
+            dataSet.addField("AlcoholType", application.getString("AlcoholType"));
+            dataSet.addField("AgentID", application.getString("AgentID"));
+            dataSet.addField("Source", application.getString("Source"));
+            dataSet.addField("Brand", application.getString("Brand"));
+            dataSet.addField("Address", application.getString("Address"));
+            dataSet.addField("Address2", application.getString("Address2"));
+            dataSet.addField("Volume", application.getString("Volume"));
+            dataSet.addField("ABV", application.getString("ABV"));
+            dataSet.addField("PhoneNo", application.getString("PhoneNo"));
+            dataSet.addField("AppType", application.getString("AppType"));
+            dataSet.addField("VintageDate", application.getString("VintageDate"));
+            dataSet.addField("PH", application.getString("PH"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return dataSets;
+        return dataSet;
     }
 
     /////////////////////////////////////////////////////////////////////////////////
