@@ -20,7 +20,7 @@ public enum EnumScreenType {
     MANUFACTURER_SCREEN("ManufacturerInbox.fxml", new ManufacturerInboxManager()),
     //    MANUFACTURER_VIEW_FORMS(""),
     MANUFACTURER_ADD_FORM("ManufacturerLabel.fxml", new NewApplicationManager()),
-//    MANUFACTURER_EDIT("ManufacturerInbox.fxml", new EditableApplicationManager()),
+    MANUFACTURER_EDIT("EditableApplication.fxml", new EditableApplicationManager()),
     AGENT_INBOX("AgentInbox.fxml", new AgentInboxManager()),
     AGENT_APP_SCREEN("AgentAppScreen.fxml", new AgentAppScreenManager()),
     ;
@@ -48,3 +48,4 @@ public enum EnumScreenType {
         return this.screen;
     }
 }
+

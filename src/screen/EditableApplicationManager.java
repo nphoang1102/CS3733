@@ -12,23 +12,23 @@ import javafx.scene.control.TextField;
 public class EditableApplicationManager extends Screen {
 
     public EditableApplicationManager() {
-        super(EnumScreenType.MANUFACTURER_SCREEN);
-        REPID.setDisable(true);
-        Source.setDisable(true);
-        BrandName.setDisable(true);
-        ApplicantName.setDisable(true);
-        DBAorTradeName.setDisable(true);
-        Registry.setDisable(true);
-        Address.setDisable(true);
-        AlternateAddress.setDisable(true);
-        Email.setDisable(true);
-        Date.setDisable(true);
-        AlcoholContent.setDisable(true);
-        VintageYear.setDisable(true);
-        PHLevel.setDisable(true);
-        BeerSelect.setDisable(true);
-        WineSelect.setDisable(true);
-        OtherSelect.setDisable(true);
+        super(EnumScreenType.MANUFACTURER_EDIT);
+//        REPID.setDisable(true);
+//        Source.setDisable(true);
+//        BrandName.setDisable(true);
+//        ApplicantName.setDisable(true);
+//        DBAorTradeName.setDisable(true);
+//        Registry.setDisable(true);
+//        Address.setDisable(true);
+//        AlternateAddress.setDisable(true);
+//        Email.setDisable(true);
+//        Date.setDisable(true);
+//        AlcoholContent.setDisable(true);
+//        VintageYear.setDisable(true);
+//        PHLevel.setDisable(true);
+//        BeerSelect.setDisable(true);
+//        WineSelect.setDisable(true);
+//        OtherSelect.setDisable(true);
     }
 
     @FXML
@@ -88,6 +88,9 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button SubmitButton;
 
+    @FXML
+    private Button CancelButton;
+
     public void submit(){
         String repID = REPID.getText();
         String source = Source.getText();
@@ -109,7 +112,21 @@ public class EditableApplicationManager extends Screen {
         Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
+        String id = Long.toString(Math.round(Math.random() * 10000000));
+
+        database.DatabaseManager.submitApplication(id, DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
+
+        LogManager.println("Submitting Application");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        return;
     }
+
+    public void goBack() {
+        LogManager.println("Back button pressed from ManufacturerInboxScreen");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        return;
+    }
+
     public Screen getScreen(){
         return this;
     }

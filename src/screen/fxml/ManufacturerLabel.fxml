@@ -10,7 +10,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1000.0" visible="true" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.NewApplicationManager">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1000.0" visible="true" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.NewApplicationManager">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" height="720.0" layoutX="6.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.3" width="1007.0">
             <fill>
@@ -51,7 +51,12 @@
       <TextField fx:id="VintageYear" layoutX="787.0" layoutY="586.0" />
       <Label layoutX="144.0" layoutY="590.0" text="If Wine: pHLevel" />
       <TextField fx:id="PHLevel" layoutX="320.0" layoutY="586.0" />
-      <Button fx:id="SubmitButton" layoutX="411.0" layoutY="636.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="197.0" text="Submit Application" onMouseClicked="#submit">
+      <Button fx:id="SubmitButton" layoutX="411.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="54.0" prefWidth="197.0" text="Submit Application">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="CancelButton" layoutX="136.0" layoutY="636.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="149.0" text="Cancel" onMouseClicked="#goBack">
          <font>
             <Font size="18.0" />
          </font>
