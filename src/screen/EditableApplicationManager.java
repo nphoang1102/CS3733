@@ -110,5 +110,7 @@ public class EditableApplicationManager extends Screen {
 
         //Databasessssssssssss
     }
-
+    public Screen getScreen(){
+        return this;
+    }
 }
