@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1200.0" style="-fx-background-color: #39CCAE;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ManufacturerInboxManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="810.0" prefWidth="1200.0" style="-fx-background-color: #39CCAE;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ManufacturerInboxManager">
     <children>
         <Button fx:id="NewApplication" layoutX="373.0" layoutY="27.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="182.0" text="New Application">
             <font>
@@ -19,12 +19,12 @@
             </font></Button>
         <ScrollPane layoutX="24.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="880.0" style="-fx-background-color: #;">
          <content>
-            <TableView prefHeight="578.0" prefWidth="878.0">
+            <TableView fx:id="Table" prefHeight="578.0" prefWidth="878.0">
               <columns>
-                <TableColumn prefWidth="94.0" text="TTBID" />
-                <TableColumn prefWidth="340.0" text="Name" />
-                  <TableColumn minWidth="0.0" prefWidth="217.0" text="Status" />
-                  <TableColumn prefWidth="214.0" text="Date Submitted" />
+                <TableColumn fx:id="TTBIDColumn" prefWidth="94.0" text="TTBID" />
+                <TableColumn fx:id="NameColumn" prefWidth="340.0" text="Name" />
+                  <TableColumn fx:id="StatusColumn" minWidth="0.0" prefWidth="217.0" text="Status" />
+                  <TableColumn fx:id="DateColumn" prefWidth="214.0" text="Date Submitted" />
               </columns>
             </TableView>
          </content></ScrollPane>
@@ -33,7 +33,7 @@
                 <Font size="18.0" />
             </font>
         </Button>
-      <Polygon fx:id="BackButton" fill="#247f6d" layoutX="71.0" layoutY="49.0" rotate="270.0" scaleX="0.5" scaleY="0.75" stroke="BLACK" strokeType="INSIDE">
+      <Polygon fx:id="BackButton" fill="#247f6d" layoutX="71.0" layoutY="49.0" rotate="270.0" scaleX="0.5" scaleY="0.75" stroke="BLACK" strokeType="INSIDE" onMouseClicked="#goBack">
         <points>
           <Double fx:value="-50.0" />
           <Double fx:value="40.0" />
