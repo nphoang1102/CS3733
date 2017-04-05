@@ -163,7 +163,7 @@ public class DatabaseManager {
                 String UUID = searchManufacturers.getString("UUID");
                 String username = searchManufacturers.getString("Username");
                 String company = searchManufacturers.getString("Company");
-                DataSet dataSet = new DataSet("Manufacturer");
+                DataSet dataSet = new DataSet(EnumTableType.MANUFACTURER);
                 dataSet.addField("UUID", UUID);
                 dataSet.addField("Username", username);
                 dataSet.addField("Company", company);
