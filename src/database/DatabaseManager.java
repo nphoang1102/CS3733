@@ -124,11 +124,10 @@ public class DatabaseManager {
         }
     }
 
-    public static void Search(String terms) {
-        String query1 = "SELECT " + terms + " FROM Alcohol";
+    public static void Search(String entered, String type){
+        String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
         try {
-            ResultSet search = stmt.executeQuery(query1);
-            search.close();
+            ResultSet Search = stmt.executeQuery(query);
         } catch (SQLException e) {
             e.printStackTrace();
         }
