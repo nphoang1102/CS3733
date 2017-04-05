@@ -61,8 +61,6 @@ public class ManufacturerInboxManager extends Screen{
 
         ObservableList tableList = FXCollections.observableArrayList();
 
-        tableList.addAll(appList);
-
         Table.setItems(tableList);
 
         TTBIDColumn.setCellValueFactory(
@@ -70,7 +68,7 @@ public class ManufacturerInboxManager extends Screen{
         );
 
         NameColumn.setCellValueFactory(
-                new PropertyValueFactory<DataSet, String>("Name")
+                new PropertyValueFactory<DataSet, Label>("BrandName")
         );
 
         StatusColumn.setCellValueFactory(
@@ -80,6 +78,16 @@ public class ManufacturerInboxManager extends Screen{
         DateColumn.setCellValueFactory(
                 new PropertyValueFactory<DataSet, String>("Date")
         );
+
+        for(DataSet data : appList){
+            String tempTTBID = data.getValueForKey("TTBID");
+            Label tempName = new Label(data.getValueForKey("BrandName"));
+            String tempStatus = data.getValueForKey("Status");;
+            String tempDate = data.getValueForKey("CompletedDate");;
+
+            ManufacturerInboxResult tempResult = new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate);
+            tableList.add(tempResult);
+        }
     }
 
     public void newApplication(){
