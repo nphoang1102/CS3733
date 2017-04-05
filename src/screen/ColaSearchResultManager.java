@@ -1,12 +1,16 @@
 package screen;
 
 import base.LogManager;
+import database.DataSet;
+import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import misc.ColaResult;
+
+import java.util.LinkedList;
 
 /**
  * Created by Hoang Nguyen on 4/4/2017.
@@ -15,6 +19,9 @@ public class ColaSearchResultManager extends Screen{
     /* Class attributes */
     private String keywords;
     private String searchType;
+    private LinkedList<DataSet> databaseResult;
+    private ObservableList<ColaResult> resultTable = FXCollections.observableArrayList();
+    private DataSet tempSet;
 
     /* Class constructor */
     public ColaSearchResultManager() {
@@ -55,7 +62,17 @@ public class ColaSearchResultManager extends Screen{
         String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
         LogManager.println(toPrint);
         this.entryField.clear();
-        this.displayToTable();
+        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
+        for (DataSet tempSet: databaseResult) {
+            String tempID = tempSet.getValueForKey("TTBID");
+            String tempSource = tempSet.getValueForKey("Origin");
+            String tempType = tempSet.getValueForKey("Type");
+            String tempBrand = tempSet.getValueForKey("BrandName");
+            this.resultTable.add(new ColaResult(tempID, tempSource, tempType, tempBrand));
+        }
+        this.searchResult.setEditable(false);
+        this.searchResult.setItems(resultTable);
+        //this.displayToTable();
     }
 
     public void backPressed() {
@@ -64,9 +81,7 @@ public class ColaSearchResultManager extends Screen{
     }
 
     public void displayToTable() {
-        ObservableList<ColaResult> resultTable = FXCollections.observableArrayList(
-                new ColaResult("", "", this.searchType+"", this.keywords+"")
-        );
+
         this.searchResult.setEditable(false);
 
         this.searchResult.setItems(resultTable);
