@@ -100,22 +100,22 @@ public class EditableApplicationManager extends Screen {
         VintageYear.setText(data.getValueForKey("VintageDate"));
         PHLevel.setText(data.getValueForKey("PH"));
 
-        //REPID.setDisable(true);
-//        Source.setDisable(true);
-//        BrandName.setDisable(true);
-//        ApplicantName.setDisable(true);
-//        DBAorTradeName.setDisable(true);
-//        Registry.setDisable(true);
-//        Address.setDisable(true);
-//        AlternateAddress.setDisable(true);
-//        Email.setDisable(true);
-//        Date.setDisable(true);
-//        AlcoholContent.setDisable(true);
-//        VintageYear.setDisable(true);
-//        PHLevel.setDisable(true);
-//        BeerSelect.setDisable(true);
-//        WineSelect.setDisable(true);
-//        OtherSelect.setDisable(true);
+        REPID.setDisable(true);
+        Source.setDisable(true);
+        BrandName.setDisable(true);
+        ApplicantName.setDisable(true);
+        DBAorTradeName.setDisable(true);
+        Registry.setDisable(true);
+        Address.setDisable(true);
+        AlternateAddress.setDisable(true);
+        Email.setDisable(true);
+        Date.setDisable(true);
+        AlcoholContent.setDisable(true);
+        VintageYear.setDisable(true);
+        PHLevel.setDisable(true);
+        BeerSelect.setDisable(true);
+        WineSelect.setDisable(true);
+        OtherSelect.setDisable(true);
     }
 
     public void submit(){
