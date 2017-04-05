@@ -89,13 +89,19 @@ public class DatabaseManager {
                     " Manufacturer VARCHAR(50) NOT NULL,\n" +
                     " PermitNo VARCHAR(100) NOT NULL,\n" +
                     " Status ENUM('APPROVED','DENIED','PENDING') NOT NULL,\n" +
+                    " AlcoholType VARCHAR(50) NOT NULL,\n" +
+                    " AgentID VARCHAR(20) NOT NULL,\n" +
+                    " Source VARCHAR(100) NOT NULL,\n" +
+                    " Brand VARCHAR(50) NOT NULL,\n" +
+                    " Address VARCHAR(100) NOT NULL,\n" +
                     " Address2 VARCHAR(100) NOT NULL,\n" +
                     " Volume VARCHAR(100) NOT NULL,\n" +
                     " ABV VARCHAR(10) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " AppType VARCHAR(100) NOT NULL,\n" +
                     " VintageDate VARCHAR(30),\n" +
-                    " PH VARCHAR(10)\n" +
+                    " PH VARCHAR(10),\n" +
+                    " InboxAgent VARCHAR(20)\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -105,7 +111,9 @@ public class DatabaseManager {
             stmt.executeUpdate("CREATE TABLE Users(\n" +
                     " username VARCHAR(100) PRIMARY KEY,\n" +
                     " passwordHash VARCHAR(100) NOT NULL,\n" +
-                    " userType ENUM('AGENT','MANUFACTURER') NOT NULL\n" +
+                    " agentInbox ARRAY(100) NOT NULL,\n" +
+                    //" userType ENUM('AGENT','MANUFACTURER') NOT NULL\n" +
+                    " userType VARCHAR(20) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Users' exists.", EnumWarningType.NOTE);
@@ -226,6 +234,7 @@ public class DatabaseManager {
                 dataSet.addField("AppType", applications.getString("AppType"));
                 dataSet.addField("VintageDate", applications.getString("VintageDate"));
                 dataSet.addField("PH", applications.getString("PH"));
+                dataSet.addField("InboxAgent", applications.getString("InboxAgent"));
                 dataSets.add(dataSet);
                 applications.next();
             }
@@ -259,6 +268,7 @@ public class DatabaseManager {
             dataSet.addField("AppType", application.getString("AppType"));
             dataSet.addField("VintageDate", application.getString("VintageDate"));
             dataSet.addField("PH", application.getString("PH"));
+            dataSet.addField("InboxAgent", application.getString("InboxAgent"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -284,12 +294,14 @@ public class DatabaseManager {
         String id = Long.toString(Math.round(Math.random() * 10000000));
         return id;
     }
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void approveApplication(String ApplicationNo) {
+    public static void approveApplication(String ApplicationNo, String username) {
         try {
             stmt.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNo + "';");
+            stmt.executeUpdate("UPDATE Users SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -324,7 +336,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD USERS/////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void addUser(String username, String password, EnumUserType type) {
+    public static void addUser(String username, String password, String type) {
         try {
             stmt.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES " +
                     "('" + username + "', '" + password + "', '" + type + "')");
@@ -340,8 +352,8 @@ public class DatabaseManager {
         String query = "SELECT * FROM Users WHERE username = '" + username + "';";
         String userType = null;
         try {
-            ResultSet application = stmt.executeQuery(query);
-            userType = application.getString("userType");
+            ResultSet users = stmt.executeQuery(query);
+            userType = users.getString("userType");
         } catch (SQLException e) {
             e.printStackTrace();
         }
