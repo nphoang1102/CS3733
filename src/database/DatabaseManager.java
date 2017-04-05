@@ -118,9 +118,19 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////TESTS/////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    /*public void entryTest() {
+    public void entryTest() {
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (12309847, 'FakePermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', 123, 456, 'Beer')");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12309847', 'PermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', '123', '456', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('98765432', 'PermitNo321', 'Serial65', '2016-02-01', 'Le Beer', 'Beermakers', '456', '80', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('682732423', 'PermitNo333', 'Seria8080', '2015-12-12', 'Le Drinky', 'Winemakers', '902', '44', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -135,7 +145,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD ENTRY/////////////////////////////////////////////////////////////
@@ -195,6 +205,7 @@ public class DatabaseManager {
 
             for (int i = 0; i < num; i++) {
                 DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+                dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
                 dataSet.addField("PermitNo", applications.getString("PermitNo"));
                 dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
                 dataSet.addField("AgentID", applications.getString("AgentID"));
