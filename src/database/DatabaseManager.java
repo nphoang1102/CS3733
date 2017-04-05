@@ -93,8 +93,8 @@ public class DatabaseManager {
                     " Volume VARCHAR(100) NOT NULL,\n" +
                     " ABV VARCHAR(10) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
-                    " AppType VARCHAR(100) NOT NULL\n" +
-                    " VintageDate VARCHAR(30)\n" +
+                    " AppType VARCHAR(100) NOT NULL,\n" +
+                    " VintageDate VARCHAR(30),\n" +
                     " PH VARCHAR(10)\n" +
                     ");\n");
         } catch (SQLException e) {
