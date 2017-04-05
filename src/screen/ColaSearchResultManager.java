@@ -73,18 +73,10 @@ public class ColaSearchResultManager extends Screen{
         }
         this.searchResult.setEditable(false);
         this.searchResult.setItems(resultTable);
-        //this.displayToTable();
     }
 
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchResultScreen");
         ScreenManager.setScreen((EnumScreenType.LOG_IN));
-    }
-
-    public void displayToTable() {
-
-        this.searchResult.setEditable(false);
-
-        this.searchResult.setItems(resultTable);
     }
 }

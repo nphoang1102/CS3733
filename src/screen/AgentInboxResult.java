@@ -13,7 +13,7 @@ public class AgentInboxResult {
      public AgentInboxResult(Label aLabel, String aName ){
         ManufacturerName = aLabel;
         BrandName = aName;
-      }
+     }
 
 
 }

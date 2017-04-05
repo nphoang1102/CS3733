@@ -26,53 +26,41 @@ import java.util.LinkedList;
 
 
 public class AgentInboxManager extends Screen{
-
+    /* JavaFX objects */
     @FXML
-    private Button pullNewBatch;
-
+    private Button pullNewBatch, newApplication;
     @FXML
     private Polygon backButton;
-
     @FXML
     private TextArea results;
-
-
     @FXML
     private ChoiceBox typeOfAlcBox;
-
     @FXML
     private TableView inboxData;
-
     @FXML
     private TableColumn manufacturerName, specificBrandName;
 
-
-
-
+    /* Class attributes */
     private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
     private LinkedList<String> uuidCodes = new LinkedList<>();
 
-    //constructer for the screen
+   /* Class constructor */
     public AgentInboxManager() {
         super(EnumScreenType.AGENT_INBOX);
-//        initialize();
     }
 
     /*
-        sets up the entire screent including the choice box and the specific agents inbox
+        sets up the entire screen including the choice box and the specific agents inbox
      */
+/*    @FXML
     public void initialize() {
         ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine");
         System.out.println("type of alc box: " + typeOfAlcBox);
         System.out.println();
         typeOfAlcBox.setItems(typeList);
-
         typeOfAlcBox.setValue("Beer");
 
-
-
         //query database for UUID's that current Agent has in inbox
-
         int i = 0;
         for(String tempCode: uuidCodes){
 
@@ -125,7 +113,7 @@ public class AgentInboxManager extends Screen{
                 });
         }
 
-    }
+    }*/
 
     @FXML
     void goBack() {
@@ -159,6 +147,9 @@ public class AgentInboxManager extends Screen{
 
     public void removeId(String rString){
         uuidCodes.remove(rString);
+    }
+    public void newApplication() {
+
     }
 
 
