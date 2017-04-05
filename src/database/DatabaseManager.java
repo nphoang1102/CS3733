@@ -214,30 +214,30 @@ public class DatabaseManager {
         String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "';";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
-            ResultSet applications = stmt.executeQuery(query);
+            ResultSet getApplications = stmt.executeQuery(query);
 
             for (int i = 0; i < num; i++) {
-                applications.next();
+                getApplications.next();
                 DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
-                dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
-                dataSet.addField("Manufacturer", applications.getString("Manufacturer"));
-                dataSet.addField("PermitNo", applications.getString("PermitNo"));
-                dataSet.addField("Status", applications.getString("Status"));
-                dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
-                dataSet.addField("AgentID", applications.getString("AgentID"));
-                dataSet.addField("Source", applications.getString("Source"));
-                dataSet.addField("Brand", applications.getString("Brand"));
-                dataSet.addField("Address", applications.getString("Address"));
-                dataSet.addField("Address2", applications.getString("Address2"));
-                dataSet.addField("Volume", applications.getString("Volume"));
-                dataSet.addField("ABV", applications.getString("ABV"));
-                dataSet.addField("PhoneNo", applications.getString("PhoneNo"));
-                dataSet.addField("AppType", applications.getString("AppType"));
-                dataSet.addField("VintageDate", applications.getString("VintageDate"));
-                dataSet.addField("PH", applications.getString("PH"));
-                dataSet.addField("InboxAgent", applications.getString("InboxAgent"));
+                dataSet.addField("ApplicationNo", getApplications.getString("ApplicationNo"));
+                dataSet.addField("Manufacturer", getApplications.getString("Manufacturer"));
+                dataSet.addField("PermitNo", getApplications.getString("PermitNo"));
+                dataSet.addField("Status", getApplications.getString("Status"));
+                dataSet.addField("AlcoholType", getApplications.getString("AlcoholType"));
+                dataSet.addField("AgentID", getApplications.getString("AgentID"));
+                dataSet.addField("Source", getApplications.getString("Source"));
+                dataSet.addField("Brand", getApplications.getString("Brand"));
+                dataSet.addField("Address", getApplications.getString("Address"));
+                dataSet.addField("Address2", getApplications.getString("Address2"));
+                dataSet.addField("Volume", getApplications.getString("Volume"));
+                dataSet.addField("ABV", getApplications.getString("ABV"));
+                dataSet.addField("PhoneNo", getApplications.getString("PhoneNo"));
+                dataSet.addField("AppType", getApplications.getString("AppType"));
+                dataSet.addField("VintageDate", getApplications.getString("VintageDate"));
+                dataSet.addField("PH", getApplications.getString("PH"));
+                dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + applications.getString("ApplicationNo") + "';");
+                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + applications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
