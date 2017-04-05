@@ -88,6 +88,9 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button SubmitButton;
 
+    @FXML
+    private Button CancelButton;
+
     public void submit(){
         String repID = REPID.getText();
         String source = Source.getText();
@@ -109,7 +112,21 @@ public class EditableApplicationManager extends Screen {
         Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
+        String id = Long.toString(Math.round(Math.random() * 10000000));
+
+        database.DatabaseManager.submitApplication(id, DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
+
+        LogManager.println("Submitting Application");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        return;
     }
+
+    public void goBack() {
+        LogManager.println("Back button pressed from ManufacturerInboxScreen");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        return;
+    }
+
     public Screen getScreen(){
         return this;
     }

@@ -13,24 +13,25 @@ import java.io.IOException;
  * Created by Bailey Sostek on 4/1/17.
  */
 public enum EnumScreenType {
-    LOG_IN("LoginScreen.fxml"),
-    CREATE_ACCOUNT("CreateAccount.fxml"),
-    COLA_SEARCH("ColaSearchScreen.fxml"),
-    COLA_SEARCH_RESULT(""),
-    MANUFACTURER_SCREEN("ManufacturerInbox.fxml"),
-    MANUFACTURER_VIEW_FORMS(""),
-    MANUFACTURER_ADD_FORM("ManufacturerLabel"),
-    MANUFACTURER_EDIT("EditableApplication.fxml"),
-    AGENT_INBOX("AgentInbox.fxml"),
-    AGENT_APP_SCREEN("AgentAppScreen.fxml"),
+    LOG_IN("LoginScreen.fxml", new LoginScreenManager()),
+    CREATE_ACCOUNT("CreateAccount.fxml", new CreateAccountManager()),
+    COLA_SEARCH("ColaSearchScreen.fxml", new ColaSearchScreenManager()),
+    //    COLA_SEARCH_RESULT(""),
+    MANUFACTURER_SCREEN("ManufacturerInbox.fxml", new ManufacturerInboxManager()),
+    //    MANUFACTURER_VIEW_FORMS(""),
+    MANUFACTURER_ADD_FORM("ManufacturerLabel.fxml", new NewApplicationManager()),
+    MANUFACTURER_EDIT("EditableApplication.fxml", new EditableApplicationManager()),
+    AGENT_INBOX("AgentInbox.fxml", new AgentInboxManager()),
+    AGENT_APP_SCREEN("AgentAppScreen.fxml", new AgentAppScreenManager()),
     ;
 
     private Parent scene;
-    EnumScreenType (String file){
+    private Screen screen;
+
+    EnumScreenType (String file, Screen screen){
         try {
             this.scene = FXMLLoader.load(this.getClass().getResource("/screen/fxml/"+file));
-        }catch (IOException e) {
-            LogManager.println("FXML file not found for:"+this.toString()+":"+ Main.PATH+Main.LOG+"/"+this.getFXMLFile(), EnumWarningType.WARNING);
+            this.screen = screen;
         }catch(Exception e){
             LogManager.println(e.toString(), EnumWarningType.ERROR);
             LogManager.printStackTrace(e.getStackTrace());
@@ -39,5 +40,8 @@ public enum EnumScreenType {
 
     public Parent getFXMLFile(){
         return this.scene;
+    }
+    public Screen getScreen(){
+        return this.screen;
     }
 }

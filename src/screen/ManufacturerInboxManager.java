@@ -56,8 +56,7 @@ public class ManufacturerInboxManager extends Screen{
     }
 
     public void initialize(){
-        database.DatabaseManager dbManager = new DatabaseManager();
-        LinkedList<database.DataSet> appList = dbManager.queryManufacturers(manufacturer);
+        LinkedList<database.DataSet> appList = DatabaseManager.queryManufacturers(manufacturer);
 
         ObservableList tableList = FXCollections.observableArrayList();
 
@@ -85,6 +84,12 @@ public class ManufacturerInboxManager extends Screen{
         Integer numApps = appList.size();
         for(int i = 0; i < numApps; i++){
         }
+    }
+
+    public void newApplication(){
+        LogManager.println("Creating a new application");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
+        return;
     }
 
     public void goBack() {

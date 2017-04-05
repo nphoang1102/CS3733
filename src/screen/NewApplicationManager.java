@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
+import java.lang.*;
 
 /**
  * Created by tj on 4/3/2017.
@@ -72,6 +73,9 @@ public class NewApplicationManager extends Screen {
     @FXML
     private Button SubmitButton;
 
+    @FXML
+    private Button CancelButton;
+
     public void submit(){
         String repID = REPID.getText();
         String source = Source.getText();
@@ -93,6 +97,22 @@ public class NewApplicationManager extends Screen {
         Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
+        String id = Long.toString(Math.round(Math.random() * 10000000));
+
+        database.DatabaseManager.submitApplication(id, DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
+
+        LogManager.println("Submitting Application");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        return;
+    }
+
+    public void goBack() {
+        LogManager.println("Back button pressed from ManufacturerInboxScreen");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        return;
+    }
+    public Screen getScreen(){
+        return this;
     }
 
 }
