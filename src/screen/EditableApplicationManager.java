@@ -112,10 +112,12 @@ public class EditableApplicationManager extends Screen {
         Boolean wineSelect = WineSelect.isSelected();
         Boolean otherSelect = OtherSelect.isSelected();
 
+        String manufacturer = "";
+
         //Databasessssssssssss
         String id = DatabaseManager.generateTTBID();
 
-        database.DatabaseManager.submitApplication(id, DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
+        database.DatabaseManager.submitApplication(id, manufacturer, Registry.getText(), DBAorTradeName.getText(), Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
 
         LogManager.println("Submitting Application");
         ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
