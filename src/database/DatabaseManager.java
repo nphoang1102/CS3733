@@ -5,6 +5,7 @@ package database;
 
 import base.EnumWarningType;
 import base.LogManager;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -124,16 +125,39 @@ public class DatabaseManager {
         }
     }
 
-    public static void Search(String entered, String type){
+    public static LinkedList<DataSet> Search(String entered, String type){
         String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
-            ResultSet Search = stmt.executeQuery(query);
+            ResultSet searchAlcohol = stmt.executeQuery(query);
+            while (searchAlcohol.next()) {
+                String TTBID = searchAlcohol.getString("TTBID");
+                String PermitNo = searchAlcohol.getString("PermitNo");
+                String SerialNo = searchAlcohol.getString("SerialNo");
+                String CompletedDate = searchAlcohol.getString("CompletedDate");
+                String FancifulName = searchAlcohol.getString("FancifulName");
+                String BrandName = searchAlcohol.getString("BrandName");
+                String Origin = searchAlcohol.getString("Origin");
+                String Class = searchAlcohol.getString("Class");
+                String Type = searchAlcohol.getString("Type");
+                DataSet dataSet = new DataSet(EnumTableType.ALCOHOL);
+                dataSet.addField("TTBID", TTBID);
+                dataSet.addField("PermitNo", PermitNo);
+                dataSet.addField("SerialNo", SerialNo);
+                dataSet.addField("CompletedDate", CompletedDate);
+                dataSet.addField("FancifulName", FancifulName);
+                dataSet.addField("BrandName", BrandName);
+                dataSet.addField("Origin", Origin);
+                dataSet.addField("Class", Class);
+                dataSet.addField("Type", Type);
+                dataSets.add(dataSet);}
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return dataSets;
     }
 
-    public static void queryAlcohol(String query) {
+    /*public static void queryAlcohol(String query) {
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query2);
@@ -141,7 +165,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public static LinkedList<DataSet> queryManufactures() {
         return queryManufacturers("SELECT * FROM Manufactures");
@@ -162,7 +186,7 @@ public class DatabaseManager {
 
     public static LinkedList<DataSet> queryManufacturers(String entry) {
         String query = entry;
-        LinkedList<DataSet> data = new LinkedList<>();
+        LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet searchManufacturers = stmt.executeQuery(query);
             while (searchManufacturers.next()) {
@@ -173,7 +197,7 @@ public class DatabaseManager {
                 dataSet.addField("UUID", UUID);
                 dataSet.addField("Username", username);
                 dataSet.addField("Company", company);
-                data.add(dataSet);
+                dataSets.add(dataSet);
                 /*
                 LogManager.println("UUID: " + UUID);
                 LogManager.println("Username: " + username);
@@ -184,7 +208,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return data;
+        return dataSets;
     }
 }
 
