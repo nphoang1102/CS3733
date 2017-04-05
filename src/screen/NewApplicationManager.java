@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -97,7 +98,7 @@ public class NewApplicationManager extends Screen {
         Boolean wineSelect = WineSelect.isSelected();
         Boolean otherSelect = OtherSelect.isSelected();
 
-        String manufacturer = "Evan123";
+        String manufacturer = Main.getUsername();
 
         //Databasessssssssssss
 
