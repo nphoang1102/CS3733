@@ -284,8 +284,9 @@ public class DatabaseManager {
     public static void submitApplication(String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
         try {
             String ApplicationNo = generateTTBID(); //TODO - Replace this with the correct method for generating Application Numbers
+            String status = "PENDING";
             stmt.executeUpdate("INSERT INTO Applications (ApplicAddressationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
-                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "');");
+                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }
