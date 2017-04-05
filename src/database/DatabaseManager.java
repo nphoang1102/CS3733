@@ -85,6 +85,7 @@ public class DatabaseManager {
         try {
             stmt.executeUpdate("CREATE TABLE Applications(\n" +
                     " ApplicationNo VARCHAR(30) PRIMARY KEY,\n" +
+                    " Manufacturer VARCHAR(50) NOT NULL,\n" +
                     " PermitNo VARCHAR(100) NOT NULL,\n" +
                     " AlcoholType VARCHAR(10) NOT NULL,\n" +
                     " AgentID BIGINT NOT NULL,\n" +
@@ -213,6 +214,7 @@ public class DatabaseManager {
             for (int i = 0; i < num; i++) {
                 DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
                 dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
+                dataSet.addField("Manufacturer", applications.getString("Manufacturer"));
                 dataSet.addField("PermitNo", applications.getString("PermitNo"));
                 dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
                 dataSet.addField("AgentID", applications.getString("AgentID"));
@@ -244,6 +246,7 @@ public class DatabaseManager {
         try {
             ResultSet application = stmt.executeQuery(query);
             dataSet.addField("ApplicationNo", application.getString("ApplicationNo"));
+            dataSet.addField("Manufacturer", application.getString("Manufacturer"));
             dataSet.addField("PermitNo", application.getString("PermitNo"));
             dataSet.addField("AlcoholType", application.getString("AlcoholType"));
             dataSet.addField("AgentID", application.getString("AgentID"));
@@ -288,7 +291,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD USERS/////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void addUser(String username, String password, EnumUserType type){
+    public static void addUser(String username, String password, EnumUserType type) {
         try {
             stmt.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES " +
                     "('" + username + "', '" + password + "', '" + type + "')");
@@ -300,12 +303,15 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER TYPE/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void getUserType(String username){
+    public static void getUserType(String username) {
+        String query = "SELECT * FROM Users WHERE username = '" + username + "';";
         try {
-            stmt.executeUpdate("SELECT userType FROM Users WHERE username = '" + username + "';");
+            ResultSet application = stmt.executeQuery(query);
+            String type = application.getString("userType");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
     }
 
 
