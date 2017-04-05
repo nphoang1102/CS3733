@@ -28,4 +28,16 @@ public class User {
         return this.email;
     }
 
+    public void setType(EnumUserType type){
+        userType = type;
+    }
+    public void setUsername(String name){
+        username = name;
+    }
+
+    public void setEmail(String inputEmail){
+        email = inputEmail;
+    }
+
+
 }

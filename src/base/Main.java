@@ -105,4 +105,10 @@ public class Main extends Application{
     public static String getUsername(){
         return user.getUsername();
     }
+
+    public static void setUser (User u){
+        user.setType(u.getType());
+        user.setEmail(u.getEmail());
+        user.setUsername(u.getUsername());
+    }
 }
