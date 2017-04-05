@@ -237,7 +237,7 @@ public class DatabaseManager {
                 dataSet.addField("PH", getApplications.getString("PH"));
                 dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + applications.getString("ApplicationNo") + "';");
+                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -246,6 +246,85 @@ public class DatabaseManager {
         }
         return dataSets;
     }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> getApplicationsInitialAgent(String username) {
+        String query = "SELECT * FROM Applications WHERE InboxAgent = '" + username + "';";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        try {
+            ResultSet getApplications = stmt.executeQuery(query);
+
+            while(getApplications.next()) {
+                DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+                dataSet.addField("ApplicationNo", getApplications.getString("ApplicationNo"));
+                dataSet.addField("Manufacturer", getApplications.getString("Manufacturer"));
+                dataSet.addField("PermitNo", getApplications.getString("PermitNo"));
+                dataSet.addField("Status", getApplications.getString("Status"));
+                dataSet.addField("AlcoholType", getApplications.getString("AlcoholType"));
+                dataSet.addField("AgentID", getApplications.getString("AgentID"));
+                dataSet.addField("Source", getApplications.getString("Source"));
+                dataSet.addField("Brand", getApplications.getString("Brand"));
+                dataSet.addField("Address", getApplications.getString("Address"));
+                dataSet.addField("Address2", getApplications.getString("Address2"));
+                dataSet.addField("Volume", getApplications.getString("Volume"));
+                dataSet.addField("ABV", getApplications.getString("ABV"));
+                dataSet.addField("PhoneNo", getApplications.getString("PhoneNo"));
+                dataSet.addField("AppType", getApplications.getString("AppType"));
+                dataSet.addField("VintageDate", getApplications.getString("VintageDate"));
+                dataSet.addField("PH", getApplications.getString("PH"));
+                dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
+                dataSets.add(dataSet);
+                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                //applications.next();
+            }
+        } catch (SQLException e) {
+            LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
+            return new LinkedList<>();
+        }
+        return dataSets;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> getApplicationsInitialManuefacturer(String username) {
+        String query = "SELECT * FROM Applications WHERE Manufacturer = '" + username + "';";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        try {
+            ResultSet getApplications = stmt.executeQuery(query);
+
+            while(getApplications.next()) {
+                DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+                dataSet.addField("ApplicationNo", getApplications.getString("ApplicationNo"));
+                dataSet.addField("Manufacturer", getApplications.getString("Manufacturer"));
+                dataSet.addField("PermitNo", getApplications.getString("PermitNo"));
+                dataSet.addField("Status", getApplications.getString("Status"));
+                dataSet.addField("AlcoholType", getApplications.getString("AlcoholType"));
+                dataSet.addField("AgentID", getApplications.getString("AgentID"));
+                dataSet.addField("Source", getApplications.getString("Source"));
+                dataSet.addField("Brand", getApplications.getString("Brand"));
+                dataSet.addField("Address", getApplications.getString("Address"));
+                dataSet.addField("Address2", getApplications.getString("Address2"));
+                dataSet.addField("Volume", getApplications.getString("Volume"));
+                dataSet.addField("ABV", getApplications.getString("ABV"));
+                dataSet.addField("PhoneNo", getApplications.getString("PhoneNo"));
+                dataSet.addField("AppType", getApplications.getString("AppType"));
+                dataSet.addField("VintageDate", getApplications.getString("VintageDate"));
+                dataSet.addField("PH", getApplications.getString("PH"));
+                dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
+                dataSets.add(dataSet);
+                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                //applications.next();
+            }
+        } catch (SQLException e) {
+            LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
+            return new LinkedList<>();
+        }
+        return dataSets;
+    }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATION FROM ApplicationNo////////////////////////////////////

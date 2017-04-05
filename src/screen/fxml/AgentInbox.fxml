@@ -45,7 +45,7 @@
       <items>
         <FXCollections fx:factory="observableArrayList">
           <String fx:value="Beer" />
-          <String fx:value="Wine" />
+          <String fx:value="wine" />
         </FXCollections>
       </items>
     </ChoiceBox>
