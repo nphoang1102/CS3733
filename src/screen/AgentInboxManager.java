@@ -73,6 +73,8 @@ public class AgentInboxManager extends Screen{
 
 
 
+
+
         //query database for UUID's that current Agent has in inbox
 
         int i = 0;

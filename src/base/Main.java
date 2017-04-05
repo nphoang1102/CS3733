@@ -18,6 +18,7 @@ public class Main extends Application{
     private ScreenManager screenManager;
     private LogManager logManager;
     private DatabaseManager databaseManager;
+    private UserManager userManager;
 
 
     public static final int WIDTH = 1280;
@@ -55,6 +56,7 @@ public class Main extends Application{
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
+        userManager = new UserManager();
         //databaseManager.entryTest();
         /*
             Check to see if local directories for Saves and Log files exist,

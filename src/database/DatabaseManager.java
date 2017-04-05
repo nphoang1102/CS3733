@@ -210,6 +210,7 @@ public class DatabaseManager {
 
             for (int i = 0; i < num; i++) {
                 DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+                applications.next();
                 dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
                 dataSet.addField("Manufacturer", applications.getString("Manufacturer"));
                 dataSet.addField("PermitNo", applications.getString("PermitNo"));
@@ -227,7 +228,7 @@ public class DatabaseManager {
                 dataSet.addField("VintageDate", applications.getString("VintageDate"));
                 dataSet.addField("PH", applications.getString("PH"));
                 dataSets.add(dataSet);
-                applications.next();
+               /* applications.next();*/
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -287,11 +288,11 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void approveApplication(String ApplicationNo) {
+ /*   public static void approveApplication(String ApplicationNo) {
         try {
-            /*UPDATE table_name
+            *//*UPDATE table_name
 SET column1 = value1, column2 = value2, ...
-WHERE condition;*/
+WHERE condition;*//*
             stmt.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNo + "';");
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
@@ -300,7 +301,7 @@ WHERE condition;*/
         DataSet approvedApplication = getApplicationNo(ApplicationNo);
 
         stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
-    }
+    }*/
 
     /*public static void queryAlcohol(String query) {
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";
