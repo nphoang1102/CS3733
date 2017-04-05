@@ -187,7 +187,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> Search(String type, int num) {
+    public static LinkedList<DataSet> getApplications(String type, int num) {
         String query = "SELECT * FROM Applications WHERE AlcoholType = " + type + ");";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
