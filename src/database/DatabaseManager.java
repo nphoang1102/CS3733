@@ -364,7 +364,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static String getUserType(String username) {
         String query = "SELECT * FROM Users WHERE username = '" + username + "';";
-        String userType = null;
+        String userType = "foo";
         try {
             ResultSet users = stmt.executeQuery(query);
             userType = users.getString("userType");
