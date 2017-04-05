@@ -24,10 +24,10 @@ public class AgentAppScreenManager extends Screen{
     @FXML
     Button acceptButton, rejectButton;
 
-    private DataSet data;
+    private String data;
 
 
-    public void setData(DataSet aData){
+    public void setData(String aData){
         data = aData;
     }
     /*

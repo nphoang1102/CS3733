@@ -30,7 +30,7 @@ public class ScreenManager {
             stage.setScene(scenes.get(type.toString()));
         }else {
             scenes.put(type.toString(), new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
-            screen = type.getScreen();
+            screen = type.Screen();
             stage.setScene(scenes.get(type.toString()));
         }
     }

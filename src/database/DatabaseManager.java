@@ -6,6 +6,7 @@ package database;
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import screen.EnumUserType;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -145,6 +146,12 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Applications (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -198,7 +205,6 @@ public class DatabaseManager {
     ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplications(String type, int num) {
-
         String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "');";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
@@ -230,12 +236,40 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
+    ///////////GET APPLICATION FROM ApplicationNo////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static DataSet getApplicationNo(String appNo) {
+        String query = "SELECT * FROM Applications WHERE ApplicationNo = '" + appNo + "';";
+        DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+        try {
+            ResultSet application = stmt.executeQuery(query);
+            dataSet.addField("ApplicationNo", application.getString("ApplicationNo"));
+            dataSet.addField("PermitNo", application.getString("PermitNo"));
+            dataSet.addField("AlcoholType", application.getString("AlcoholType"));
+            dataSet.addField("AgentID", application.getString("AgentID"));
+            dataSet.addField("Source", application.getString("Source"));
+            dataSet.addField("Brand", application.getString("Brand"));
+            dataSet.addField("Address", application.getString("Address"));
+            dataSet.addField("Address2", application.getString("Address2"));
+            dataSet.addField("Volume", application.getString("Volume"));
+            dataSet.addField("ABV", application.getString("ABV"));
+            dataSet.addField("PhoneNo", application.getString("PhoneNo"));
+            dataSet.addField("AppType", application.getString("AppType"));
+            dataSet.addField("VintageDate", application.getString("VintageDate"));
+            dataSet.addField("PH", application.getString("PH"));
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSet;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
     ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(String ApplicationNo, String PermitNo, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
         try {
             stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, PermitNo, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
-                    "('" + ApplicationNo + " ', '" + PermitNo + " ', '" + AlcoholType + " ', '" + AgentID + " ', '" + Source + " ', '" + Brand + " ', '" + Address + " ', '" + Address2 + " ', '" + Volume + " ', '" + ABV + " ', '" + PhoneNo + " ', '" + AppType + " ', '" + VintageDate + " ', '" + PH + " ')");
+                    "('" + ApplicationNo + "', '" + PermitNo + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -251,6 +285,17 @@ public class DatabaseManager {
         }
     }*/
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ADD USERS/////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void addUser(String username, String password, EnumUserType type){
+        try {
+            stmt.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES " +
+                    "('" + username + "', '" + password + "', '" + type + "')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////
