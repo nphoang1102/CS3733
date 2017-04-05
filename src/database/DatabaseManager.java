@@ -111,7 +111,7 @@ public class DatabaseManager {
             stmt.executeUpdate("CREATE TABLE Users(\n" +
                     " username VARCHAR(100) PRIMARY KEY,\n" +
                     " passwordHash VARCHAR(100) NOT NULL,\n" +
-                    " agentInbox ARRAY(100) NOT NULL,\n" +
+                    //" agentInbox ARRAY(100) NOT NULL,\n" +
                     //" userType ENUM('AGENT','MANUFACTURER') NOT NULL\n" +
                     " userType VARCHAR(20) NOT NULL\n" +
                     ");\n");
