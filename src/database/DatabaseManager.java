@@ -2,6 +2,7 @@
  * Created by Evan Goldstein on 4/1/17.
  */
 package database;
+
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
@@ -114,13 +115,22 @@ public class DatabaseManager {
     }
 
 
-
     /////////////////////////////////////////////////////////////////////////////////
     ///////////TESTS/////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    /*public void entryTest() {
+    public void entryTest() {
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (12309847, 'FakePermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', 123, 456, 'Beer')");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12309847', 'PermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', '123', '456', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('98765432', 'PermitNo321', 'Serial65', '2016-02-01', 'Le Beer', 'Beermakers', '456', '80', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('682732423', 'PermitNo333', 'Seria8080', '2015-12-12', 'Le Drinky', 'Winemakers', '902', '44', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -135,24 +145,24 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }*/
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD ENTRY/////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
+    /*public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
+            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> Search(String entered, String type) {
-        String query = "SELECT * FROM Alcohol WHERE BrandName = " + entered + " AND Type = " + type + ");";
+        String query = "SELECT * FROM Alcohol WHERE BrandName = '" + entered + "' AND Type = '" + type + "');";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query);
@@ -184,6 +194,52 @@ public class DatabaseManager {
         return dataSets;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> getApplications(String type, int num) {
+        String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "');";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        try {
+            ResultSet applications = stmt.executeQuery(query);
+
+            for (int i = 0; i < num; i++) {
+                DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+                dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
+                dataSet.addField("PermitNo", applications.getString("PermitNo"));
+                dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
+                dataSet.addField("AgentID", applications.getString("AgentID"));
+                dataSet.addField("Source", applications.getString("Source"));
+                dataSet.addField("Brand", applications.getString("Brand"));
+                dataSet.addField("Address", applications.getString("Address"));
+                dataSet.addField("Address2", applications.getString("Address2"));
+                dataSet.addField("Volume", applications.getString("Volume"));
+                dataSet.addField("ABV", applications.getString("ABV"));
+                dataSet.addField("PhoneNo", applications.getString("PhoneNo"));
+                dataSet.addField("AppType", applications.getString("AppType"));
+                dataSet.addField("VintageDate", applications.getString("VintageDate"));
+                dataSet.addField("PH", applications.getString("PH"));
+                dataSets.add(dataSet);
+                applications.next();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSets;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void submitApplication(String ApplicationNo, String PermitNo, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
+        try {
+            stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, PermitNo, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
+                    "('" + ApplicationNo + " ', '" + PermitNo + " ', '" + AlcoholType + " ', '" + AgentID + " ', '" + Source + " ', '" + Brand + " ', '" + Address + " ', '" + Address2 + " ', '" + Volume + " ', '" + ABV + " ', '" + PhoneNo + " ', '" + AppType + " ', '" + VintageDate + " ', '" + PH + " ')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     /*public static void queryAlcohol(String query) {
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";
         try {
@@ -203,15 +259,15 @@ public class DatabaseManager {
     }
 
     public static LinkedList<DataSet> queryManufactures(String manufacturer) {
-        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = " + manufacturer);
+        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = '" + manufacturer + "');");
     }
 
     public static LinkedList<DataSet> queryManufactures(LinkedList<String> manufacturers) {
         String query = "SELECT * FROM Manufactures WHERE";
         for (String m : manufacturers) {
-            query = query + " Company = " + m + " OR";
+            query = query + " Company = '" + m + "' OR";
         }
-        query = query + " Company = END";
+        query = query + " Company = 'END'";
         return queryManufacturers(query);
     }
 
@@ -243,5 +299,3 @@ public class DatabaseManager {
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////
 }
-
-
