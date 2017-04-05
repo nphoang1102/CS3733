@@ -150,13 +150,13 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD ENTRY/////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
+    /*public static void AddEntry(long TTBID, String PermitNo, String SerialNo, String Date, String FancifulName, String BrandName, int Origin, int Class, String Type) {
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
+            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
@@ -195,7 +195,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplications(String type, int num) {
         String query = "SELECT * FROM Applications WHERE AlcoholType = " + type + ");";
@@ -226,6 +226,18 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return dataSets;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void submitApplication(String ApplicationNo, String PermitNo, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
+        try {
+            stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, PermitNo, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
+                    "('" + ApplicationNo + " ', '" + PermitNo + " ', '" + AlcoholType + " ', '" + AgentID + " ', '" + Source + " ', '" + Brand + " ', '" + Address + " ', '" + Address2 + " ', '" + Volume + " ', '" + ABV + " ', '" + PhoneNo + " ', '" + AppType + " ', '" + VintageDate + " ', '" + PH + " ')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /*public static void queryAlcohol(String query) {
