@@ -2,6 +2,7 @@
  * Created by Evan Goldstein on 4/1/17.
  */
 package database;
+
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
@@ -56,14 +57,14 @@ public class DatabaseManager {
         /////////////////////////////////////////////////////////////////////////////////
         try {
             stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
-                    " TTBID REAL PRIMARY KEY,\n" +
+                    " TTBID VARCHAR(30) PRIMARY KEY,\n" +
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " CompletedDate DATE,\n" +
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
-                    " Origin INT NOT NULL,\n" +
-                    " Class INT NOT NULL,\n" +
+                    " Origin VARCHAR(10) NOT NULL,\n" +
+                    " Class VARCHAR(10) NOT NULL,\n" +
                     " Type VARCHAR(10) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
@@ -82,8 +83,20 @@ public class DatabaseManager {
 
         try {
             stmt.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo BIGINT PRIMARY KEY,\n" +
-                    " Manufacturer VARCHAR(100) NOT NULL\n" +
+                    " ApplicationNo VARCHAR(30) PRIMARY KEY,\n" +
+                    " PermitNo VARCHAR(100) NOT NULL,\n" +
+                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
+                    " AgentID BIGINT NOT NULL,\n" +
+                    " Source VARCHAR(30) NOT NULL,\n" +
+                    " Brand VARCHAR(100) NOT NULL,\n" +
+                    " Address VARCHAR(100) NOT NULL,\n" +
+                    " Address2 VARCHAR(100) NOT NULL,\n" +
+                    " Volume VARCHAR(100) NOT NULL,\n" +
+                    " ABV VARCHAR(10) NOT NULL,\n" +
+                    " PhoneNo VARCHAR(20) NOT NULL,\n" +
+                    " AppType VARCHAR(100) NOT NULL,\n" +
+                    " VintageDate VARCHAR(30),\n" +
+                    " PH VARCHAR(10)\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -91,7 +104,7 @@ public class DatabaseManager {
 
         try {
             stmt.executeUpdate("CREATE TABLE Users(\n" +
-                    " username BIGINT PRIMARY KEY,\n" +
+                    " username VARCHAR(100) PRIMARY KEY,\n" +
                     " passwordHash VARCHAR(100) NOT NULL,\n" +
                     " userType ENUM('AGENT','MANUFACTURER') NOT NULL\n" +
                     ");\n");
@@ -100,7 +113,6 @@ public class DatabaseManager {
         }
 
     }
-
 
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -165,6 +177,39 @@ public class DatabaseManager {
                 dataSet.addField("Class", Class);
                 dataSet.addField("Type", Type);
                 dataSets.add(dataSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSets;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> getApplications(String type, int num) {
+        String query = "SELECT * FROM Applications WHERE AlcoholType = " + type + ");";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        try {
+            ResultSet applications = stmt.executeQuery(query);
+
+            for (int i = 0; i < num; i++) {
+                DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+                dataSet.addField("PermitNo", applications.getString("PermitNo"));
+                dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
+                dataSet.addField("AgentID", applications.getString("AgentID"));
+                dataSet.addField("Source", applications.getString("Source"));
+                dataSet.addField("Brand", applications.getString("Brand"));
+                dataSet.addField("Address", applications.getString("Address"));
+                dataSet.addField("Address2", applications.getString("Address2"));
+                dataSet.addField("Volume", applications.getString("Volume"));
+                dataSet.addField("ABV", applications.getString("ABV"));
+                dataSet.addField("PhoneNo", applications.getString("PhoneNo"));
+                dataSet.addField("AppType", applications.getString("AppType"));
+                dataSet.addField("VintageDate", applications.getString("VintageDate"));
+                dataSet.addField("PH", applications.getString("PH"));
+                dataSets.add(dataSet);
+                applications.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -45,7 +45,7 @@ public class ManufacturerInboxManager extends Screen{
     private TableColumn DateColumn;
 
     @FXML
-    private LinkedList<Result> resultList = new LinkedList<>();
+//    private LinkedList<Result> resultList = new LinkedList<>();
 
     private String manufacturer;
 

@@ -57,5 +57,4 @@ public class AgentAppScreenManager extends Screen{
         //remove data set from agent inbox
     }
 
-
 }

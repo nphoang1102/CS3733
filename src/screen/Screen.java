@@ -10,9 +10,6 @@ public abstract class Screen {
         this.type = type;
     }
 
-
-
-
     /*
     @return returns an EnumScreenType object representing the type of screen
      */
@@ -25,6 +22,7 @@ public abstract class Screen {
         on the window is pressed. This method is called before the window closes to allow for saves to be
         generated, or in progress forms to be backed up.
      */
+
     public void shutdown(){
         return;
     }

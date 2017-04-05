@@ -7,5 +7,5 @@ package database;
 public enum EnumTableType {
     ALCOHOL,
     MANUFACTURER,
-    APPLICATIONS
+    APPLICATION
 }

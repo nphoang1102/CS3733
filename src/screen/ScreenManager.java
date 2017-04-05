@@ -18,6 +18,7 @@ public class ScreenManager {
 
     private static Stage stage;
     private static HashMap<String, Scene> scenes = new HashMap<String, Scene>();
+    private static Screen screen;
 
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
@@ -29,7 +30,12 @@ public class ScreenManager {
             stage.setScene(scenes.get(type.toString()));
         }else {
             scenes.put(type.toString(), new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
+            screen = type.getScreen();
             stage.setScene(scenes.get(type.toString()));
         }
+    }
+
+    public static Screen getCurrentScreen(){
+        return screen;
     }
 }
