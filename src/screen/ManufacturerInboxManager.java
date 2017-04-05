@@ -5,6 +5,7 @@ import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
@@ -14,6 +15,8 @@ import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import java.util.LinkedList;
 import javafx.scene.control.TableColumn;
+
+import static screen.ScreenManager.getCurrentScreen;
 
 /**
  * Created by ${mrfortmeyer} on 4/3/2017.
@@ -44,8 +47,7 @@ public class ManufacturerInboxManager extends Screen{
     @FXML
     private TableColumn DateColumn;
 
-    @FXML
-//    private LinkedList<Result> resultList = new LinkedList<>();
+    private DataSet selected;
 
     private String manufacturer;
 
@@ -82,17 +84,34 @@ public class ManufacturerInboxManager extends Screen{
         for(DataSet data : appList){
             String tempTTBID = data.getValueForKey("TTBID");
             Label tempName = new Label(data.getValueForKey("BrandName"));
-            String tempStatus = data.getValueForKey("Status");;
-            String tempDate = data.getValueForKey("CompletedDate");;
+            String tempStatus = data.getValueForKey("Status");
+            String tempDate = data.getValueForKey("CompletedDate");
 
             ManufacturerInboxResult tempResult = new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate);
             tableList.add(tempResult);
+
+            tempName.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    int tempPlace = tableList.indexOf(tempName);
+                    selected = data;
+                    EditButton.setDisable(false);
+                }
+            });
         }
     }
 
     public void newApplication(){
         LogManager.println("Creating a new application");
         ScreenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
+        return;
+    }
+
+    public void editApplication(){
+        LogManager.println("Editing an application");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
+        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
+        currentScreen.data = selected;
         return;
     }
 

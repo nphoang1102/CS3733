@@ -19,7 +19,10 @@ public class ManufacturerInboxResult {
         Date = s3;
     }
 
-
-
+    public String getTTBID() {return this.TTBID;}
+    public Label getBrandName() {return this.BrandName;}
+    public String getStatus() {return this.Status;}
+    public String getDate() { return this.Date;
+    }
 
 }
