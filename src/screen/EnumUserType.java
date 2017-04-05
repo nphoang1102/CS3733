@@ -5,7 +5,7 @@ package screen;
  */
 public enum EnumUserType {
     PUBLIC_USER(),
-    MANUFACTUERER(),
+    MANUFACTURER(),
     AGENT(),
     SUPER_AGENT(),
     ;

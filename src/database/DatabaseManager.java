@@ -88,7 +88,7 @@ public class DatabaseManager {
                     " ApplicationNo VARCHAR(30) PRIMARY KEY,\n" +
                     " Manufacturer VARCHAR(50) NOT NULL,\n" +
                     " PermitNo VARCHAR(100) NOT NULL,\n" +
-                    " Status ENUM('APPROVED','DENIED') NOT NULL,\n" +
+                    " Status ENUM('APPROVED','DENIED','PENDING') NOT NULL,\n" +
                     " Address2 VARCHAR(100) NOT NULL,\n" +
                     " Volume VARCHAR(100) NOT NULL,\n" +
                     " ABV VARCHAR(10) NOT NULL,\n" +
@@ -210,7 +210,6 @@ public class DatabaseManager {
 
             for (int i = 0; i < num; i++) {
                 DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
-                applications.next();
                 dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
                 dataSet.addField("Manufacturer", applications.getString("Manufacturer"));
                 dataSet.addField("PermitNo", applications.getString("PermitNo"));
@@ -228,7 +227,7 @@ public class DatabaseManager {
                 dataSet.addField("VintageDate", applications.getString("VintageDate"));
                 dataSet.addField("PH", applications.getString("PH"));
                 dataSets.add(dataSet);
-               /* applications.next();*/
+                applications.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -288,20 +287,29 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
- /*   public static void approveApplication(String ApplicationNo) {
+    public static void approveApplication(String ApplicationNo) {
         try {
-            *//*UPDATE table_name
-SET column1 = value1, column2 = value2, ...
-WHERE condition;*//*
             stmt.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNo + "';");
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         DataSet approvedApplication = getApplicationNo(ApplicationNo);
-
-        stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
-    }*/
+        String TTBID = generateTTBID();
+        String PermitNo = approvedApplication.getValueForKey("PermitNo");
+        String SerialNo = approvedApplication.getValueForKey("SerialNo");
+        String Date = approvedApplication.getValueForKey("CompletedDate");
+        String FancifulName = approvedApplication.getValueForKey("FancifulName");
+        String BrandName = approvedApplication.getValueForKey("BrandName");
+        String Origin = approvedApplication.getValueForKey("Origin");
+        String Class = approvedApplication.getValueForKey("Class");
+        String Type = approvedApplication.getValueForKey("Type");
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PermitNo + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + BrandName + "', '" + Origin + "', '" + Class + "', '" + Type + "');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     /*public static void queryAlcohol(String query) {
         String query2 = "SELECT * FROM Alcohol WHERE " + query + ")";

@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -32,17 +33,19 @@ public class LoginScreenManager extends Screen{
     void loginClicked() {
         this.userName = usernameField.getText();
         this.usernameField.clear();
+        LogManager.println(userName+" wants to sign in");
         /* To be replaced in the future with actual database query */
-        if (this.userName.equals("user")) {
+        if (DatabaseManager.getUserType(userName)=="publicUser") {
             ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
             LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
-        else if (this.userName.equals("manufacturer")) {
+        else if (DatabaseManager.getUserType(userName)== "manufacturer") {
             ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
         }
-        else if (this.userName.equals("agent")) {
+        else if (DatabaseManager.getUserType(userName)=="agent") {
+            LogManager.println("we have an agent!");
             ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
             LogManager.println("Agent " + userName + " has signed in");
         }
@@ -66,6 +69,7 @@ public class LoginScreenManager extends Screen{
     @FXML
     void userSignUp(){
         //tell the screen manager to go to the create account screen
+        //just in case, clear the text field when you leave
         usernameField.clear();
         ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         return;
