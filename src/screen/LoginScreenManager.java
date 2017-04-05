@@ -46,7 +46,6 @@ public class LoginScreenManager extends Screen{
             ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
             LogManager.println("Agent " + userName + " has signed in");
         }
-        return;
     }
 
     @FXML

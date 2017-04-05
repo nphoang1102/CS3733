@@ -21,8 +21,8 @@ public enum EnumScreenType {
     //    MANUFACTURER_VIEW_FORMS(""),
     MANUFACTURER_ADD_FORM("ManufacturerLabel.fxml", new NewApplicationManager()),
     MANUFACTURER_EDIT("EditableApplication.fxml", new EditableApplicationManager()),
-    AGENT_INBOX("AgentInbox.fxml", new AgentInboxManager()),
     AGENT_APP_SCREEN("AgentAppScreen.fxml", new AgentAppScreenManager()),
+    AGENT_INBOX("AgentInbox.fxml", new AgentInboxManager())
     ;
 
     private Parent scene;
