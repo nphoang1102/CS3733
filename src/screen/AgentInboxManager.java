@@ -78,7 +78,7 @@ public class AgentInboxManager extends Screen{
         //query database for UUID's that current Agent has in inbox
 
         int i = 0;
-        //uuidCodes =
+        //uuidCodes = DatabaseManager.
         for(DataSet tempData: uuidCodes){
 
             Label tempLabel = new Label();
@@ -151,9 +151,11 @@ public class AgentInboxManager extends Screen{
             String currentUser = Main.getUsername();
 
             //call Database to get number of applications
-            LinkedList<DataSet> tempData = DatabaseManager.getApplications(tempType, numAppsNeeded, currentUser);
-            for(DataSet tempSet: tempData){
-                uuidCodes.add(tempSet);
+            LinkedList<DataSet> results  = DatabaseManager.getApplications(tempType, numAppsNeeded, currentUser);
+            if(results.size() > 0){
+                for(DataSet tempSet: results) {
+                    uuidCodes.add(tempSet);
+                }
             }
         }
         else {
