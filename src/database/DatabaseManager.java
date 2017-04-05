@@ -198,7 +198,7 @@ public class DatabaseManager {
     ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplications(String type, int num) {
-        String query = "SELECT * FROM Applications WHERE AlcoholType = " + type + ");";
+        String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "');";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet applications = stmt.executeQuery(query);
@@ -259,15 +259,15 @@ public class DatabaseManager {
     }
 
     public static LinkedList<DataSet> queryManufactures(String manufacturer) {
-        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = " + manufacturer);
+        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = '" + manufacturer + "');");
     }
 
     public static LinkedList<DataSet> queryManufactures(LinkedList<String> manufacturers) {
         String query = "SELECT * FROM Manufactures WHERE";
         for (String m : manufacturers) {
-            query = query + " Company = " + m + " OR";
+            query = query + " Company = '" + m + "' OR";
         }
-        query = query + " Company = END";
+        query = query + " Company = 'END'";
         return queryManufacturers(query);
     }
 
