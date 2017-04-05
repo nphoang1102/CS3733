@@ -148,7 +148,7 @@ public class DatabaseManager {
         }
 
         try {
-            stmt.executeUpdate("INSERT INTO Applications (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
+            stmt.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES ('user123', 'password123', 'Agent')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -169,7 +169,7 @@ public class DatabaseManager {
     ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> Search(String entered, String type) {
-        String query = "SELECT * FROM Alcohol WHERE BrandName = '" + entered + "' AND Type = '" + type + "');";
+        String query = "SELECT * FROM Alcohol WHERE BrandName = '" + entered + "' AND Type = '" + type + "';";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query);
@@ -297,19 +297,31 @@ public class DatabaseManager {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////GET USER TYPE/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void getUserType(String username){
+        try {
+            stmt.executeUpdate("SELECT userType FROM Users WHERE username = '" + username + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryManufactures() {
-        return queryManufacturers("SELECT * FROM Manufactures");
+        return queryManufacturers("SELECT * FROM Manufacturers");
     }
 
     public static LinkedList<DataSet> queryManufactures(String manufacturer) {
-        return queryManufacturers("SELECT * FROM Manufactures WHERE Company = '" + manufacturer + "';");
+        return queryManufacturers("SELECT * FROM Manufacturers WHERE Company = '" + manufacturer + "';");
     }
 
     public static LinkedList<DataSet> queryManufactures(LinkedList<String> manufacturers) {
-        String query = "SELECT * FROM Manufactures WHERE";
+        String query = "SELECT * FROM Manufacturers WHERE";
         for (String m : manufacturers) {
             query = query + " Company = '" + m + "' OR";
         }
@@ -331,11 +343,11 @@ public class DatabaseManager {
                 dataSet.addField("Username", username);
                 dataSet.addField("Company", company);
                 dataSets.add(dataSet);
-                /*
+
                 LogManager.println("UUID: " + UUID);
                 LogManager.println("Username: " + username);
                 LogManager.println("Company: " + company);
-                LogManager.println("");*/
+                LogManager.println("");
             }
             searchManufacturers.close();
         } catch (SQLException e) {
