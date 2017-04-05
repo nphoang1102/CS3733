@@ -86,6 +86,16 @@ public class DatabaseManager {
             e.printStackTrace();
         }
 
+        try {
+            stmt.executeUpdate("CREATE TABLE Users(\n" +
+                    " username BIGINT PRIMARY KEY,\n" +
+                    " passwordHash VARCHAR(100) NOT NULL,\n" +
+                    " userType ENUM(AGENT,MANUFACTURER) NOT NULL\n" +
+                    ");\n");
+        } catch (SQLException e) {
+            LogManager.println("Table Applications exists.", EnumWarningType.NOTE);
+            e.printStackTrace();
+        }
 
     }
 
