@@ -50,6 +50,7 @@ public class LoginScreenManager extends Screen{
             Main.setUser(currentUser);
             ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
+            ((ManufacturerInboxManager) ScreenManager.getCurrentScreen()).initialize();
         }
         else if (userType.toLowerCase().equals("agent")) {
             //build a manufacturer and store it globally
