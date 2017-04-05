@@ -33,8 +33,8 @@ public class CreateAccountManager extends Screen{
     private CheckBox tickAgent;
     @FXML
     private CheckBox tickManufacturer;
-    @FXML
-    private CheckBox tickPublicUser;
+    //@FXML
+    //private CheckBox tickPublicUser;
     @FXML
     private Text accountError;
 
@@ -73,19 +73,19 @@ public class CreateAccountManager extends Screen{
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new agent, no password
-                DatabaseManager.addUser(user,"",EnumUserType.AGENT);
+                DatabaseManager.addUser(user,"","agent");
                 ScreenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType == "manufacturer"){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
-                DatabaseManager.addUser(user,"",EnumUserType.MANUFACTURER);
+                DatabaseManager.addUser(user,"","manufacturer");
                 ScreenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType == "publicUser"){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
-                DatabaseManager.addUser(user,"",EnumUserType.PUBLIC_USER);
+                DatabaseManager.addUser(user,"","publicUser");
                 ScreenManager.setScreen(EnumScreenType.LOG_IN);
             } else{ //they didn't select a box
                 //tell the system they didn't select a box
@@ -110,8 +110,8 @@ public class CreateAccountManager extends Screen{
         //untick others
         tickManufacturer.setSelected(false);
         tickManufacturer.setIndeterminate(false);
-        tickPublicUser.setSelected(false);
-        tickPublicUser.setIndeterminate(false);
+        /*tickPublicUser.setSelected(false);
+        tickPublicUser.setIndeterminate(false);*/
         userType = "agent";
 
     }
@@ -120,11 +120,11 @@ public class CreateAccountManager extends Screen{
         //untick others
         tickAgent.setSelected(false);
         tickAgent.setIndeterminate(false);
-        tickPublicUser.setSelected(false);
-        tickPublicUser.setIndeterminate(false);
+        /*tickPublicUser.setSelected(false);
+        tickPublicUser.setIndeterminate(false);*/
         userType = "manufacturer";
     }
-    @FXML
+   /* @FXML
     private void selectPublicUser(){
         //untick others
         tickAgent.setSelected(false);
@@ -132,6 +132,6 @@ public class CreateAccountManager extends Screen{
         tickManufacturer.setSelected(false);
         tickManufacturer.setIndeterminate(false);
         userType = "publicUser";
-    }
+    }*/
 }
 

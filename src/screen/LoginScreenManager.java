@@ -33,14 +33,16 @@ public class LoginScreenManager extends Screen{
     void loginClicked() {
         this.userName = usernameField.getText();
         this.usernameField.clear();
-        LogManager.println(userName+" wants to sign in");
+        String userType = DatabaseManager.getUserType(userName);
+        LogManager.println(userName+" wants to sign in, he is a "+userType);
+
         /* To be replaced in the future with actual database query */
-        if (DatabaseManager.getUserType(userName)=="publicUser") {
+        if (DatabaseManager.getUserType(userName).equals("publicUser")) {
             ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
             LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
-        else if (DatabaseManager.getUserType(userName)== "manufacturer") {
+        else if (DatabaseManager.getUserType(userName).equals("manufacturer")) {
             ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
         }
