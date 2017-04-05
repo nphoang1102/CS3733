@@ -253,6 +253,7 @@ public class DatabaseManager {
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
             ResultSet application = stmt.executeQuery(query);
+            application.next();
             dataSet.addField("ApplicationNo", application.getString("ApplicationNo"));
             dataSet.addField("Manufacturer", application.getString("Manufacturer"));
             dataSet.addField("PermitNo", application.getString("PermitNo"));
@@ -368,6 +369,7 @@ public class DatabaseManager {
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
             ResultSet user = stmt.executeQuery(query);
+            user.next();
             userType = user.getString("Type");
         } catch (SQLException e) {
             e.printStackTrace();
