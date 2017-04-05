@@ -2,6 +2,7 @@
  * Created by Evan Goldstein on 4/1/17.
  */
 package database;
+
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
@@ -114,7 +115,6 @@ public class DatabaseManager {
     }
 
 
-
     /////////////////////////////////////////////////////////////////////////////////
     ///////////TESTS/////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -177,6 +177,39 @@ public class DatabaseManager {
                 dataSet.addField("Class", Class);
                 dataSet.addField("Type", Type);
                 dataSets.add(dataSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSets;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> Search(String type, int num) {
+        String query = "SELECT * FROM Applications WHERE AlcoholType = " + type + ");";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        try {
+            ResultSet applications = stmt.executeQuery(query);
+
+            for (int i = 0; i < num; i++) {
+                DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+                dataSet.addField("PermitNo", applications.getString("PermitNo"));
+                dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
+                dataSet.addField("AgentID", applications.getString("AgentID"));
+                dataSet.addField("Source", applications.getString("Source"));
+                dataSet.addField("Brand", applications.getString("Brand"));
+                dataSet.addField("Address", applications.getString("Address"));
+                dataSet.addField("Address2", applications.getString("Address2"));
+                dataSet.addField("Volume", applications.getString("Volume"));
+                dataSet.addField("ABV", applications.getString("ABV"));
+                dataSet.addField("PhoneNo", applications.getString("PhoneNo"));
+                dataSet.addField("AppType", applications.getString("AppType"));
+                dataSet.addField("VintageDate", applications.getString("VintageDate"));
+                dataSet.addField("PH", applications.getString("PH"));
+                dataSets.add(dataSet);
+                applications.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();
