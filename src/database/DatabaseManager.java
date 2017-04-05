@@ -206,7 +206,7 @@ public class DatabaseManager {
     ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplications(String type, int num) {
-        String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "');";
+        String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "';";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet applications = stmt.executeQuery(query);
@@ -303,15 +303,16 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER TYPE/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void getUserType(String username) {
+    public static String getUserType(String username) {
         String query = "SELECT * FROM Users WHERE username = '" + username + "';";
+        String userType = null;
         try {
             ResultSet application = stmt.executeQuery(query);
-            String type = application.getString("userType");
+            userType = application.getString("userType");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        return userType;
     }
 
 
