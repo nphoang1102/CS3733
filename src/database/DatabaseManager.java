@@ -229,6 +229,36 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
+    ///////////GET APPLICATION FROM ApplicationNo////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> getApplications(String appNo) {
+        String query = "SELECT * FROM Applications WHERE ApplicationNo = " + appNo + ");";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        try {
+            ResultSet applications = stmt.executeQuery(query);
+            DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+            dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
+            dataSet.addField("PermitNo", applications.getString("PermitNo"));
+            dataSet.addField("AlcoholType", applications.getString("AlcoholType"));
+            dataSet.addField("AgentID", applications.getString("AgentID"));
+            dataSet.addField("Source", applications.getString("Source"));
+            dataSet.addField("Brand", applications.getString("Brand"));
+            dataSet.addField("Address", applications.getString("Address"));
+            dataSet.addField("Address2", applications.getString("Address2"));
+            dataSet.addField("Volume", applications.getString("Volume"));
+            dataSet.addField("ABV", applications.getString("ABV"));
+            dataSet.addField("PhoneNo", applications.getString("PhoneNo"));
+            dataSet.addField("AppType", applications.getString("AppType"));
+            dataSet.addField("VintageDate", applications.getString("VintageDate"));
+            dataSet.addField("PH", applications.getString("PH"));
+            dataSets.add(dataSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSets;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
     ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(String ApplicationNo, String PermitNo, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
