@@ -4,6 +4,7 @@ import database.DatabaseManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import screen.EnumScreenType;
+import screen.EnumUserType;
 import screen.ScreenManager;
 
 import java.io.File;
@@ -18,7 +19,7 @@ public class Main extends Application{
     private ScreenManager screenManager;
     private LogManager logManager;
     private DatabaseManager databaseManager;
-    private UserManager userManager;
+    private static User user;
 
 
     public static final int WIDTH = 1280;
@@ -56,7 +57,7 @@ public class Main extends Application{
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
-        userManager = new UserManager();
+        user = new User(EnumUserType.PUBLIC_USER, "foo", "foo@foo.foo");
         //databaseManager.entryTest();
         /*
             Check to see if local directories for Saves and Log files exist,
@@ -99,5 +100,9 @@ public class Main extends Application{
     public static void main(String[] args) {
         Main main = new Main();
         main.launch(args);
+    }
+
+    public static String getUsername(){
+        return user.getUsername();
     }
 }
