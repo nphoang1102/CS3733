@@ -248,7 +248,7 @@ public class DatabaseManager {
 
 
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                stmt.executeUpdate("UPDATE Applications SET InboxAgent = username WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -259,7 +259,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS IN AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsInitialAgent(String username) {
         String query = "SELECT * FROM Applications WHERE InboxAgent = '" + username + "';";
@@ -287,7 +287,7 @@ public class DatabaseManager {
                 dataSet.addField("PH", getApplications.getString("PH"));
                 dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                //stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -298,7 +298,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS FOR A MANUFACTURER///////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsInitialManuefacturer(String username) {
         String query = "SELECT * FROM Applications WHERE Manufacturer = '" + username + "';";
@@ -326,7 +326,7 @@ public class DatabaseManager {
                 dataSet.addField("PH", getApplications.getString("PH"));
                 dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                //stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -461,6 +461,23 @@ public class DatabaseManager {
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER TYPE/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static String getUserType(String username) {
+        String query = "SELECT * FROM Users WHERE username = '" + username + "';";
+        String userType = "foo";
+        DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+        try {
+            ResultSet user = stmt.executeQuery(query);
+            user.next();
+            userType = user.getString("userType");
+            LogManager.println("User " + username + " is type " + userType);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return userType;
+    }
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////GET USER ID/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static String getUserType(String username) {
         String query = "SELECT * FROM Users WHERE username = '" + username + "';";
