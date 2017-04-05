@@ -7,12 +7,28 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 
 /**
- * Created by tj on 4/3/2017.
+ * Created by $(mrfortmeyer) on 4/4/2017.
  */
-public class NewApplicationManager extends Screen {
+public class EditableApplicationManager extends Screen {
 
-    public NewApplicationManager() {
-        super(EnumScreenType.LOG_IN);
+    public EditableApplicationManager() {
+        super(EnumScreenType.MANUFACTURER_EDIT);
+        REPID.setDisable(true);
+        Source.setDisable(true);
+        BrandName.setDisable(true);
+        ApplicantName.setDisable(true);
+        DBAorTradeName.setDisable(true);
+        Registry.setDisable(true);
+        Address.setDisable(true);
+        AlternateAddress.setDisable(true);
+        Email.setDisable(true);
+        Date.setDisable(true);
+        AlcoholContent.setDisable(true);
+        VintageYear.setDisable(true);
+        PHLevel.setDisable(true);
+        BeerSelect.setDisable(true);
+        WineSelect.setDisable(true);
+        OtherSelect.setDisable(true);
     }
 
     @FXML
