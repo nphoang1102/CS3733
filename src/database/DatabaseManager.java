@@ -217,6 +217,7 @@ public class DatabaseManager {
             ResultSet applications = stmt.executeQuery(query);
 
             for (int i = 0; i < num; i++) {
+                applications.next();
                 DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
                 dataSet.addField("ApplicationNo", applications.getString("ApplicationNo"));
                 dataSet.addField("Manufacturer", applications.getString("Manufacturer"));
@@ -237,7 +238,7 @@ public class DatabaseManager {
                 dataSet.addField("InboxAgent", applications.getString("InboxAgent"));
                 dataSets.add(dataSet);
                 stmt.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + applications.getString("ApplicationNo") + "';");
-                applications.next();
+                //applications.next();
             }
         } catch (SQLException e) {
             LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
@@ -285,7 +286,7 @@ public class DatabaseManager {
         try {
             String ApplicationNo = generateTTBID(); //TODO - Replace this with the correct method for generating Application Numbers
             String status = "PENDING";
-            stmt.executeUpdate("INSERT INTO Applications (ApplicAddressationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
+            stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
                     "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "');");
         } catch (SQLException e) {
             e.printStackTrace();
