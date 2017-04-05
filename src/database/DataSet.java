@@ -1,5 +1,7 @@
 package database;
 
+import base.EnumTableType;
+
 import java.util.HashMap;
 
 /**

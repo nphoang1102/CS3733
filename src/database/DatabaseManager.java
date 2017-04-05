@@ -3,6 +3,7 @@
  */
 package database;
 
+import base.EnumTableType;
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;

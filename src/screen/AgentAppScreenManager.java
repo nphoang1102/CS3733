@@ -1,20 +1,19 @@
 package screen;
 
 import database.DataSet;
+import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+
+import java.util.LinkedList;
 
 /**
  * Created by ${Jack} on 4/2/2017.
  */
 public class AgentAppScreenManager extends Screen{
 
-
-    public AgentAppScreenManager() {
-        super(EnumScreenType.AGENT_APP_SCREEN);
-    }
 
     //all the Labels on the screen
     @FXML
@@ -26,16 +25,38 @@ public class AgentAppScreenManager extends Screen{
 
     private String data;
 
+    public AgentAppScreenManager() {
+        super(EnumScreenType.AGENT_APP_SCREEN);
+        //initialize();
+    }
 
-    public void setData(String aData){
-        data = aData;
-    }
     /*
-        Sets up the screen with the correct information in each of the Labels
-     */
-    public void setUpScreen(){
-        //fill the labels
+    @FXML
+    public void initialize(){
+        DataSet tempData = DatabaseManager.getApplicationNo("data");
+        repId.setText(tempData.getValueForKey("AgentId"));
+        brewNo.setText(tempData.getValueForKey("PermitNo"));
+        productSrc.setText(tempData.getValueForKey("Source"));
+        productType.setText(tempData.getValueForKey("AlcoholType"));
+        brandName.setText(tempData.getValueForKey("Brand"));
+        applicantName.setText(tempData.getValueForKey(""));
+        applicantAdd.setText(tempData.getValueForKey("Address"));
+        tradeName.setText(tempData.getValueForKey(""));
+        alternateAdd.setText(tempData.getValueForKey("Address2"));
+        phoneNum.setText(tempData.getValueForKey("PhoneNo"));
+        emailAdd.setText(tempData.getValueForKey(""));
+        appDate.setText(tempData.getValueForKey(""));
+        appName.setText(tempData.getValueForKey(""));
+
+
     }
+    */
+
+
+    public void setData (String aData){
+        data= aData;
+    }
+
 
 
     /*
