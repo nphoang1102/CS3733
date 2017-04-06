@@ -34,61 +34,67 @@ public class ManufacturerInboxManager extends Screen{
     private Polygon BackButton;
 
     @FXML
-    private TableView<DataSet> Table;
+    TableView<ManufacturerInboxResult> Table;
 
     @FXML
-    private TableColumn TTBIDColumn;
+    TableColumn<ManufacturerInboxResult, String> TTBIDColumn;
 
     @FXML
-    private TableColumn NameColumn;
+    TableColumn<ManufacturerInboxResult, Label> NameColumn;
 
     @FXML
-    private TableColumn StatusColumn;
+    TableColumn<ManufacturerInboxResult, String> StatusColumn;
 
     @FXML
-    private TableColumn DateColumn;
+    TableColumn<ManufacturerInboxResult, String> DateColumn;
 
     private DataSet selected;
 
     private String manufacturer;
 
+    private ObservableList<ManufacturerInboxResult> tableList = FXCollections.observableArrayList();
+
     //constructer for the screen
     public ManufacturerInboxManager() {
         super(EnumScreenType.MANUFACTURER_SCREEN);
-        initialize();
     }
 
+    @FXML
     public void initialize(){
         manufacturer = Main.getUsername();
-        LogManager.print("Current user is "+manufacturer);
-        LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer);
+        LogManager.println("Current user is " + manufacturer);
+        LinkedList<database.DataSet> appList = DatabaseManager.getApplicationsInitialManuefacturer(manufacturer);
 
-        ObservableList tableList = FXCollections.observableArrayList();
+        LogManager.println("appList: "+Integer.toString(appList.size()));
 
-        for(DataSet data : appList){
+        tableList = FXCollections.observableArrayList();
+
+        this.TTBIDColumn.setCellValueFactory(
+                new PropertyValueFactory("TTBID")
+        );
+
+        this.NameColumn.setCellValueFactory(
+                new PropertyValueFactory("BrandName")
+        );
+
+        this.StatusColumn.setCellValueFactory(
+                new PropertyValueFactory("Status")
+        );
+
+        this.DateColumn.setCellValueFactory(
+                new PropertyValueFactory("Date")
+        );
+
+
+        for(DataSet data : appList) {
             String tempTTBID = data.getValueForKey("TTBID");
             Label tempName = new Label(data.getValueForKey("BrandName"));
             String tempStatus = data.getValueForKey("Status");
             String tempDate = data.getValueForKey("CompletedDate");
 
-            ManufacturerInboxResult tempResult = new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate);
-            tableList.add(tempResult);
+            tableList.add(new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate));
 
-            TTBIDColumn.setCellValueFactory(
-                    new PropertyValueFactory<ManufacturerInboxResult, String>("TTBID")
-            );
-
-            NameColumn.setCellValueFactory(
-                    new PropertyValueFactory<ManufacturerInboxResult, Label>("BrandName")
-            );
-
-            StatusColumn.setCellValueFactory(
-                    new PropertyValueFactory<ManufacturerInboxResult, String>("Status")
-            );
-
-            DateColumn.setCellValueFactory(
-                    new PropertyValueFactory<ManufacturerInboxResult, String>("Date")
-            );
+            LogManager.println("tableList: "+Integer.toString(tableList.size()));
 
             tempName.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
@@ -99,6 +105,7 @@ public class ManufacturerInboxManager extends Screen{
                 }
             });
         }
+        this.Table.setItems(tableList);
     }
 
     public void newApplication(){
