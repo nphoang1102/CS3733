@@ -47,6 +47,10 @@ public class AgentAppScreenManager extends Screen{
         appName.setText(data.getValueForKey("ApplicantName"));
     }
 
+    @Override
+    public void onScreenFocused(){
+
+    }
 
 
     public void setData (DataSet aData){

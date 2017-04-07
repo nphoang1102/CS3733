@@ -64,70 +64,70 @@ public class AgentInboxManager extends Screen{
      */
     @FXML
     public void initialize() {
-
-        System.out.println("type of alc box: " + typeBox);
-        System.out.println();
-
-
-
-
-        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
-
-
-
-        //query database for UUID's that current Agent has in inbox
-
-        int i = 0;
-        //uuidCodes = DatabaseManager.
-        for(DataSet tempData: uuidCodes){
-
-            Label tempLabel = new Label();
-
-
-            //fill Manuefacturer and BrandName from temp
-            String Manufacturer = tempData.getValueForKey("Manufacturer");
-            String BrandName = tempData.getValueForKey("Brand");
-
-            tempLabel.setText(Manufacturer);
-
-            AgentInboxResult tempResult = new AgentInboxResult(tempLabel, BrandName);
-
-            //add the Label to the pane
-            manufacturerName.setCellValueFactory(
-                    new PropertyValueFactory<AgentInboxResult, Label>("manufacturerName")
-            );
-            specificBrandName.setCellValueFactory(
-                    new PropertyValueFactory<AgentInboxManager, String>("brandName")
-            );
-
-
-            //add the label to the linked list of possible labels
-
-
-            //set an onclick command to send screen to application screen
-            tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
-                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
-                    currentScreen.setData(tempData);
-                    }
-            });
-
-                //highlight the label that can be clicked
-            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    tempLabel.setTextFill(Color.web("#0000FF"));
-                }
-            });
-            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    tempLabel.setTextFill(Color.web("#000000"));
-                }
-            });
-        }
+//
+//        System.out.println("type of alc box: " + typeBox);
+//        System.out.println();
+//
+//
+//
+//
+//        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
+//
+//
+//
+//        //query database for UUID's that current Agent has in inbox
+//
+//        int i = 0;
+//        //uuidCodes = DatabaseManager.
+//        for(DataSet tempData: uuidCodes){
+//
+//            Label tempLabel = new Label();
+//
+//
+//            //fill Manuefacturer and BrandName from temp
+//            String Manufacturer = tempData.getValueForKey("Manufacturer");
+//            String BrandName = tempData.getValueForKey("Brand");
+//
+//            tempLabel.setText(Manufacturer);
+//
+//            AgentInboxResult tempResult = new AgentInboxResult(tempLabel, BrandName);
+//
+//            //add the Label to the pane
+//            manufacturerName.setCellValueFactory(
+//                    new PropertyValueFactory<AgentInboxResult, Label>("manufacturerName")
+//            );
+//            specificBrandName.setCellValueFactory(
+//                    new PropertyValueFactory<AgentInboxManager, String>("brandName")
+//            );
+//
+//
+//            //add the label to the linked list of possible labels
+//
+//
+//            //set an onclick command to send screen to application screen
+//            tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
+//                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
+//                    currentScreen.setData(tempData);
+//                }
+//            });
+//
+//            //highlight the label that can be clicked
+//            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    tempLabel.setTextFill(Color.web("#0000FF"));
+//                }
+//            });
+//            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    tempLabel.setTextFill(Color.web("#000000"));
+//                }
+//            });
+//        }
 
     }
 
