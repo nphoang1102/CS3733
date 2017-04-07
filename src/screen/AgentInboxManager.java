@@ -67,6 +67,62 @@ public class AgentInboxManager extends Screen{
 
     }
 
+    public void onScreenFocused(){
+        System.out.println("type of alc box: " + typeBox);
+
+        //query database for UUID's that current Agent has in inbox
+        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
+
+        for(DataSet tempData: uuidCodes){
+
+            Label tempLabel = new Label();
+
+            //fill Manufacturer and BrandName from temp
+            String Manufacturer = tempData.getValueForKey("Manufacturer");
+            String BrandName = tempData.getValueForKey("Brand");
+
+            tempLabel.setText(Manufacturer);
+
+            AgentInboxResult tempResult = new AgentInboxResult(tempLabel, BrandName);
+
+            //add the Label to the pane
+            manufacturerName.setCellValueFactory(
+                    new PropertyValueFactory<AgentInboxResult, Label>("manufacturerName")
+            );
+            specificBrandName.setCellValueFactory(
+                    new PropertyValueFactory<AgentInboxManager, String>("brandName")
+            );
+
+
+            //add the label to the linked list of possible labels
+
+
+            //set an onclick command to send screen to application screen
+            tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
+                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
+                    currentScreen.setData(tempData);
+                }
+            });
+
+            //highlight the label that can be clicked
+            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    tempLabel.setTextFill(Color.web("#0000FF"));
+                }
+            });
+            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    tempLabel.setTextFill(Color.web("#000000"));
+                }
+            });
+        }
+    }
+
     @FXML
     void goBack() {
         LogManager.println("Back button pressed from AgentInboxScreen");

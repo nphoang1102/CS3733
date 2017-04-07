@@ -83,23 +83,6 @@ public class EditableApplicationManager extends Screen {
     }
 
     public void initialize(){
-
-        REPID.setText(data.getValueForKey("AgentID"));
-        Source.setText(data.getValueForKey("Source"));
-        BrandName.setText(data.getValueForKey("Brand"));
-        ApplicantName.setText("");
-        DBAorTradeName.setText("");
-        PhoneNum.setText(data.getValueForKey("PhoneNo"));
-        Registry.setText("");
-        Type.setText(data.getValueForKey("AlcoholType"));
-        Address.setText(data.getValueForKey("Address"));
-        AlternateAddress.setText(data.getValueForKey("Address2"));
-        Email.setText("");
-        Date.setText(data.getValueForKey("Completed Date"));
-        AlcoholContent.setText(data.getValueForKey("ABV"));
-        VintageYear.setText(data.getValueForKey("VintageDate"));
-        PHLevel.setText(data.getValueForKey("PH"));
-
         REPID.setDisable(true);
         Source.setDisable(true);
         BrandName.setDisable(true);
@@ -116,6 +99,24 @@ public class EditableApplicationManager extends Screen {
         BeerSelect.setDisable(true);
         WineSelect.setDisable(true);
         OtherSelect.setDisable(true);
+    }
+
+    public void onScreenFocused(){
+        REPID.setText(data.getValueForKey("AgentID"));
+        Source.setText(data.getValueForKey("Source"));
+        BrandName.setText(data.getValueForKey("Brand"));
+        ApplicantName.setText("");
+        DBAorTradeName.setText("");
+        PhoneNum.setText(data.getValueForKey("PhoneNo"));
+        Registry.setText("");
+        Type.setText(data.getValueForKey("AlcoholType"));
+        Address.setText(data.getValueForKey("Address"));
+        AlternateAddress.setText(data.getValueForKey("Address2"));
+        Email.setText("");
+        Date.setText(data.getValueForKey("Completed Date"));
+        AlcoholContent.setText(data.getValueForKey("ABV"));
+        VintageYear.setText(data.getValueForKey("VintageDate"));
+        PHLevel.setText(data.getValueForKey("PH"));
     }
 
     public void submit(){

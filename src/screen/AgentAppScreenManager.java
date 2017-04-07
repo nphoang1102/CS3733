@@ -32,6 +32,11 @@ public class AgentAppScreenManager extends Screen{
 
     @FXML
     public void initialize(){
+
+    }
+
+    @Override
+    public void onScreenFocused(){
         repId.setText(data.getValueForKey("AgentId"));
         brewNo.setText(data.getValueForKey("PermitNo"));
         productSrc.setText(data.getValueForKey("Source"));
@@ -45,11 +50,6 @@ public class AgentAppScreenManager extends Screen{
         emailAdd.setText(data.getValueForKey("Email"));
         appDate.setText(data.getValueForKey("DateSubmitted"));
         appName.setText(data.getValueForKey("ApplicantName"));
-    }
-
-    @Override
-    public void onScreenFocused(){
-
     }
 
 
