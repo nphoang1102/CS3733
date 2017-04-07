@@ -1,0 +1,9 @@
+.cb .menu-item:focused{
+  -fx-background-color:yellow; /* for example */
+}
+.cb .context-menu {
+    -fx-background-color:#939393;
+}
+.cb {
+  -fx-mark-color: green ;
+}
