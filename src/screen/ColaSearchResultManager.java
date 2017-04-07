@@ -43,24 +43,39 @@ public class ColaSearchResultManager extends Screen{
     /* Class methods */
     @FXML
     public void initialize() {
-        /* Initialize the choice box */
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
-        type.setItems(typeList);
-        type.setValue("Beer");
+        /* Get the choice box and table setup */
+        this.initializeTable();
+        this.initializeChoices();
 
-        /* Setup properties for the columns in tableview */
+        /* Configuration for the mouse click event */
+        this.initializeMouseEvent();
+    }
+
+    /* Setup properties for the columns in tableview */
+    public void initializeTable() {
         this.coLid.setCellValueFactory(new PropertyValueFactory("id"));
         this.coLsource.setCellValueFactory(new PropertyValueFactory("source"));
         this.coLalcoholType.setCellValueFactory(new PropertyValueFactory("type"));
         this.coLname.setCellValueFactory(new PropertyValueFactory("name"));
+    }
 
-        /* Allow the application to receive the row information on click, important shit right here */
+    /* Initialize the choice box */
+    public void initializeChoices() {
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
+        type.setItems(typeList);
+        type.setValue("Beer");
+    }
+
+    /* Initialize the mouse click event on table rows */
+    public void initializeMouseEvent() {
         searchResult.setRowFactory( tv -> {
             TableRow<ColaResult> row = new TableRow();
             row.setOnMouseClicked(event -> {
                 if ((event.getClickCount() == 1) && (! row.isEmpty())) {
+
+                    /* Now what to do with these data */
                     ColaResult rowData = row.getItem();
-                    LogManager.println(rowData.getName());
+                    LogManager.println("User clicked on item ID " + rowData.getId());
                 }
             });
             return row;
@@ -85,6 +100,12 @@ public class ColaSearchResultManager extends Screen{
         this.entryField.clear();
 
         /* Send and receive result from the database and display them into the TableView */
+        this.databaseQuery();;
+
+    }
+
+    /* Send the search keywords to the database and display reply from database */
+    public void databaseQuery() {
         this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
         for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
