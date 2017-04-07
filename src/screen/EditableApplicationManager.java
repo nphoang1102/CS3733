@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
@@ -144,13 +145,13 @@ public class EditableApplicationManager extends Screen {
         database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText());
 
         LogManager.println("Submitting Application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 

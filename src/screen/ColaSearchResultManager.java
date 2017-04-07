@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -75,7 +76,7 @@ public class ColaSearchResultManager extends Screen{
 
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchResultScreen");
-        ScreenManager.setScreen((EnumScreenType.LOG_IN));
+        Main.screenManager.setScreen((EnumScreenType.LOG_IN));
     }
 
     public void onScreenFocused(){

@@ -1,5 +1,6 @@
 package screen;
 
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
@@ -69,7 +70,7 @@ public class AgentAppScreenManager extends Screen{
         //remove dataset from agent inbox
         DatabaseManager.approveApplication(data.getValueForKey("ApplicationNo"));
         //go back to agent inbox screen
-        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
 
@@ -82,7 +83,7 @@ public class AgentAppScreenManager extends Screen{
         //remove data set from agent inbox
         DatabaseManager.rejectApplication(data.getValueForKey("ApplicationNo"));
         //go back to agent inbox screen
-        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
 }

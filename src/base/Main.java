@@ -16,7 +16,7 @@ public class Main extends Application{
             ScreenManager
             DatabaseManager
      */
-    private ScreenManager screenManager;
+    public static ScreenManager screenManager;
     private LogManager logManager;
     private DatabaseManager databaseManager;
     private static User user;
@@ -41,7 +41,6 @@ public class Main extends Application{
         initialize(primaryStage);
         primaryStage.setTitle(NAME);
         primaryStage.setResizable(false);
-        ScreenManager.setScreen(EnumScreenType.TOP_BAR);
         primaryStage.show();
     }
 
@@ -51,7 +50,7 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new User(EnumUserType.PUBLIC_USER, "foo", "foo@foo.foo");
+        user = new User(EnumUserType.AGENT, "Test", "foo@foo.foo");
 
         //Initialize all Managers
         logManager = new LogManager();
@@ -102,10 +101,15 @@ public class Main extends Application{
     }
 
     public static String getUsername(){
-        try{
+        if(user != null){
             return user.getUsername();
-        }catch(NullPointerException e){
-            LogManager.printStackTrace(e.getStackTrace());
+        }
+        return "";
+    }
+
+    public static String getUserType(){
+        if(user != null){
+            return user.getType().getTextualName();
         }
         return "";
     }

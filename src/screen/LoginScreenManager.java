@@ -40,7 +40,7 @@ public class LoginScreenManager extends Screen{
 
         /* To be replaced in the future with actual database query */
         if (userType.equals("publicUser")) {
-            ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+            Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
             LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
@@ -48,7 +48,7 @@ public class LoginScreenManager extends Screen{
             //build a manufacturer and store it globally
             User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
             Main.setUser(currentUser);
-            ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
         }
         else if (userType.toLowerCase().equals("agent")) {
@@ -56,7 +56,7 @@ public class LoginScreenManager extends Screen{
             LogManager.println("we have an agent!");
             User currentUser = new User(EnumUserType.AGENT, userName, "");
             Main.setUser(currentUser);
-            ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
             LogManager.println("Agent " + userName + " has signed in");
         }
     }
@@ -72,7 +72,7 @@ public class LoginScreenManager extends Screen{
         // Tell the screen manager to set the screen to COLA screen
         LogManager.println("Back Button");
         usernameField.clear();
-        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
         return;
     }
 
@@ -81,7 +81,7 @@ public class LoginScreenManager extends Screen{
         //tell the screen manager to go to the create account screen
         //just in case, clear the text field when you leave
         usernameField.clear();
-        ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
+        Main.screenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         return;
     }
 

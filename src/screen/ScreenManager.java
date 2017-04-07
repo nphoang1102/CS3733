@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -18,38 +19,32 @@ import java.util.LinkedList;
 public class ScreenManager {
 
     private static Stage stage;
-    private static Screen[] screens;
-    private static Screen focusedScreen;
+    private static HashMap<String, Scene> loadedScenes = new HashMap<String, Scene>();
+    private static HashMap<String, Screen> loadedScreens = new HashMap<String, Screen>();
 
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
-        screens = new Screen[]{
-                new AgentAppScreenManager(),
-                new AgentInboxManager(),
-                new ColaSearchResultManager(),
-                new ColaSearchScreenManager(),
-                new CreateAccountManager(),
-                new EditableApplicationManager(),
-                new LoginScreenManager(),
-                new ManufacturerInboxManager(),
-                new NewApplicationManager(),
-                new TopBarManager(),
-        };
+        setScreen(EnumScreenType.TOP_BAR);
     }
 
-    public static void setScreen(EnumScreenType type){
-        for(Screen screen : screens) {
-            if (screen.getType().equals(type)) {
-                LogManager.println("Setting screen to:" + type.toString());
-                stage.setScene(new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
-                focusedScreen = screen;
-                return;
+    public void setScreen(EnumScreenType type){
+        LogManager.println("Setting screen to:" + type.toString());
+        Scene scene;
+        if(loadedScenes.containsKey(type.toString())){
+            scene = loadedScenes.get(type.toString());
+            loadedScreens.get(type.toString()).onScreenFocused();
+        }else{
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
+            try {
+                scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
+                loadedScenes.put(type.toString(), scene);
+                stage.setScene(scene);
+                Screen theScreen = (Screen)loader.getController();
+                loadedScreens.put(type.toString(), theScreen);
+                theScreen.onScreenFocused();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
-        LogManager.println("Screen:"+type.toString()+" not found.", EnumWarningType.ERROR);
-    }
-
-    public static Screen getCurrentScreen(){
-        return focusedScreen;
     }
 }

@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
-import static screen.ScreenManager.getCurrentScreen;
-
 
 public class AgentInboxManager extends Screen{
 
@@ -101,9 +99,9 @@ public class AgentInboxManager extends Screen{
             tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
-                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
-                    currentScreen.setData(tempData);
+                    Main.screenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
+//                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
+//                    currentScreen.setData(tempData);
                 }
             });
 
@@ -126,7 +124,7 @@ public class AgentInboxManager extends Screen{
     @FXML
     void goBack() {
         LogManager.println("Back button pressed from AgentInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
 
     }
 
@@ -154,7 +152,7 @@ public class AgentInboxManager extends Screen{
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
         }
-        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
     }
 

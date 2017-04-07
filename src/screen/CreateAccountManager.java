@@ -53,7 +53,7 @@ public class CreateAccountManager extends Screen{
     private void goBack(){
         //go back to the login screen
         clearFields();
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
 
@@ -74,19 +74,19 @@ public class CreateAccountManager extends Screen{
                 LogManager.println(user+" is a "+userType);
                 //create new agent, no password
                 DatabaseManager.addUser(user,"", userType);
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
+                Main.screenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType == "MANUFACTURER"){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
                 DatabaseManager.addUser(user,"", userType);
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
+                Main.screenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType == "publicUser"){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
                 DatabaseManager.addUser(user,"","publicUser");
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
+                Main.screenManager.setScreen(EnumScreenType.LOG_IN);
             } else{ //they didn't select a box
                 //tell the system they didn't select a box
                 LogManager.println(user+" didn't select a user type");
@@ -96,7 +96,7 @@ public class CreateAccountManager extends Screen{
         }else {
             //if name is taken, return to the make account screen
             accountError.setText("I'm sorry" + user+ ", that account is taken");
-            ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
+            Main.screenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         }
         return;
     }

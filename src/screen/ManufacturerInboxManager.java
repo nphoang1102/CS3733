@@ -17,8 +17,6 @@ import javafx.scene.input.MouseEvent;
 import java.util.LinkedList;
 import javafx.scene.control.TableColumn;
 
-import static screen.ScreenManager.getCurrentScreen;
-
 /**
  * Created by ${mrfortmeyer} on 4/3/2017.
 **/
@@ -63,21 +61,21 @@ public class ManufacturerInboxManager extends Screen{
 
     public void newApplication(){
         LogManager.println("Creating a new application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
         return;
     }
 
     public void editApplication(){
         LogManager.println("Editing an application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
-        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
-        currentScreen.data = selected;
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
+//        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
+//        currentScreen.data = selected;
         return;
     }
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
 
