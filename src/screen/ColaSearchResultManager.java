@@ -6,6 +6,7 @@ import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import misc.ColaResult;
@@ -109,10 +110,15 @@ public class ColaSearchResultManager extends Screen{
         this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
         for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
-            String tempSource = tempSet.getValueForKey("Origin");
-            String tempType = tempSet.getValueForKey("Type");
+            String tempPermit = tempSet.getValueForKey("PermitNo");
+            String tempSerial = tempSet.getValueForKey("SerialNo");
+            String tempDate = tempSet.getValueForKey("CompletedDate");
+            String tempName = tempSet.getValueForKey("FancifulName");
             String tempBrand = tempSet.getValueForKey("BrandName");
-            this.resultTable.add(new ColaResult(tempID, tempSource, tempType, tempBrand));
+            String tempSource = tempSet.getValueForKey("Origin");
+            String tempClass = tempSet.getValueForKey("Class");
+            String tempType = tempSet.getValueForKey("Type");
+            this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType));
         }
         this.searchResult.setEditable(false);
         this.searchResult.setItems(resultTable);
