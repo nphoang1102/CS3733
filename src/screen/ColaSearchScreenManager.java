@@ -47,6 +47,9 @@ public class ColaSearchScreenManager extends Screen{
         return;
     }
 
+    public void onScreenFocused(){
+        LogManager.println("VICTOR -- remember you didn't move anything over from the initialize method to see if FXCollections.observableArrayList is okay where it is");
+    }
     // Whenever the enter key is hit, it is the same as clicking the search button
     public void onEnter() {
         this.buttonPressed();

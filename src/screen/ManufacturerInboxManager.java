@@ -59,11 +59,15 @@ public class ManufacturerInboxManager extends Screen{
     }
 
     public void initialize(){
-        manufacturer = Main.getUsername();
-        LogManager.print("Current user is "+manufacturer);
-        LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer);
 
-        ObservableList tableList = FXCollections.observableArrayList();
+    }
+
+    public void onScreenFocused(){
+        manufacturer = Main.getUsername(); //move
+        LogManager.print("Current user is "+manufacturer); //move
+        LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer); //move
+
+        ObservableList tableList = FXCollections.observableArrayList(); //move
 
         for(DataSet data : appList){
             String tempTTBID = data.getValueForKey("TTBID");

@@ -77,6 +77,10 @@ public class NewApplicationManager extends Screen {
     @FXML
     private Button CancelButton;
 
+    public void onScreenFocused(){
+
+    }
+
     public void submit(){
         String repID = REPID.getText();
         String source = Source.getText();
