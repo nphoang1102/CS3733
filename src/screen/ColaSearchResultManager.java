@@ -50,12 +50,6 @@ public class ColaSearchResultManager extends Screen{
         this.name.setCellValueFactory(new PropertyValueFactory("name"));
     }
 
-    public void onScreenFocused(){
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
-        type.setItems(typeList);
-        type.setValue("Beer");
-    }
-
     public void onEnter() {
         this.buttonPressed();
     }
@@ -84,8 +78,10 @@ public class ColaSearchResultManager extends Screen{
         ScreenManager.setScreen((EnumScreenType.LOG_IN));
     }
 
-    @Override
-    public void onScreenFocused() {
-        
+    public void onScreenFocused(){
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
+        type.setItems(typeList);
+        type.setValue("Beer");
     }
+
 }

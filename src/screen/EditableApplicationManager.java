@@ -99,9 +99,6 @@ public class EditableApplicationManager extends Screen {
         BeerSelect.setDisable(true);
         WineSelect.setDisable(true);
         OtherSelect.setDisable(true);
-    }
-
-    public void onScreenFocused(){
         REPID.setText(data.getValueForKey("AgentID"));
         Source.setText(data.getValueForKey("Source"));
         BrandName.setText(data.getValueForKey("Brand"));
@@ -117,6 +114,10 @@ public class EditableApplicationManager extends Screen {
         AlcoholContent.setText(data.getValueForKey("ABV"));
         VintageYear.setText(data.getValueForKey("VintageDate"));
         PHLevel.setText(data.getValueForKey("PH"));
+    }
+
+    public void onScreenFocused(){
+
     }
 
     public void submit(){
@@ -157,8 +158,4 @@ public class EditableApplicationManager extends Screen {
         return this;
     }
 
-    @Override
-    public void onScreenFocused() {
-        
-    }
 }

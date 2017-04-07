@@ -38,10 +38,6 @@ public class CreateAccountManager extends Screen{
     @FXML
     private Text accountError;
 
-    public void onScreenFocused(){
-
-    }
-
     String userType;
 
     public void clearFields(){

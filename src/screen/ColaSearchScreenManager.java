@@ -83,9 +83,4 @@ public class ColaSearchScreenManager extends Screen{
     public String getSearchType() {
         return this.searchType;
     }
-
-    @Override
-    public void onScreenFocused() {
-
-    }
 }

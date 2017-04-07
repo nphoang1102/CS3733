@@ -30,10 +30,6 @@ public class LoginScreenManager extends Screen{
     @FXML
     private Button newUser;
 
-    public void onScreenFocused(){
-
-    }
-
     //fxml methods
     @FXML
     void loginClicked() {
