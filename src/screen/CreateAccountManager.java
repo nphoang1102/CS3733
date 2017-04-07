@@ -52,7 +52,6 @@ public class CreateAccountManager extends Screen{
     @FXML
     private void goBack(){
         //go back to the login screen
-        clearFields();
         Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
@@ -127,7 +126,7 @@ public class CreateAccountManager extends Screen{
 
     @Override
     public void onScreenFocused() {
-
+        clearFields();
     }
    /* @FXML
     private void selectPublicUser(){
