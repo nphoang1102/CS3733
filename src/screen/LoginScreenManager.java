@@ -39,20 +39,20 @@ public class LoginScreenManager extends Screen{
         LogManager.println(userName+" wants to sign in, he is a "+userType);
 
         /* To be replaced in the future with actual database query */
-        if (userType.equals("publicUser")) {
+        if (userType.equalsIgnoreCase("publicUser")) {
             Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
             LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
-        else if (userType.toLowerCase().equals("manufacturer")) {
+        else if (userType.equalsIgnoreCase("manufacturer")) {
             //build a manufacturer and store it globally
             User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
             Main.setUser(currentUser);
             Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
         }
-        else if (userType.toLowerCase().equals("agent")) {
-            //build a manufacturer and store it globally
+        else if (userType.equalsIgnoreCase("agent")) {
+            //build an agent and store it globally
             LogManager.println("we have an agent!");
             User currentUser = new User(EnumUserType.AGENT, userName, "");
             Main.setUser(currentUser);
@@ -71,7 +71,6 @@ public class LoginScreenManager extends Screen{
     void goBack() {
         // Tell the screen manager to set the screen to COLA screen
         LogManager.println("Back Button");
-        usernameField.clear();
         Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
         return;
     }
@@ -80,13 +79,12 @@ public class LoginScreenManager extends Screen{
     void userSignUp(){
         //tell the screen manager to go to the create account screen
         //just in case, clear the text field when you leave
-        usernameField.clear();
         Main.screenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         return;
     }
 
     @Override
     public void onScreenFocused() {
-
+        usernameField.clear();
     }
 }

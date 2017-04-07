@@ -69,19 +69,19 @@ public class CreateAccountManager extends Screen{
             LogManager.println(user + " just made an account");
 
             //record the account in the database
-            if(userType == "AGENT") {
+            if(userType.equalsIgnoreCase( "AGENT")) {
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new agent, no password
                 DatabaseManager.addUser(user,"", userType);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType == "MANUFACTURER"){
+            }else if(userType.equalsIgnoreCase( "MANUFACTURER")){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
                 DatabaseManager.addUser(user,"", userType);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType == "publicUser"){
+            }else if(userType.equalsIgnoreCase("publicUser")){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
