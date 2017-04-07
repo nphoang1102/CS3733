@@ -32,10 +32,10 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#737f78" height="540.0" layoutX="120.0" layoutY="180.0" opacity="0.35" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="860.0" />
         <TableView fx:id="searchResult" layoutX="135.0" layoutY="190.0" prefHeight="520.0" prefWidth="830.0" style="-fx-background-color: 9EC7C7;">
             <columns>
-                <TableColumn fx:id="id" prefWidth="120.0" resizable="false" text="ID" />
-                <TableColumn fx:id="source" prefWidth="150.0" resizable="false" text="Source" />
-                <TableColumn fx:id="alcoholType" prefWidth="250.0" resizable="false" text="Type" />
-                <TableColumn fx:id="name" prefWidth="310.0" resizable="false" text="Brand Name" />
+                <TableColumn fx:id="coLid" prefWidth="120.0" resizable="false" text="ID" />
+                <TableColumn fx:id="coLsource" prefWidth="150.0" resizable="false" text="Source" />
+                <TableColumn fx:id="coLalcoholType" prefWidth="250.0" resizable="false" text="Type" />
+                <TableColumn fx:id="coLname" prefWidth="310.0" resizable="false" text="Brand Name" />
             </columns>
         </TableView>
     </children>
