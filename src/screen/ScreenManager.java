@@ -19,7 +19,7 @@ public class ScreenManager {
 
     private static Stage stage;
     private static Screen[] screens;
-    private static Screen screen;
+    private static Screen focusedScreen;
 
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
@@ -32,7 +32,8 @@ public class ScreenManager {
                 new EditableApplicationManager(),
                 new LoginScreenManager(),
                 new ManufacturerInboxManager(),
-                new NewApplicationManager()
+                new NewApplicationManager(),
+                new TopBarManager(),
         };
     }
 
@@ -40,15 +41,15 @@ public class ScreenManager {
         for(Screen screen : screens) {
             if (screen.getType().equals(type)) {
                 LogManager.println("Setting screen to:" + type.toString());
-                stage.setScene(type.getFXMLFile().getScene());
-                screen = screen;
+                stage.setScene(new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
+                focusedScreen = screen;
                 return;
             }
         }
-        LogManager.println("Screen:"+type.toString(), EnumWarningType.ERROR);
+        LogManager.println("Screen:"+type.toString()+" not found.", EnumWarningType.ERROR);
     }
 
     public static Screen getCurrentScreen(){
-        return screen;
+        return focusedScreen;
     }
 }
