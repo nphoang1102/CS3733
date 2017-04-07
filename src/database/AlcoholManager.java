@@ -80,6 +80,4 @@ public class AlcoholManager {
         }
         return dataSets;
     }
-
-
 }
