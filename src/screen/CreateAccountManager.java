@@ -124,6 +124,11 @@ public class CreateAccountManager extends Screen{
         tickPublicUser.setIndeterminate(false);*/
         userType = "MANUFACTURER";
     }
+
+    @Override
+    public void onScreenFocused() {
+
+    }
    /* @FXML
     private void selectPublicUser(){
         //untick others

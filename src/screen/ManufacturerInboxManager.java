@@ -59,6 +59,35 @@ public class ManufacturerInboxManager extends Screen{
     }
 
     public void initialize(){
+
+    }
+
+    public void newApplication(){
+        LogManager.println("Creating a new application");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
+        return;
+    }
+
+    public void editApplication(){
+        LogManager.println("Editing an application");
+        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
+        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
+        currentScreen.data = selected;
+        return;
+    }
+
+    public void goBack() {
+        LogManager.println("Back button pressed from ManufacturerInboxScreen");
+        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        return;
+    }
+
+    public Screen getScreen(){
+        return this;
+    }
+
+    @Override
+    public void onScreenFocused() {
         manufacturer = Main.getUsername();
         LogManager.print("Current user is "+manufacturer);
         LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer);
@@ -99,29 +128,5 @@ public class ManufacturerInboxManager extends Screen{
                 }
             });
         }
-    }
-
-    public void newApplication(){
-        LogManager.println("Creating a new application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
-        return;
-    }
-
-    public void editApplication(){
-        LogManager.println("Editing an application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
-        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
-        currentScreen.data = selected;
-        return;
-    }
-
-    public void goBack() {
-        LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
-        return;
-    }
-
-    public Screen getScreen(){
-        return this;
     }
 }

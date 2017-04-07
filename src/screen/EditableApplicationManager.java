@@ -155,4 +155,9 @@ public class EditableApplicationManager extends Screen {
     public Screen getScreen(){
         return this;
     }
+
+    @Override
+    public void onScreenFocused() {
+        
+    }
 }

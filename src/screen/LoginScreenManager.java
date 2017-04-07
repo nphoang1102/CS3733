@@ -84,4 +84,9 @@ public class LoginScreenManager extends Screen{
         ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         return;
     }
+
+    @Override
+    public void onScreenFocused() {
+
+    }
 }

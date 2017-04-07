@@ -117,4 +117,8 @@ public class NewApplicationManager extends Screen {
         return this;
     }
 
+    @Override
+    public void onScreenFocused() {
+
+    }
 }

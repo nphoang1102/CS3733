@@ -79,4 +79,9 @@ public class ColaSearchResultManager extends Screen{
         LogManager.println("Back button pressed from ColaSearchResultScreen");
         ScreenManager.setScreen((EnumScreenType.LOG_IN));
     }
+
+    @Override
+    public void onScreenFocused() {
+        
+    }
 }

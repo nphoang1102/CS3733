@@ -23,7 +23,7 @@ public class Main extends Application{
 
 
     public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
+    public static final int HEIGHT = 786;
     public static final String NAME = "COLA Database Search Thing";
 
 
@@ -41,7 +41,7 @@ public class Main extends Application{
         initialize(primaryStage);
         primaryStage.setTitle(NAME);
         primaryStage.setResizable(false);
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        ScreenManager.setScreen(EnumScreenType.TOP_BAR);
         primaryStage.show();
     }
 
@@ -51,13 +51,12 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-
+        user = new User(EnumUserType.PUBLIC_USER, "foo", "foo@foo.foo");
 
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
-        user = new User(EnumUserType.PUBLIC_USER, "foo", "foo@foo.foo");
         //databaseManager.entryTest();
         /*
             Check to see if local directories for Saves and Log files exist,

@@ -13,6 +13,7 @@ import java.io.IOException;
  * Created by Bailey Sostek on 4/1/17.
  */
 public enum EnumScreenType {
+    TOP_BAR("TopBar.fxml"),
     LOG_IN("LoginScreen.fxml"),
     CREATE_ACCOUNT("CreateAccount.fxml"),
     COLA_SEARCH("ColaSearchScreen.fxml"),
