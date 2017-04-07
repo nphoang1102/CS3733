@@ -6,11 +6,19 @@ import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import misc.ColaResult;
+import misc.ResultPopupManager;
 
+import javax.xml.transform.Result;
 import java.util.LinkedList;
 
 /**
@@ -77,6 +85,21 @@ public class ColaSearchResultManager extends Screen{
                     /* Now what to do with these data */
                     ColaResult rowData = row.getItem();
                     LogManager.println("User clicked on item ID " + rowData.getId());
+
+                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./fxml/ResultPopup.fxml"));
+                    Parent root1 = (Parent) fxmlLoader.load();
+                    Stage stage = new Stage();
+                    stage.initModality(Modality.APPLICATION_MODAL);
+                    stage.initStyle(StageStyle.UNDECORATED);
+                    stage.setTitle("Additional information for " + rowData.getName());
+                    stage.setScene(new Scene(root1));
+//                    ResultPopupManager controller = fxmlLoader.getController();
+//                    controller.initData(rowData);
+
+                    stage.show();
+
+//                    return stage;
+
                 }
             });
             return row;

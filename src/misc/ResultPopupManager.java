@@ -15,7 +15,14 @@ public class ResultPopupManager {
     }
 
     @FXML
-    void initData(ColaResult result) {
+    public void initData(ColaResult result) {
         dis_brandName.setText(result.getName());
+        dis_ID.setText(result.getId());
+        dis_permit.setText(result.getPermit());
+        dis_serial.setText(result.getSerial());
+        dis_date.setText(result.getDate());
+        dis_fanName.setText(result.getFname());
+        dis_class.setText(result.getAclass());
+        dis_type.setText(result.getType());
     }
 }
