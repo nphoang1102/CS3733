@@ -21,47 +21,81 @@ public class ApplicationManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
+    ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void submitApplication(String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email) {
+        try {
+            String ApplicationNo = generateTTBID(); //TODO - Replace this with the correct method for generating Application Numbers
+            String status = "PENDING";
+            statement.executeUpdate("INSERT INTO Applications (ApplicationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH, ApplicantName, DateSubmitted, DBAorTrade, Email) VALUES " +
+                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "', '" + ApplicantName + "', '" + DateSubmitted + "', '" + DBAorTrade + "', '" + Email
+                    + "');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////GENERATE TTBID////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static String generateTTBID() {
+        String id = Long.toString(Math.round(Math.random() * 10000000));
+        return id;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////APPROVE APPLICATION///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void approveApplication(String ApplicationNo) {
+        try {
+            statement.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNo + "';");
+            statement.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
+            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        DataSet approvedApplication = getApplicationNo(ApplicationNo);
+        String TTBID = generateTTBID();
+        String PermitNo = approvedApplication.getValueForKey("PermitNo");
+        String SerialNo = approvedApplication.getValueForKey("SerialNo");
+        String Date = approvedApplication.getValueForKey("CompletedDate");
+        String FancifulName = approvedApplication.getValueForKey("FancifulName");
+        String BrandName = approvedApplication.getValueForKey("BrandName");
+        String Origin = approvedApplication.getValueForKey("Origin");
+        String Class = approvedApplication.getValueForKey("Class");
+        String Type = approvedApplication.getValueForKey("Type");
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PermitNo + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + BrandName + "', '" + Origin + "', '" + Class + "', '" + Type + "');");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////REJECT/ APPLICATION///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
+        try {
+            statement.executeUpdate("UPDATE Users SET status = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "';");
+            statement.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
+            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS IN AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getApplicationsInitialAgent(String username) {
-        String query = "SELECT * FROM Applications WHERE InboxAgent = '" + username + "';";
-        LinkedList<DataSet> dataSets = new LinkedList<>();
-        try {
-            getApplications = statement.executeQuery(query);
-            while(getApplications.next()) {
-                DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
-                dataSet.addField("ApplicationNo", getApplications.getString("ApplicationNo"));
-                dataSet.addField("Manufacturer", getApplications.getString("Manufacturer"));
-                dataSet.addField("PermitNo", getApplications.getString("PermitNo"));
-                dataSet.addField("Status", getApplications.getString("Status"));
-                dataSet.addField("AlcoholType", getApplications.getString("AlcoholType"));
-                dataSet.addField("AgentID", getApplications.getString("AgentID"));
-                dataSet.addField("Source", getApplications.getString("Source"));
-                dataSet.addField("Brand", getApplications.getString("Brand"));
-                dataSet.addField("Address", getApplications.getString("Address"));
-                dataSet.addField("Address2", getApplications.getString("Address2"));
-                dataSet.addField("Volume", getApplications.getString("Volume"));
-                dataSet.addField("ABV", getApplications.getString("ABV"));
-                dataSet.addField("PhoneNo", getApplications.getString("PhoneNo"));
-                dataSet.addField("AppType", getApplications.getString("AppType"));
-                dataSet.addField("VintageDate", getApplications.getString("VintageDate"));
-                dataSet.addField("PH", getApplications.getString("PH"));
-                dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
-                dataSets.add(dataSet);
-                //stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
-                //applications.next();
-            }
-        } catch (SQLException e) {
-            LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
-            return new LinkedList<>();
-        }
-        return dataSets;
+    public static LinkedList<Application> getApplicationsByAgent(String agent) {
+        LinkedList<Application> dataSets = new LinkedList<>();
+        return runQuery("SELECT * FROM Applications WHERE InboxAgent = '" + agent + "';", 0,"");
     }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS FOR A MANUFACTURER///////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<Application> getForManuefacturer(String manufacturerUserName) {
+    public static LinkedList<Application> getApplicationsByManuefacturer(String manufacturerUserName) {
         return runQuery("SELECT * FROM Applications WHERE Manufacturer = '" + manufacturerUserName + "';", 0, "");
     }
 
