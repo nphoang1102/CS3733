@@ -22,6 +22,10 @@ public class AlcoholManager {
 
     public AlcoholManager() {
 
+        /////////////////////////////////////////////////////////////////////////////////
+        ///////////ADD TABLE/////////////////////////////////////////////////////////////
+        /////////////////////////////////////////////////////////////////////////////////
+
         try {
             stmt.executeUpdate("CREATE TABLE Alcohol(\n" +
                     " TTBID VARCHAR(30) PRIMARY KEY,\n" +
@@ -42,8 +46,55 @@ public class AlcoholManager {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SEARCH ALCOHOL////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
     public static LinkedList<DataSet> Search(String entered, String type) {
         String query = "SELECT * FROM Alcohol WHERE BrandName = '" + entered + "' AND Type = '" + type + "';";
+        LinkedList<DataSet> dataSets = new LinkedList<>();
+        try {
+            ResultSet searchAlcohol = stmt.executeQuery(query);
+            while (searchAlcohol.next()) {
+                String TTBID = searchAlcohol.getString("TTBID");
+                String PermitNo = searchAlcohol.getString("PermitNo");
+                String SerialNo = searchAlcohol.getString("SerialNo");
+                String CompletedDate = searchAlcohol.getString("CompletedDate");
+                String FancifulName = searchAlcohol.getString("FancifulName");
+                String BrandName = searchAlcohol.getString("BrandName");
+                String Origin = searchAlcohol.getString("Origin");
+                String Class = searchAlcohol.getString("Class");
+                String Type = searchAlcohol.getString("Type");
+                String AlcoholContent = searchAlcohol.getString("AlcoholContent");
+                String VintageYear = searchAlcohol.getString("VintageYear");
+                String PH = searchAlcohol.getString("PH");
+                DataSet dataSet = new DataSet(EnumTableType.ALCOHOL);
+                dataSet.addField("TTBID", TTBID);
+                dataSet.addField("PermitNo", PermitNo);
+                dataSet.addField("SerialNo", SerialNo);
+                dataSet.addField("CompletedDate", CompletedDate);
+                dataSet.addField("FancifulName", FancifulName);
+                dataSet.addField("BrandName", BrandName);
+                dataSet.addField("Origin", Origin);
+                dataSet.addField("Class", Class);
+                dataSet.addField("Type", Type);
+                dataSet.addField("AlcoholContent", AlcoholContent);
+                dataSet.addField("VintageYear", VintageYear);
+                dataSet.addField("PH", PH);
+                dataSets.add(dataSet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dataSets;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////LIST ALL ALCOHOL//////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public static LinkedList<DataSet> ListAll() {
+        String query = "SELECT * FROM Alcohol;";
         LinkedList<DataSet> dataSets = new LinkedList<>();
         try {
             ResultSet searchAlcohol = stmt.executeQuery(query);
