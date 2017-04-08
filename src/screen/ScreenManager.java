@@ -3,6 +3,7 @@ package screen;
 import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
+import database.BasicDataSet;
 import database.DataSet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -44,13 +45,18 @@ public class ScreenManager {
     }
 
     public void setScreen(EnumScreenType type){
+        DataSet data = new BasicDataSet();
+        setScreen(type, data);
+    }
+
+    public void setScreen(EnumScreenType type, DataSet data){
         if(!type.equals(EnumScreenType.TOP_BAR)){
             LogManager.println("Setting screen to:" + type.toString());
             Scene scene;
             if(loadedScenes.containsKey(type.toString())){
                 scene = loadedScenes.get(type.toString());
                 topBarScreen.setScreen(loadedScenes.get(type.toString()));
-                loadedScreens.get(type.toString()).onScreenFocused();
+                loadedScreens.get(type.toString()).onScreenFocused(data);
             }else{
                 FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
                 try {
@@ -59,7 +65,7 @@ public class ScreenManager {
                     topBarScreen.setScreen(loadedScenes.get(type.toString()));
                     Screen theScreen = (Screen)loader.getController();
                     loadedScreens.put(type.toString(), theScreen);
-                    theScreen.onScreenFocused();
+                    theScreen.onScreenFocused(data);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
