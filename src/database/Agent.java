@@ -5,4 +5,7 @@ package database;
  */
 public class Agent extends DataSet{
 
+    String Username;
+    String Name;
+    String Email;
 }
