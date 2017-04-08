@@ -70,61 +70,69 @@ public class DatabaseManager {
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
                     " Class VARCHAR(10) NOT NULL,\n" +
-                    " Type VARCHAR(10) NOT NULL\n" +
+                    " Type VARCHAR(10) NOT NULL,\n" +
+                    " AlcoholContent VARCHAR(30),\n" +
+                    " VintageYear VARCHAR(10),\n" +
+                    " PH VARCHAR(10)\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Alcohol' exists.", EnumWarningType.NOTE);
         }
 
         try {
-            statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
-                    " UUID VARCHAR(30) PRIMARY KEY,\n" +
-                    " Username VARCHAR(30) NOT NULL,\n" +
-                    " Company VARCHAR(100) NOT NULL\n" +
-                    ");\n");
-        } catch (SQLException e) {
-            LogManager.println("Table 'Manufacturers' exists.", EnumWarningType.NOTE);
-        }
-
-        try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(30) PRIMARY KEY,\n" +
-                    " DateSubmitted VARCHAR(12) NOT NULL,\n" +
-                    " Manufacturer VARCHAR(50) NOT NULL,\n" +
-                    " ApplicantName VARCHAR(30),\n" +
-                    " Email VARCHAR(100) NOT NULL,\n" +
-                    " PermitNo VARCHAR(100) NOT NULL,\n" +
-                    " DBAorTrade VARCHAR(100) NOT NULL,\n" +
-                    " Status ENUM('APPROVED','DENIED','PENDING') NOT NULL,\n" +
-                    " AlcoholType VARCHAR(50) NOT NULL,\n" +
-                    " AgentID VARCHAR(20) NOT NULL,\n" +
-                    " Source VARCHAR(100) NOT NULL,\n" +
+                    " RepID VARCHAR(30) PRIMARY KEY,\n" +
+                    " PlantRegistry VARCHAR(30) NOT NULL,\n" +
+                    " Source VARCHAR(30) NOT NULL,\n" +
+                    " SerialNo VARCHAR(30) NOT NULL,\n" +
+                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
                     " Brand VARCHAR(50) NOT NULL,\n" +
+                    " FancifulName VARCHAR(50),\n" +
                     " Address VARCHAR(100) NOT NULL,\n" +
-                    " Address2 VARCHAR(100) NOT NULL,\n" +
-                    " Volume VARCHAR(100) NOT NULL,\n" +
-                    " ABV VARCHAR(10) NOT NULL,\n" +
+                    " Address2 VARCHAR(100),\n" +
+                    " Formula VARCHAR(500) NOT NULL,\n" +
+                    " Grapes VARCHAR(50),\n" +
+                    " WineAppelation VARCHAR(50),\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
-                    " AppType VARCHAR(100) NOT NULL,\n" +
-                    " VintageDate VARCHAR(30),\n" +
+                    " Email VARCHAR(30) NOT NULL,\n" +
+                    " AdditionalInfo VARCHAR(500) NOT NULL,\n" +
+                    " ABV VARCHAR(10) NOT NULL,\n" +
+                    " VintageDate DATE,\n" +
                     " PH VARCHAR(10),\n" +
-                    " InboxAgent VARCHAR(20)\n" +
-
+                    " Status ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED), NOT NULL\n" +
+                    " ApplicationNo VARCHAR(20) NOT NULL,\n" +
+                    " DateOfApproval DATE,\n" +
+                    " AgentName VARCHAR(30),\n" +
+                    " DateOfExpiration DATE,\n" +
+                    " ManufacturerUsername VARCHAR(20),\n" +
+                    " AgentUsername VARCHAR(20),\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
         }
 
         try {
-            statement.executeUpdate("CREATE TABLE Users(\n" +
-                    " username VARCHAR(100) PRIMARY KEY,\n" +
-                    " passwordHash VARCHAR(100) NOT NULL,\n" +
-                    //" agentInbox ARRAY(100) NOT NULL,\n" +
-                    //" userType ENUM('AGENT','MANUFACTURER') NOT NULL\n" +
-                    " userType VARCHAR(20) NOT NULL\n" +
+            statement.executeUpdate("CREATE TABLE Agents(\n" +
+                    " ID VARCHAR(30) PRIMARY KEY,\n" +
+                    " Username VARCHAR(50) NOT NULL UNIQUE,\n" +
+                    " Password VARCHAR(30) NOT NULL,\n" +
+                    " Name VARCHAR(50) NOT NULL,\n" +
+                    " Email VARCHAR(30) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
-            LogManager.println("Table 'Users' exists.", EnumWarningType.NOTE);
+            LogManager.println("Table 'Agents' exists.", EnumWarningType.NOTE);
+        }
+
+        try {
+            statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
+                    " UUID VARCHAR(30) PRIMARY KEY,\n" +
+                    " Username VARCHAR(30) NOT NULL UNIQUE,\n" +
+                    " Password VARCHAR(30) NOT NULL,\n" +
+                    " Company VARCHAR(50) NOT NULL,\n" +
+                    " Name VARCHAR(50) NOT NULL\n" +
+                    ");\n");
+        } catch (SQLException e) {
+            LogManager.println("Table 'Manufacturers' exists.", EnumWarningType.NOTE);
         }
 
     }
@@ -287,12 +295,6 @@ public class DatabaseManager {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
-    ///////////ADD ENTRY/////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static void AddEntry(String table, String column) {
-
-    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
