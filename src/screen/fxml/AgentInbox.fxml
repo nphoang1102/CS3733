@@ -37,7 +37,7 @@
     </Text>
     <TableView id="inbox" fx:id="AgentInbox" layoutX="0.0" layoutY="320.0" prefHeight="400.0" prefWidth="1280.0">
       <columns>
-        <TableColumn prefWidth="400.0" text="Manufacturer Name" fx:id="manufactuerName" />
+        <TableColumn prefWidth="400.0" text="Manufacturer Name" fx:id="manufacturerName" />
         <TableColumn prefWidth="400.0" text="Brand Name" fx:id="specificBrandName" />
       </columns>
     </TableView>
