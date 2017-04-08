@@ -48,7 +48,7 @@ public class DatabaseManager {
 
             return;
         }
-        LogManager.println("    Java DB connection established!");
+        LogManager.println("Java DB connection established!");
 
         try {
             statement = connection.createStatement();
@@ -56,7 +56,9 @@ public class DatabaseManager {
             LogManager.printStackTrace(e.getStackTrace());
             e.printStackTrace();
         }
+    }
 
+    public static void CreateTables() {
         /////////////////////////////////////////////////////////////////////////////////
         ///////////CREATE TABLES/////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
@@ -136,6 +138,8 @@ public class DatabaseManager {
         }
 
     }
+
+
 
 
     /////////////////////////////////////////////////////////////////////////////////
