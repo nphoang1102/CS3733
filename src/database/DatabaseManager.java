@@ -18,7 +18,7 @@ import java.util.LinkedList;
 public class DatabaseManager {
     private static Statement stmt = null;
     private static Connection connection = null;
-
+    //new comment
     public DatabaseManager() {
 
         /////////////////////////////////////////////////////////////////////////////////
