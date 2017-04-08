@@ -7,7 +7,7 @@ public enum EnumUserType {
     PUBLIC_USER("User"),
     MANUFACTURER("Manufacturer"),
     AGENT("Agent"),
-    SUPER_AGENT("WOAH YOUR A SUPER USER YOU COOL DUDE"),
+    SUPER_AGENT("Super User"),
     ;
 
     protected String textualName;

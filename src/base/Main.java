@@ -50,7 +50,7 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new User(EnumUserType.AGENT, "Test", "foo@foo.foo");
+        user = new User(EnumUserType.SUPER_AGENT, "Test", "foo@foo.foo");
 
         //Initialize all Managers
         logManager = new LogManager();
@@ -112,6 +112,10 @@ public class Main extends Application{
             return user.getType().getTextualName();
         }
         return "";
+    }
+
+    public static void logOutUser(){
+        user = null;
     }
 
     public static void setUser (User u){

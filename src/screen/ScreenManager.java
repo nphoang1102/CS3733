@@ -39,7 +39,7 @@ public class ScreenManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+        setScreen(EnumScreenType.LOG_IN);
     }
 
     public void setScreen(EnumScreenType type){
@@ -63,6 +63,7 @@ public class ScreenManager {
                     e.printStackTrace();
                 }
             }
+            topBarScreen.onScreenFocused();
         }
 
 //        LogManager.println("Setting screen to:" + type.toString());

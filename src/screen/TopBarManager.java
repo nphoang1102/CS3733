@@ -1,9 +1,6 @@
 package screen;
 
-import base.EnumWarningType;
-import base.LogManager;
 import base.Main;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.Loader;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -19,7 +16,6 @@ import javafx.scene.layout.AnchorPane;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 
 /**
  * Created by Bailey Sostek on 4/7/17.
@@ -66,7 +62,12 @@ public class TopBarManager extends Screen{
         userType.setText(Main.getUserType());
         if(!Main.getUserType().isEmpty()) {
             imageLetter.setText(Main.getUserType().substring(0, 1));
+            logIn.setText("Log Out");
+        }else{
+            imageLetter.setText("");
+            logIn.setText("Log In");
         }
+
         BufferedImage bufferedImage;
         try {
             bufferedImage = ImageIO.read(new File(Main.PATH+"/res/dot.png"));
@@ -79,7 +80,10 @@ public class TopBarManager extends Screen{
 
     @FXML
     public void logIn(){
-        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+        if(!Main.getUsername().isEmpty()){
+            Main.logOutUser();
+            onScreenFocused();
+        }
     }
 
     public void setScreen(Scene scene){
