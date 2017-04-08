@@ -86,8 +86,12 @@ public class DatabaseManager {
         try {
             stmt.executeUpdate("CREATE TABLE Applications(\n" +
                     " ApplicationNo VARCHAR(30) PRIMARY KEY,\n" +
+                    " DateSubmitted VARCHAR(12) NOT NULL,\n" +
                     " Manufacturer VARCHAR(50) NOT NULL,\n" +
+                    " ApplicantName VARCHAR(30),\n" +
+                    " Email VARCHAR(100) NOT NULL,\n" +
                     " PermitNo VARCHAR(100) NOT NULL,\n" +
+                    " DBAorTrade VARCHAR(100) NOT NULL,\n" +
                     " Status ENUM('APPROVED','DENIED','PENDING') NOT NULL,\n" +
                     " AlcoholType VARCHAR(50) NOT NULL,\n" +
                     " AgentID VARCHAR(20) NOT NULL,\n" +
@@ -102,6 +106,7 @@ public class DatabaseManager {
                     " VintageDate VARCHAR(30),\n" +
                     " PH VARCHAR(10),\n" +
                     " InboxAgent VARCHAR(20)\n" +
+
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -127,17 +132,113 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public void entryTest() {
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12309847', 'PermitNo123', 'FakeSerial123', '2016-03-01', 'Le Fancy Le Vodka', 'Guinness', '123', '456', 'Beer')");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06110001000003', 'ID-I-15001', '060028', '2016-04-01', 'ROSADO', 'LO BRUJO', '52', '80', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('98765432', 'PermitNo321', 'Serial65', '2016-02-01', 'Le Beer', 'Beermakers', '456', '80', 'Beer')");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('07362001000194', 'BWN-NC-15051', '070049', '2016-04-01', 'VENI VIDI VICI', 'INCORVAIA', '30', '80', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('682732423', 'PermitNo333', 'Seria8080', '2015-12-12', 'Le Drinky', 'Winemakers', '902', '44', 'Wine')");
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('16047001000297', 'IL-I-340', '160033', '2016-04-04', 'POULSARD VIEILLES VIGNES', 'DOMAINE ROLET PERE ET FILS', '51', '80', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('05348001000134', 'BR-MO-ANH-1', '05B645', '2005-12-21', '', 'BUDWEISER', '29', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06054001000120', 'BR-MO-ANH-1', '06B722', '2006-10-06', '', 'BUDWEISER', '29', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('04267001000046', 'BR-MO-ANH-1', '04B554', '2004-10-19', '', 'BUDWEISER', '09', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('07319001000233', 'BR-TX-ANH-1', '07B886', '2007-11-21', '', 'BUDWEISER', '44', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12076001000564', 'BWC-CA-5099', '12020A', '2012/04/04', '', 'BERINGER', '01', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12089001000135', 'TPWBH-CA-20114', '1204TP', '2012/04/17', '', 'BERINGER', '70', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('09351001000078', 'FL-I-540', '093836', '2009/12/21', '', 'CAVIT', '50', '80', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10155001000193', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '654813', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '9873331', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('00568612654101', 'FL-I-540', '03452983', '2007/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10096001000193', 'BW-CA-5920', '10LC08', '2010/04/15', 'MAGGY HAWK NO. 5', 'LA CREMA', '01', '88', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10096001000196', 'BW-CA-5920', '10LC08', '2010/04/05', 'MAGGY HAWK', 'LA CREMA', '01', '88', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -236,8 +337,14 @@ public class DatabaseManager {
                 dataSet.addField("VintageDate", getApplications.getString("VintageDate"));
                 dataSet.addField("PH", getApplications.getString("PH"));
                 dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
+                dataSet.addField("ApplicantName", getApplications.getString("ApplicantName"));
+                dataSet.addField("DateSubmitted", getApplications.getString("DateSubmitted"));
+                dataSet.addField("DBAorTrade", getApplications.getString("DBAorTrade"));
+                dataSet.addField("Email", getApplications.getString("Email"));
+
+
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                stmt.executeUpdate("UPDATE Applications SET InboxAgent = username WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -248,7 +355,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS IN AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsInitialAgent(String username) {
         String query = "SELECT * FROM Applications WHERE InboxAgent = '" + username + "';";
@@ -276,7 +383,7 @@ public class DatabaseManager {
                 dataSet.addField("PH", getApplications.getString("PH"));
                 dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                //stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -287,7 +394,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET APPLICATIONS//////////////////////////////////////////////////////
+    ///////////GET APPLICATIONS FOR A MANUFACTURER///////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsInitialManuefacturer(String username) {
         String query = "SELECT * FROM Applications WHERE Manufacturer = '" + username + "';";
@@ -315,7 +422,7 @@ public class DatabaseManager {
                 dataSet.addField("PH", getApplications.getString("PH"));
                 dataSet.addField("InboxAgent", getApplications.getString("InboxAgent"));
                 dataSets.add(dataSet);
-                stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
+                //stmt.executeUpdate("UPDATE Applications SET InboxAgent = NULL WHERE ApplicationNo = '" + getApplications.getString("ApplicationNo") + "';");
                 //applications.next();
             }
         } catch (SQLException e) {
@@ -352,6 +459,10 @@ public class DatabaseManager {
             dataSet.addField("VintageDate", application.getString("VintageDate"));
             dataSet.addField("PH", application.getString("PH"));
             dataSet.addField("InboxAgent", application.getString("InboxAgent"));
+            dataSet.addField("ApplicantName", application.getString("ApplicantName"));
+            dataSet.addField("DateSubmitted", application.getString("DateSubmitted"));
+            dataSet.addField("DBAorTrade", application.getString("DBAorTrade"));
+            dataSet.addField("Email", application.getString("Email"));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -361,12 +472,13 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void submitApplication(String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH) {
+    public static void submitApplication(String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email) {
         try {
             String ApplicationNo = generateTTBID(); //TODO - Replace this with the correct method for generating Application Numbers
             String status = "PENDING";
-            stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH) VALUES " +
-                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "');");
+            stmt.executeUpdate("INSERT INTO Applications (ApplicationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH, ApplicantName, DateSubmitted, DBAorTrade, Email) VALUES " +
+                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "', '" + ApplicantName + "', '" + DateSubmitted + "', '" + DBAorTrade + "', '" + Email
+                    + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -443,8 +555,9 @@ public class DatabaseManager {
         }
     }
 
+
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET USER TYPE/////////////////////////////////////////////////////////
+    ///////////GET USER ID/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static String getUserType(String username) {
         String query = "SELECT * FROM Users WHERE username = '" + username + "';";

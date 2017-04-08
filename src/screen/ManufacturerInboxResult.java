@@ -24,5 +24,4 @@ public class ManufacturerInboxResult {
     public String getStatus() {return this.Status;}
     public String getDate() { return this.Date;
     }
-
 }

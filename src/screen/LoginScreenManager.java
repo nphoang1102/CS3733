@@ -50,6 +50,7 @@ public class LoginScreenManager extends Screen{
             Main.setUser(currentUser);
             Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
+//            ((ManufacturerInboxManager) ScreenManager.getCurrentScreen()).initialize();
         }
         else if (userType.equalsIgnoreCase("agent")) {
             //build an agent and store it globally
@@ -60,6 +61,7 @@ public class LoginScreenManager extends Screen{
             LogManager.println("Agent " + userName + " has signed in");
         }
     }
+
 
     @FXML
     void enterHit() {
