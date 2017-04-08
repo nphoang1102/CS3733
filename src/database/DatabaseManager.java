@@ -7,6 +7,7 @@ import base.EnumTableType;
 import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
+import com.sun.xml.internal.bind.v2.TODO;
 import screen.EnumUserType;
 import sun.awt.image.ImageWatched;
 
@@ -50,7 +51,7 @@ public class DatabaseManager {
 
             return;
         }
-        LogManager.println("    Java DB connection established!");
+        LogManager.println("Java DB connection established!");
 
         try {
             statement = connection.createStatement();
@@ -58,7 +59,9 @@ public class DatabaseManager {
             LogManager.printStackTrace(e.getStackTrace());
             e.printStackTrace();
         }
+    }
 
+    public static void CreateTables() {
         /////////////////////////////////////////////////////////////////////////////////
         ///////////CREATE TABLES/////////////////////////////////////////////////////////
         /////////////////////////////////////////////////////////////////////////////////
@@ -138,6 +141,8 @@ public class DatabaseManager {
         }
 
     }
+
+
 
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -316,28 +321,49 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void approveApplication(String ApplicationNo) {
+
+    //TODO
+    public static void approveApplication(String ApplicationNum) {
         try {
-            statement.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNo + "';");
-            statement.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
-            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
+            statement.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
+            //TODO- THIS NO LONGER MAKES SENSE SINCE WE DO NOT HAVE AGENTINBOX
+            statement.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNum + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNo);
+        LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNum);
         Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
 
-        String TTBID = generateTTBID();
-        String PermitNo = approvedApplication.PermitNo;
-        String SerialNo = approvedApplication.ApplicationNo;
-        String Date = approvedApplication.DateApproved;
-        String FancifulName = approvedApplication.FancifulName;
-        String BrandName = approvedApplication.BrandName;
-        String Origin = approvedApplication.Source;
-        //String Class = approvedApplication.Class; ///SAME AS AlcoholType???///
-        String Type = approvedApplication.AlcoholType;
+        String RepID = approvedApplication.RepID;
+        String PlantRegistry = approvedApplication.PlantRegistry;
+        String Source = approvedApplication.Source;
+        String SerialNo = approvedApplication.SerialNo;
+        String AlcoholType = approvedApplication.AlcoholType;
+        String Brand = approvedApplication.Brand;
+        String FancifulName = approvedApplication.FanicifulName;
+        String Address = approvedApplication.Address;
+        String Address2 = approvedApplication.Address2;
+        String Formula = approvedApplication.Formula;
+        String Grapes = approvedApplication.WineAppelation;
+        String PhoneNo = approvedApplication.PhoneNo;
+        String Email = approvedApplication.Email;
+        String AppType = approvedApplication.AppType;
+        String AdditionalInfo = approvedApplication.AdditionalInfo;
+        String Date = approvedApplication.Date;
+        String PrintName = approvedApplication.PrintName;
+        String ABV = approvedApplication.ABV;
+        String VintageDate = approvedApplication.VintageDate;
+        String PH = approvedApplication.PH;
+        String Status = approvedApplication.Status;
+        String ApplicationNo = approvedApplication.ApplicationNo;
+        String DateOfApproval = approvedApplication.DateOfApproval;
+        String AgentName = approvedApplication.AgentName;
+        String DateOfExpiration = approvedApplication.DateOfExpiration;
+        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
+        String AgentUsername = approvedApplication.AgentUsername;
+
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Type) VALUES ('" + TTBID + "', '" + PermitNo + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + BrandName + "', '" + Origin + "', '" + Type + "');");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PermitNo + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + BrandName + "', '" + Origin + "', '" + Type + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }
