@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -152,6 +153,13 @@ public class ColaSearchResultManager extends Screen{
     /* Hit back will bring you to the login screen */
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchResultScreen");
-        ScreenManager.setScreen((EnumScreenType.LOG_IN));
+        Main.screenManager.setScreen((EnumScreenType.LOG_IN));
     }
+
+    public void onScreenFocused(){
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
+        type.setItems(typeList);
+        type.setValue("Beer");
+    }
+
 }

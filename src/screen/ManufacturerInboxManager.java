@@ -17,11 +17,9 @@ import javafx.scene.input.MouseEvent;
 import java.util.LinkedList;
 import javafx.scene.control.TableColumn;
 
-import static screen.ScreenManager.getCurrentScreen;
-
 /**
  * Created by ${mrfortmeyer} on 4/3/2017.
-**/
+ **/
 public class ManufacturerInboxManager extends Screen{
 
     @FXML
@@ -61,13 +59,41 @@ public class ManufacturerInboxManager extends Screen{
 
     @FXML
     public void initialize(){
-        manufacturer = Main.getUsername();
-        LogManager.println("Current user is " + manufacturer);
-        LinkedList<database.DataSet> appList = DatabaseManager.getApplicationsInitialManuefacturer(manufacturer);
 
+    }
+
+    public void newApplication(){
+        LogManager.println("Creating a new application");
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
+        return;
+    }
+
+    public void editApplication(){
+        LogManager.println("Editing an application");
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
+//        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
+//        currentScreen.data = selected;
+        return;
+    }
+
+    public void goBack() {
+        LogManager.println("Back button pressed from ManufacturerInboxScreen");
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+        return;
+    }
+
+    public Screen getScreen(){
+        return this;
+    }
+
+    @Override
+    public void onScreenFocused(){
+        manufacturer = Main.getUsername(); //move
+        LogManager.print("Current user is "+manufacturer); //move
+        LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer); //move
+
+        ObservableList tableList = FXCollections.observableArrayList(); //move
         LogManager.println("appList: "+Integer.toString(appList.size()));
-
-        tableList = FXCollections.observableArrayList();
 
         this.TTBIDColumn.setCellValueFactory(
                 new PropertyValueFactory("TTBID")
@@ -80,6 +106,7 @@ public class ManufacturerInboxManager extends Screen{
         this.StatusColumn.setCellValueFactory(
                 new PropertyValueFactory("Status")
         );
+
 
         this.DateColumn.setCellValueFactory(
                 new PropertyValueFactory("Date")
@@ -106,29 +133,5 @@ public class ManufacturerInboxManager extends Screen{
             });
         }
         this.Table.setItems(tableList);
-    }
-
-    public void newApplication(){
-        LogManager.println("Creating a new application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
-        return;
-    }
-
-    public void editApplication(){
-        LogManager.println("Editing an application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
-        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
-        currentScreen.data = selected;
-        return;
-    }
-
-    public void goBack() {
-        LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
-        return;
-    }
-
-    public Screen getScreen(){
-        return this;
     }
 }

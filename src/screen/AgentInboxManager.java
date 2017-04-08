@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
-import static screen.ScreenManager.getCurrentScreen;
-
 
 public class AgentInboxManager extends Screen{
 
@@ -65,26 +63,19 @@ public class AgentInboxManager extends Screen{
     @FXML
     public void initialize() {
 
+    }
+
+    public void onScreenFocused(){
         System.out.println("type of alc box: " + typeBox);
-        System.out.println();
-
-
-
-
-        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
-
-
 
         //query database for UUID's that current Agent has in inbox
+        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
 
-        int i = 0;
-        //uuidCodes = DatabaseManager.
         for(DataSet tempData: uuidCodes){
 
             Label tempLabel = new Label();
 
-
-            //fill Manuefacturer and BrandName from temp
+            //fill Manufacturer and BrandName from temp
             String Manufacturer = tempData.getValueForKey("Manufacturer");
             String BrandName = tempData.getValueForKey("Brand");
 
@@ -108,13 +99,13 @@ public class AgentInboxManager extends Screen{
             tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
-                    ScreenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
-                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
-                    currentScreen.setData(tempData);
-                    }
+                    Main.screenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
+//                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
+//                    currentScreen.setData(tempData);
+                }
             });
 
-                //highlight the label that can be clicked
+            //highlight the label that can be clicked
             tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent event) {
@@ -128,13 +119,12 @@ public class AgentInboxManager extends Screen{
                 }
             });
         }
-
     }
 
     @FXML
     void goBack() {
         LogManager.println("Back button pressed from AgentInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
 
     }
 
@@ -162,7 +152,7 @@ public class AgentInboxManager extends Screen{
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
         }
-        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
     }
 
@@ -170,8 +160,6 @@ public class AgentInboxManager extends Screen{
     public void removeId(String rString){
         uuidCodes.remove(rString);
     }
-
-
 
 }
 

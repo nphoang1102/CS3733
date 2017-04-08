@@ -17,8 +17,10 @@ public abstract class Screen {
         return this.type;
     }
 
+    public abstract void onScreenFocused();
+
     /*
-        This method is overriden in the child classes of screen, It is called whenver the red close button
+        This method is overriden in the child classes of screen, It is called whenever the red close button
         on the window is pressed. This method is called before the window closes to allow for saves to be
         generated, or in progress forms to be backed up.
      */

@@ -52,8 +52,7 @@ public class CreateAccountManager extends Screen{
     @FXML
     private void goBack(){
         //go back to the login screen
-        clearFields();
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
 
@@ -69,24 +68,24 @@ public class CreateAccountManager extends Screen{
             LogManager.println(user + " just made an account");
 
             //record the account in the database
-            if(userType == "AGENT") {
+            if(userType.equalsIgnoreCase( "AGENT")) {
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new agent, no password
                 DatabaseManager.addUser(user,"", userType);
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType == "MANUFACTURER"){
+                Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+            }else if(userType.equalsIgnoreCase( "MANUFACTURER")){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
                 DatabaseManager.addUser(user,"", userType);
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType == "publicUser"){
+                Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+            }else if(userType.equalsIgnoreCase("publicUser")){
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
                 DatabaseManager.addUser(user,"","publicUser");
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
+                Main.screenManager.setScreen(EnumScreenType.LOG_IN);
             } else{ //they didn't select a box
                 //tell the system they didn't select a box
                 LogManager.println(user+" didn't select a user type");
@@ -96,7 +95,7 @@ public class CreateAccountManager extends Screen{
         }else {
             //if name is taken, return to the make account screen
             accountError.setText("I'm sorry" + user+ ", that account is taken");
-            ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
+            Main.screenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         }
         return;
     }
@@ -123,6 +122,11 @@ public class CreateAccountManager extends Screen{
         /*tickPublicUser.setSelected(false);
         tickPublicUser.setIndeterminate(false);*/
         userType = "MANUFACTURER";
+    }
+
+    @Override
+    public void onScreenFocused() {
+        clearFields();
     }
    /* @FXML
     private void selectPublicUser(){

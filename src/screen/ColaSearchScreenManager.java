@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -47,6 +48,9 @@ public class ColaSearchScreenManager extends Screen{
         return;
     }
 
+    public void onScreenFocused(){
+        LogManager.println("VICTOR -- remember you didn't move anything over from the initialize method to see if FXCollections.observableArrayList is okay where it is");
+    }
     // Whenever the enter key is hit, it is the same as clicking the search button
     public void onEnter() {
         this.buttonPressed();
@@ -60,14 +64,14 @@ public class ColaSearchScreenManager extends Screen{
         String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
         LogManager.println(toPrint);
         this.entryField.clear();
-        ScreenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
         return;
     }
 
     // What to do when the back button is pressed
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchScreen");
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
 
