@@ -81,29 +81,31 @@ public class ColaSearchResultManager extends Screen{
             TableRow<ColaResult> row = new TableRow();
             row.setOnMouseClicked(event -> {
                 if ((event.getClickCount() == 1) && (! row.isEmpty())) {
-
-                    /* Now what to do with these data */
                     ColaResult rowData = row.getItem();
-                    LogManager.println("User clicked on item ID " + rowData.getId());
-
-                    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./fxml/ResultPopup.fxml"));
-                    Parent root1 = (Parent) fxmlLoader.load();
-                    Stage stage = new Stage();
-                    stage.initModality(Modality.APPLICATION_MODAL);
-                    stage.initStyle(StageStyle.UNDECORATED);
-                    stage.setTitle("Additional information for " + rowData.getName());
-                    stage.setScene(new Scene(root1));
-//                    ResultPopupManager controller = fxmlLoader.getController();
-//                    controller.initData(rowData);
-
-                    stage.show();
-
-//                    return stage;
-
+                    this.initializePopup(rowData);
                 }
             });
             return row;
         });
+    }
+
+    /* Setup popup window here */
+    public void initializePopup(ColaResult rowData) {
+        LogManager.println("User clicked on item ID " + rowData.getId());
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./fxml/ResultPopup.fxml"));
+//        Parent root1 = FXMLLoader.<Parent>load(ResultPopupManager.class.getResource("./fxml/ResultPopup.fxml/"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Additional information for " + rowData.getName());
+//        stage.setScene(new Scene(root1));
+//                    ResultPopupManager controller = fxmlLoader.getController();
+//                    controller.initData(rowData);
+
+        stage.show();
+
+//                    return stage;
     }
 
     /* When the enter button is hit, it is the same as a mouse click on the search button */
