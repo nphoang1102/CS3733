@@ -3,6 +3,7 @@ package screen;
 import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
+import database.DataSet;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -88,5 +89,13 @@ public class ScreenManager {
 //        if(type.equals(EnumScreenType.TOP_BAR)){
 //            ((TopBarManager)loadedScreens.get(type.toString())).setScreen(loadedScenes.get(EnumScreenType.LOG_IN.toString()));
 //        }
+    }
+
+    public static void popoutScreen(EnumScreenType type, DataSet data){
+        popoutScreen(type, Main.WIDTH, Main.HEIGHT, data);
+    }
+
+    public static void popoutScreen(EnumScreenType type, int width, int height, DataSet data){
+        
     }
 }
