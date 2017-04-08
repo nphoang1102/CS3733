@@ -47,14 +47,16 @@ public class ColaSearchResultManager extends Screen{
     TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
 
     /* Class methods */
-    @FXML
+    @Override
     public void onScreenFocused(){
-        /* Get the choice box and table setup */
+        /* Get the TableView stuff and result setup */
         this.initializeTable();
+        this.databaseQuery();
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
     }
+
 
     /* Setup properties for the columns in tableview */
     public void initializeTable() {
@@ -99,8 +101,10 @@ public class ColaSearchResultManager extends Screen{
 
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
-        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
-        for (DataSet tempSet: databaseResult) {
+//        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
+        /* Please remove this line whenever during actual implementation */
+        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", "Alcohol", "Mass", "Beer", "Beer"));
+        /*for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
             String tempPermit = tempSet.getValueForKey("PermitNo");
             String tempSerial = tempSet.getValueForKey("SerialNo");
@@ -111,14 +115,14 @@ public class ColaSearchResultManager extends Screen{
             String tempClass = tempSet.getValueForKey("Class");
             String tempType = tempSet.getValueForKey("Type");
             this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType));
-        }
-        this.searchResult.setEditable(false);
-        this.searchResult.setItems(resultTable);
+        }*/
+//        this.searchResult.setEditable(false);
+        this.searchResult.getItems().setAll(resultTable);
     }
 
     /* Hit back will bring you to the login screen */
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchResultScreen");
-        Main.screenManager.setScreen((EnumScreenType.LOG_IN));
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
     }
 }
