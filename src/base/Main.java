@@ -103,7 +103,12 @@ public class Main extends Application{
     }
 
     public static String getUsername(){
-        return user.getUsername();
+        try{
+            return user.getUsername();
+        }catch(NullPointerException e){
+            LogManager.printStackTrace(e.getStackTrace());
+        }
+        return "";
     }
 
     public static void setUser (User u){

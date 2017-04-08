@@ -1,5 +1,6 @@
 package screen;
 
+import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
 import javafx.fxml.FXMLLoader;
@@ -17,22 +18,34 @@ import java.util.LinkedList;
 public class ScreenManager {
 
     private static Stage stage;
-    private static HashMap<String, Scene> scenes = new HashMap<String, Scene>();
+    private static Screen[] screens;
     private static Screen screen;
 
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
+        screens = new Screen[]{
+                new AgentAppScreenManager(),
+                new AgentInboxManager(),
+                new ColaSearchResultManager(),
+                new ColaSearchScreenManager(),
+                new CreateAccountManager(),
+                new EditableApplicationManager(),
+                new LoginScreenManager(),
+                new ManufacturerInboxManager(),
+                new NewApplicationManager()
+        };
     }
 
     public static void setScreen(EnumScreenType type){
-        LogManager.println("Setting screen to:"+type.toString());
-        if(scenes.containsKey(type.toString())){
-            stage.setScene(scenes.get(type.toString()));
-        }else {
-            scenes.put(type.toString(), new Scene(type.getFXMLFile(), Main.WIDTH, Main.HEIGHT));
-            screen = type.getScreen();
-            stage.setScene(scenes.get(type.toString()));
+        for(Screen screen : screens) {
+            if (screen.getType().equals(type)) {
+                LogManager.println("Setting screen to:" + type.toString());
+                stage.setScene(type.getFXMLFile().getScene());
+                screen = screen;
+                return;
+            }
         }
+        LogManager.println("Screen:"+type.toString(), EnumWarningType.ERROR);
     }
 
     public static Screen getCurrentScreen(){
