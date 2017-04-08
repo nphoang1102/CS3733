@@ -8,7 +8,9 @@ import base.EnumWarningType;
 import base.LogManager;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import screen.EnumUserType;
+import sun.awt.image.ImageWatched;
 
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -354,43 +356,30 @@ public class DatabaseManager {
         }
     }
 
-/*  /////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS IN AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsByAgent(String agent) {
         LinkedList<Application> dataSets = new LinkedList<>();
-        return queryApplications("SELECT * FROM Applications WHERE InboxAgent = '" + agent + "';", 0, "");
-    }*/
+        return queryApplications("SELECT * FROM Applications WHERE InboxAgent = '" + agent + "';", "");
+    }
 
-/*    /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET APPLICATIONS FOR A MANUFACTURER///////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getApplicationsByManuefacturer(String manufacturerUserName) {
-        return queryApplications("SELECT * FROM Applications WHERE Manufacturer = '" + manufacturerUserName + "';", 0, "");
-    }*/
-
-    /*/////////////////////////////////////////////////////////////////////////////////
-    ///////////GET APPLICATION FROM ApplicationNo////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getApplicationsByNumber(String appNo) {
-        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE ApplicationNo = '" + appNo + "';", "");
-        //Application application = applicationLinkedList.get(0);
-        return applicationLinkedList;
-    }*/
-
-/*    /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getApplications(String type, int num, String username) {
-        String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "';";
-        return queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", num, username);
-
-    }*/
+    public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
+        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
+        LinkedList<Application> addToInbox = new LinkedList<>();
+        for(int i = 0; i<num; i++){
+            addToInbox.add((Application) applicationLinkedList.get(i));
+        }
+        return addToInbox;
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////QUERY APPLICATIONS////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> queryApplications(String queryStr, String agent) {
+    public static LinkedList<DataSet> queryApplications(String queryStr, String setAgent) {
         /*if (num == 0) {
             try {
                 ResultSet count = statement.executeQuery("SELECT COUNT(*) AS total FROM Applications");
@@ -430,9 +419,9 @@ public class DatabaseManager {
                 application.Email = getApplications.getString("Email");
                 applicationLinkedList.add(application);
                 String thisApplicationNo = getApplications.getString("ApplicationNo");
-                if (!agent.equals("")) {
+                if (!setAgent.equals("")) {
                     try {
-                        statement.executeUpdate("UPDATE Applications SET InboxAgent = '" + agent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
+                        statement.executeUpdate("UPDATE Applications SET InboxAgent = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + thisApplicationNo + " !", EnumWarningType.ERROR);
                     }
@@ -460,15 +449,12 @@ public class DatabaseManager {
 
 //TODO - Write method to look up a user
     /*/////////////////////////////////////////////////////////////////////////////////
-    ///////////GET USER ID///////////////////////////////////////////////////////////
+    ///////////GET USER BY USERNAME//////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static String getUser(String username) {
-        String query = "SELECT * FROM Users WHERE username = '" + username + "';";
-
-        //String userType = "foo";
+    public static User getUser(String username) {
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
-            ResultSet user = statement.executeQuery(query);
+            ResultSet user = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "';";);
             user.next();
             userType = user.getString("userType");
             LogManager.println("User " + username + " is type " + userType);
