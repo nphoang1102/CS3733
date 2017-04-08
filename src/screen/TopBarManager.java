@@ -1,6 +1,7 @@
 package screen;
 
 import base.Main;
+import database.DataSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -61,21 +62,44 @@ public class TopBarManager extends Screen{
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
         if(!Main.getUserType().isEmpty()) {
-            imageLetter.setText(Main.getUserType().substring(0, 1));
-            logIn.setText("Log Out");
+            //check if user has a custom image defined
+//            if(DatabaseManager.getImage()) {
+                //This method sets the image to the users type first letter.
+                imageLetter.setText(Main.getUserType().substring(0, 1));
+                logIn.setText("Log Out");
+                BufferedImage bufferedImage;
+                try {
+                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    userIcon.setImage(image);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//            }else {
+//                imageLetter.setText("");
+//                logIn.setText("Log Out");
+//                BufferedImage bufferedImage;
+//                try {
+//                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+//                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+//                    userIcon.setImage(image);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }else{
             imageLetter.setText("");
             logIn.setText("Log In");
+            BufferedImage bufferedImage;
+            try {
+                bufferedImage = ImageIO.read(new File(Main.PATH+"/res/dot_empty_user.png"));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                userIcon.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        BufferedImage bufferedImage;
-        try {
-            bufferedImage = ImageIO.read(new File(Main.PATH+"/res/dot.png"));
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            userIcon.setImage(image);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML

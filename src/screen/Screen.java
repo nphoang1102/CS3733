@@ -1,5 +1,7 @@
 package screen;
 
+import database.DataSet;
+
 /**
  * Created by Bailey Sostek on 4/1/17.
  */

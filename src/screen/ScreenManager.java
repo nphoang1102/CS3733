@@ -96,6 +96,6 @@ public class ScreenManager {
     }
 
     public static void popoutScreen(EnumScreenType type, int width, int height, DataSet data){
-        
+
     }
 }
