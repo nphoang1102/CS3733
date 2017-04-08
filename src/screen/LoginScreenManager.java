@@ -62,6 +62,7 @@ public class LoginScreenManager extends Screen{
         }
     }
 
+
     @FXML
     void enterHit() {
         this.loginClicked();
