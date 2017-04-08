@@ -19,32 +19,73 @@ import java.util.LinkedList;
 public class ScreenManager {
 
     private static Stage stage;
+
+    //any additional scenes and screens that are loaded
     private static HashMap<String, Scene> loadedScenes = new HashMap<String, Scene>();
     private static HashMap<String, Screen> loadedScreens = new HashMap<String, Screen>();
 
+    //The top bar, the most important screen
+    private static Scene topBarScene;
+    private static TopBarManager topBarScreen;
+
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
-        setScreen(EnumScreenType.TOP_BAR);
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + EnumScreenType.TOP_BAR.getFXMLFile()));
+        try {
+            topBarScene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
+            stage.setScene(topBarScene);
+            topBarScreen = (TopBarManager) loader.getController();
+            topBarScreen.onScreenFocused();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setScreen(EnumScreenType.COLA_SEARCH_RESULT);
     }
 
     public void setScreen(EnumScreenType type){
-        LogManager.println("Setting screen to:" + type.toString());
-        Scene scene;
-        if(loadedScenes.containsKey(type.toString())){
-            scene = loadedScenes.get(type.toString());
-            loadedScreens.get(type.toString()).onScreenFocused();
-        }else{
-            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
-            try {
-                scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
-                loadedScenes.put(type.toString(), scene);
-                stage.setScene(scene);
-                Screen theScreen = (Screen)loader.getController();
-                loadedScreens.put(type.toString(), theScreen);
-                theScreen.onScreenFocused();
-            } catch (IOException e) {
-                e.printStackTrace();
+        if(!type.equals(EnumScreenType.TOP_BAR)){
+            LogManager.println("Setting screen to:" + type.toString());
+            Scene scene;
+            if(loadedScenes.containsKey(type.toString())){
+                scene = loadedScenes.get(type.toString());
+                topBarScreen.setScreen(loadedScenes.get(type.toString()));
+                loadedScreens.get(type.toString()).onScreenFocused();
+            }else{
+                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
+                try {
+                    scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
+                    loadedScenes.put(type.toString(), scene);
+                    topBarScreen.setScreen(loadedScenes.get(type.toString()));
+                    Screen theScreen = (Screen)loader.getController();
+                    loadedScreens.put(type.toString(), theScreen);
+                    theScreen.onScreenFocused();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
+
+//        LogManager.println("Setting screen to:" + type.toString());
+//        Scene scene;
+//        if(loadedScenes.containsKey(type.toString())){
+//            scene = loadedScenes.get(type.toString());
+//            stage.setScene(scene);
+//            loadedScreens.get(type.toString()).onScreenFocused();
+//        }else{
+//            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
+//            try {
+//                scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
+//                loadedScenes.put(type.toString(), scene);
+//                stage.setScene(scene);
+//                Screen theScreen = (Screen)loader.getController();
+//                loadedScreens.put(type.toString(), theScreen);
+//                theScreen.onScreenFocused();
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        if(type.equals(EnumScreenType.TOP_BAR)){
+//            ((TopBarManager)loadedScreens.get(type.toString())).setScreen(loadedScenes.get(EnumScreenType.LOG_IN.toString()));
+//        }
     }
 }

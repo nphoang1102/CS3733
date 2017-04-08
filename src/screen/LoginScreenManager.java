@@ -72,7 +72,7 @@ public class LoginScreenManager extends Screen{
         // Tell the screen manager to set the screen to COLA screen
         LogManager.println("Back Button");
         usernameField.clear();
-        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+        Main.screenManager.setScreen(EnumScreenType.TOP_BAR);
         return;
     }
 
