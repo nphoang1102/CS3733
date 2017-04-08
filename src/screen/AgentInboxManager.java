@@ -22,32 +22,21 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
-import static screen.ScreenManager.getCurrentScreen;
-
 
 public class AgentInboxManager extends Screen{
 
     @FXML
     private Button pullNewBatch;
-
     @FXML
     private Polygon backButton;
-
     @FXML
     private TextArea results;
-
-
     @FXML
     private ChoiceBox typeBox;
-
     @FXML
     private TableView inboxData;
-
     @FXML
     private TableColumn<AgentInboxResult, String>  specificBrandName, manufacturerName;
-
-
-
 
 
     private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
@@ -56,26 +45,22 @@ public class AgentInboxManager extends Screen{
     //constructer for the screen
     public AgentInboxManager() {
         super(EnumScreenType.AGENT_INBOX);
-        initialize();
+
     }
 
     /*
         sets up the entire screent including the choice box and the specific agents inbox
      */
-    @FXML
-    public void initialize() {
 
-
-        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
+    @Override
+    public void onScreenFocused(DataSet data){
+        System.out.println("type of alc box: " + typeBox);
 
         //query database for UUID's that current Agent has in inbox
+        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
 
-        int i = 0;
-        //uuidCodes = DatabaseManager.
         for(DataSet tempData: uuidCodes){
-
-
-            //fill Manuefacturer and BrandName from temp
+            //fill Manufacturer and BrandName from temp
             String Manufacturer = tempData.getValueForKey("Manufacturer");
             String BrandName = tempData.getValueForKey("Brand");
 
@@ -88,14 +73,14 @@ public class AgentInboxManager extends Screen{
             specificBrandName.setCellValueFactory(
                     new PropertyValueFactory<>("brandName")
             );
-        }
 
+        }
     }
 
     @FXML
     void goBack() {
         LogManager.println("Back button pressed from AgentInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
 
     }
 
@@ -123,7 +108,7 @@ public class AgentInboxManager extends Screen{
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
         }
-        ScreenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
     }
 
@@ -131,8 +116,6 @@ public class AgentInboxManager extends Screen{
     public void removeId(String rString){
         uuidCodes.remove(rString);
     }
-
-
 
 }
 
