@@ -8,19 +8,19 @@ import javafx.scene.control.Label;
 public class ManufacturerInboxResult {
 
     private String TTBID;
-    private Label BrandName;
+    private String BrandName;
     private String Status;
     private String Date;
 
-    public ManufacturerInboxResult(String s1, Label aLabel, String s2, String s3 ){
+    public ManufacturerInboxResult(String s1, String s2, String s3, String s4 ){
         TTBID = s1;
-        BrandName = aLabel;
-        Status = s2;
-        Date = s3;
+        BrandName = s2;
+        Status = s3;
+        Date = s4;
     }
 
     public String getTTBID() {return this.TTBID;}
-    public Label getBrandName() {return this.BrandName;}
+    public String getBrandName() {return this.BrandName;}
     public String getStatus() {return this.Status;}
     public String getDate() { return this.Date;
     }
