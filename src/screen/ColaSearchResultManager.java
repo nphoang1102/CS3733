@@ -40,11 +40,7 @@ public class ColaSearchResultManager extends Screen{
 
     /* FXML objects */
     @FXML
-    TextField entryField;
-    @FXML
-    Button searchButton, backButton;
-    @FXML
-    ChoiceBox type;
+    Button backButton;
     @FXML
     TableView<ColaResult> searchResult;
     @FXML
@@ -52,10 +48,9 @@ public class ColaSearchResultManager extends Screen{
 
     /* Class methods */
     @FXML
-    public void initialize() {
+    public void onScreenFocused(){
         /* Get the choice box and table setup */
         this.initializeTable();
-        this.initializeChoices();
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
@@ -67,13 +62,6 @@ public class ColaSearchResultManager extends Screen{
         this.coLsource.setCellValueFactory(new PropertyValueFactory("source"));
         this.coLalcoholType.setCellValueFactory(new PropertyValueFactory("type"));
         this.coLname.setCellValueFactory(new PropertyValueFactory("name"));
-    }
-
-    /* Initialize the choice box */
-    public void initializeChoices() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
-        type.setItems(typeList);
-        type.setValue("Beer");
     }
 
     /* Initialize the mouse click event on table rows */
@@ -109,28 +97,6 @@ public class ColaSearchResultManager extends Screen{
 //                    return stage;
     }
 
-    /* When the enter button is hit, it is the same as a mouse click on the search button */
-    public void onEnter() {
-        this.buttonPressed();
-    }
-
-    /* What to do when the search button is pressed */
-    public void buttonPressed() {
-        /* Getting the keywords entered from user */
-        resultTable = FXCollections.observableArrayList();
-        this.keywords = entryField.getText();
-        this.searchType = type.getValue() + "";
-
-        /* Print into our nifty log manager for debug purpose and clear the entry field */
-        String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
-        LogManager.println(toPrint);
-        this.entryField.clear();
-
-        /* Send and receive result from the database and display them into the TableView */
-        this.databaseQuery();;
-
-    }
-
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
         this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
@@ -155,11 +121,4 @@ public class ColaSearchResultManager extends Screen{
         LogManager.println("Back button pressed from ColaSearchResultScreen");
         Main.screenManager.setScreen((EnumScreenType.LOG_IN));
     }
-
-    public void onScreenFocused(){
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
-        type.setItems(typeList);
-        type.setValue("Beer");
-    }
-
 }
