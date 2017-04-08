@@ -19,7 +19,7 @@ public abstract class Screen {
         return this.type;
     }
 
-    public abstract void onScreenFocused();
+    public abstract void onScreenFocused(DataSet data);
 
     /*
         This method is overriden in the child classes of screen, It is called whenever the red close button
