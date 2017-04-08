@@ -3,6 +3,7 @@ package screen;
 import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
@@ -13,6 +14,7 @@ import java.io.IOException;
  * Created by Bailey Sostek on 4/1/17.
  */
 public enum EnumScreenType {
+    TOP_BAR("TopBar.fxml"),
     LOG_IN("LoginScreen.fxml"),
     CREATE_ACCOUNT("CreateAccount.fxml"),
     COLA_SEARCH("ColaSearchScreen.fxml"),
@@ -25,21 +27,16 @@ public enum EnumScreenType {
     AGENT_INBOX("AgentInbox.fxml")
     ;
 
-    private Parent scene;
+    private String scene;
+    private Class controller;
 
     EnumScreenType(String file){
-        try {
-            this.scene = FXMLLoader.load(this.getClass().getResource("/screen/fxml/" + file));
-        } catch (IOException e) {
-            LogManager.println("FXML file not found for:" + this.toString() + ":" + Main.PATH + Main.LOG + "/" + this.getFXMLFile(), EnumWarningType.WARNING);
-        } catch (Exception e) {
-            LogManager.println(e.toString(), EnumWarningType.ERROR);
-            LogManager.printStackTrace(e.getStackTrace());
-        }
+        this.scene = file;
     }
 
-    public Parent getFXMLFile() {
+    public String getFXMLFile() {
         return this.scene;
     }
+
 }
 

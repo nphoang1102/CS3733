@@ -105,17 +105,21 @@ public class NewApplicationManager extends Screen {
         database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
 
         LogManager.println("Submitting Application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
     public Screen getScreen(){
         return this;
     }
 
+    @Override
+    public void onScreenFocused() {
+
+    }
 }

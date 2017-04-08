@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane id="scene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="784.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.TopBarManager">
+   <children>
+      <AnchorPane prefHeight="64.0" prefWidth="1280.0" style="-fx-background-color: #373737">
+         <children>
+            <Label fx:id="username" layoutX="68.0" layoutY="5.0" textFill="WHITE">
+               <font>
+                  <Font name="Telugu Sangam MN" size="15.0" />
+               </font>
+            </Label>
+            <Label fx:id="userType" layoutX="69.0" layoutY="31.0" textFill="WHITE">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <ImageView fx:id="userIcon" fitHeight="48.0" fitWidth="48.0" layoutX="8.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" />
+            <Label fx:id="imageLetter" layoutX="23.0" layoutY="3.0" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Telugu Sangam MN" size="29.0" />
+               </font></Label>
+            <Button fx:id="logIn" layoutX="1138.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#logIn" prefHeight="31.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Log In" textFill="WHITE">
+               <font>
+                  <Font name="Telugu Sangam MN" size="12.0" />
+               </font>
+            </Button>
+            <TextField fx:id="searchBar" layoutX="212.0" layoutY="17.0" prefHeight="31.0" prefWidth="519.0" />
+            <ChoiceBox fx:id="searchTerm" layoutX="738.0" layoutY="19.0" prefHeight="27.0" prefWidth="117.0" style="-fx-background-color: #939393;" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="screenPane" layoutY="64.0" prefHeight="720.0" prefWidth="1280.0" />
+   </children>
+</Pane>

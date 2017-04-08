@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -43,9 +44,7 @@ public class ColaSearchResultManager extends Screen{
     /* Class methods */
     @FXML
     public void initialize() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
-        type.setItems(typeList);
-        type.setValue("Beer");
+
         this.id.setCellValueFactory(new PropertyValueFactory("id"));
         this.source.setCellValueFactory(new PropertyValueFactory("source"));
         this.alcoholType.setCellValueFactory(new PropertyValueFactory("type"));
@@ -77,6 +76,13 @@ public class ColaSearchResultManager extends Screen{
 
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchResultScreen");
-        ScreenManager.setScreen((EnumScreenType.LOG_IN));
+        Main.screenManager.setScreen((EnumScreenType.LOG_IN));
     }
+
+    public void onScreenFocused(){
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
+        type.setItems(typeList);
+        type.setValue("Beer");
+    }
+
 }
