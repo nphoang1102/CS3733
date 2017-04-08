@@ -27,15 +27,15 @@ public class ColaSearchScreenManager extends Screen{
 
     /* Building the control objects */
     @FXML
-    Pane colaSearchPanel;
+    private Pane colaSearchPanel;
     @FXML
-    TextField entryField;
+    private TextField entryField;
     @FXML
-    Button searchButton;
+    private Button searchButton;
     @FXML
-    Button backButton;
+    private Button backButton;
     @FXML
-    ChoiceBox type;
+    private ChoiceBox type;
 
     /* Class methods */
 

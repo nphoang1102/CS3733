@@ -87,7 +87,7 @@ public class ManufacturerInboxManager extends Screen{
     }
 
     @Override
-    public void onScreenFocused(){
+    public void onScreenFocused(DataSet data){
         manufacturer = Main.getUsername(); //move
         LogManager.print("Current user is "+manufacturer); //move
         LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer); //move
@@ -113,7 +113,7 @@ public class ManufacturerInboxManager extends Screen{
         );
 
 
-        for(DataSet data : appList) {
+        for(DataSet data1 : appList) {
             String tempTTBID = data.getValueForKey("TTBID");
             Label tempName = new Label(data.getValueForKey("BrandName"));
             String tempStatus = data.getValueForKey("Status");

@@ -76,7 +76,7 @@ public class EditableApplicationManager extends Screen {
 
     public DataSet data;
 
-    String manufacturer = "";
+    private String manufacturer = "";
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
@@ -117,7 +117,7 @@ public class EditableApplicationManager extends Screen {
         PHLevel.setText(data.getValueForKey("PH"));
     }
 
-    public void onScreenFocused(){
+    public void onScreenFocused(DataSet data){
 
     }
 

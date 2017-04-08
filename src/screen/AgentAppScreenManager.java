@@ -18,11 +18,11 @@ public class AgentAppScreenManager extends Screen{
 
     //all the Labels on the screen
     @FXML
-    Label repId, brewNo, productSrc, productType, brandName, applicantName, applicantAdd, tradeName, alternateAdd, phoneNum, emailAdd, appDate, appName;
+    private Label repId, brewNo, productSrc, productType, brandName, applicantName, applicantAdd, tradeName, alternateAdd, phoneNum, emailAdd, appDate, appName;
 
     //all the Buttons on the screen
     @FXML
-    Button acceptButton, rejectButton;
+    private Button acceptButton, rejectButton;
 
     private DataSet data;
 
@@ -37,7 +37,7 @@ public class AgentAppScreenManager extends Screen{
     }
 
     @Override
-    public void onScreenFocused(){
+    public void onScreenFocused(DataSet data){
         repId.setText(data.getValueForKey("AgentId"));
         brewNo.setText(data.getValueForKey("PermitNo"));
         productSrc.setText(data.getValueForKey("Source"));
