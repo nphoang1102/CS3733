@@ -99,13 +99,13 @@ public class DatabaseManager {
                     " ABV VARCHAR(10) NOT NULL,\n" +
                     " VintageDate DATE,\n" +
                     " PH VARCHAR(10),\n" +
-                    " Status ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED), NOT NULL\n" +
+                    " Status ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
                     " ApplicationNo VARCHAR(20) NOT NULL,\n" +
                     " DateOfApproval DATE,\n" +
                     " AgentName VARCHAR(30),\n" +
                     " DateOfExpiration DATE,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
-                    " AgentUsername VARCHAR(20),\n" +
+                    " AgentUsername VARCHAR(20)\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -295,6 +295,21 @@ public class DatabaseManager {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
+        if(table.equals(EnumTableType.ALCOHOL)){
+
+        }
+        else if(table.equals(EnumTableType.APPLICATION)){
+            return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
+        }
+        else if(table.equals(EnumTableType.ALCOHOL)){
+
+        }
+        return null;
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
@@ -307,7 +322,9 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        Application approvedApplication = getApplicationsByNumber(ApplicationNo);
+        LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNo);
+        Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
+
         String TTBID = generateTTBID();
         String PermitNo = approvedApplication.PermitNo;
         String SerialNo = approvedApplication.ApplicationNo;
@@ -325,7 +342,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////REJECT/ APPLICATION///////////////////////////////////////////////////
+    ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
         try {
@@ -337,45 +354,44 @@ public class DatabaseManager {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
+/*  /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS IN AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<Application> getApplicationsByAgent(String agent) {
+    public static LinkedList<DataSet> getApplicationsByAgent(String agent) {
         LinkedList<Application> dataSets = new LinkedList<>();
-        return runQuery("SELECT * FROM Applications WHERE InboxAgent = '" + agent + "';", 0, "");
-    }
+        return queryApplications("SELECT * FROM Applications WHERE InboxAgent = '" + agent + "';", 0, "");
+    }*/
 
-    /////////////////////////////////////////////////////////////////////////////////
+/*    /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS FOR A MANUFACTURER///////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<Application> getApplicationsByManuefacturer(String manufacturerUserName) {
-        return runQuery("SELECT * FROM Applications WHERE Manufacturer = '" + manufacturerUserName + "';", 0, "");
-    }
+    public static LinkedList<DataSet> getApplicationsByManuefacturer(String manufacturerUserName) {
+        return queryApplications("SELECT * FROM Applications WHERE Manufacturer = '" + manufacturerUserName + "';", 0, "");
+    }*/
 
-
-    /////////////////////////////////////////////////////////////////////////////////
+    /*/////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATION FROM ApplicationNo////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static Application getApplicationsByNumber(String appNo) {
-        LinkedList<Application> applicationLinkedList = runQuery("SELECT * FROM Applications WHERE ApplicationNo = '" + appNo + "';", 1, "");
-        Application application = applicationLinkedList.get(0);
-        return application;
-    }
+    public static LinkedList<DataSet> getApplicationsByNumber(String appNo) {
+        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE ApplicationNo = '" + appNo + "';", "");
+        //Application application = applicationLinkedList.get(0);
+        return applicationLinkedList;
+    }*/
 
-    /////////////////////////////////////////////////////////////////////////////////
+/*    /////////////////////////////////////////////////////////////////////////////////
     ///////////GET APPLICATIONS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<Application> getApplications(String type, int num, String username) {
+    public static LinkedList<DataSet> getApplications(String type, int num, String username) {
         String query = "SELECT * FROM Applications WHERE AlcoholType = '" + type + "';";
-        return runQuery("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", num, username);
+        return queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", num, username);
 
-    }
+    }*/
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////RUN APPLICATION QUERY/////////////////////////////////////////////////
+    ///////////QUERY APPLICATIONS////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<Application> runQuery(String queryStr, int num, String agent) {
-        if (num == 0) {
+    public static LinkedList<DataSet> queryApplications(String queryStr, String agent) {
+        /*if (num == 0) {
             try {
                 ResultSet count = statement.executeQuery("SELECT COUNT(*) AS total FROM Applications");
                 count.next();
@@ -383,12 +399,12 @@ public class DatabaseManager {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        LinkedList<Application> applicationLinkedList = new LinkedList<>();
+        }*/
+        LinkedList<DataSet> applicationLinkedList = new LinkedList<>();
         try {
             ResultSet getApplications = statement.executeQuery(queryStr);
 
-            for (int i = 0; i < num; i++) {
+            while (getApplications.next()) {
                 getApplications.next();
                 Application application = new Application();
                 application.ApplicationNo = getApplications.getString("ApplicationNo");
@@ -427,7 +443,6 @@ public class DatabaseManager {
             return new LinkedList<>();
         }
 
-
         return applicationLinkedList;
     }
 
@@ -443,13 +458,14 @@ public class DatabaseManager {
         }
     }
 
-
+//TODO - Write method to look up a user
+    /*/////////////////////////////////////////////////////////////////////////////////
+    ///////////GET USER ID///////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET USER ID/////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static String getUserType(String username) {
+    public static String getUser(String username) {
         String query = "SELECT * FROM Users WHERE username = '" + username + "';";
-        String userType = "foo";
+
+        //String userType = "foo";
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
             ResultSet user = statement.executeQuery(query);
@@ -460,10 +476,10 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return userType;
-    }
+    }*/
 
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    /*///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryManufactures() {
@@ -508,6 +524,6 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return dataSets;
-    }
+    }*/
     //////////////////////////////////////////////////////////////////////////////////////////////////
 }
