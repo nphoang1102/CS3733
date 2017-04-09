@@ -150,12 +150,53 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void submitApplication(String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email) {
+    public static void submitApplication(Application application) {
+        // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
         try {
             String ApplicationNo = generateTTBID(); //TODO - Replace this with the correct method for generating Application Numbers
             String status = "PENDING";
-            statement.executeUpdate("INSERT INTO Applications (ApplicationNo, Manufacturer, PermitNo, Status, AlcoholType, AgentID, Source, Brand, Address, Address2, Volume, ABV, PhoneNo, AppType, VintageDate, PH, ApplicantName, DateSubmitted, DBAorTrade, Email) VALUES " +
-                    "('" + ApplicationNo + "', '" + Manufacturer + "', '" + PermitNo + "', '" + status + "', '" + AlcoholType + "', '" + AgentID + "', '" + Source + "', '" + Brand + "', '" + Address + "', '" + Address2 + "', '" + Volume + "', '" + ABV + "', '" + PhoneNo + "', '" + AppType + "', '" + VintageDate + "', '" + PH + "', '" + ApplicantName + "', '" + DateSubmitted + "', '" + DBAorTrade + "', '" + Email
+            statement.executeUpdate("INSERT INTO Applications " +
+                    "(ApplicationNo, " +
+                    "Manufacturer, " +
+                    "PermitNo, " +
+                    "Status, " +
+                    "AlcoholType, " +
+                    "AgentID, " +
+                    "Source, " +
+                    "Brand, " +
+                    "Address, " +
+                    "Address2, " +
+                    "Volume, " +
+                    "ABV, " +
+                    "PhoneNo, " +
+                    "AppType, " +
+                    "VintageDate, " +
+                    "PH, " +
+                    "ApplicantName, " +
+                    "DateSubmitted, " +
+                    "DBAorTrade, " +
+                    "Email) VALUES " +
+                    "('"
+                    + application.ApplicationNo + "', '"
+                    + application.Manufacturer + "', '"
+                    + application.PermitNo + "', '"
+                    + application.status + "', '"
+                    + application.AlcoholType + "', '"
+                    + application.AgentID + "', '"
+                    + application.Source + "', '"
+                    + application.Brand + "', '"
+                    + application.Address + "', '"
+                    + application.Address2 + "', '"
+                    + application.Volume + "', '"
+                    + application.ABV + "', '"
+                    + application.PhoneNo + "', '"
+                    + application.AppType + "', '"
+                    + application.VintageDate + "', '"
+                    + application.PH + "', '"
+                    + application.ApplicantName + "', '"
+                    + application.DateSubmitted + "', '"
+                    + application.DBAorTrade + "', '"
+                    + application.Email
                     + "');");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -391,13 +432,13 @@ public class DatabaseManager {
     if (!resultSet.next() ) {
     System.out.println("no data");
 }
-    public static User getUser(String username) {
+    public static User2 getUser(String username) {
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
             ResultSet user = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "';";);
             user.next();
             userType = user.getString("userType");
-            LogManager.println("User " + username + " is type " + userType);
+            LogManager.println("User2 " + username + " is type " + userType);
         } catch (SQLException e) {
             e.printStackTrace();
         }
