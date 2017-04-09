@@ -24,7 +24,7 @@ public class Main extends Application{
 
     public static final int WIDTH = 1280;
     public static final int HEIGHT = 784;
-    public static final String NAME = "COLA Database Search Thing";
+    public static final String NAME = "COLA Database Search Tool";
 
 
     private static Class reference = Main.class;
@@ -50,7 +50,7 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new User(EnumUserType.SUPER_AGENT, "Test", "foo@foo.foo");
+        user = new User(EnumUserType.AGENT, "Evan123", "foo@foo.foo");
 
         //Initialize all Managers
         logManager = new LogManager();

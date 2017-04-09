@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane fx:id="colaSearchPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color: #f7ffd7;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ColaSearchScreenManager">
+<Pane fx:id="colaSearchPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1200.0" style="-fx-background-color:#f7ffd7" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ColaSearchScreenManager">
    <children>
       <Text fill="ORANGE" layoutX="83.0" layoutY="199.0" stroke="#fff29d" strokeType="OUTSIDE" strokeWidth="0.0" text="How may we help you?">
          <font>
@@ -16,13 +16,13 @@
          </font>
       </Text>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#737f78" height="68.0" layoutX="80.0" layoutY="210.0" stroke="#fcffca" strokeLineCap="BUTT" strokeLineJoin="BEVEL" strokeMiterLimit="20.0" strokeWidth="5.0" width="864.0" />
-      <ChoiceBox fx:id="type" layoutX="596.0" layoutY="221.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color: #B0E0E6;" />
-      <Button fx:id="searchButton" layoutX="753.0" layoutY="221.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" style="-fx-background-color: #FFA500;" text="Search" textFill="#737f78">
+      <ChoiceBox fx:id="type" layoutX="596.0" layoutY="221.0" prefHeight="46.0" prefWidth="150.0" style="-fx-background-color:#B0E0E6" />
+      <Button fx:id="searchButton" layoutX="753.0" layoutY="221.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="179.0" style="-fx-background-color:#FFA500" text="Search" textFill="#737f78">
          <font>
             <Font name="Segoe UI" size="21.0" />
          </font>
       </Button>
-      <Button fx:id="backButton" layoutX="80.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#backPressed" prefHeight="53.0" prefWidth="65.0" style="-fx-background-radius: 5em; -fx-background-color: #737f78;" text="&lt;" textFill="#ecfff4">
+      <Button fx:id="backButton" layoutX="80.0" layoutY="60.0" mnemonicParsing="false" onMouseClicked="#backPressed" prefHeight="53.0" prefWidth="65.0" style="-fx-background-radius: 5em; -fx-background-color:#737f78" text="&lt;" textFill="#ecfff4">
          <font>
             <Font size="30.0" />
          </font>
