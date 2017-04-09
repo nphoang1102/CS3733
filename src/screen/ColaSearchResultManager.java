@@ -2,6 +2,7 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import database.BasicDataSet;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -49,6 +50,7 @@ public class ColaSearchResultManager extends Screen{
     TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
 
     /* Class methods */
+    @Override
     public void onScreenFocused(DataSet data){
         /* Get the TableView stuff and result setup */
         this.initializeTable();
@@ -62,13 +64,9 @@ public class ColaSearchResultManager extends Screen{
     /* Setup properties for the columns in tableview */
     public void initializeTable() {
         this.coLid.setCellValueFactory(new PropertyValueFactory("id"));
-//        this.coLid.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: #373737;");
         this.coLsource.setCellValueFactory(new PropertyValueFactory("source"));
-//        this.coLsource.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: #373737;");
         this.coLalcoholType.setCellValueFactory(new PropertyValueFactory("type"));
-//        this.coLalcoholType.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: BLACK;");
         this.coLname.setCellValueFactory(new PropertyValueFactory("name"));
-//        this.coLname.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: BLACK;");
     }
 
     /* Initialize the mouse click event on table rows */
@@ -87,20 +85,19 @@ public class ColaSearchResultManager extends Screen{
 
     /* Setup popup window here */
     public void initializePopup(ColaResult rowData) {
-//        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ResultPopup.fxml"));
-//            Parent root1 = (Parent) fxmlLoader.load();
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.initStyle(StageStyle.UNDECORATED);
-            stage.setTitle("Additional information for " + rowData.getName());
-//            stage.setScene(new Scene(root1));
-            stage.show();
-            stage.showAndWait();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//            LogManager.println("Something is wrong with the FXML loader");
-//        }
+        DataSet data = new BasicDataSet();
+        String title = "Additional information for " + rowData.getName();
+        data.addField("TTBID", rowData.getId());
+        data.addField("PermitNo", rowData.getPermit());
+        data.addField("SerialNo", rowData.getSerial());
+        data.addField("CompletedDate", rowData.getDate());
+        data.addField("FancifulName", rowData.getFname());
+        data.addField("BrandName", rowData.getName());
+        data.addField("Origin", rowData.getSource());
+        data.addField("Class", rowData.getAclass());
+        data.addField("Type", rowData.getType());
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, 642, 305, data, title);
+    }
 
 
 
@@ -119,7 +116,6 @@ public class ColaSearchResultManager extends Screen{
         stage.show();
 
 //                    return stage;*/
-    }
 
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {

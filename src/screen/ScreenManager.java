@@ -100,12 +100,12 @@ public class ScreenManager {
     }
 
     public void popoutScreen(EnumScreenType type, DataSet data){
-        popoutScreen(type, Main.WIDTH, Main.HEIGHT, data);
+        popoutScreen(type, Main.WIDTH, Main.HEIGHT, data, "My New Stage Title");
     }
 
-    public void popoutScreen(EnumScreenType type, int width, int height, DataSet data){
+    public void popoutScreen(EnumScreenType type, int width, int height, DataSet data, String title){
         Stage stage = new Stage();
-        stage.setTitle("My New Stage Title");
+        stage.setTitle(title);
         stage.setScene(loadedScenes.get(type.toString()));
         stage.show();
         loadedScreens.get(type.toString()).onScreenFocused(data);
