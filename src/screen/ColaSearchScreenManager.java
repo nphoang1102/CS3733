@@ -2,6 +2,7 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import database.DataSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -48,7 +49,7 @@ public class ColaSearchScreenManager extends Screen{
         return;
     }
 
-    public void onScreenFocused(){
+    public void onScreenFocused(DataSet data){
         LogManager.println("VICTOR -- remember you didn't move anything over from the initialize method to see if FXCollections.observableArrayList is okay where it is");
     }
     // Whenever the enter key is hit, it is the same as clicking the search button
