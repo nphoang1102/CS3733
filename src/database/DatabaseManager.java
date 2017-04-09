@@ -180,6 +180,32 @@ public class DatabaseManager {
         return null;
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+
+    public static LinkedList<DataSet> queryAlcohol(String brand){
+        if(brand == ""){
+            try {
+                statement.executeUpdate("SELECT * FROM Alcohol;");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else{
+            try {
+                statement.executeUpdate("SELECT * FROM Alcohol WHERE BrandName = '" + brand + "';");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
