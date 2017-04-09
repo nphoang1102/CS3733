@@ -60,7 +60,17 @@ public class ScreenManager {
                 topBarScreen.setScreen(loadedScenes.get(type.toString()));
                 loadedScreens.get(type.toString()).onScreenFocused(data);
             }else{
-                 
+                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
+                try {
+                    scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
+                    loadedScenes.put(type.toString(), scene);
+                    topBarScreen.setScreen(loadedScenes.get(type.toString()));
+                    Screen theScreen = (Screen)loader.getController();
+                    loadedScreens.put(type.toString(), theScreen);
+                    theScreen.onScreenFocused(data);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
             topBarScreen.onScreenFocused(new BasicDataSet());
         }
