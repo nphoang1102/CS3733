@@ -1,11 +1,13 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
 /**
@@ -24,9 +26,6 @@ public class EditableApplicationManager extends Screen {
 
     @FXML
     private TextField ApplicantName;
-
-    @FXML
-    private TextField DBAorTradeName;
 
     @FXML
     private TextField PhoneNum;
@@ -68,6 +67,27 @@ public class EditableApplicationManager extends Screen {
     private TextField PHLevel;
 
     @FXML
+    private TextField SerialNo;
+
+    @FXML
+    private TextField FancifulName;
+
+    @FXML
+    private TextField Formula;
+
+    @FXML
+    private TextField WineAppellation;
+
+    @FXML
+    private TextField GrapeVarietals;
+
+    @FXML
+    private TextField AppType;
+
+    @FXML
+    private TextArea AdditionalInfo;
+
+    @FXML
     private Button SubmitButton;
 
     @FXML
@@ -83,28 +103,10 @@ public class EditableApplicationManager extends Screen {
     }
 
     public void initialize(){
-
-        REPID.setText(data.getValueForKey("AgentID"));
-        Source.setText(data.getValueForKey("Source"));
-        BrandName.setText(data.getValueForKey("Brand"));
-        ApplicantName.setText("");
-        DBAorTradeName.setText("");
-        PhoneNum.setText(data.getValueForKey("PhoneNo"));
-        Registry.setText("");
-        Type.setText(data.getValueForKey("AlcoholType"));
-        Address.setText(data.getValueForKey("Address"));
-        AlternateAddress.setText(data.getValueForKey("Address2"));
-        Email.setText("");
-        Date.setText(data.getValueForKey("Completed Date"));
-        AlcoholContent.setText(data.getValueForKey("ABV"));
-        VintageYear.setText(data.getValueForKey("VintageDate"));
-        PHLevel.setText(data.getValueForKey("PH"));
-
         REPID.setDisable(true);
         Source.setDisable(true);
         BrandName.setDisable(true);
         ApplicantName.setDisable(true);
-        DBAorTradeName.setDisable(true);
         Registry.setDisable(true);
         Address.setDisable(true);
         AlternateAddress.setDisable(true);
@@ -116,43 +118,65 @@ public class EditableApplicationManager extends Screen {
         BeerSelect.setDisable(true);
         WineSelect.setDisable(true);
         OtherSelect.setDisable(true);
+        REPID.setText(data.getValueForKey("AgentID"));
+        Source.setText(data.getValueForKey("Source"));
+        BrandName.setText(data.getValueForKey("Brand"));
+        ApplicantName.setText("");
+        PhoneNum.setText(data.getValueForKey("PhoneNo"));
+        Registry.setText("");
+        Type.setText(data.getValueForKey("AlcoholType"));
+        Address.setText(data.getValueForKey("Address"));
+        AlternateAddress.setText(data.getValueForKey("Address2"));
+        Email.setText("");
+        Date.setText(data.getValueForKey("Completed Date"));
+        AlcoholContent.setText(data.getValueForKey("ABV"));
+        VintageYear.setText(data.getValueForKey("VintageDate"));
+        PHLevel.setText(data.getValueForKey("PH"));
+    }
+
+    public void onScreenFocused(){
+
     }
 
     public void submit(){
         String repID = REPID.getText();
-        String source = Source.getText();
-        String brandName = BrandName.getText();
-        String applicantName = ApplicantName.getText();
-        String dba_or_tradeName = DBAorTradeName.getText();
-        String phoneNum = PhoneNum.getText();
         String registry = Registry.getText();
+        String source = Source.getText();
+        String serialNo = SerialNo.getText();
         String type = Type.getText();
+        String brandName = BrandName.getText();
+        String fancifulName = FancifulName.getText();
         String address = Address.getText();
         String alternateAddress = AlternateAddress.getText();
+        String formula = Formula.getText();
+        String grapeVarietals = GrapeVarietals.getText();
+        String wineAppellation = WineAppellation.getText();
+        String phoneNum = PhoneNum.getText();
         String email = Email.getText();
+        String appType = AppType.getText();
+        String additionalInfo = AdditionalInfo.getText();
         String date = Date.getText();
-        String alcoholContent = AlcoholContent.getText();
+        String applicantName = ApplicantName.getText();
         String vintageYear = VintageYear.getText();
+        String alcoholContent = AlcoholContent.getText();
         String phLevel = PHLevel.getText();
-        Boolean beerSelect = BeerSelect.isSelected();
-        Boolean wineSelect = WineSelect.isSelected();
-        Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
-        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
+        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), "", Email.getText());
 
         LogManager.println("Submitting Application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 
     public Screen getScreen(){
         return this;
     }
+
 }
