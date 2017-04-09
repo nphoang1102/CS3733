@@ -142,7 +142,7 @@ public class DatabaseManager {
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERATE TTBID////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////15
     private static String generateTTBID() {
         return Long.toString(Math.round(Math.random() * 10000000));
     }
@@ -297,7 +297,7 @@ public class DatabaseManager {
                 application.DateOfExpiration = getApplications.getString("DateOfExpiration");
                 application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
                 application.AgentUsername = getApplications.getString("AgentUsername");
-                application.ApplicationNO = getApplications.getString("ApplicationNO");
+                application.ApplicationNo = getApplications.getString("ApplicationNo");
                 application.Status = getApplications.getString("Status");
                 application.AlcoholType = getApplications.getString("AlcoholType");
                 application.Source = getApplications.getString("Source");
