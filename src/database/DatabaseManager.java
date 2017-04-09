@@ -221,7 +221,7 @@ public class DatabaseManager {
 //        String DateOfExpiration = approvedApplication.DateOfExpiration;
 //        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
 //        String AgentUsername = approvedApplication.AgentUsername;
-            String TTBID = generateTTBID();
+        String TTBID = generateTTBID();
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "');");
         } catch (SQLException e) {
@@ -367,11 +367,9 @@ public class DatabaseManager {
     public static LinkedList<DataSet> queryManufactures() {
         return queryManufacturers("SELECT * FROM Manufacturers");
     }
-
     public static LinkedList<DataSet> queryManufactures(String manufacturer) {
         return queryManufacturers("SELECT * FROM Manufacturers WHERE Company = '" + manufacturer + "';");
     }
-
     public static LinkedList<DataSet> queryManufactures(LinkedList<String> manufacturers) {
         String query = "SELECT * FROM Manufacturers WHERE";
         for (String m : manufacturers) {
@@ -380,7 +378,6 @@ public class DatabaseManager {
         query = query + " Company = 'END'";
         return queryManufacturers(query);
     }
-
     public static LinkedList<DataSet> queryManufacturers(String entry) {
         String query = entry;
         LinkedList<DataSet> dataSets = new LinkedList<>();
@@ -395,7 +392,6 @@ public class DatabaseManager {
                 dataSet.addField("Username", username);
                 dataSet.addField("Company", company);
                 dataSets.add(dataSet);
-
                 LogManager.println("UUID: " + UUID);
                 LogManager.println("Username: " + username);
                 LogManager.println("Company: " + company);
@@ -427,97 +423,81 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('05348001000134', 'BR-MO-ANH-1', '05B645', '2005-12-21', '', 'BUDWEISER', '29', '901', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06054001000120', 'BR-MO-ANH-1', '06B722', '2006-10-06', '', 'BUDWEISER', '29', '901', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('04267001000046', 'BR-MO-ANH-1', '04B554', '2004-10-19', '', 'BUDWEISER', '09', '901', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('07319001000233', 'BR-TX-ANH-1', '07B886', '2007-11-21', '', 'BUDWEISER', '44', '901', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12076001000564', 'BWC-CA-5099', '12020A', '2012/04/04', '', 'BERINGER', '01', '81', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12089001000135', 'TPWBH-CA-20114', '1204TP', '2012/04/17', '', 'BERINGER', '70', '81', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('09351001000078', 'FL-I-540', '093836', '2009/12/21', '', 'CAVIT', '50', '80', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10155001000193', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '654813', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '9873331', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('00568612654101', 'FL-I-540', '03452983', '2007/12/23', '', 'CAVIT', '50', '81', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10096001000193', 'BW-CA-5920', '10LC08', '2010/04/15', 'MAGGY HAWK NO. 5', 'LA CREMA', '01', '88', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10096001000196', 'BW-CA-5920', '10LC08', '2010/04/05', 'MAGGY HAWK', 'LA CREMA', '01', '88', 'Wine')");
         } catch (SQLException e) {
@@ -528,13 +508,11 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Manufacturers (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         try {
             statement.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES ('user123', 'password123', 'Agent')");
         } catch (SQLException e) {
