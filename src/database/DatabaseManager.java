@@ -6,6 +6,7 @@ package database;
 import base.EnumTableType;
 import base.EnumWarningType;
 import base.LogManager;
+import base.StringUtilities;
 import com.sun.org.apache.xpath.internal.operations.Or;
 import screen.EnumUserType;
 
@@ -280,7 +281,7 @@ public class DatabaseManager {
     ///////////GENERATE TTBID////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static String generateTTBID() {
-        String id = Long.toString(Math.round(Math.random() * 10000000));
+        String id = StringUtilities.getTTBID();
         return id;
     }
 
