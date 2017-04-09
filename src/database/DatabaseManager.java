@@ -157,25 +157,33 @@ public class DatabaseManager {
             String status = "PENDING";
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
-                    "Manufacturer, " +
-                    "PermitNo, " +
-                    "Status, " +
-                    "AlcoholType, " +
-                    "AgentID, " +
+                    "PlantRegistry, " +
                     "Source, " +
+                    "SerialNo, " +
+                    "AlcoholType, " +
                     "Brand, " +
+                    "FancifulName, " +
                     "Address, " +
                     "Address2, " +
-                    "Volume, " +
-                    "ABV, " +
+                    "Formula, " +
+                    "Grapes, " +
+                    "WineAppelation, " +
                     "PhoneNo, " +
+                    "Email, " +
                     "AppType, " +
-                    "VintageDate, " +
-                    "PH, " +
-                    "ApplicantName, " +
-                    "DateSubmitted, " +
-                    "DBAorTrade, " +
-                    "Email) VALUES " +
+                    "AdditionalInfo, " +
+                    "Date, " +
+                    "PrintName, " +
+                    "ABV, " +
+                    "VintageDate," +
+                    "PH," +
+                    "Status, " +
+                    "ApplicationNo, " +
+                    "DateOfApproval," +
+                    "AgentName, " +
+                    "DateOfExpiration, " +
+                    "ManufacturerUsername, " +
+                    "AgentUsername) VALUES " +
                     "('"
                     + application.ApplicationNo + "', '"
                     + application.Manufacturer + "', '"
