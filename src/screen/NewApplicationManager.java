@@ -2,10 +2,9 @@ package screen;
 
 import base.LogManager;
 import base.Main;
-import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import java.lang.*;
 
@@ -31,9 +30,6 @@ public class NewApplicationManager extends Screen {
     private TextField ApplicantName;
 
     @FXML
-    private TextField DBAorTradeName;
-
-    @FXML
     private TextField PhoneNum;
 
     @FXML
@@ -43,7 +39,7 @@ public class NewApplicationManager extends Screen {
     private TextField Type;
 
     @FXML
-    private TextField Address;
+    private TextArea Address;
 
     @FXML
     private TextField AlternateAddress;
@@ -55,15 +51,6 @@ public class NewApplicationManager extends Screen {
     private TextField Date;
 
     @FXML
-    private RadioButton BeerSelect;
-
-    @FXML
-    private RadioButton WineSelect;
-
-    @FXML
-    private RadioButton OtherSelect;
-
-    @FXML
     private TextField AlcoholContent;
 
     @FXML
@@ -73,6 +60,27 @@ public class NewApplicationManager extends Screen {
     private TextField PHLevel;
 
     @FXML
+    private TextField SerialNo;
+
+    @FXML
+    private TextField FancifulName;
+
+    @FXML
+    private TextField Formula;
+
+    @FXML
+    private TextField WineAppellation;
+
+    @FXML
+    private TextField GrapeVarietals;
+
+    @FXML
+    private TextField AppType;
+
+    @FXML
+    private TextArea AdditionalInfo;
+
+    @FXML
     private Button SubmitButton;
 
     @FXML
@@ -80,29 +88,32 @@ public class NewApplicationManager extends Screen {
 
     public void submit(){
         String repID = REPID.getText();
-        String source = Source.getText();
-        String brandName = BrandName.getText();
-        String applicantName = ApplicantName.getText();
-        String dba_or_tradeName = DBAorTradeName.getText();
-        String phoneNum = PhoneNum.getText();
         String registry = Registry.getText();
+        String source = Source.getText();
+        String serialNo = SerialNo.getText();
         String type = Type.getText();
+        String brandName = BrandName.getText();
+        String fancifulName = FancifulName.getText();
         String address = Address.getText();
         String alternateAddress = AlternateAddress.getText();
+        String formula = Formula.getText();
+        String grapeVarietals = GrapeVarietals.getText();
+        String wineAppellation = WineAppellation.getText();
+        String phoneNum = PhoneNum.getText();
         String email = Email.getText();
+        String appType = AppType.getText();
+        String additionalInfo = AdditionalInfo.getText();
         String date = Date.getText();
-        String alcoholContent = AlcoholContent.getText();
+        String applicantName = ApplicantName.getText();
         String vintageYear = VintageYear.getText();
+        String alcoholContent = AlcoholContent.getText();
         String phLevel = PHLevel.getText();
-        Boolean beerSelect = BeerSelect.isSelected();
-        Boolean wineSelect = WineSelect.isSelected();
-        Boolean otherSelect = OtherSelect.isSelected();
 
         String manufacturer = Main.getUsername();
 
         //Databasessssssssssss
 
-        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
+        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), "", Email.getText());
 
         LogManager.println("Submitting Application");
         Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);

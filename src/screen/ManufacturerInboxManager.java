@@ -95,22 +95,10 @@ public class ManufacturerInboxManager extends Screen{
         ObservableList tableList = FXCollections.observableArrayList(); //move
         LogManager.println("appList: "+Integer.toString(appList.size()));
 
-        this.StatusColumn.setCellValueFactory(
-                new PropertyValueFactory("Status")
-        );
-
-
-        this.DateColumn.setCellValueFactory(
-                new PropertyValueFactory("Date")
-        );
-
-        this.TTBIDColumn.setCellValueFactory(
-                new PropertyValueFactory("TTBID")
-        );
-
-        this.NameColumn.setCellValueFactory(
-                new PropertyValueFactory("BrandName")
-        );
+        this.StatusColumn.setCellValueFactory(new PropertyValueFactory("Status"));
+        this.DateColumn.setCellValueFactory(new PropertyValueFactory("Date"));
+        this.TTBIDColumn.setCellValueFactory(new PropertyValueFactory("TTBID"));
+        this.NameColumn.setCellValueFactory(new PropertyValueFactory("BrandName"));
 
         for(DataSet data : appList) {
             String tempTTBID = data.getValueForKey("TTBID");
