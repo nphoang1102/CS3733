@@ -6,6 +6,7 @@ package screen;
 
 import base.*;
 import base.User;
+import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -125,7 +126,7 @@ public class CreateAccountManager extends Screen{
     }
 
     @Override
-    public void onScreenFocused() {
+    public void onScreenFocused(DataSet data) {
         clearFields();
     }
    /* @FXML

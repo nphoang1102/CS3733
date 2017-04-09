@@ -88,50 +88,50 @@ public class ManufacturerInboxManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data){
-        manufacturer = Main.getUsername(); //move
-        LogManager.print("Current user is "+manufacturer); //move
-        LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer); //move
-
-        ObservableList tableList = FXCollections.observableArrayList(); //move
-        LogManager.println("appList: "+Integer.toString(appList.size()));
-
-        this.TTBIDColumn.setCellValueFactory(
-                new PropertyValueFactory("TTBID")
-        );
-
-        this.NameColumn.setCellValueFactory(
-                new PropertyValueFactory("BrandName")
-        );
-
-        this.StatusColumn.setCellValueFactory(
-                new PropertyValueFactory("Status")
-        );
-
-
-        this.DateColumn.setCellValueFactory(
-                new PropertyValueFactory("Date")
-        );
-
-
-        for(DataSet data1 : appList) {
-            String tempTTBID = data.getValueForKey("TTBID");
-            Label tempName = new Label(data.getValueForKey("BrandName"));
-            String tempStatus = data.getValueForKey("Status");
-            String tempDate = data.getValueForKey("CompletedDate");
-
-            tableList.add(new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate));
-
-            LogManager.println("tableList: "+Integer.toString(tableList.size()));
-
-            tempName.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    int tempPlace = tableList.indexOf(tempName);
-                    selected = data;
-                    EditButton.setDisable(false);
-                }
-            });
-        }
-        this.Table.setItems(tableList);
+//        manufacturer = Main.getUsername(); //move
+//        LogManager.print("Current user is "+manufacturer); //move
+//        LinkedList<database.DataSet> appList = DatabaseManager.queryManufactures(manufacturer); //move
+//
+//        ObservableList tableList = FXCollections.observableArrayList(); //move
+//        LogManager.println("appList: "+Integer.toString(appList.size()));
+//
+//        this.TTBIDColumn.setCellValueFactory(
+//                new PropertyValueFactory("TTBID")
+//        );
+//
+//        this.NameColumn.setCellValueFactory(
+//                new PropertyValueFactory("BrandName")
+//        );
+//
+//        this.StatusColumn.setCellValueFactory(
+//                new PropertyValueFactory("Status")
+//        );
+//
+//
+//        this.DateColumn.setCellValueFactory(
+//                new PropertyValueFactory("Date")
+//        );
+//
+//
+//        for(DataSet data1 : appList) {
+//            String tempTTBID = data.getValueForKey("TTBID");
+//            Label tempName = new Label(data.getValueForKey("BrandName"));
+//            String tempStatus = data.getValueForKey("Status");
+//            String tempDate = data.getValueForKey("CompletedDate");
+//
+//            tableList.add(new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate));
+//
+//            LogManager.println("tableList: "+Integer.toString(tableList.size()));
+//
+//            tempName.setOnMouseClicked(new EventHandler<MouseEvent>() {
+//                @Override
+//                public void handle(MouseEvent event) {
+//                    int tempPlace = tableList.indexOf(tempName);
+//                    selected = data;
+//                    EditButton.setDisable(false);
+//                }
+//            });
+//        }
+//        this.Table.setItems(tableList);
     }
 }

@@ -63,7 +63,7 @@ public class AgentInboxManager extends Screen{
         System.out.println("type of alc box: " + typeBox);
 
         //query database for UUID's that current Agent has in inbox
-        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
+//        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
 
         for(DataSet tempData: uuidCodes){
 
@@ -135,12 +135,12 @@ public class AgentInboxManager extends Screen{
             String currentUser = Main.getUsername();
 
             //call Database to get number of applications
-            LinkedList<DataSet> results  = DatabaseManager.getApplications(tempType, numAppsNeeded, currentUser);
-            if(results.size() > 0){
-                for(DataSet tempSet: results) {
-                    uuidCodes.add(tempSet);
-                }
-            }
+//            LinkedList<DataSet> results  = DatabaseManager.getApplications(tempType, numAppsNeeded, currentUser);
+//            if(results.size() > 0){
+//                for(DataSet tempSet: results) {
+//                    uuidCodes.add(tempSet);
+//                }
+//            }
             System.out.println("datesets: " + results);
         }
         else {

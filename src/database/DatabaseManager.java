@@ -330,19 +330,19 @@ public class DatabaseManager {
         Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
 
         String TTBID = generateTTBID();
-        String PermitNo = approvedApplication.PermitNo;
-        String SerialNo = approvedApplication.ApplicationNo;
-        String Date = approvedApplication.DateApproved;
-        String FancifulName = approvedApplication.FancifulName;
-        String BrandName = approvedApplication.BrandName;
+//        String PermitNo = approvedApplication.PermitNo;
+//        String SerialNo = approvedApplication.ApplicationNo;
+//        String Date = approvedApplication.DateApproved;
+//        String FancifulName = approvedApplication.FancifulName;
+//        String BrandName = approvedApplication.BrandName;
         String Origin = approvedApplication.Source;
         //String Class = approvedApplication.Class; ///SAME AS AlcoholType???///
         String Type = approvedApplication.AlcoholType;
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Type) VALUES ('" + TTBID + "', '" + PermitNo + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + BrandName + "', '" + Origin + "', '" + Type + "');");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Type) VALUES ('" + TTBID + "', '" + PermitNo + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + BrandName + "', '" + Origin + "', '" + Type + "');");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -411,26 +411,26 @@ public class DatabaseManager {
             while (getApplications.next()) {
                 getApplications.next();
                 Application application = new Application();
-                application.ApplicationNo = getApplications.getString("ApplicationNo");
-                application.Manufacturer = getApplications.getString("Manufacturer");
-                application.PermitNo = getApplications.getString("PermitNo");
+//                application.ApplicationNo = getApplications.getString("ApplicationNo");
+//                application.Manufacturer = getApplications.getString("Manufacturer");
+//                application.PermitNo = getApplications.getString("PermitNo");
                 application.Status = getApplications.getString("Status");
                 application.AlcoholType = getApplications.getString("AlcoholType");
-                application.AgentID = getApplications.getString("AgentID");
+//                application.AgentID = getApplications.getString("AgentID");
                 application.Source = getApplications.getString("Source");
                 application.Brand = getApplications.getString("Brand");
                 application.Address = getApplications.getString("Address");
                 application.Address2 = getApplications.getString("Address2");
-                application.Volume = getApplications.getString("Volume");
+//                application.Volume = getApplications.getString("Volume");
                 application.ABV = getApplications.getString("ABV");
                 application.PhoneNo = getApplications.getString("PhoneNo");
                 application.AppType = getApplications.getString("AppType");
                 application.VintageDate = getApplications.getString("VintageDate");
                 application.PH = getApplications.getString("PH");
-                application.InboxAgent = getApplications.getString("InboxAgent");
-                application.ApplicantName = getApplications.getString("ApplicantName");
-                application.DateSubmitted = getApplications.getString("DateSubmitted");
-                application.DBAorTrade = getApplications.getString("DBAorTrade");
+//                application.InboxAgent = getApplications.getString("InboxAgent");
+//                application.ApplicantName = getApplications.getString("ApplicantName");
+//                application.DateSubmitted = getApplications.getString("DateSubmitted");
+//                application.DBAorTrade = getApplications.getString("DBAorTrade");
                 application.Email = getApplications.getString("Email");
                 applicationLinkedList.add(application);
                 String thisApplicationNo = getApplications.getString("ApplicationNo");

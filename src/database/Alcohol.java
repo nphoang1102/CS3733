@@ -1,5 +1,7 @@
 package database;
 
+import base.EnumTableType;
+
 /**
  * Created by Daniel Yun on 4/8/2017.
  */
@@ -17,5 +19,8 @@ public class Alcohol extends DataSet{
     String AlcoholContent;
     String VintageYear;
     String PH;
-    
+
+    public Alcohol() {
+        super(EnumTableType.ALCOHOL);
+    }
 }

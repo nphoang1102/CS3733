@@ -1,6 +1,7 @@
 package screen;
 
 import base.Main;
+import database.BasicDataSet;
 import database.DataSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -58,7 +59,7 @@ public class TopBarManager extends Screen{
     }
 
     @Override
-    public void onScreenFocused() {
+    public void onScreenFocused(DataSet data) {
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
         if(!Main.getUserType().isEmpty()) {
@@ -106,7 +107,7 @@ public class TopBarManager extends Screen{
     public void logIn(){
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
-            onScreenFocused();
+            onScreenFocused(new BasicDataSet());
         }
     }
 

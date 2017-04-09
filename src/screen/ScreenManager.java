@@ -37,7 +37,7 @@ public class ScreenManager {
             topBarScene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
             stage.setScene(topBarScene);
             topBarScreen = (TopBarManager) loader.getController();
-            topBarScreen.onScreenFocused();
+            topBarScreen.onScreenFocused(new BasicDataSet());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -70,7 +70,7 @@ public class ScreenManager {
                     e.printStackTrace();
                 }
             }
-            topBarScreen.onScreenFocused();
+            topBarScreen.onScreenFocused(new BasicDataSet());
         }
 
 //        LogManager.println("Setting screen to:" + type.toString());
