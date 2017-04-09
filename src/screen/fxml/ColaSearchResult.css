@@ -1,0 +1,19 @@
+.table-view .table-column {
+	-fx-alignment: CENTER;
+	-fx-background-color: #dbdbdb;
+	-fx-font: "Telugu Sangam MN";
+	-fx-font-size: 15px;
+	-fx-weight: bolder;
+	-fx-text-fill:  #373737;
+	-fx-border-width = 0,0;
+	-fx-border-color: #dbdbdb;
+}
+
+.table-view .column-header {
+    -fx-text-fill: #ffffff;
+    -fx-font: "Telugu Sangam MN";
+    -fx-font-size: 17px;
+    -fx-weight: bolder;
+    -fx-background-color: #34a88b;
+    -fx-border-color: BLACK;
+}

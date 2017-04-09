@@ -59,7 +59,7 @@ public class TopBarManager extends Screen{
 
     @FXML
     public void initialize() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Both");
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
         searchTerm.setItems(typeList);
         searchTerm.setValue("Beer");
     }

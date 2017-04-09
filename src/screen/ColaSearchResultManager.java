@@ -6,6 +6,7 @@ import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,6 +21,7 @@ import misc.ColaResult;
 import misc.ResultPopupManager;
 
 import javax.xml.transform.Result;
+import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -61,9 +63,13 @@ public class ColaSearchResultManager extends Screen{
     /* Setup properties for the columns in tableview */
     public void initializeTable() {
         this.coLid.setCellValueFactory(new PropertyValueFactory("id"));
+//        this.coLid.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: #373737;");
         this.coLsource.setCellValueFactory(new PropertyValueFactory("source"));
+//        this.coLsource.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: #373737;");
         this.coLalcoholType.setCellValueFactory(new PropertyValueFactory("type"));
+//        this.coLalcoholType.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: BLACK;");
         this.coLname.setCellValueFactory(new PropertyValueFactory("name"));
+//        this.coLname.setStyle("-fx-alignment: CENTER; -fx-background-color: #dbdbdb;-fx-font: 16px 'Telugu Sangam MN'; -fx-border-color: BLACK;");
     }
 
     /* Initialize the mouse click event on table rows */
@@ -82,9 +88,26 @@ public class ColaSearchResultManager extends Screen{
 
     /* Setup popup window here */
     public void initializePopup(ColaResult rowData) {
-        LogManager.println("User clicked on item ID " + rowData.getId());
+//        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/ResultPopup.fxml"));
+//            Parent root1 = (Parent) fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setTitle("Additional information for " + rowData.getName());
+//            stage.setScene(new Scene(root1));
+            stage.show();
+            stage.showAndWait();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            LogManager.println("Something is wrong with the FXML loader");
+//        }
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./fxml/ResultPopup.fxml"));
+
+
+/*        LogManager.println("User clicked on item ID " + rowData.getId());
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/screen/fxml/ResultPopup.fxml"));
 //        Parent root1 = FXMLLoader.<Parent>load(ResultPopupManager.class.getResource("./fxml/ResultPopup.fxml/"));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
@@ -96,7 +119,7 @@ public class ColaSearchResultManager extends Screen{
 
         stage.show();
 
-//                    return stage;
+//                    return stage;*/
     }
 
     /* Send the search keywords to the database and display reply from database */
@@ -108,7 +131,7 @@ public class ColaSearchResultManager extends Screen{
             String tempID = tempSet.getValueForKey("TTBID");
             String tempPermit = tempSet.getValueForKey("PermitNo");
             String tempSerial = tempSet.getValueForKey("SerialNo");
-            String tempDate = tempSet.getValueForKey("CompletedDate");
+            String tempDate = tempSet.getValsueForKey("CompletedDate");
             String tempName = tempSet.getValueForKey("FancifulName");
             String tempBrand = tempSet.getValueForKey("BrandName");
             String tempSource = tempSet.getValueForKey("Origin");
