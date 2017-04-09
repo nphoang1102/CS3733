@@ -14,7 +14,7 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.LoginScreenManager">
     <children>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
-        <Text fill="#616161" layoutX="385.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Username">
+        <Text fill="#616161" text= "Username" layoutX="401.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" >
             <font>
                 <Font name="Telugu Sangam MN" size="24.0" />
             </font>
@@ -22,7 +22,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
         </Text>
-        <Button fx:id="loginButton" layoutX="826.0" layoutY="258.0" mnemonicParsing="false" onAction="#loginClicked" prefHeight="48.0" prefWidth="81.0" style="-fx-background-color: #939393;" text="Login" textFill="WHITE">
+        <Button fx:id="loginButton" layoutX="776.0" layoutY="271.0" mnemonicParsing="false" onAction="#loginClicked" prefHeight="48.0" prefWidth="81.0" style="-fx-background-color: #939393;" text="Login" textFill="WHITE">
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
@@ -35,7 +35,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <TextField fx:id="usernameField" layoutX="579.0" layoutY="262.0" onAction="#enterHit" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
+      <TextField fx:id="usernameField" layoutX="526.0" layoutY="271.0" prefHeight="50.0" prefWidth="230.0" onAction="#enterHit" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -46,7 +46,7 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Button layoutX="590.0" layoutY="336.0" mnemonicParsing="false" onMouseClicked="#userSignUp" style="-fx-background-color: #939393; -fx-focus-color: #34a88b;" text="Create New Account" textFill="WHITE">
+      <Button layoutX="541.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#userSignUp" prefHeight="50" prefWidth="200.0" style="-fx-background-color: #939393; -fx-focus-color: #34a88b;" text="Create New Account" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
