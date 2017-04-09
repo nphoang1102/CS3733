@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\spartanvice\Documents\csgetdegrees\.idea\shelf/" />
@@ -36,7 +34,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginScreen.fxml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginScreen.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml">
           <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
             <state />
@@ -49,15 +47,32 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CreateAccount.fxml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="CreateAccount.fxml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml">
-          <provider editor-type-id="JavaFX-Scene-Builder">
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
             <state />
           </provider>
-          <provider selected="true" editor-type-id="text-editor">
+          <provider editor-type-id="text-editor">
             <state relative-caret-position="26">
-              <caret line="23" column="60" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="60" />
-              <folding />
+              <caret line="23" column="60" lean-forward="false" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+              <folding>
+                <marker date="1491761460708" expanded="true" signature="1742:1987" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="1760:1806" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="1824:1885" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="1901:1975" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2284:2542" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2300:2374" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2392:2453" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2471:2533" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2801:3061" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2819:2881" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2899:2960" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="2976:3050" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="3343:3603" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="3361:3423" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="3441:3502" ph="..." />
+                <marker date="1491761460708" expanded="true" signature="3518:3592" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -172,8 +187,8 @@
         <option value="$PROJECT_DIR$/src/screen/ColaSearchScreenManager.java" />
         <option value="$PROJECT_DIR$/src/screen/CreateAccountManager.java" />
         <option value="$PROJECT_DIR$/src/screen/ManufacturerInboxManager.java" />
-        <option value="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" />
         <option value="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
+        <option value="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" />
       </list>
     </option>
   </component>
@@ -798,7 +813,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491759612392</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="create account looks even better">
+      <created>1491761038170</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1491761038170</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -859,7 +881,8 @@
     <MESSAGE value="Bailey is now working, all errors are commented out and related to the database manager, when evan fixes the database manager, these errors can be commented in and fixed." />
     <MESSAGE value="login screen looks better&#10;" />
     <MESSAGE value="create account looks better" />
-    <option name="LAST_COMMIT_MESSAGE" value="create account looks better" />
+    <MESSAGE value="create account looks even better" />
+    <option name="LAST_COMMIT_MESSAGE" value="create account looks even better" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1204,17 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml">
-      <provider editor-type-id="JavaFX-Scene-Builder">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="23" column="60" lean-forward="true" selection-start-line="23" selection-start-column="29" selection-end-line="23" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml">
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -1223,6 +1235,34 @@
         <state relative-caret-position="176">
           <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml">
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="23" column="60" lean-forward="false" selection-start-line="23" selection-start-column="60" selection-end-line="23" selection-end-column="60" />
+          <folding>
+            <marker date="1491761460708" expanded="true" signature="1742:1987" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="1760:1806" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="1824:1885" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="1901:1975" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2284:2542" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2300:2374" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2392:2453" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2471:2533" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2801:3061" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2819:2881" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2899:2960" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="2976:3050" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="3343:3603" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="3361:3423" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="3441:3502" ph="..." />
+            <marker date="1491761460708" expanded="true" signature="3518:3592" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
