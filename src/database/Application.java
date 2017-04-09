@@ -26,7 +26,7 @@ public class Application extends DataSet{
     String VintageDate;
     String PH;
     String Status;
-    String ApplicationNO;
+    String ApplicationNo;
     String DateOfApproval;
     String AgentName;
     String DateOfExpiration;
