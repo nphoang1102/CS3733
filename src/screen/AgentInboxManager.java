@@ -4,6 +4,7 @@ package screen;
  * Created by ${Victor} on 4/2/2017.
  */
 import base.*;
+import database.Application;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -40,7 +41,7 @@ public class AgentInboxManager extends Screen{
 
 
     private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
-    private LinkedList<DataSet> uuidCodes = new LinkedList<>();
+    private LinkedList<Application> uuidCodes = new LinkedList<>();
 
     //constructer for the screen
     public AgentInboxManager() {
@@ -57,7 +58,7 @@ public class AgentInboxManager extends Screen{
         System.out.println("type of alc box: " + typeBox);
 
         //query database for UUID's that current Agent has in inbox
-        uuidCodes = DatabaseManager.getApplicationsByAgent(Main.getUsername());
+        //uuidCodes = DatabaseManager.getApplicationsByAgent(Main.getUsername());
 
         for(DataSet tempData: uuidCodes){
             //fill Manufacturer and BrandName from temp
@@ -97,9 +98,9 @@ public class AgentInboxManager extends Screen{
             String currentUser = Main.getUsername();
 
             //call Database to get number of applications
-            LinkedList<DataSet> results  = DatabaseManager.addApplicationToInbox(tempType,  currentUser, numAppsNeeded);
+            LinkedList<Application> results  = DatabaseManager.addApplicationToInbox(tempType,  currentUser, numAppsNeeded);
             if(results.size() > 0){
-                for(DataSet tempSet: results) {
+                for(Application tempSet: results) {
                     uuidCodes.add(tempSet);
                 }
             }
