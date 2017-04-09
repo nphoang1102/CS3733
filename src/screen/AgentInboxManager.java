@@ -57,25 +57,41 @@ public class AgentInboxManager extends Screen{
     public void onScreenFocused(DataSet data){
         System.out.println("type of alc box: " + typeBox);
 
+        //add the Label to the pane
+        manufacturerName.setCellValueFactory(
+                new PropertyValueFactory<>("manufacturerName")
+        );
+        manufacturerName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
+        specificBrandName.setCellValueFactory(
+                new PropertyValueFactory<>("brandName")
+        );
+        specificBrandName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
+
+        inboxData.setRowFactory( tv -> {
+            TableRow<AgentInboxResult> row = new TableRow<>();
+            row.setOnMouseClicked( event-> {
+                if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    AgentInboxResult tempResult = (AgentInboxResult) row.getUserData();
+                    LinkedList<DataSet> tempData =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", tempResult.getApplicationNo());
+                    ScreenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, tempData.get(0));
+                }
+            });
+            return row;
+        });
         //query database for UUID's that current Agent has in inbox
         //uuidCodes = DatabaseManager.getApplicationsByAgent(Main.getUsername());
 
-        for(DataSet tempData: uuidCodes){
+        for(Application tempData: uuidCodes){
             //fill Manufacturer and BrandName from temp
-            String Manufacturer = tempData.getValueForKey("Manufacturer");
-            String BrandName = tempData.getValueForKey("Brand");
+            String Manufacturer = tempData.ManufacturerUsername;
+            String BrandName = tempData.Brand;
+            String ApplicationNo = tempData.ApplicationNO;
 
-            AgentInboxResult tempResult = new AgentInboxResult(Manufacturer, BrandName);
-
-            //add the Label to the pane
-            manufacturerName.setCellValueFactory(
-                    new PropertyValueFactory<>("manufacturerName")
-            );
-            specificBrandName.setCellValueFactory(
-                    new PropertyValueFactory<>("brandName")
-            );
+            AgentInboxResult tempResult = new AgentInboxResult(Manufacturer, BrandName, ApplicationNo);
+            inboxInfo.add(tempResult);
 
         }
+        this.inboxData.setItems(inboxInfo);
     }
 
     @FXML
