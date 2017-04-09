@@ -341,13 +341,11 @@ public class DatabaseManager {
     }
 
 //TODO - Write method to look up a user
-    /*/////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER BY USERNAME//////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    if (!resultSet.next() ) {
-    System.out.println("no data");
-}
-    public static User getUser(String username) {
+
+   /* public static User getUser(String username) {
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
             ResultSet user = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "';";);
