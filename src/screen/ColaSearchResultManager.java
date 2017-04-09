@@ -49,8 +49,7 @@ public class ColaSearchResultManager extends Screen{
     TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
 
     /* Class methods */
-    @Override
-    public void onScreenFocused(){
+    public void onScreenFocused(DataSet data){
         /* Get the TableView stuff and result setup */
         this.initializeTable();
         this.databaseQuery();

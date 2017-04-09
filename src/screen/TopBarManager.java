@@ -2,10 +2,15 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import database.BasicDataSet;
+import database.DataSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -13,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -45,6 +51,12 @@ public class TopBarManager extends Screen{
     Button logIn;
 
     @FXML
+    Button action;
+
+    @FXML
+    Button backButton;
+
+    @FXML
     ImageView userIcon;
 
     @FXML
@@ -65,33 +77,67 @@ public class TopBarManager extends Screen{
     }
 
     @Override
-    public void onScreenFocused() {
+    public void onScreenFocused(DataSet data) {
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
         if(!Main.getUserType().isEmpty()) {
-            imageLetter.setText(Main.getUserType().substring(0, 1));
-            logIn.setText("Log Out");
+            //check if user has a custom image defined
+//            if(DatabaseManager.getImage()) {
+                //This method sets the image to the users type first letter.
+                imageLetter.setText(Main.getUserType().substring(0, 1));
+                logIn.setText("Log Out");
+                BufferedImage bufferedImage;
+                try {
+                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    userIcon.setImage(image);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+//            }else {
+//                imageLetter.setText("");
+//                logIn.setText("Log Out");
+//                BufferedImage bufferedImage;
+//                try {
+//                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+//                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+//                    userIcon.setImage(image);
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//            }
         }else{
             imageLetter.setText("");
             logIn.setText("Log In");
+            BufferedImage bufferedImage;
+            try {
+                bufferedImage = ImageIO.read(new File(Main.PATH+"/res/dot_empty_user.png"));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                userIcon.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
-        BufferedImage bufferedImage;
-        try {
-            bufferedImage = ImageIO.read(new File(Main.PATH+"/res/dot.png"));
-            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-            userIcon.setImage(image);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
     public void logIn(){
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
-            onScreenFocused();
+            onScreenFocused(new BasicDataSet());
         }
+    }
+
+    @FXML
+    public void back(){
+        Main.screenManager.back();
+    }
+
+    @FXML
+    public void action(){
+        action.setVisible(false);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, 600, 600, new BasicDataSet());
     }
 
     public void setScreen(Scene scene){

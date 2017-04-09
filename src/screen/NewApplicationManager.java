@@ -2,6 +2,7 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -119,7 +120,7 @@ public class NewApplicationManager extends Screen {
     }
 
     @Override
-    public void onScreenFocused() {
+    public void onScreenFocused(DataSet data) {
 
     }
 }
