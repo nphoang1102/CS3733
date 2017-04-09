@@ -168,10 +168,10 @@ public class DatabaseManager {
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         if(table.equals(EnumTableType.ALCOHOL)){
             if(column == ""){
-                return queryAlcohol("SELECT * FROM Alcohol");
+                return queryAlcohol("SELECT * FROM Alcohol;");
             }
             else{
-                return  queryAlcohol("SELECT * FROM Alcohol '" + column + "' = '" + value + "';");
+                return  queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
             }
 
         }
