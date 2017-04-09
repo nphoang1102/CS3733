@@ -3,6 +3,7 @@ package screen;
 import base.LogManager;
 import base.Main;
 import base.User;
+import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -86,7 +87,7 @@ public class LoginScreenManager extends Screen{
     }
 
     @Override
-    public void onScreenFocused() {
+    public void onScreenFocused(DataSet data) {
         usernameField.clear();
     }
 }

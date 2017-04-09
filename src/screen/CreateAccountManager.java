@@ -40,7 +40,7 @@ public class CreateAccountManager extends Screen{
 
     String userType;
 
-    public void clearFields(){
+    private void clearFields(){
         username.clear();
         accountError.setText(null);
         tickManufacturer.setIndeterminate(false);

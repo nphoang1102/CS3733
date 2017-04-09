@@ -27,20 +27,14 @@ public class AgentInboxManager extends Screen{
 
     @FXML
     private Button pullNewBatch;
-
     @FXML
     private Polygon backButton;
-
     @FXML
     private TextArea results;
-
-
     @FXML
     private ChoiceBox typeBox;
-
     @FXML
     private TableView inboxData;
-
     @FXML
     private TableColumn manufacturerName, specificBrandName;
 
@@ -65,7 +59,7 @@ public class AgentInboxManager extends Screen{
 
     }
 
-    public void onScreenFocused(){
+    public void onScreenFocused(DataSet data){
         System.out.println("type of alc box: " + typeBox);
 
         //query database for UUID's that current Agent has in inbox
