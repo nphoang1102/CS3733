@@ -4,73 +4,41 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="305.0" prefWidth="642.0" style="-fx-background-color: #34a88b;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="misc.ResultPopupManager">
+<AnchorPane prefHeight="245.0" prefWidth="680.0" style="-fx-background-color: #34a88b;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="misc.ResultPopupManager">
    <children>
-      <Label layoutX="37.0" layoutY="72.0" text="TTB ID:" textFill="#dbdbdb">
+      <Label fx:id="dis_ID" layoutX="30.0" layoutY="72.0" text="TTB ID:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label layoutX="37.0" layoutY="123.0" text="Permit No:" textFill="#dbdbdb">
+      <Label fx:id="dis_permit" layoutX="30.0" layoutY="107.0" text="Permit No:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label layoutX="37.0" layoutY="173.0" text="Serial No:" textFill="#dbdbdb">
+      <Label fx:id="dis_serial" layoutX="30.0" layoutY="142.0" text="Serial No:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label layoutX="37.0" layoutY="223.0" text="Permit completed date:" textFill="#dbdbdb">
+      <Label fx:id="dis_date" layoutX="30.0" layoutY="177.0" text="Permit completed date:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label layoutX="422.0" layoutY="72.0" text="Fanciful name:" textFill="#dbdbdb">
+      <Label fx:id="dis_fanName" layoutX="370.0" layoutY="72.0" text="Fanciful name:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label fx:id="dis_brandName" layoutX="263.0" layoutY="14.0" text="Brandname" textFill="#373737">
+      <Label fx:id="dis_brandName" layoutX="282.0" layoutY="14.0" text="Brandname" textFill="#373737">
          <font>
             <Font name="Telugu Sangam MN Bold" size="22.0" />
          </font></Label>
-      <Label layoutX="420.0" layoutY="123.0" text="Origin:" textFill="#dbdbdb">
+      <Label fx:id="dis_origin" layoutX="370.0" layoutY="107.0" text="Origin:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label layoutX="421.0" layoutY="173.0" text="Class:" textFill="#dbdbdb">
+      <Label fx:id="dis_class" layoutX="370.0" layoutY="142.0" text="Class:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label layoutX="422.0" layoutY="223.0" text="Type:" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_ID" layoutX="91.0" layoutY="72.0" text="ID" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_permit" layoutX="115.0" layoutY="123.0" text="Permit" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_serial" layoutX="106.0" layoutY="173.0" text="Serial" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_date" layoutX="200.0" layoutY="223.0" text="Date" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_fanName" layoutX="527.0" layoutY="72.0" text="Name" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_origin" layoutX="470.0" layoutY="123.0" text="Origin" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_class" layoutX="465.0" layoutY="173.0" text="Class" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_type" layoutX="465.0" layoutY="223.0" text="Type" textFill="#dbdbdb">
+      <Label fx:id="dis_type" layoutX="370.0" layoutY="177.0" text="Type:" textFill="#dbdbdb">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>

@@ -86,7 +86,7 @@ public class ColaSearchResultManager extends Screen{
     /* Setup popup window here */
     public void initializePopup(ColaResult rowData) {
         DataSet data = new BasicDataSet();
-        String title = "Additional information for " + rowData.getName();
+        String title = "Additional information for " + rowData.getName() + " - " + rowData.getFname();
         data.addField("TTBID", rowData.getId());
         data.addField("PermitNo", rowData.getPermit());
         data.addField("SerialNo", rowData.getSerial());
@@ -96,7 +96,7 @@ public class ColaSearchResultManager extends Screen{
         data.addField("Origin", rowData.getSource());
         data.addField("Class", rowData.getAclass());
         data.addField("Type", rowData.getType());
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, 642, 305, data, title);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, 680, 245, data, title);
     }
 
 

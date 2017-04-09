@@ -20,14 +20,14 @@ public class ResultPopupManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet result){
-        dis_ID.setText(result.getValueForKey("TTBID"));
-        dis_permit.setText(result.getValueForKey("PermitNo"));
-        dis_serial.setText(result.getValueForKey("SerialNo"));
-        dis_date.setText(result.getValueForKey("CompletedDate"));
-        dis_fanName.setText(result.getValueForKey("FancifulName"));
+        dis_ID.setText("TTB ID: " + result.getValueForKey("TTBID"));
+        dis_permit.setText("Permit No: " + result.getValueForKey("PermitNo"));
+        dis_serial.setText("Serial No: " + result.getValueForKey("SerialNo"));
+        dis_date.setText("Permit completed date: " +result.getValueForKey("CompletedDate"));
+        dis_fanName.setText("Fanciful name: " +result.getValueForKey("FancifulName"));
         dis_brandName.setText(result.getValueForKey("BrandName"));
-        dis_origin.setText(result.getValueForKey("Origin"));
-        dis_class.setText(result.getValueForKey("Class"));
-        dis_type.setText(result.getValueForKey("Type"));
+        dis_origin.setText("Origin: " +result.getValueForKey("Origin"));
+        dis_class.setText("Class: " +result.getValueForKey("Class"));
+        dis_type.setText("Type: " +result.getValueForKey("Type"));
     }
 }
