@@ -26,6 +26,8 @@ public class ScreenManager {
     private static HashMap<String, Scene> loadedScenes = new HashMap<String, Scene>();
     private static HashMap<String, Screen> loadedScreens = new HashMap<String, Screen>();
 
+    private LinkedList<State> screenStates = new LinkedList<State>();
+
     //The top bar, the most important screen
     private static Scene topBarScene;
     private static TopBarManager topBarScreen;
@@ -58,21 +60,11 @@ public class ScreenManager {
                 topBarScreen.setScreen(loadedScenes.get(type.toString()));
                 loadedScreens.get(type.toString()).onScreenFocused(data);
             }else{
-                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
-                try {
-                    scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
-                    loadedScenes.put(type.toString(), scene);
-                    topBarScreen.setScreen(loadedScenes.get(type.toString()));
-                    Screen theScreen = (Screen)loader.getController();
-                    loadedScreens.put(type.toString(), theScreen);
-                    theScreen.onScreenFocused(data);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                 
             }
             topBarScreen.onScreenFocused(new BasicDataSet());
         }
-
+        screenStates.addFirst(new State(type, data));
 //        LogManager.println("Setting screen to:" + type.toString());
 //        Scene scene;
 //        if(loadedScenes.containsKey(type.toString())){
@@ -97,11 +89,33 @@ public class ScreenManager {
 //        }
     }
 
-    public static void popoutScreen(EnumScreenType type, DataSet data){
+    public void popoutScreen(EnumScreenType type, DataSet data){
         popoutScreen(type, Main.WIDTH, Main.HEIGHT, data);
     }
 
-    public static void popoutScreen(EnumScreenType type, int width, int height, DataSet data){
+    public void popoutScreen(EnumScreenType type, int width, int height, DataSet data){
+        Stage stage = new Stage();
+        stage.setTitle("My New Stage Title");
+        stage.setScene(loadedScenes.get(type.toString()));
+        stage.show();
+        loadedScreens.get(type.toString()).onScreenFocused(data);
+    }
 
+    public void back(){
+        if(screenStates.size()>1){
+            LogManager.println("Back Pressed:"+screenStates.getFirst().type);
+            screenStates.removeFirst();
+            setScreen(screenStates.getFirst().type, screenStates.getFirst().data);
+            screenStates.removeFirst();
+        }
+    }
+}
+
+class State{
+    EnumScreenType type;
+    DataSet data;
+    public State(EnumScreenType type, DataSet data){
+        this.type = type;
+        this.data = data;
     }
 }

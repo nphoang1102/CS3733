@@ -54,6 +54,7 @@ public class DatabaseManager {
             LogManager.printStackTrace(e.getStackTrace());
             e.printStackTrace();
         }
+        CreateTables();
     }
 
     /////////////////////////////////////////////////////////////////////////////////

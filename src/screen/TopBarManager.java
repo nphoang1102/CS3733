@@ -7,6 +7,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
@@ -14,6 +17,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -40,6 +44,12 @@ public class TopBarManager extends Screen{
 
     @FXML
     Button logIn;
+
+    @FXML
+    Button action;
+
+    @FXML
+    Button backButton;
 
     @FXML
     ImageView userIcon;
@@ -109,6 +119,17 @@ public class TopBarManager extends Screen{
             Main.logOutUser();
             onScreenFocused(new BasicDataSet());
         }
+    }
+
+    @FXML
+    public void back(){
+        Main.screenManager.back();
+    }
+
+    @FXML
+    public void action(){
+        action.setVisible(false);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, 600, 600, new BasicDataSet());
     }
 
     public void setScreen(Scene scene){
