@@ -6,7 +6,6 @@ import base.EnumTableType;
  * Created by Daniel Yun on 4/8/2017.
  */
 public class Alcohol extends DataSet{
-
     public String TTBID;
     public String PermitNo;
     public String SerialNo;
@@ -19,5 +18,4 @@ public class Alcohol extends DataSet{
     public String AlcoholContent;
     public String VintageYear;
     public String PH;
-
 }

@@ -4,13 +4,13 @@ package database;
  * Created by Evan Goldstein on 4/8/17.
  */
 public class UserManufacturer extends User {
-    String Address;
-    String Address2;
-    String Username;
-    String Password;
-    String Company;
-    String Name;
-    String RepID;
-    String PlantRegistry;
-    String PhoneNo;
+    public String Address;
+    public String Address2;
+    public String Username;
+    public String Password;
+    public String Company;
+    public String Name;
+    public String RepID;
+    public String PlantRegistry;
+    public String PhoneNo;
 }

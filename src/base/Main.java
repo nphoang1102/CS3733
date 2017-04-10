@@ -5,7 +5,6 @@ import database.User;
 import database.UserAgent;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import screen.EnumUserType;
 import screen.ScreenManager;
 
 import java.io.File;
@@ -19,7 +18,7 @@ public class Main extends Application{
      */
     public static ScreenManager screenManager;
     private LogManager logManager;
-    private DatabaseManager databaseManager;
+    public static DatabaseManager databaseManager;
     private static User user;
 
 
@@ -51,7 +50,7 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", true);
+        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", false);
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
