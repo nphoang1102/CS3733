@@ -2,6 +2,7 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import base.StringUtilities;
 import database.BasicDataSet;
 import database.DataSet;
 import database.DatabaseManager;
@@ -43,9 +44,13 @@ public class ColaSearchResultManager extends Screen{
 
     /* FXML objects */
     @FXML
-    TableView<ColaResult> searchResult;
+    private TableView<ColaResult> searchResult;
     @FXML
-    TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
+    private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
+    @FXML
+    private Button saveToCsv;
+    @FXML
+    private Pane colaSearchPanel;
 
     /* Class methods */
     @Override
@@ -76,7 +81,7 @@ public class ColaSearchResultManager extends Screen{
         searchResult.setRowFactory( tv -> {
             TableRow<ColaResult> row = new TableRow();
             row.setOnMouseClicked(event -> {
-                if ((event.getClickCount() == 1) && (! row.isEmpty())) {
+                if ((event.getClickCount() == 2) && (! row.isEmpty())) {
                     ColaResult rowData = row.getItem();
                     this.initializePopup(rowData);
                 }
@@ -123,7 +128,7 @@ public class ColaSearchResultManager extends Screen{
     public void databaseQuery() {
 //        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
         /* Please remove this line whenever during actual implementation */
-        this.resultTable.clear();
+//        this.resultTable.clear();
         this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType));
         /*for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
@@ -139,5 +144,33 @@ public class ColaSearchResultManager extends Screen{
         }*/
 //        this.searchResult.setEditable(false);
         this.searchResult.getItems().setAll(resultTable);
+    }
+
+    /* Print search result into a CSV file on button click */
+    public void onButtonClicked() {
+        String columnHeaders = "TTB ID" + ","
+                + "Permit number" + ","
+                + "Serial number" + ","
+                + "Date approved" + ","
+                + "Fancy name" + ","
+                + "Brand name" + ","
+                + "Source" + ","
+                + "Class" + ","
+                + "Type";
+        String columns = "";
+        String outputPath = "./searchResult.csv";
+        for (ColaResult data : this.resultTable){
+            columns += data.getId() + ","
+                    + data.getPermit() + ","
+                    + data.getSerial() + ","
+                    + data.getDate() + ","
+                    + data.getFname() + ","
+                    + data.getName() + ","
+                    + data.getSource() + ","
+                    + data.getAclass() + ","
+                    + data.getType() + "\n";
+        }
+        StringUtilities.saveData(outputPath, new String[] {columnHeaders, columns});
+        LogManager.println("Search result saved to ./searchResult.csv");
     }
 }
