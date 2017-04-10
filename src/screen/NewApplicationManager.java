@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
-import javafx.collections.*;
+
 import java.lang.*;
 
 /**
@@ -32,39 +32,30 @@ public class NewApplicationManager extends Screen {
     private TextField serial_number_field;
 
     @FXML
-<<<<<<< HEAD
     private ComboBox<String> product_type_box;
 
     @FXML
     private TextField brand_name_field;
-=======
-    private TextField PhoneNum;
->>>>>>> 53ab168f2ec7b3139efd1c380d59bea9f4faaaa9
 
     @FXML
     private TextField fanciful_field;
 
     @FXML
-    private TextField address_field;
+    private TextArea address_field;
 
     @FXML
-<<<<<<< HEAD
-    private TextField address_field_2;
-=======
-    private TextArea Address;
->>>>>>> 53ab168f2ec7b3139efd1c380d59bea9f4faaaa9
+    private TextArea address_field_2;
 
     @FXML
     private TextField formula_field;
 
     @FXML
-    private TextField appelation_field;
+    private TextField appellation_field;
 
     @FXML
     private TextField grapes_field;
 
     @FXML
-<<<<<<< HEAD
     private TextField phone_num_field;
 
     @FXML
@@ -74,43 +65,22 @@ public class NewApplicationManager extends Screen {
     private ComboBox<String> app_type_box;
 
     @FXML
-    private TextField add_info_field;
+    private TextArea add_info_field;
 
     @FXML
     private TextField date_submitted_field;
 
     @FXML
     private TextField applicant_name_field;
-=======
-    private TextField AlcoholContent;
 
     @FXML
-    private TextField VintageYear;
+    private TextField ph_field;
 
     @FXML
-    private TextField PHLevel;
+    private TextField vintage_field;
 
     @FXML
-    private TextField SerialNo;
-
-    @FXML
-    private TextField FancifulName;
-
-    @FXML
-    private TextField Formula;
-
-    @FXML
-    private TextField WineAppellation;
-
-    @FXML
-    private TextField GrapeVarietals;
-
-    @FXML
-    private TextField AppType;
-
-    @FXML
-    private TextArea AdditionalInfo;
->>>>>>> 53ab168f2ec7b3139efd1c380d59bea9f4faaaa9
+    private TextField abv_field;
 
     @FXML
     private Button submit_button;
@@ -119,9 +89,8 @@ public class NewApplicationManager extends Screen {
     private Button cancel_button;
 
     public void submit(){
-<<<<<<< HEAD
         String repID = repid_field.getText();
-        String dba_or_tradeName = plant_number_field.getText();
+        String registryNumber = plant_number_field.getText();
         String source = product_source_box.getValue();
         String serialNumber = serial_number_field.getText();
         String productType = product_type_box.getValue();
@@ -130,7 +99,7 @@ public class NewApplicationManager extends Screen {
         String addressText = address_field.getText();
         String address2Text = address_field_2.getText();
         String formulaText = formula_field.getText();
-        String appelationText = appelation_field.getText();
+        String appelationText = appellation_field.getText();
         String grapeVarietals = grapes_field.getText();
         String phoneNum = phone_num_field.getText();
         String email = email_field.getText();
@@ -138,35 +107,15 @@ public class NewApplicationManager extends Screen {
         String addInfo = add_info_field.getText();
         String applicantName = applicant_name_field.getText();
         String dateSubmitted = date_submitted_field.getText();
-=======
-        String repID = REPID.getText();
-        String registry = Registry.getText();
-        String source = Source.getText();
-        String serialNo = SerialNo.getText();
-        String type = Type.getText();
-        String brandName = BrandName.getText();
-        String fancifulName = FancifulName.getText();
-        String address = Address.getText();
-        String alternateAddress = AlternateAddress.getText();
-        String formula = Formula.getText();
-        String grapeVarietals = GrapeVarietals.getText();
-        String wineAppellation = WineAppellation.getText();
-        String phoneNum = PhoneNum.getText();
-        String email = Email.getText();
-        String appType = AppType.getText();
-        String additionalInfo = AdditionalInfo.getText();
-        String date = Date.getText();
-        String applicantName = ApplicantName.getText();
-        String vintageYear = VintageYear.getText();
-        String alcoholContent = AlcoholContent.getText();
-        String phLevel = PHLevel.getText();
+        String ph = ph_field.getText();
+        String vintageYear = vintage_field.getText();
+        String abv = abv_field.getText();
 
->>>>>>> 53ab168f2ec7b3139efd1c380d59bea9f4faaaa9
         String manufacturer = Main.getUsername();
 
         //Databasessssssssssss
 
-        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), "", Email.getText());
+        //database.DatabaseManager.submitApplication(manufacturer, registryNumber, "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), "", Email.getText());
 
         LogManager.println("Submitting Application");
         Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
