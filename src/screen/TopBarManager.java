@@ -146,10 +146,13 @@ public class TopBarManager extends Screen{
     }
 
     public String getSearchTerm(){
-        if(searchTerm.getValue()!=null) {
-            return searchTerm.getValue().toString();
-        }else{
-            return "";
+        if(searchTerm!=null) {
+            if (searchTerm.getValue() != null) {
+                return searchTerm.getValue().toString();
+            } else {
+                return "";
+            }
         }
+        return "";
     }
 }
