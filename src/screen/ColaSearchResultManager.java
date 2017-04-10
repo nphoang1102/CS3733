@@ -7,10 +7,19 @@ import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import misc.ColaResult;
+import misc.ResultPopupManager;
 
+import javax.xml.transform.Result;
 import java.util.LinkedList;
 
 /**
@@ -31,58 +40,89 @@ public class ColaSearchResultManager extends Screen{
 
     /* FXML objects */
     @FXML
-    TextField entryField;
-    @FXML
-    Button searchButton, backButton;
-    @FXML
-    ChoiceBox type;
+    Button backButton;
     @FXML
     TableView<ColaResult> searchResult;
     @FXML
-    TableColumn<ColaResult, String> id, source, alcoholType, name;
+    TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
 
     /* Class methods */
-    @FXML
-    public void initialize() {
+    @Override
+    public void onScreenFocused(){
+        /* Get the TableView stuff and result setup */
+        this.initializeTable();
+        this.databaseQuery();
 
-        this.id.setCellValueFactory(new PropertyValueFactory("id"));
-        this.source.setCellValueFactory(new PropertyValueFactory("source"));
-        this.alcoholType.setCellValueFactory(new PropertyValueFactory("type"));
-        this.name.setCellValueFactory(new PropertyValueFactory("name"));
+        /* Configuration for the mouse click event */
+        this.initializeMouseEvent();
     }
 
-    public void onEnter() {
-        this.buttonPressed();
+
+    /* Setup properties for the columns in tableview */
+    public void initializeTable() {
+        this.coLid.setCellValueFactory(new PropertyValueFactory("id"));
+        this.coLsource.setCellValueFactory(new PropertyValueFactory("source"));
+        this.coLalcoholType.setCellValueFactory(new PropertyValueFactory("type"));
+        this.coLname.setCellValueFactory(new PropertyValueFactory("name"));
     }
 
-    public void buttonPressed() {
-        resultTable = FXCollections.observableArrayList();
-        this.keywords = entryField.getText();
-        this.searchType = type.getValue() + "";
-        String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
-        LogManager.println(toPrint);
-        this.entryField.clear();
-        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
-        for (DataSet tempSet: databaseResult) {
+    /* Initialize the mouse click event on table rows */
+    public void initializeMouseEvent() {
+        searchResult.setRowFactory( tv -> {
+            TableRow<ColaResult> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if ((event.getClickCount() == 1) && (! row.isEmpty())) {
+                    ColaResult rowData = row.getItem();
+                    this.initializePopup(rowData);
+                }
+            });
+            return row;
+        });
+    }
+
+    /* Setup popup window here */
+    public void initializePopup(ColaResult rowData) {
+        LogManager.println("User clicked on item ID " + rowData.getId());
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("./fxml/ResultPopup.fxml"));
+//        Parent root1 = FXMLLoader.<Parent>load(ResultPopupManager.class.getResource("./fxml/ResultPopup.fxml/"));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.initStyle(StageStyle.UNDECORATED);
+        stage.setTitle("Additional information for " + rowData.getName());
+//        stage.setScene(new Scene(root1));
+//                    ResultPopupManager controller = fxmlLoader.getController();
+//                    controller.initData(rowData);
+
+        stage.show();
+
+//                    return stage;
+    }
+
+    /* Send the search keywords to the database and display reply from database */
+    public void databaseQuery() {
+//        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
+        /* Please remove this line whenever during actual implementation */
+        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", "Alcohol", "Mass", "Beer", "Beer"));
+        /*for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
-            String tempSource = tempSet.getValueForKey("Origin");
-            String tempType = tempSet.getValueForKey("Type");
+            String tempPermit = tempSet.getValueForKey("PermitNo");
+            String tempSerial = tempSet.getValueForKey("SerialNo");
+            String tempDate = tempSet.getValueForKey("CompletedDate");
+            String tempName = tempSet.getValueForKey("FancifulName");
             String tempBrand = tempSet.getValueForKey("BrandName");
-            this.resultTable.add(new ColaResult(tempID, tempSource, tempType, tempBrand));
-        }
-        this.searchResult.setEditable(false);
-        this.searchResult.setItems(resultTable);
+            String tempSource = tempSet.getValueForKey("Origin");
+            String tempClass = tempSet.getValueForKey("Class");
+            String tempType = tempSet.getValueForKey("Type");
+            this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType));
+        }*/
+//        this.searchResult.setEditable(false);
+        this.searchResult.getItems().setAll(resultTable);
     }
 
+    /* Hit back will bring you to the login screen */
     public void backPressed() {
         LogManager.println("Back button pressed from ColaSearchResultScreen");
-        Main.screenManager.setScreen((EnumScreenType.LOG_IN));
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
     }
-
-    public void onScreenFocused(){
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
-        type.setItems(typeList);
-        type.setValue("Beer");
-    }
-
 }

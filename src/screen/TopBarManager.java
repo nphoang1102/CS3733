@@ -1,5 +1,6 @@
 package screen;
 
+import base.LogManager;
 import base.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,6 +22,10 @@ import java.io.File;
  * Created by Bailey Sostek on 4/7/17.
  */
 public class TopBarManager extends Screen{
+    /* Some class attributes */
+    private String keywords;
+    private String searchType = "Beer";
+
     @FXML
     private Button pullNewBatch;
 
@@ -45,6 +50,9 @@ public class TopBarManager extends Screen{
     @FXML
     AnchorPane screenPane;
 
+    @FXML
+    TextField searchBar;
+
     public TopBarManager() {
         super(EnumScreenType.TOP_BAR);
     }
@@ -53,7 +61,7 @@ public class TopBarManager extends Screen{
     public void initialize() {
         ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Both");
         searchTerm.setItems(typeList);
-        searchTerm.setValue(null);
+        searchTerm.setValue("Beer");
     }
 
     @Override
@@ -89,5 +97,14 @@ public class TopBarManager extends Screen{
     public void setScreen(Scene scene){
         screenPane.getChildren().clear();
         screenPane.getChildren().add(0,scene.getRoot());
+    }
+
+    public void onEnter() {
+        this.keywords = searchBar.getText();
+        this.searchType = searchTerm.getValue() + "";
+        String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
+        LogManager.println(toPrint);
+        this.searchBar.clear();
+        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
     }
 }
