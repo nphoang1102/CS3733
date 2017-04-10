@@ -16,7 +16,7 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" stroke="#1c8c7b" strokeType="INSIDE" width="1280.0" />
         <Text layoutX="462.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" />
         <Sphere layoutX="632.0" layoutY="348.0" radius="0.77" />
-        <Text layoutX="351.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
+        <Text fill="#616161" layoutX="351.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
             <font>
                 <Font name="Telugu Sangam MN" size="48.0" />
             </font>
@@ -39,7 +39,7 @@
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></TextField>
-        <Button fx:id="createAccount" layoutX="541.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#makeAccount" prefHeight="50" prefWidth="200" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-background-color: #939393;" text="Create Account" textFill="WHITE">
+        <Button fx:id="createAccount" layoutX="541.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#makeAccount" prefHeight="50" prefWidth="200" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-background-color: #939393;" text="Create Account" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>

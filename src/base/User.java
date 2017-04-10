@@ -10,7 +10,6 @@ public class User {
     private String username;
     private String email;
 
-
     public User(EnumUserType userType, String username, String email){
         this.userType = userType;
         this.username = username;
