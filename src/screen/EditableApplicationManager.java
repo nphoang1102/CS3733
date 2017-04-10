@@ -159,4 +159,9 @@ public class EditableApplicationManager extends Screen {
         return this;
     }
 
+    @Override
+    public void shutdown(){
+        LogManager.println("SHUTTING DOWN THIS WINDOW!");
+    }
+
 }
