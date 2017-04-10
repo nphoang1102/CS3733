@@ -7,7 +7,9 @@ import base.EnumTableType;
  */
 public class Agent extends DataSet{
 
+    String ID;
     String Username;
+    String Password;
     String Name;
     String Email;
 

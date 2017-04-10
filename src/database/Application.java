@@ -1,5 +1,4 @@
 package database;
-import base.EnumTableType;
 
 /**
  * Created by Evan Goldstein on 4/6/17.
@@ -27,14 +26,10 @@ public class Application extends DataSet{
     public String VintageDate;
     public String PH;
     public String Status;
-    public String ApplicationNO;
+    public String ApplicationNo;
     public String DateOfApproval;
     public String AgentName;
     public String DateOfExpiration;
     public String ManufacturerUsername;
     public String AgentUsername;
-
-    public Application() {
-        super(EnumTableType.APPLICATION);
-    }
 }
