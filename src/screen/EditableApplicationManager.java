@@ -84,6 +84,10 @@ public class EditableApplicationManager extends Screen {
     }
 
     public void initialize(){
+
+    }
+
+    public void onScreenFocused(DataSet data){
         REPID.setDisable(true);
         Source.setDisable(true);
         BrandName.setDisable(true);
@@ -115,10 +119,6 @@ public class EditableApplicationManager extends Screen {
         AlcoholContent.setText(data.getValueForKey("ABV"));
         VintageYear.setText(data.getValueForKey("VintageDate"));
         PHLevel.setText(data.getValueForKey("PH"));
-    }
-
-    public void onScreenFocused(DataSet data){
-
     }
 
     public void submit(){

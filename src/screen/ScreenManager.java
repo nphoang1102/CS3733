@@ -99,16 +99,32 @@ public class ScreenManager {
 //        }
     }
 
-    public void popoutScreen(EnumScreenType type, DataSet data){
-        popoutScreen(type, Main.WIDTH, Main.HEIGHT, data);
+    public void popoutScreen(EnumScreenType type, String name, DataSet data){
+        popoutScreen(type, name, Main.WIDTH, Main.HEIGHT, data);
     }
 
-    public void popoutScreen(EnumScreenType type, int width, int height, DataSet data){
+    public void popoutScreen(EnumScreenType type, String title, int width, int height, DataSet data){
         Stage stage = new Stage();
-        stage.setTitle("My New Stage Title");
-        stage.setScene(loadedScenes.get(type.toString()));
+        stage.setTitle(title);
+        stage.setResizable(false);
+        Scene scene;
+        if(loadedScenes.containsKey(type.toString())){
+            stage.setScene(loadedScenes.get(type.toString()));
+            loadedScreens.get(type.toString()).onScreenFocused(data);
+        }else{
+            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
+            try {
+                scene = new Scene(loader.load(), width, height);
+                loadedScenes.put(type.toString(), scene);
+                stage.setScene(loadedScenes.get(type.toString()));
+                Screen theScreen = (Screen)loader.getController();
+                loadedScreens.put(type.toString(), theScreen);
+                theScreen.onScreenFocused(data);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         stage.show();
-        loadedScreens.get(type.toString()).onScreenFocused(data);
     }
 
     public void back(){
