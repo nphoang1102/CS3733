@@ -432,13 +432,13 @@ public class DatabaseManager {
     if (!resultSet.next() ) {
     System.out.println("no data");
 }
-    public static User2 getUser(String username) {
+    public static User getUser(String username) {
         DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
         try {
             ResultSet user = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "';";);
             user.next();
             userType = user.getString("userType");
-            LogManager.println("User2 " + username + " is type " + userType);
+            LogManager.println("User " + username + " is type " + userType);
         } catch (SQLException e) {
             e.printStackTrace();
         }
