@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.Double?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.shape.Sphere?>
 <?import javafx.scene.text.Font?>
@@ -14,41 +13,62 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.CreateAccountManager">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#96ffe8" height="720.0" stroke="BLACK" strokeType="INSIDE" width="1280.0" />
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" stroke="#1c8c7b" strokeType="INSIDE" width="1280.0" />
         <Text layoutX="462.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" />
         <Sphere layoutX="632.0" layoutY="348.0" radius="0.77" />
-        <Text layoutX="190.0" layoutY="66.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
+        <Text layoutX="351.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
             <font>
-                <Font size="48.0" />
+                <Font name="Telugu Sangam MN" size="48.0" />
             </font>
         </Text>
-        <Text layoutX="209.0" layoutY="295.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+        <Text fill="#616161" layoutX="401.0" layoutY="304.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
             <font>
-                <Font size="24.0" />
+                <Font name="Telugu Sangam MN" size="24.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
         </Text>
-        <TextField fx:id="username" layoutX="367.0" layoutY="266.0" onAction="#enterHit" />
-        <Button fx:id="createAccount" layoutX="870.0" layoutY="266.0" mnemonicParsing="false" onMouseClicked="#makeAccount" text="Create Account" />
-        <Text layoutX="824.0" layoutY="604.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Back">
-            <font>
-                <Font name="Arial" size="23.0" />
-            </font>
-        </Text>
-        <Polygon fx:id="backButton" fill="#247f6d" layoutX="838.0" layoutY="568.0" onMouseClicked="#goBack" rotate="270.0" scaleX="0.5" scaleY="0.75" stroke="BLACK" strokeType="INSIDE">
-            <points>
-                <Double fx:value="-50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="50.0" />
-                <Double fx:value="40.0" />
-                <Double fx:value="0.0" />
-                <Double fx:value="-60.0" />
-            </points>
-            <effect>
-                <Bloom />
-            </effect>
-        </Polygon>
-      <CheckBox fx:id="tickAgent" layoutX="641.0" layoutY="230.0" mnemonicParsing="false" onMouseClicked="#selectAgent" text="I am an Agent" />
-        <CheckBox fx:id="tickManufacturer" layoutX="641.0" layoutY="309.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" text="I am a manufacturer" />
+        <TextField fx:id="username" layoutX="526.0" layoutY="271.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
+         <effect>
+            <Reflection />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font></TextField>
+        <Button fx:id="createAccount" layoutX="541.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#makeAccount" prefHeight="50" prefWidth="200" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-background-color: #939393;" text="Create Account" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Reflection fraction="0.18" />
+         </effect></Button>
+      <CheckBox fx:id="tickAgent" layoutX="787.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#selectAgent" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-unfocus-color: #34a88b;" text="I am an Agent" textFill="#616161">
+         <effect>
+            <Reflection fraction="0.18" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font></CheckBox>
+        <CheckBox fx:id="tickManufacturer" layoutX="787.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;" text="I am a Manufacturer" textFill="#616161">
+         <effect>
+            <Reflection fraction="0.18" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font></CheckBox>
         <!-- delete the previous to remove comment <CheckBox fx:id="tickPublicUser" layoutX="641.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#selectPublicUser" text="I am a public user" /> delete the following to remove comment-->
       <Text fx:id="accountError" fill="#941b1b" layoutX="282.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
     </children>

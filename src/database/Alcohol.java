@@ -1,5 +1,7 @@
 package database;
 
+import base.EnumTableType;
+
 /**
  * Created by Daniel Yun on 4/8/2017.
  */

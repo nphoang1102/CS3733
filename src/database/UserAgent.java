@@ -8,7 +8,7 @@ import screen.EnumUserType;
 public class UserAgent extends User{
     String ID;
     boolean superAgent;
-    public UserAgent(){}
+
     public UserAgent(String name, String username, String email, String ID, boolean isSuper){
         this.superAgent = isSuper;
         this.ID = ID;

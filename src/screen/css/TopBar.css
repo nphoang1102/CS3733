@@ -1,0 +1,9 @@
+.choice-box .label {
+	-fx-font: "Telugu Sangam MN";
+	-fx-text-fill:  #ffffff;
+}
+
+.choice-box .context-menu {
+	-fx-background-color: #939393 ;
+	-fx-pref-tile-width: 117;
+}
