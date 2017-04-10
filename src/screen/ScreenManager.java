@@ -1,19 +1,16 @@
 package screen;
 
-import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
 import database.BasicDataSet;
 import database.DataSet;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 

@@ -10,6 +10,7 @@ public class UserAgent extends User{
     boolean superAgent;
 
     public UserAgent(String name, String username, String email, String ID, boolean isSuper){
+        super(EnumUserType.AGENT, username, email, name);
         this.superAgent = isSuper;
         this.ID = ID;
         if(isSuper){

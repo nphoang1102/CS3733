@@ -3,6 +3,7 @@ package screen;
 import base.Main;
 import database.BasicDataSet;
 import database.DataSet;
+import database.UserManufacturer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -77,6 +78,11 @@ public class TopBarManager extends Screen{
 //            if(DatabaseManager.getImage()) {
                 //This method sets the image to the users type first letter.
                 imageLetter.setText(Main.getUserType().substring(0, 1));
+                if(imageLetter.getText().toUpperCase().equals("W")){
+                    imageLetter.setLayoutX(userIcon.getX()+19);
+                }else{
+                    imageLetter.setLayoutX(userIcon.getX()+23);
+                }
                 logIn.setText("Log Out");
                 BufferedImage bufferedImage;
                 try {
@@ -118,6 +124,8 @@ public class TopBarManager extends Screen{
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
             onScreenFocused(new BasicDataSet());
+        }else{
+
         }
     }
 
@@ -129,7 +137,7 @@ public class TopBarManager extends Screen{
     @FXML
     public void action(){
 //        action.setVisible(false);
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "TEST",600, 600, new BasicDataSet());
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "TEST",1280, 720, new BasicDataSet());
     }
 
     public void setScreen(Scene scene){
