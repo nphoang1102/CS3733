@@ -188,6 +188,41 @@ public class DatabaseManager {
         return null;
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> queryAlcohol(String queryStr) {
+
+        LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
+
+        try {
+            ResultSet getAlcohol = statement.executeQuery(queryStr);
+
+            while (getAlcohol.next()) {
+                Alcohol alcohol = new Alcohol();
+                alcohol.TTBID = getAlcohol.getString("TTBID");
+                alcohol.PermitNo = getAlcohol.getString("PermitNo");
+                alcohol.SerialNo = getAlcohol.getString("SerialNo");
+                alcohol.CompletedDate = getAlcohol.getString("CompletedDate");
+                alcohol.FancifulName = getAlcohol.getString("FancifulName");
+                alcohol.BrandName = getAlcohol.getString("BrandName");
+                alcohol.Origin = getAlcohol.getString("Origin");
+                alcohol.Class = getAlcohol.getString("Class");
+                alcohol.Type = getAlcohol.getString("Type");
+                alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
+                alcohol.VintageYear = getAlcohol.getString("VintageYear");
+                alcohol.PH = getAlcohol.getString("PH");
+                alcoholLinkedList.add(alcohol);
+            }
+        } catch (SQLException e) {
+            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
+            return new LinkedList<>();
+        }
+
+        return alcoholLinkedList;
+    }
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERATE TTBID////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -267,39 +302,7 @@ public class DatabaseManager {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
-    ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> queryAlcohol(String queryStr) {
 
-        LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
-
-        try {
-            ResultSet getAlcohol = statement.executeQuery(queryStr);
-
-            while (getAlcohol.next()) {
-                Alcohol alcohol = new Alcohol();
-                alcohol.TTBID = getAlcohol.getString("TTBID");
-                alcohol.PermitNo = getAlcohol.getString("PermitNo");
-                alcohol.SerialNo = getAlcohol.getString("SerialNo");
-                alcohol.CompletedDate = getAlcohol.getString("CompletedDate");
-                alcohol.FancifulName = getAlcohol.getString("FancifulName");
-                alcohol.BrandName = getAlcohol.getString("BrandName");
-                alcohol.Origin = getAlcohol.getString("Origin");
-                alcohol.Class = getAlcohol.getString("Class");
-                alcohol.Type = getAlcohol.getString("Type");
-                alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
-                alcohol.VintageYear = getAlcohol.getString("VintageYear");
-                alcohol.PH = getAlcohol.getString("PH");
-                alcoholLinkedList.add(alcohol);
-            }
-        } catch (SQLException e) {
-            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
-            return new LinkedList<>();
-        }
-
-        return alcoholLinkedList;
-    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////MANUFACTURER QUERIES//////////////////////////////////////////////////
