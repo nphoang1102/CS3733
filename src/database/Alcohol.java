@@ -7,17 +7,17 @@ import base.EnumTableType;
  */
 public class Alcohol extends DataSet{
 
-    String TTBID;
-    String PermitNo;
-    String SerialNo;
-    String CompletedDate;
-    String FancifulName;
-    String BrandName;
-    String Origin;
-    String Class;
-    String Type;
-    String AlcoholContent;
-    String VintageYear;
-    String PH;
+    public String TTBID;
+    public String PermitNo;
+    public String SerialNo;
+    public String CompletedDate;
+    public String FancifulName;
+    public String BrandName;
+    public String Origin;
+    public String Class;
+    public String Type;
+    public String AlcoholContent;
+    public String VintageYear;
+    public String PH;
 
 }

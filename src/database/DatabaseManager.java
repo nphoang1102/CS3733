@@ -47,14 +47,14 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
         LogManager.println("Attempting Database Connection.");
-        try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        } catch (ClassNotFoundException e) {
-            LogManager.println("Java DB Driver not found. Add the classpath to your module.");
-            e.printStackTrace();
-            return;
-        }
-        LogManager.println("    Java DB driver registered!");
+//        try {
+//            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
+//        } catch (ClassNotFoundException e) {
+//            LogManager.println("Java DB Driver not found. Add the classpath to your module.");
+//            e.printStackTrace();
+//            return;
+//        }
+//        LogManager.println("    Java DB driver registered!");
         try {
             connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" +
                     "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
