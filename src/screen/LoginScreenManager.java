@@ -2,7 +2,6 @@ package screen;
 
 import base.LogManager;
 import base.Main;
-import base.User;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;

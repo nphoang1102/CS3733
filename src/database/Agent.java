@@ -6,14 +6,9 @@ import base.EnumTableType;
  * Created by Evan Goldstein on 4/8/17.
  */
 public class Agent extends DataSet{
-
-    String ID;
-    String Username;
-    String Password;
-    String Name;
-    String Email;
-
-    public Agent() {
-        super(EnumTableType.AGENT);
-    }
+    public String ID;
+    public String Username;
+    public String Password;
+    public String Name;
+    public String Email;
 }

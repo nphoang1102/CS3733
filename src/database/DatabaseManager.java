@@ -504,13 +504,8 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent();
+                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), false);
                 LogManager.println("User " + username + " is an agent");
-                agent.ID = user.getString("ID");
-                agent.name = user.getString("name");
-                agent.email = user.getString("email");
-                agent.username = username;
-                agent.userType = EnumUserType.AGENT;
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {
