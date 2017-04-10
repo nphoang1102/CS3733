@@ -168,7 +168,6 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         if (table.equals(EnumTableType.ALCOHOL)) {
-
             if (value.equals("")) {
                 return queryAlcohol("SELECT * FROM Alcohol;");
             } else {
