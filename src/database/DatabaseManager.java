@@ -169,12 +169,10 @@ public class DatabaseManager {
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         if (table.equals(EnumTableType.ALCOHOL)) {
 
-            if (column.equals("")) {
+            if (value.equals("")) {
                 return queryAlcohol("SELECT * FROM Alcohol;");
             } else {
-                LinkedList<DataSet> testlist = queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
-                LogManager.println("Size of alcohol table: "+ testlist.size());
-                return testlist;//queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
+                return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
             }
         }
         else if (table.equals(EnumTableType.APPLICATION)) {
