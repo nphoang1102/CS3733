@@ -8,10 +8,10 @@ import sun.java2d.pipe.SpanShapeRenderer;
  */
 public class ColaResult {
     /* Class attributes */
-    private final SimpleStringProperty id, permit, serial, date, fname, name, source, aclass, type;
+    private final SimpleStringProperty id, permit, serial, date, fname, name, source, aclass, type, alCon, year, ph;
 
     /* Class constructors */
-    public ColaResult(String id, String permit, String serial, String date, String fname, String name, String source, String aclass, String type) {
+    public ColaResult(String id, String permit, String serial, String date, String fname, String name, String source, String aclass, String type, String alCon, String year, String ph) {
         this.id = new SimpleStringProperty(id);
         this.permit = new SimpleStringProperty(permit);
         this.serial = new SimpleStringProperty(serial);
@@ -21,6 +21,9 @@ public class ColaResult {
         this.source = new SimpleStringProperty(source);
         this.aclass = new SimpleStringProperty(aclass);
         this.type = new SimpleStringProperty(type);
+        this.alCon = new SimpleStringProperty(alCon);
+        this.year = new SimpleStringProperty(year);
+        this.ph = new SimpleStringProperty(ph);
     }
 
     /* Class setters and getters */
@@ -55,4 +58,7 @@ public class ColaResult {
     public String getDate() { return this.date.get(); }
     public String getFname() { return this.fname.get(); }
     public String getAclass() { return this.aclass.get(); }
+    public String getAlCon() { return this.alCon.get(); }
+    public String getYear() { return this.year.get(); }
+    public String getPh() { return this.ph.get(); }
 }
