@@ -7,6 +7,7 @@ import base.EnumTableType;
  */
 public class Manufacturer extends DataSet {
 
+    String UUID;
     String Username;
     String Password;
     String Company;
