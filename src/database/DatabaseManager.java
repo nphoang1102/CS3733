@@ -3,6 +3,7 @@ package database;
 import base.EnumTableType;
 import base.EnumWarningType;
 import base.LogManager;
+import screen.EnumUserType;
 /*import com.sun.org.apache.xpath.internal.operations.Or;
 import com.sun.xml.internal.bind.v2.TODO
 import screen.EnumUserType;
@@ -20,6 +21,26 @@ public class DatabaseManager {
      */
     private static Statement statement = null;
     private static Connection connection = null;
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////EXCEPTIONS////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public class UserNotFoundException extends Exception {
+        String username;
+
+        public UserNotFoundException(String username) {
+            super("User " + username + " not found");
+        }
+    }
+
+    public class IncorrectPasswordException extends Exception {
+        String username;
+
+        public IncorrectPasswordException(String username) {
+            super("Incorrect password for user " + username + "!");
+        }
+    }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
@@ -139,7 +160,6 @@ public class DatabaseManager {
     }
 
 
-
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERATE TTBID////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -223,19 +243,16 @@ public class DatabaseManager {
     ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
-        if(table.equals(EnumTableType.ALCOHOL)){
-            if(column == ""){
+        if (table.equals(EnumTableType.ALCOHOL)) {
+            if (column == "") {
                 return queryAlcohol("SELECT * FROM Alcohol;");
-            }
-            else{
-                return  queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
+            } else {
+                return queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
             }
 
-        }
-        else if(table.equals(EnumTableType.APPLICATION)){
+        } else if (table.equals(EnumTableType.APPLICATION)) {
             return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
-        }
-        else if(table.equals(EnumTableType.ALCOHOL)){
+        } else if (table.equals(EnumTableType.ALCOHOL)) {
 
         }
         return null;
@@ -276,7 +293,6 @@ public class DatabaseManager {
 
         return alcoholLinkedList;
     }
-
 
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -322,7 +338,7 @@ public class DatabaseManager {
 //        String DateOfExpiration = approvedApplication.DateOfExpiration;
 //        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
 //        String AgentUsername = approvedApplication.AgentUsername;
-            String TTBID = generateTTBID();
+        String TTBID = generateTTBID();
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "');");
         } catch (SQLException e) {
@@ -357,7 +373,7 @@ public class DatabaseManager {
     public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
         LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
         LinkedList<Application> addToInbox = new LinkedList<>();
-        for(int i = 0; i<num; i++){
+        for (int i = 0; i < num; i++) {
             addToInbox.add((Application) applicationLinkedList.get(i));
         }
         return addToInbox;
@@ -441,26 +457,74 @@ public class DatabaseManager {
         }
     }
 
-//TODO - Write method to look up a user
-    /*/////////////////////////////////////////////////////////////////////////////////
+    //TODO - Write method to look up a user
+    /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER BY USERNAME//////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    if (!resultSet.next() ) {
-    System.out.println("no data");
-}
-    public static User getUser(String username) {
-        DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+    public User login(String username, String password) throws UserNotFoundException, IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+//        DataSet dataSet = new DataSet(EnumTableType.APPLICATION);
+        ResultSet user;
         try {
-            ResultSet user = statement.executeQuery("SELECT * FROM Users WHERE username = '" + username + "';";);
-            user.next();
-            userType = user.getString("userType");
-            LogManager.println("User " + username + " is type " + userType);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return userType;
-    }*/
+            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
+            if (user.next()) {
+                UserAgent agent = new UserAgent();
+                LogManager.println("User " + username + " is an agent");
+                agent.name = user.getString("name");
+                agent.email = user.getString("email");
+                agent.username = username;
+                agent.userType = EnumUserType.AGENT;
+                tryPassword(username, password, user.getString("PasswordHash"));
+                return agent;
+            } else {
+                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
+                if (user.next()) {
+                    UserManufacturer manufacturer = new UserManufacturer();
+                    LogManager.println("User " + username + " is an agent");
+                    manufacturer.username = username;
+                    manufacturer.name = user.getString("name");
+                    manufacturer.email = user.getString("email");
+                    manufacturer.userType = EnumUserType.MANUFACTURER;
+                    manufacturer.Address = user.getString("Address");
+                    manufacturer.Address2 = user.getString("Address2");
+                    manufacturer.Company = user.getString("Company");
+                    manufacturer.Name = user.getString("Name");
+                    manufacturer.RepID = user.getString("RepID");
+                    manufacturer.PlantRegistry = user.getString("PlantRegistry");
+                    manufacturer.Source = user.getString("Source");
+                    manufacturer.SerialNo = user.getString("SerialNo");
+                    manufacturer.AlcoholType = user.getString("AlcoholType");
+                    manufacturer.PhoneNo = user.getString("PhoneNo");
+                    tryPassword(username, password, user.getString("PasswordHash"));
+                    return manufacturer;
+                } else {
+                    LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
+                    throw new UserNotFoundException(username);
+                }
 
+            }
+
+        } catch (SQLException e) {
+            LogManager.printStackTrace(e.getStackTrace());
+        }
+        return null;
+    }
+
+    private boolean tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+        try {
+            if (PasswordStorage.verifyPassword(password, correctHash)) {
+                return true;
+            } else {
+                throw new IncorrectPasswordException(username);
+            }
+        } catch (PasswordStorage.CannotPerformOperationException e) {
+            LogManager.println("Invalid stored password hash for user " + username + ".", EnumWarningType.ERROR);
+            throw new PasswordStorage.CannotPerformOperationException("Invalid stored password hash for user " + username + ".");
+        } catch (PasswordStorage.InvalidHashException e) {
+            //LogManager.printStackTrace(e.getStackTrace());
+            LogManager.println("Password hash validation failed for " + username + ".", EnumWarningType.ERROR);
+            throw new PasswordStorage.InvalidHashException("Password hash validation failed for user " + username + ".");
+        }
+    }
 
     /*///////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////MANUFACTURER QUERIES//////////////////////////////////////////////

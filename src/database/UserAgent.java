@@ -7,6 +7,7 @@ import screen.EnumUserType;
  */
 public class UserAgent extends User{
     String ID;
+    public UserAgent(){}
     public UserAgent(String name, String username, String email){
         this.userType = EnumUserType.AGENT;
         this.username = username;
