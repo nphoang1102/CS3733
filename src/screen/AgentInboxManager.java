@@ -73,7 +73,7 @@ public class AgentInboxManager extends Screen{
                 if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     AgentInboxResult tempResult = (AgentInboxResult) row.getUserData();
                     LinkedList<DataSet> tempData =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", tempResult.getApplicationNo());
-                    ScreenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, tempData.get(0));
+                   // ScreenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, tempData.get(0));
                 }
             });
             return row;
