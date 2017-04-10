@@ -111,7 +111,7 @@ public class ColaSearchResultManager extends Screen{
         this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" ,this.keywords);
         /* Please remove this line whenever during actual implementation */
 //        this.resultTable.clear();
-        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType, "7.8", "", "" ));
+        //this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType, "7.8", "", "" ));
         for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
             String tempPermit = tempSet.getValueForKey("PermitNo");
