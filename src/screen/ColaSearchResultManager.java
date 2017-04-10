@@ -115,44 +115,23 @@ public class ColaSearchResultManager extends Screen{
         this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
         /* Please remove this line whenever during actual implementation */
         this.resultTable.clear();
-//        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType, "7.8", "", "" ));
-//        if (this.databaseResult.isEmpty()) {
-            for (DataSet tempSet: this.databaseResult) {
-                Alcohol data = (Alcohol) tempSet;
-                String tempID = data.TTBID;
-                String tempPermit = data.PermitNo;
-                String tempSerial = data.SerialNo;
-                String tempDate = data.CompletedDate;
-                String tempName = data.FancifulName;
-                String tempBrand = data.BrandName;
-                String tempSource = data.Origin;
-                String tempClass = data.Class;
-                String tempType = data.Type;
-                String tempAlCon = data.AlcoholContent;
-                String tempVinYear = data.VintageYear;
-                String tempPh = data.PH;
-
-                /*String tempID = tempSet.getValueForKey("TTBID");
-                String tempPermit = tempSet.getValueForKey("PermitNo");
-                String tempSerial = tempSet.getValueForKey("SerialNo");
-                String tempDate = tempSet.getValueForKey("CompletedDate");
-                String tempName = tempSet.getValueForKey("FancifulName");
-                String tempBrand = tempSet.getValueForKey("BrandName");
-                String tempSource = tempSet.getValueForKey("Origin");
-                String tempClass = tempSet.getValueForKey("Class");
-                String tempType = tempSet.getValueForKey("Type");
-                String tempAlCon = tempSet.getValueForKey("AlcoholContent");
-                String tempVinYear = tempSet.getValueForKey("VintageYear");
-                String tempPh = tempSet.getValueForKey("PH");*/
-                this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType, tempAlCon, tempVinYear, tempPh));
-                LogManager.println(tempName);
-            }
-//        }
-//        else {
-//            LogManager.println("Database is empty");
-//        }
-//        LogManager.println(this.databaseResult.isEmpty() + "");
-
+        for (DataSet tempSet: this.databaseResult) {
+            Alcohol data = (Alcohol) tempSet;
+            String tempID = data.TTBID;
+            String tempPermit = data.PermitNo;
+            String tempSerial = data.SerialNo;
+            String tempDate = data.CompletedDate;
+            String tempName = data.FancifulName;
+            String tempBrand = data.BrandName;
+            String tempSource = data.Origin;
+            String tempClass = data.Class;
+            String tempType = data.Type;
+            String tempAlCon = data.AlcoholContent;
+            String tempVinYear = data.VintageYear;
+            String tempPh = data.PH;
+            this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType, tempAlCon, tempVinYear, tempPh));
+            LogManager.println(tempName);
+        }
         this.searchResult.setEditable(false);
         this.searchResult.getItems().setAll(resultTable);
     }
