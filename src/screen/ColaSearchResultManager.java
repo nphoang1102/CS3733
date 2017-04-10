@@ -113,11 +113,10 @@ public class ColaSearchResultManager extends Screen{
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
         this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
-        LogManager.println("I passed!!!!");
         /* Please remove this line whenever during actual implementation */
         this.resultTable.clear();
 //        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType, "7.8", "", "" ));
-        if (this.databaseResult.isEmpty()) {
+//        if (this.databaseResult.isEmpty()) {
             for (DataSet tempSet: this.databaseResult) {
                 Alcohol data = (Alcohol) tempSet;
                 String tempID = data.TTBID;
@@ -148,10 +147,10 @@ public class ColaSearchResultManager extends Screen{
                 this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType, tempAlCon, tempVinYear, tempPh));
                 LogManager.println(tempName);
             }
-        }
-        else {
-            LogManager.println("Database is empty");
-        }
+//        }
+//        else {
+//            LogManager.println("Database is empty");
+//        }
 //        LogManager.println(this.databaseResult.isEmpty() + "");
 
         this.searchResult.setEditable(false);
