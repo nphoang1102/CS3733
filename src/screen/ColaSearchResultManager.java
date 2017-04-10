@@ -1,5 +1,6 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
 import base.StringUtilities;
@@ -67,7 +68,6 @@ public class ColaSearchResultManager extends Screen{
         this.initializeMouseEvent();
     }
 
-
     /* Setup properties for the columns in tableview */
     public void initializeTable() {
         this.coLid.setCellValueFactory(new PropertyValueFactory("id"));
@@ -106,43 +106,28 @@ public class ColaSearchResultManager extends Screen{
         Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 680, 245, data);
     }
 
-
-
-/*        LogManager.println("User clicked on item ID " + rowData.getId());
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/screen/fxml/ResultPopup.fxml"));
-//        Parent root1 = FXMLLoader.<Parent>load(ResultPopupManager.class.getResource("./fxml/ResultPopup.fxml/"));
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("Additional information for " + rowData.getName());
-//        stage.setScene(new Scene(root1));
-//                    ResultPopupManager controller = fxmlLoader.getController();
-//                    controller.initData(rowData);
-
-        stage.show();
-
-//                    return stage;*/
-
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
-//        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
+        this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" ,this.keywords);
         /* Please remove this line whenever during actual implementation */
 //        this.resultTable.clear();
-        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType));
-        /*for (DataSet tempSet: databaseResult) {
+        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType, "7.8", "", "" ));
+        for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
             String tempPermit = tempSet.getValueForKey("PermitNo");
             String tempSerial = tempSet.getValueForKey("SerialNo");
-            String tempDate = tempSet.getValsueForKey("CompletedDate");
+            String tempDate = tempSet.getValueForKey("CompletedDate");
             String tempName = tempSet.getValueForKey("FancifulName");
             String tempBrand = tempSet.getValueForKey("BrandName");
             String tempSource = tempSet.getValueForKey("Origin");
             String tempClass = tempSet.getValueForKey("Class");
             String tempType = tempSet.getValueForKey("Type");
-            this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType));
-        }*/
-//        this.searchResult.setEditable(false);
+            String tempAlCon = tempSet.getValueForKey("AlcoholContent");
+            String tempVinYear = tempSet.getValueForKey("VintageYear");
+            String tempPh = tempSet.getValueForKey("PH");
+            this.resultTable.add(new ColaResult(tempID, tempPermit, tempSerial, tempDate, tempName, tempBrand, tempSource, tempClass, tempType, tempAlCon, tempVinYear, tempPh));
+        }
+        this.searchResult.setEditable(false);
         this.searchResult.getItems().setAll(resultTable);
     }
 

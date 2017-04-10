@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="245.0" prefWidth="680.0" style="-fx-background-color: #34a88b;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="misc.ResultPopupManager">
+<AnchorPane prefHeight="319.0" prefWidth="680.0" style="-fx-background-color: #34a88b;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="misc.ResultPopupManager">
    <children>
       <Label fx:id="dis_ID" layoutX="30.0" layoutY="72.0" text="TTB ID:" textFill="#dbdbdb">
          <font>
@@ -42,5 +42,20 @@
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
+      <Label fx:id="dis_type1" layoutX="370.0" layoutY="212.0" text="Year:" textFill="#dbdbdb">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="dis_type11" layoutX="30.0" layoutY="212.0" text="Alcohol content:" textFill="#dbdbdb">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="dis_type12" layoutX="370.0" layoutY="253.0" text="pH level:" textFill="#dbdbdb">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

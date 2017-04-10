@@ -270,10 +270,10 @@ public class DatabaseManager {
         LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
 
         try {
-            ResultSet getAlcohol = statement.executeQuery(queryStr);
+            ResultSet getAlcohol = statement.executeQuery("SELECT * FROM Alcohol;");
 
             while (getAlcohol.next()) {
-                getAlcohol.next();
+//                getAlcohol.next();
                 Alcohol alcohol = new Alcohol();
                 alcohol.TTBID = getAlcohol.getString("TTBID");
                 alcohol.PermitNo = getAlcohol.getString("PermitNo");
