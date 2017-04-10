@@ -128,8 +128,8 @@ public class TopBarManager extends Screen{
 
     @FXML
     public void action(){
-        action.setVisible(false);
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, 600, 600, new BasicDataSet());
+//        action.setVisible(false);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "TEST",600, 600, new BasicDataSet());
     }
 
     public void setScreen(Scene scene){

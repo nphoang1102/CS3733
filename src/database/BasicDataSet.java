@@ -7,7 +7,4 @@ import base.EnumTableType;
  */
 public class BasicDataSet extends DataSet{
 
-    public BasicDataSet() {
-        super(EnumTableType.NULL);
-    }
 }

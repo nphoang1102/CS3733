@@ -84,6 +84,10 @@ public class EditableApplicationManager extends Screen {
     }
 
     public void initialize(){
+
+    }
+
+    public void onScreenFocused(DataSet data){
         REPID.setDisable(true);
         Source.setDisable(true);
         BrandName.setDisable(true);
@@ -117,10 +121,6 @@ public class EditableApplicationManager extends Screen {
         PHLevel.setText(data.getValueForKey("PH"));
     }
 
-    public void onScreenFocused(DataSet data){
-
-    }
-
     public void submit(){
         String repID = REPID.getText();
         String source = Source.getText();
@@ -142,7 +142,7 @@ public class EditableApplicationManager extends Screen {
         Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
-        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
+//        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
 
         LogManager.println("Submitting Application");
         Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
@@ -157,6 +157,11 @@ public class EditableApplicationManager extends Screen {
 
     public Screen getScreen(){
         return this;
+    }
+
+    @Override
+    public void shutdown(){
+        LogManager.println("SHUTTING DOWN THIS WINDOW!");
     }
 
 }

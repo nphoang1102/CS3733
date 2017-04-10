@@ -20,7 +20,4 @@ public class Alcohol extends DataSet{
     String VintageYear;
     String PH;
 
-    public Alcohol() {
-        super(EnumTableType.ALCOHOL);
-    }
 }
