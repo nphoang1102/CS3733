@@ -317,9 +317,9 @@ public class DatabaseManager {
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.Name = searchManufacturers.getString("Name");
-                manufacturer.RepID = searchManufacturers.getString("RepID");
-                manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
-                manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
+                manufacturer.representativeIdNumber = searchManufacturers.getString("representativeIdNumber");
+                manufacturer.plantRegistryBasicPermitNumber = searchManufacturers.getString("plantRegistryBasicPermitNumber");
+                manufacturer.phoneNumber = searchManufacturers.getString("phoneNumber");
             }
             searchManufacturers.close();
         } catch (SQLException e) {
@@ -506,7 +506,7 @@ public class DatabaseManager {
             if (user.next()) {
                 UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), false);
                 LogManager.println("User " + username + " is an agent");
-                tryPassword(username, password, user.getString("PasswordHash"));
+                //tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {
                 user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
@@ -514,11 +514,11 @@ public class DatabaseManager {
                     LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
                     LogManager.println("User " + username + " is an agent");
-                    tryPassword(username, password, user.getString("PasswordHash"));
+                    //tryPassword(username, password, user.getString("PasswordHash"));
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
-                    throw new UserNotFoundException(username);
+                    //throw new UserNotFoundException(username);
                 }
 
             }

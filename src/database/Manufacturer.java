@@ -17,6 +17,6 @@ public class Manufacturer extends DataSet {
     String plantRegistryBasicPermitNumber;
 
     public Manufacturer() {
-        super(EnumTableType.MANUFACTURER);
+        //super(EnumTableType.MANUFACTURER);
     }
 }

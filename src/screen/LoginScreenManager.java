@@ -4,6 +4,8 @@ import base.LogManager;
 import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
+import database.PasswordStorage;
+import database.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -37,27 +39,41 @@ public class LoginScreenManager extends Screen{
     void loginClicked() {
         this.userName = usernameField.getText();
         this.usernameField.clear();
-        String userType = "MANUFACTURER";//DatabaseManager.getUserType(userName);
+        User curUser = null;//"MANUFACTURER";//DatabaseManager.getUserType(userName);
+        try {
+            curUser = DatabaseManager.login(userName,"");
+        } catch (DatabaseManager.UserNotFoundException e) {
+            e.printStackTrace();
+        } catch (DatabaseManager.IncorrectPasswordException e) {
+            e.printStackTrace();
+        } catch (PasswordStorage.InvalidHashException e) {
+            e.printStackTrace();
+        } catch (PasswordStorage.CannotPerformOperationException e) {
+            e.printStackTrace();
+        }
+
+        Enum userType = curUser.getType();
         LogManager.println(userName+" wants to sign in, he is a "+userType);
 
         /* To be replaced in the future with actual database query */
-        if (userType.equalsIgnoreCase("publicUser")) {
+
+        if (userType.equals(EnumUserType.PUBLIC_USER)) {
             Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
             LogManager.println("Public user "+ userName +" has signed in");
         }
         // Currently not implemented since manufacturerScreen is not made
-        else if (userType.equalsIgnoreCase("manufacturer")) {
+        else if (userType.equals(EnumUserType.MANUFACTURER)) {
             //build a manufacturer and store it globally
-            User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
-            Main.setUser(currentUser);
+            //User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
+            //Main.setUser(currentUser);
             Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             LogManager.println("Manufacturer " + userName + " has signed in");
         }
-        else if (userType.equalsIgnoreCase("agent")) {
+        else if (userType.equals(EnumUserType.AGENT)) {
             //build an agent and store it globally
             LogManager.println("we have an agent!");
-            User currentUser = new User(EnumUserType.AGENT, userName, "");
-            Main.setUser(currentUser);
+            //User currentUser = new User(EnumUserType.AGENT, userName, "");
+            //Main.setUser(currentUser);
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
             LogManager.println("Agent " + userName + " has signed in");
         }
