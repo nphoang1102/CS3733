@@ -1,19 +1,22 @@
-package base;
+package database;
 
+import database.DataSet;
 import screen.EnumUserType;
 
 /**
  * Created by Bailey Sostek on 4/3/17.
  */
-public class User {
-    private EnumUserType userType;
-    private String username;
-    private String email;
-
-    public User(EnumUserType userType, String username, String email){
+public abstract class User extends DataSet {
+    public EnumUserType userType;
+    public String username;
+    public String email;
+    public String name;
+    public User(){}
+    public User(EnumUserType userType, String username, String email, String name){
         this.userType = userType;
         this.username = username;
         this.email = email;
+        this.name = name;
     }
 
     public EnumUserType getType(){
