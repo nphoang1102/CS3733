@@ -157,46 +157,62 @@ public class DatabaseManager {
             String status = "PENDING";
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
-                    "Manufacturer, " +
-                    "PermitNo, " +
-                    "Status, " +
-                    "AlcoholType, " +
-                    "AgentID, " +
+                    "PlantRegistry, " +
                     "Source, " +
+                    "SerialNo, " +
+                    "AlcoholType, " +
                     "Brand, " +
+                    "FancifulName, " +
                     "Address, " +
                     "Address2, " +
-                    "Volume, " +
-                    "ABV, " +
+                    "Formula, " +
+                    "Grapes, " +
+                    "WineAppelation, " +
                     "PhoneNo, " +
+                    "Email, " +
                     "AppType, " +
-                    "VintageDate, " +
-                    "PH, " +
-                    "ApplicantName, " +
-                    "DateSubmitted, " +
-                    "DBAorTrade, " +
-                    "Email) VALUES " +
+                    "AdditionalInfo, " +
+                    "Date, " +
+                    "PrintName, " +
+                    "ABV, " +
+                    "VintageDate," +
+                    "PH," +
+                    "Status, " +
+                    "ApplicationNo, " +
+                    "DateOfApproval," +
+                    "AgentName, " +
+                    "DateOfExpiration, " +
+                    "ManufacturerUsername, " +
+                    "AgentUsername) VALUES " +
                     "('"
                     + application.ApplicationNo + "', '"
-                    + application.Manufacturer + "', '"
-                    + application.PermitNo + "', '"
-                    + application.status + "', '"
-                    + application.AlcoholType + "', '"
-                    + application.AgentID + "', '"
+                    + application.PlantRegistry + "', '"
                     + application.Source + "', '"
+                    + application.SerialNo + "', '"
+                    + application.AlcoholType + "', '"
                     + application.Brand + "', '"
+                    + application.FanicifulName + "', '"
                     + application.Address + "', '"
                     + application.Address2 + "', '"
-                    + application.Volume + "', '"
-                    + application.ABV + "', '"
+                    + application.Formula + "', '"
+                    + application.Grapes + "', '"
+                    + application.WineAppelation + "', '"
                     + application.PhoneNo + "', '"
+                    + application.Email + "', '"
                     + application.AppType + "', '"
+                    + application.AdditionalInfo + "', '"
+                    + application.Date + "', '"
+                    + application.PrintName + "', '"
+                    + application.ABV + "', '"
                     + application.VintageDate + "', '"
                     + application.PH + "', '"
-                    + application.ApplicantName + "', '"
-                    + application.DateSubmitted + "', '"
-                    + application.DBAorTrade + "', '"
-                    + application.Email
+                    + application.Status + "', '"
+                    + application.ApplicationNo + "', '"
+                    + application.DateOfApproval + "', '"
+                    + application.AgentName + "', '"
+                    + application.DateOfExpiration + "', '"
+                    + application.ManufacturerUsername + "', '"
+                    + application.AgentUsername
                     + "');");
         } catch (SQLException e) {
             e.printStackTrace();
