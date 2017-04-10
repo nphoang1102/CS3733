@@ -144,4 +144,12 @@ public class TopBarManager extends Screen{
         screenPane.getChildren().clear();
         screenPane.getChildren().add(0,scene.getRoot());
     }
+
+    public String getSearchTerm(){
+        if(searchTerm.getValue()!=null) {
+            return searchTerm.getValue().toString();
+        }else{
+            return "";
+        }
+    }
 }

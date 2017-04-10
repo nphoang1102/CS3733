@@ -111,6 +111,7 @@ public class ScreenManager {
 
     public void popoutScreen(EnumScreenType type, String title, int width, int height, DataSet data){
         //get all pop outs, check if they are not on top and are still active
+        LogManager.println(getSearchTerm());
         for(Stage stage: popOutWindows){
             if(stage.getOwner()!=null){
                 stage.toFront();
@@ -155,6 +156,10 @@ public class ScreenManager {
             setScreen(screenStates.getFirst().type, screenStates.getFirst().data);
             screenStates.removeFirst();
         }
+    }
+
+    public String getSearchTerm(){
+        return topBarScreen.getSearchTerm();
     }
 
 }
