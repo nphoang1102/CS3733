@@ -29,7 +29,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
         </Text>
-        <TextField fx:id="username" layoutX="526.0" layoutY="271.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
+        <TextField fx:id="username" layoutX="526.0" layoutY="271.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
          <effect>
             <Reflection />
          </effect>
@@ -59,7 +59,7 @@
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></CheckBox>
-        <CheckBox fx:id="tickManufacturer" layoutX="787.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;" text="I am a Manufacturer" textFill="#616161">
+        <CheckBox fx:id="tickManufacturer" layoutX="787.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;" text="I am a Manufacturer" textFill="#616161">
          <effect>
             <Reflection fraction="0.18" />
          </effect>

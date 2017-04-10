@@ -28,8 +28,6 @@ public class LoginScreenManager extends Screen{
     @FXML
     private Button loginButton;
     @FXML
-    private Polygon backButton;
-    @FXML
     private Button newUser;
     @FXML
     private Button editAccountButton;
@@ -41,7 +39,7 @@ public class LoginScreenManager extends Screen{
         this.usernameField.clear();
         User curUser = null;//"MANUFACTURER";//DatabaseManager.getUserType(userName);
         try {
-            curUser = DatabaseManager.login(userName,"");
+            curUser = Main.databaseManager.login(userName,"");
         } catch (DatabaseManager.UserNotFoundException e) {
             e.printStackTrace();
         } catch (DatabaseManager.IncorrectPasswordException e) {
@@ -83,14 +81,6 @@ public class LoginScreenManager extends Screen{
     @FXML
     void enterHit() {
         this.loginClicked();
-        return;
-    }
-
-    @FXML
-    void goBack() {
-        // Tell the screen manager to set the screen to COLA screen
-        LogManager.println("Back Button");
-        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
         return;
     }
 

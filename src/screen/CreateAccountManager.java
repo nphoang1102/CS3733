@@ -38,8 +38,8 @@ public class CreateAccountManager extends Screen{
     @FXML
     private Text accountError;
 
-    String userType;
-    String curUserName = username.getText();
+    String userType="";
+    String curUserName="";
 
     private void clearFields(){
         username.clear();
@@ -64,7 +64,8 @@ public class CreateAccountManager extends Screen{
         //query database to get all usernames
         //check if user is in the list
 
-        if(curUserName!=null) { //placeholder for now
+        if(username.getText()!=null) { //placeholder for now
+            curUserName = username.getText();
             //tell the system who made an account
             LogManager.println(curUserName + " just made an account");
 
@@ -73,17 +74,17 @@ public class CreateAccountManager extends Screen{
                 //create the user
                 UserAgent u = new UserAgent(curUserName, curUserName, "", "", false);
                 //tell the system what typ of user they are
-                LogManager.println(u+" is a "+userType);
+                LogManager.println(curUserName+" is a "+userType);
                 //create new agent, no password
-                DatabaseManager.addUser(u,"", EnumUserType.AGENT);
+                Main.databaseManager.addUser(u,"", EnumUserType.AGENT);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType.equalsIgnoreCase( "MANUFACTURER")){
                 //create the user
-                UserManufacturer u = new UserManufacturer(curUserName, curUserName);
+                UserManufacturer u = new UserManufacturer(curUserName);
                 //tell the system what typ of user they are
                 LogManager.println(curUserName+" is a "+userType);
                 //create new manufacturer, no password
-                DatabaseManager.addUser(u,"", EnumUserType.MANUFACTURER);
+                Main.databaseManager.addUser(u,"", EnumUserType.MANUFACTURER);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType.equalsIgnoreCase("publicUser")){
 //                //tell the system what typ of user they are
