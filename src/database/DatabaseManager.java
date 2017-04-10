@@ -166,8 +166,11 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         if (table.equals(EnumTableType.ALCOHOL)) {
+            //LinkedList<DataSet> alcoholList = new LinkedList<DataSet>();
+
             if (column.equals("")) {
-                return queryAlcohol("SELECT * FROM Alcohol;");
+                //alcoholList =
+                return queryAlcohol("SELECT * FROM Alcohol;");//alcoholList;//queryAlcohol("SELECT * FROM Alcohol");
             } else {
                 return queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
             }
@@ -265,7 +268,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    private static LinkedList<DataSet> queryAlcohol(String queryStr) {
+    public static LinkedList<DataSet> queryAlcohol(String queryStr) {
 
         LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
 
@@ -273,7 +276,6 @@ public class DatabaseManager {
             ResultSet getAlcohol = statement.executeQuery(queryStr);
 
             while (getAlcohol.next()) {
-                getAlcohol.next();
                 Alcohol alcohol = new Alcohol();
                 alcohol.TTBID = getAlcohol.getString("TTBID");
                 alcohol.PermitNo = getAlcohol.getString("PermitNo");
