@@ -103,7 +103,7 @@ public class ColaSearchResultManager extends Screen{
         data.addField("Origin", rowData.getSource());
         data.addField("Class", rowData.getAclass());
         data.addField("Type", rowData.getType());
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, 680, 245, data, title);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 680, 245, data);
     }
 
 

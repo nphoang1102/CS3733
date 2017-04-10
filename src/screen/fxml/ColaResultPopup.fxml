@@ -26,7 +26,7 @@
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label fx:id="dis_brandName" layoutX="282.0" layoutY="14.0" text="Brandname" textFill="#373737">
+      <Label fx:id="dis_brandName" alignment="CENTER" contentDisplay="CENTER" layoutX="282.0" layoutY="14.0" text="Brandname" textFill="#373737">
          <font>
             <Font name="Telugu Sangam MN Bold" size="22.0" />
          </font></Label>

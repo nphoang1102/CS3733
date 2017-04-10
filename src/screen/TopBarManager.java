@@ -135,7 +135,7 @@ public class TopBarManager extends Screen{
     public void action(){
         String title = "Manufacturer edit screen";
         action.setVisible(false);
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, 600, 600, new BasicDataSet(), title);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, title, 600, 600, new BasicDataSet());
     }
 
     public void setScreen(Scene scene){
