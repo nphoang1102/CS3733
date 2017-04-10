@@ -12,8 +12,5 @@ public class UserManufacturer extends User {
     String Name;
     String RepID;
     String PlantRegistry;
-    String Source;
-    String SerialNo;
-    String AlcoholType;
     String PhoneNo;
 }
