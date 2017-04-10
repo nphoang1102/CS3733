@@ -8,9 +8,13 @@ import base.EnumTableType;
 public class Manufacturer extends DataSet {
 
     String Username;
-    String Password;
     String Company;
     String Name;
+    String BreweryPermitNumber;
+    String email;
+    String phoneNumber;
+    String representativeIdNumber;
+    String plantRegistryBasicPermitNumber;
 
     public Manufacturer() {
         super(EnumTableType.MANUFACTURER);
