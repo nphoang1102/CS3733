@@ -43,8 +43,6 @@ public class ColaSearchResultManager extends Screen{
 
     /* FXML objects */
     @FXML
-    Button backButton;
-    @FXML
     TableView<ColaResult> searchResult;
     @FXML
     TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
@@ -52,6 +50,10 @@ public class ColaSearchResultManager extends Screen{
     /* Class methods */
     @Override
     public void onScreenFocused(DataSet data){
+        /* Retrieve search information from TopBarManager */
+        this.keywords = data.getValueForKey("Keywords");
+        this.searchType = data.getValueForKey("AlcoholType");
+
         /* Get the TableView stuff and result setup */
         this.initializeTable();
         this.databaseQuery();
@@ -121,7 +123,8 @@ public class ColaSearchResultManager extends Screen{
     public void databaseQuery() {
 //        this.databaseResult = DatabaseManager.Search(this.keywords, this.searchType);
         /* Please remove this line whenever during actual implementation */
-        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", "Alcohol", "Mass", "Beer", "Beer"));
+        this.resultTable.clear();
+        this.resultTable.add(new ColaResult("123", "41928", "asd21","4/8/17", "100% Pure alcohol", this.keywords, "Mass", "Beer", this.searchType));
         /*for (DataSet tempSet: databaseResult) {
             String tempID = tempSet.getValueForKey("TTBID");
             String tempPermit = tempSet.getValueForKey("PermitNo");
@@ -136,11 +139,5 @@ public class ColaSearchResultManager extends Screen{
         }*/
 //        this.searchResult.setEditable(false);
         this.searchResult.getItems().setAll(resultTable);
-    }
-
-    /* Hit back will bring you to the login screen */
-    public void backPressed() {
-        LogManager.println("Back button pressed from ColaSearchResultScreen");
-        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
     }
 }

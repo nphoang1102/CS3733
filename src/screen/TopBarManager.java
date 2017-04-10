@@ -28,9 +28,6 @@ import java.io.File;
  * Created by Bailey Sostek on 4/7/17.
  */
 public class TopBarManager extends Screen{
-    /* Some class attributes */
-    private String keywords;
-    private String searchType = "Beer";
 
     @FXML
     private Button pullNewBatch;
@@ -146,12 +143,14 @@ public class TopBarManager extends Screen{
         screenPane.getChildren().add(0,scene.getRoot());
     }
 
+    /* Upon enter key hit within the search field, get the values and pass into the ColaSearchResultManager.java */
     public void onEnter() {
-        this.keywords = searchBar.getText();
-        this.searchType = searchTerm.getValue() + "";
-        String toPrint = "User searches for " + this.keywords + " under type " + this.searchType;
+        DataSet data = new BasicDataSet();
+        data.addField("Keywords", searchBar.getText());
+        data.addField("AlcoholType", (searchTerm.getValue() + ""));
+        String toPrint = "User searches for " + searchBar.getText() + " under type " + searchTerm.getValue();
         LogManager.println(toPrint);
         this.searchBar.clear();
-        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
     }
 }
