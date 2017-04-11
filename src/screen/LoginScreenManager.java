@@ -53,19 +53,8 @@ public class LoginScreenManager extends Screen{
         } catch (PasswordStorage.CannotPerformOperationException e) {
             e.printStackTrace();
         }
-<<<<<<< HEAD
-        //checks if the user is a super Agent and sets stuff appopriatly
-        if(userType.getType().equals(EnumUserType.AGENT)){
-            UserAgent tempAgent = (UserAgent) userType;
-            if(tempAgent.getSuperAgent().equals("true")){
-                tempAgent.setUserType(EnumUserType.SUPER_AGENT);
-                userType = tempAgent;
-            }
-        }
-=======
 
         Enum userType = curUser.getType();
->>>>>>> 1644b1f473692e2874b47d14b02f4061b2e6b0ed
         LogManager.println(userName+" wants to sign in, he is a "+userType);
         Main.setUser(curUser);
         LogManager.println(curUser.getUsername()+" is the current user");
