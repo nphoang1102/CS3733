@@ -34,7 +34,7 @@ public class LoginScreenManager extends Screen{
     @FXML
     private Button editAccountButton;
     @FXML
-    private Text noUser;
+    private Text error;
     //fxml methods
     @FXML
     void loginClicked() {
@@ -54,15 +54,15 @@ public class LoginScreenManager extends Screen{
             e.printStackTrace();
         }
 
-        Enum userType = curUser.getType();
+        EnumUserType userType = curUser.getType();
         LogManager.println(userName+" wants to sign in, he is a "+userType);
         Main.setUser(curUser);
         LogManager.println(curUser.getUsername()+" is the current user");
 
         if(userName.equals("")){
             //print to screen, tell user to enter username, exit
-            noUser.visibleProperty().setValue(true);
-            noUser.setText("PLEASE ENTER A USERNAME");
+            error.visibleProperty().setValue(true);
+            error.setText("PLEASE ENTER A USERNAME");
 
         }else {
             if (userType.equals(EnumUserType.PUBLIC_USER)) {
@@ -110,6 +110,6 @@ public class LoginScreenManager extends Screen{
     @Override
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
-        noUser.visibleProperty().setValue(false);
+        error.visibleProperty().setValue(false);
     }
 }
