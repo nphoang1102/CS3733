@@ -345,6 +345,7 @@ public class DatabaseManager {
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
+                manufacturers.add(manufacturer);
             }
             searchManufacturers.close();
         } catch (SQLException e) {
@@ -541,9 +542,9 @@ public class DatabaseManager {
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {
-                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
-                if (user.next()) {
-                    LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
+                LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
+                //user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
+                if (!manufacturerLinkedList.isEmpty()) {
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
                     LogManager.println("User " + username + " is an agent");
                     tryPassword(username, password, user.getString("PasswordHash"));
