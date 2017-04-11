@@ -59,5 +59,17 @@
         <jarDirectory url="file://C:/Program Files/Java/jdk1.8.0_121/db/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-examples-3.6.jar!/" />
+          <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-3.6.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-3.6-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
