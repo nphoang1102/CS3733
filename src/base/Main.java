@@ -55,7 +55,8 @@ public class Main extends Application{
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
-        //databaseManager.entryTest();
+        //databaseManager.CreateTables();
+        //databaseManager.entry();
         /*
             Check to see if local directories for Saves and Log files exist,
             if any directories are not found, create them.
