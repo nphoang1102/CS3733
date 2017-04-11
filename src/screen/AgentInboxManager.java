@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
+import static base.Main.screenManager;
+
 
 public class AgentInboxManager extends Screen{
 
@@ -42,6 +44,7 @@ public class AgentInboxManager extends Screen{
 
     private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
     private LinkedList<Application> uuidCodes = new LinkedList<>();
+    private AgentInboxResult testApp = new AgentInboxResult("budweiser", "summer Ale", "12345768");
 
     //constructer for the screen
     public AgentInboxManager() {
@@ -56,6 +59,8 @@ public class AgentInboxManager extends Screen{
     @Override
     public void onScreenFocused(DataSet data){
         System.out.println("type of alc box: " + typeBox);
+
+        inboxInfo.add(testApp);
 
         //add the Label to the pane
         manufacturerName.setCellValueFactory(
@@ -73,7 +78,7 @@ public class AgentInboxManager extends Screen{
                 if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     AgentInboxResult tempResult = (AgentInboxResult) row.getUserData();
                     LinkedList<DataSet> tempData =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", tempResult.getApplicationNo());
-                   // ScreenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, tempData.get(0));
+                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempData.get(0));
                 }
             });
             return row;
@@ -85,19 +90,20 @@ public class AgentInboxManager extends Screen{
             //fill Manufacturer and BrandName from temp
             String Manufacturer = tempData.ManufacturerUsername;
             String BrandName = tempData.Brand;
-            String ApplicationNo = tempData.ApplicationNO;
+            String ApplicationNo = tempData.ApplicationNo;
 
             AgentInboxResult tempResult = new AgentInboxResult(Manufacturer, BrandName, ApplicationNo);
             inboxInfo.add(tempResult);
 
         }
+
         this.inboxData.setItems(inboxInfo);
     }
 
     @FXML
     void goBack() {
         LogManager.println("Back button pressed from AgentInboxScreen");
-        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+        screenManager.setScreen(EnumScreenType.LOG_IN);
 
     }
 
@@ -125,7 +131,8 @@ public class AgentInboxManager extends Screen{
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
         }
-        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+
 
     }
 

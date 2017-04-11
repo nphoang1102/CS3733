@@ -10,6 +10,8 @@ import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 
+import static base.Main.screenManager;
+
 public class LoginScreenManager extends Screen{
     /* Class attributes */
     private EnumScreenType type;
