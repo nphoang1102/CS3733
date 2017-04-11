@@ -134,6 +134,7 @@ public class NewApplicationManager extends Screen {
         app_type_box.setItems(application_type);
         app_type_field.setVisible(false);
         app_type_label.setVisible(false);
+        app_type_label.setMaxWidth(Double.MAX_VALUE);
     }
 
     public void onTypeSelected() {
