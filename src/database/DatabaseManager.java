@@ -103,31 +103,32 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
+                    " ApplicationNo VARCHAR(20) NOT NULL,\n" +
+                    " SerialNo VARCHAR(30) NOT NULL,\n" +
+                    " Status ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
+                    " ManufacturerUsername VARCHAR(20),\n" +
+                    " AgentName VARCHAR(30),\n" +
+                    " AgentUsername BIT(1),\n" +
                     " RepID VARCHAR(30) PRIMARY KEY,\n" +
                     " PlantRegistry VARCHAR(30) NOT NULL,\n" +
                     " Source VARCHAR(30) NOT NULL,\n" +
-                    " SerialNo VARCHAR(30) NOT NULL,\n" +
-                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
                     " Brand VARCHAR(50) NOT NULL,\n" +
                     " FancifulName VARCHAR(50),\n" +
+                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
+                    " ABV VARCHAR(10) NOT NULL,\n" +
                     " Address VARCHAR(100) NOT NULL,\n" +
                     " Address2 VARCHAR(100),\n" +
                     " Formula VARCHAR(500) NOT NULL,\n" +
-                    " Grapes VARCHAR(50),\n" +
                     " WineAppelation VARCHAR(50),\n" +
+                    " VintageDate DATE,\n" +
+                    " Grapes VARCHAR(50),\n" +
+                    " PH VARCHAR(10),\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
                     " AdditionalInfo VARCHAR(500) NOT NULL,\n" +
-                    " ABV VARCHAR(10) NOT NULL,\n" +
-                    " VintageDate DATE,\n" +
-                    " PH VARCHAR(10),\n" +
-                    " Status ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
-                    " ApplicationNo VARCHAR(20) NOT NULL,\n" +
+                    " DateOfSubmission DATE,\n" +
                     " DateOfApproval DATE,\n" +
-                    " AgentName VARCHAR(30),\n" +
-                    " DateOfExpiration DATE,\n" +
-                    " ManufacturerUsername VARCHAR(20),\n" +
-                    " AgentUsername BIT(1)\n" +
+                    " DateOfExpiration DATE\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -266,7 +267,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
+    ///////////ALCOHOL QUERIES///////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryAlcohol(String queryStr) {
 
@@ -475,12 +476,11 @@ public class DatabaseManager {
         boolean Super = false;
         try {
             //if(userType.equals(EnumUserType.SUPER_AGENT)){table = "Agents"; Super = true;}
-            if (userType.equals(EnumUserType.AGENT)) {
-                table = "Agents";
+            if (userType.equals(EnumUserType.AGENT) || userType.equals(EnumUserType.SUPER_AGENT)) {
                 try {
                     UserAgent agent = (UserAgent) user;
                     String SuperAgent = "false";
-                    if (agent.superAgent) {
+                    if (userType.equals(EnumUserType.SUPER_AGENT)) {
                         SuperAgent = "true";
                     }
                     statement.executeUpdate("INSERT INTO Agents" + " (ID, Name, username, passwordHash, Email, SuperAgent) VALUES " +
