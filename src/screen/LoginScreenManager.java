@@ -2,10 +2,7 @@ package screen;
 
 import base.LogManager;
 import base.Main;
-import database.DataSet;
-import database.DatabaseManager;
-import database.PasswordStorage;
-import database.User;
+import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
@@ -38,6 +35,9 @@ public class LoginScreenManager extends Screen{
     @FXML
     void loginClicked() {
         this.userName = usernameField.getText();
+        if(userName.equals("")){
+            return;
+        }
         this.usernameField.clear();
         User userType = null;
         try {
@@ -50,6 +50,14 @@ public class LoginScreenManager extends Screen{
             e.printStackTrace();
         } catch (PasswordStorage.CannotPerformOperationException e) {
             e.printStackTrace();
+        }
+        //checks if the user is a super Agent and sets stuff appopriatly
+        if(userType.getType().equals(EnumUserType.AGENT)){
+            UserAgent tempAgent = (UserAgent) userType;
+            if(tempAgent.getSuperAgent().equals("true")){
+                tempAgent.setUserType(EnumUserType.SUPER_AGENT);
+                userType = tempAgent;
+            }
         }
         LogManager.println(userName+" wants to sign in, he is a "+userType);
 

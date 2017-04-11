@@ -1,5 +1,7 @@
 package database;
 
+import javafx.scene.control.Label;
+
 /**
  * Created by Evan Goldstein on 4/6/17.
  */
