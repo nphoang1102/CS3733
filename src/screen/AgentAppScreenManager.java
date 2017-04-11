@@ -38,9 +38,11 @@ public class AgentAppScreenManager extends Screen{
     public void initialize(){
 
     }
+    DataSet dataGlobal;
 
     @Override
     public void onScreenFocused(DataSet data){
+        this.dataGlobal=data;
         Application application = (Application)data;
         repId.setText(application.RepID);
     // brewNo exists as PlantRegistry in Data Set
@@ -74,6 +76,10 @@ public class AgentAppScreenManager extends Screen{
         method places the application into the public database with all the information.
      */
     public void acceptApp(MouseEvent mouseEvent) {
+        if(dataGlobal!=null){
+            Application app = (Application) dataGlobal;
+            DatabaseManager.approveApplication(app.ApplicationNo);
+        }
 
     }
 
@@ -83,7 +89,10 @@ public class AgentAppScreenManager extends Screen{
         method places the application into the public database with all the information.
      */
     public void rejectApp(MouseEvent mouseEvent) {
-
+        if(dataGlobal!=null){
+            Application app = (Application) dataGlobal;
+            DatabaseManager.rejectApplication(app.ApplicationNo);
+        }
     }
 
 }
