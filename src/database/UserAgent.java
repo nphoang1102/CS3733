@@ -9,7 +9,7 @@ public class UserAgent extends User{
     String ID="";
     String name="";
     String username="";
-    String passwordHash = "";
+    int passwordHash = 0;
     String email="";
     boolean superAgent=false;
 
@@ -25,6 +25,6 @@ public class UserAgent extends User{
         this.username = username;
         this.email = email;
         this.name = name;
-        this.passwordHash = "";
+        this.passwordHash = 0;
     }
 }

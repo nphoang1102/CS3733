@@ -52,6 +52,8 @@ public class LoginScreenManager extends Screen{
 
         Enum userType = curUser.getType();
         LogManager.println(userName+" wants to sign in, he is a "+userType);
+        Main.setUser(curUser);
+        LogManager.println(curUser.getUsername()+" is the current user");
 
         /* To be replaced in the future with actual database query */
 

@@ -59,30 +59,26 @@ public class CreateAccountManager extends Screen{
 
     @FXML
     private void makeAccount(){
-
+        curUserName = username.getText();
+        //tell the system who made an account
+        LogManager.println(curUserName + " just made an account");
         clearFields();
         //query database to get all usernames
         //check if user is in the list
 
-        if(username.getText()!=null) { //placeholder for now
-            curUserName = username.getText();
-            //tell the system who made an account
-            LogManager.println(curUserName + " just made an account");
+        if(username.getText()!=null) { //placeholder for now, in future check if they're the only user
 
             //record the account in the database
             if(userType.equalsIgnoreCase( "AGENT")) {
                 //create the user
                 UserAgent u = new UserAgent(curUserName, curUserName, "", "", false);
-                //tell the system what typ of user they are
-                LogManager.println(curUserName+" is a "+userType);
+
                 //create new agent, no password
                 Main.databaseManager.addUser(u,"", EnumUserType.AGENT);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);
             }else if(userType.equalsIgnoreCase( "MANUFACTURER")){
                 //create the user
                 UserManufacturer u = new UserManufacturer(curUserName);
-                //tell the system what typ of user they are
-                LogManager.println(curUserName+" is a "+userType);
                 //create new manufacturer, no password
                 Main.databaseManager.addUser(u,"", EnumUserType.MANUFACTURER);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);

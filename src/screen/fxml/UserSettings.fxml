@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
@@ -9,18 +16,18 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.UserSettingsManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.UserSettingsManager">
    <children>
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1280.0">
          <cursor>
             <Cursor fx:constant="DEFAULT" />
          </cursor></Rectangle>
-      <Text fill= "#616161" layoutX="450.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Settings">
+      <Text fill="#616161" layoutX="450.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Account Settings">
          <font>
             <Font name="Telugu Sangam MN" size="48.0" />
          </font>
       </Text>
-      <TextField fx:id="newUsername" layoutX="198.0" layoutY="182.0" onAction="#newUsernameEnterHit" onMouseClicked="#newUsernameClearField" prefHeight="50.0" prefWidth="350.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <TextField fx:id="newUsername" layoutX="198.0" layoutY="182.0" prefHeight="50.0" prefWidth="350.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
       <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -30,7 +37,7 @@
          <effect>
             <Reflection fraction="0.58" topOpacity="0.36" />
          </effect></TextField>
-      <TextField fx:id="firstName" layoutX="178.0" layoutY="182.0" onAction="#firstNameEnterHit" onMouseClicked="#firstNameClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <TextField fx:id="firstName" layoutX="178.0" layoutY="182.0" prefHeight="50.0" prefWidth="370.0" promptText="First Name" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -40,7 +47,7 @@
          <effect>
             <Reflection fraction="0.58" topOpacity="0.36" />
          </effect></TextField>
-      <TextField fx:id="lastName" layoutX="178.0" layoutY="272.0" onAction="#lastNameEnterHit" onMouseClicked="#lastNameClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <TextField fx:id="lastName" layoutX="178.0" layoutY="272.0" prefHeight="50.0" prefWidth="370.0" promptText="Last Name" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -50,7 +57,7 @@
          <effect>
             <Reflection fraction="0.58" topOpacity="0.36" />
          </effect></TextField>
-      <TextField fx:id="company" layoutX="178.0" layoutY="362.0" onAction="#companyEnterHit" onMouseClicked="#companyClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <TextField fx:id="company" layoutX="178.0" layoutY="362.0" prefHeight="50.0" prefWidth="370.0" promptText="Company Name" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -60,7 +67,7 @@
          <effect>
             <Reflection fraction="0.58" topOpacity="0.36" />
          </effect></TextField>
-      <TextField fx:id="email" layoutX="178.0" layoutY="453.0" onAction="#emailEnterHit" onMouseClicked="#emailClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <TextField fx:id="email" layoutX="178.0" layoutY="453.0" prefHeight="50.0" prefWidth="370.0" promptText="Email" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -70,7 +77,7 @@
          <effect>
             <Reflection fraction="0.58" topOpacity="0.36" />
          </effect></TextField>
-       <TextField fx:id="breweryPermitNumber" layoutX="735.0" layoutY="182.0" onAction="#breweryPermitNumberEnterHit" onMouseClicked="#breweryPermitNumberClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+       <TextField fx:id="breweryPermitNumber" layoutX="735.0" layoutY="182.0" prefHeight="50.0" prefWidth="370.0" promptText="Brewery Permit Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
            <font>
                <Font name="Telugu Sangam MN" size="18.0" />
            </font>
@@ -80,7 +87,7 @@
            <effect>
                <Reflection fraction="0.58" topOpacity="0.36" />
            </effect></TextField>
-       <TextField fx:id="phoneNumber" layoutX="735.0" layoutY="272.0" onAction="#phoneNumberEnterHit" onMouseClicked="#phoneNumberClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+       <TextField fx:id="phoneNumber" layoutX="735.0" layoutY="272.0" prefHeight="50.0" prefWidth="370.0" promptText="Phone Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
            <font>
                <Font name="Telugu Sangam MN" size="18.0" />
            </font>
@@ -90,7 +97,7 @@
            <effect>
                <Reflection fraction="0.58" topOpacity="0.36" />
            </effect></TextField>
-       <TextField fx:id="representativeIdNumber" layoutX="735.0" layoutY="362.0" onAction="#representativeIdNumberEnterHit" onMouseClicked="#representativeIdNumberClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+       <TextField fx:id="representativeIdNumber" layoutX="735.0" layoutY="362.0" prefHeight="50.0" prefWidth="370.0" promptText="Rep ID" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
            <font>
                <Font name="Telugu Sangam MN" size="18.0" />
            </font>
@@ -100,7 +107,7 @@
            <effect>
                <Reflection fraction="0.58" topOpacity="0.36" />
            </effect></TextField>
-       <TextField fx:id="plantRegistryBasicPermitNumber" layoutX="735.0" layoutY="453.0" onAction="#plantRegistryBasicPermitNumberEnterHit" onMouseClicked="#plantRegistryBasicPermitNumberClearField" prefHeight="50.0" prefWidth="370.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+       <TextField fx:id="plantRegistryBasicPermitNumber" layoutX="735.0" layoutY="453.0" prefHeight="50.0" prefWidth="370.0" promptText="Plant Registry Basic Permit Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
            <font>
                <Font name="Telugu Sangam MN" size="18.0" />
            </font>
