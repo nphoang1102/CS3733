@@ -7,6 +7,7 @@ import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 
 import java.util.LinkedList;
@@ -19,13 +20,14 @@ public class AgentAppScreenManager extends Screen{
 
     //all the Labels on the screen
     @FXML
-    Label repId, brewNo, productSrc, productType, brandName, applicantName, applicantAdd, tradeName, alternateAdd, phoneNum, emailAdd, appDate, appName;
+    Label repId, brewNo, productSrc, productType, brandName, applicantName, appNameAndAdd, alternateAdd, phoneNum, emailAdd, appDate, ttbId, fancyName, formula, wineVarietal, wineAppellation, appType, alcContent, pHLevel, vintageYear;
+
+    @FXML
+    TextArea rejectReason;
 
     //all the Buttons on the screen
     @FXML
     Button acceptButton, rejectButton;
-
-    private Application data;
 
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
@@ -39,7 +41,31 @@ public class AgentAppScreenManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data){
-//        Application application = (Application)data;
+        Application application = (Application)data;
+        repId.setText(application.RepID);
+    // brewNo exists as PlantRegistry in Data Set
+        brewNo.setText(application.PlantRegistry);
+        productSrc.setText(application.Source);
+        productType.setText(application.AlcoholType);
+        brandName.setText(application.Brand);
+        applicantName.setText(application.AgentName);
+        appNameAndAdd.setText(application.Address);
+        alternateAdd.setText(application.Address2);
+        phoneNum.setText(application.PhoneNo);
+        emailAdd.setText(application.Email);
+        appDate.setText(application.Date);
+    //What is TTBID in Dataset?
+    // ttbId.setText(application.SerialNo);
+        fancyName.setText(application.FanicifulName);
+        formula.setText(application.Formula);
+    // wineVarietal exists as Grapes in Data Set
+        wineVarietal.setText(application.Grapes);
+        wineAppellation.setText(application.WineAppelation);
+        appType.setText(application.AppType);
+    // alcoholContent exists as ABV in Data Set
+        alcContent.setText(application.ABV);
+        pHLevel.setText(application.PH);
+        vintageYear.setText(application.VintageDate);
     }
 
 
