@@ -547,7 +547,7 @@ public class DatabaseManager {
                 if (!manufacturerLinkedList.isEmpty()) {
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
                     LogManager.println("User " + username + " is an agent");
-                    tryPassword(username, password, user.getString("PasswordHash"));
+                   // tryPassword(username, password, user.getString("PasswordHash"));
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
