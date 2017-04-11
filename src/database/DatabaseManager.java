@@ -4,6 +4,7 @@ import base.EnumTableType;
 import base.EnumWarningType;
 import base.LogManager;
 import screen.EnumUserType;
+import sun.rmi.runtime.Log;
 /*import com.sun.org.apache.xpath.internal.operations.Or;
 import com.sun.xml.internal.bind.v2.TODO
 import screen.EnumUserType;
@@ -19,7 +20,7 @@ public class DatabaseManager {
     /**
      * Created by Evan Goldstein on 4/1/17.
      */
-    private static Statement statement = null;
+    private static Statement statement;
     private static Connection connection = null;
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -47,13 +48,13 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
         LogManager.println("Attempting Database Connection.");
-        try {
+       /* try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         } catch (ClassNotFoundException e) {
             LogManager.println("Java DB Driver not found. Add the classpath to your module.");
             e.printStackTrace();
             return;
-        }
+        }*/
         LogManager.println("    Java DB driver registered!");
         try {
             connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" +
@@ -73,6 +74,7 @@ public class DatabaseManager {
             statement = connection.createStatement();
         } catch (SQLException e) {
             LogManager.printStackTrace(e.getStackTrace());
+            LogManager.println("statement failed");
             e.printStackTrace();
         }
     }
@@ -166,14 +168,16 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         if (table.equals(EnumTableType.ALCOHOL)) {
-            if (column.equals("")) {
+            if (value.equals("")) {
                 return queryAlcohol("SELECT * FROM Alcohol;");
             } else {
-                return queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
+                return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
             }
-        } else if (table.equals(EnumTableType.APPLICATION)) {
+        }
+        else if (table.equals(EnumTableType.APPLICATION)) {
             return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
-        } else if (table.equals(EnumTableType.MANUFACTURER)) {
+        }
+        else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
             } else {
@@ -265,7 +269,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    private static LinkedList<DataSet> queryAlcohol(String queryStr) {
+    public static LinkedList<DataSet> queryAlcohol(String queryStr) {
 
         LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
 
@@ -273,7 +277,6 @@ public class DatabaseManager {
             ResultSet getAlcohol = statement.executeQuery(queryStr);
 
             while (getAlcohol.next()) {
-                getAlcohol.next();
                 Alcohol alcohol = new Alcohol();
                 alcohol.TTBID = getAlcohol.getString("TTBID");
                 alcohol.PermitNo = getAlcohol.getString("PermitNo");

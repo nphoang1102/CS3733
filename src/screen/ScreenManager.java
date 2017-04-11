@@ -1,19 +1,16 @@
 package screen;
 
-import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
 import database.BasicDataSet;
 import database.DataSet;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -114,6 +111,7 @@ public class ScreenManager {
 
     public void popoutScreen(EnumScreenType type, String title, int width, int height, DataSet data){
         //get all pop outs, check if they are not on top and are still active
+        LogManager.println(getSearchTerm());
         for(Stage stage: popOutWindows){
             if(stage.getOwner()!=null){
                 stage.toFront();
@@ -158,6 +156,10 @@ public class ScreenManager {
             setScreen(screenStates.getFirst().type, screenStates.getFirst().data);
             screenStates.removeFirst();
         }
+    }
+
+    public String getSearchTerm(){
+        return topBarScreen.getSearchTerm();
     }
 
 }

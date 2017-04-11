@@ -1,8 +1,10 @@
 package screen;
 
+import base.LogManager;
 import base.Main;
 import database.BasicDataSet;
 import database.DataSet;
+import database.UserManufacturer;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -27,6 +29,7 @@ import java.io.File;
  * Created by Bailey Sostek on 4/7/17.
  */
 public class TopBarManager extends Screen{
+
     @FXML
     private Button pullNewBatch;
 
@@ -57,15 +60,18 @@ public class TopBarManager extends Screen{
     @FXML
     AnchorPane screenPane;
 
+    @FXML
+    TextField searchBar;
+
     public TopBarManager() {
         super(EnumScreenType.TOP_BAR);
     }
 
     @FXML
     public void initialize() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Both");
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
         searchTerm.setItems(typeList);
-        searchTerm.setValue(null);
+        searchTerm.setValue("Beer");
     }
 
     @Override
@@ -77,6 +83,11 @@ public class TopBarManager extends Screen{
 //            if(DatabaseManager.getImage()) {
                 //This method sets the image to the users type first letter.
                 imageLetter.setText(Main.getUserType().substring(0, 1));
+                if(imageLetter.getText().toUpperCase().equals("W")){
+                    imageLetter.setLayoutX(userIcon.getX()+19);
+                }else{
+                    imageLetter.setLayoutX(userIcon.getX()+23);
+                }
                 logIn.setText("Log Out");
                 BufferedImage bufferedImage;
                 try {
@@ -118,6 +129,8 @@ public class TopBarManager extends Screen{
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
             onScreenFocused(new BasicDataSet());
+        }else{
+
         }
     }
 
@@ -129,11 +142,34 @@ public class TopBarManager extends Screen{
     @FXML
     public void action(){
 //        action.setVisible(false);
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "TEST",600, 600, new BasicDataSet());
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "TEST",1280, 720, new BasicDataSet());
     }
 
     public void setScreen(Scene scene){
         screenPane.getChildren().clear();
         screenPane.getChildren().add(0,scene.getRoot());
+    }
+
+    /* Upon enter key hit within the search field, get the values and pass into the ColaSearchResultManager.java */
+    public void onEnter() {
+        DataSet data = new BasicDataSet();
+        data.addField("Keywords", searchBar.getText());
+        data.addField("AlcoholType", (searchTerm.getValue() + ""));
+        String toPrint = "User searches for " + searchBar.getText() + " under type " + searchTerm.getValue();
+        LogManager.println(toPrint);
+        this.searchBar.clear();
+        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
+    }
+
+    public String getSearchTerm(){
+        if(searchTerm!=null) {
+            if (searchTerm.getValue() != null) {
+                return searchTerm.getValue().toString();
+            } else {
+                return "";
+            }
+        }
+        return "";
+
     }
 }

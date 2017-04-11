@@ -32,6 +32,4 @@ public class Application extends DataSet{
     public String DateOfExpiration;
     public String ManufacturerUsername;
     public String AgentUsername;
-
-
 }
