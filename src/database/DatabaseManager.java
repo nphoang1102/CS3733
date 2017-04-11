@@ -338,7 +338,7 @@ public class DatabaseManager {
                 manufacturer.userType = EnumUserType.MANUFACTURER;
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company");
-                manufacturer.Name = searchManufacturers.getString("Name");
+                manufacturer.name = searchManufacturers.getString("Name");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
@@ -513,7 +513,7 @@ public class DatabaseManager {
                 UserManufacturer manufacturer = (UserManufacturer) user;
                 try {
                     statement.executeUpdate("INSERT INTO Manufacturers" +" (Username, Password, Company, Name, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
-                            "( '" + manufacturer.Username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')"  );
+                            "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')"  );
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();

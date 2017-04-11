@@ -78,7 +78,7 @@ public class CreateAccountManager extends Screen{
                 LogManager.println(tempUser + "logged in");
                 Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
-            }else if(userType.equals( EnumUserType.MANUFACTURER)){
+            }else if(userType.equals(EnumUserType.MANUFACTURER)){
                 UserManufacturer tempUser =  new UserManufacturer(user);
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
@@ -86,6 +86,7 @@ public class CreateAccountManager extends Screen{
                 DatabaseManager.addUser(tempUser,"",userType);
 
                 Main.setUser(tempUser);
+                System.out.println(Main.getUsername());
 
                 Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
 
@@ -97,10 +98,10 @@ public class CreateAccountManager extends Screen{
                 DatabaseManager.addUser(user,"",EnumUserType.MANUFACTURER);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);*/
         } else{ //they didn't select a box
-                //tell the system they didn't select a box
-                LogManager.println(user+" didn't select a user type");
-                //repopulate the field with their name
-                accountError.setText(user+" select a box");
+            //tell the system they didn't select a box
+            LogManager.println(user+" didn't select a user type");
+            //repopulate the field with their name
+            accountError.setText(user+" select a box");
         }
 
         /*else {
@@ -149,4 +150,3 @@ public class CreateAccountManager extends Screen{
         userType = "publicUser";
     }*/
 }
-
