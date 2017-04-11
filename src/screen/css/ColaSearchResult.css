@@ -1,11 +1,13 @@
-.table-view .table-column {
-	-fx-alignment: CENTER;
-	-fx-background-color: #dbdbdb;
-	-fx-font: "Telugu Sangam MN";
-	-fx-font-size: 15px;
-	-fx-weight: bolder;
-	-fx-text-fill:  #373737;
-	-fx-border-color: #dbdbdb;
+.root{
+    -fx-background-color: #dbdbdb;
+}
+
+.table-view{
+    -fx-background-color: #dbdbdb;
+}
+
+.table-view:focused{
+    -fx-background-color: #dbdbdb;
 }
 
 .table-view .column-header {
@@ -14,5 +16,33 @@
     -fx-font-size: 17px;
     -fx-weight: bolder;
     -fx-background-color: #34a88b;
-    -fx-border-color: BLACK;
+    -fx-border-color: WHITE;
+}
+
+.table-view .table-column {
+    -fx-alignment: CENTER;
+}
+
+.table-row-cell{
+    -fx-background-color: #d3d2d2;
+    -fx-font: "Telugu Sangam MN";
+    -fx-font-size: 15px;
+    -fx-weight: bolder;
+    -fx-text-fill:  #373737;
+    -fx-border-width: 0,0;
+}
+
+.table-row-cell:odd{
+    -fx-background-color: #ccc9c9;
+    -fx-font: "Telugu Sangam MN";
+    -fx-font-size: 15px;
+    -fx-weight: bolder;
+    -fx-text-fill:  #373737;
+    -fx-border-width: 0,0;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #34a88b;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1;
 }
