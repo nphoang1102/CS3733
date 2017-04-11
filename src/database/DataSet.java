@@ -7,13 +7,11 @@ import java.util.HashMap;
 /**
  * Created by Evan Goldstein on 4/1/17.
  */
-public class DataSet{
+public abstract class DataSet{
     private HashMap<String, String> dataSet = new HashMap<String, String>();
-    //String table;
-    EnumTableType tableType;
 
-    public DataSet(EnumTableType tableType){
-        this.tableType = tableType;
+    public DataSet(){
+
     }
 
     public void addField(String key, String obj){

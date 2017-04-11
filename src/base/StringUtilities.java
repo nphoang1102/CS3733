@@ -2,11 +2,18 @@ package base;
 
 import java.io.File;
 import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Bailey Sostek on 4/2/17.
  */
 public class StringUtilities {
+
+
+    private static String lastDate = "";
+    private static int ttbNum = 0;
 
     /*
         This function determines where the application is hosted on the computer, and returns a string
@@ -50,5 +57,17 @@ public class StringUtilities {
             LogManager.println("Error, File:"+Main.PATH+path+" cannot be saved.");
             e.printStackTrace();
         }
+    }
+
+    public static String getTTBID(){
+        DateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
+        Date date = new Date();
+        if(dateFormat.format(date).equals(lastDate)){
+            ttbNum++;
+        }else{
+            ttbNum = 0;
+            lastDate = dateFormat.format(date);
+        }
+        return (dateFormat.format(date)+ttbNum);
     }
 }

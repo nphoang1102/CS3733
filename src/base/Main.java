@@ -1,10 +1,10 @@
 package base;
 
 import database.DatabaseManager;
+import database.User;
+import database.UserAgent;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import screen.EnumScreenType;
-import screen.EnumUserType;
 import screen.ScreenManager;
 
 import java.io.File;
@@ -18,13 +18,13 @@ public class Main extends Application{
      */
     public static ScreenManager screenManager;
     private LogManager logManager;
-    private DatabaseManager databaseManager;
+    public static DatabaseManager databaseManager;
     private static User user;
 
 
     public static final int WIDTH = 1280;
-    public static final int HEIGHT = 786;
-    public static final String NAME = "COLA Database Search Thing";
+    public static final int HEIGHT = 784;
+    public static final String NAME = "COLA Database Search Tool";
 
 
     private static Class reference = Main.class;
@@ -50,8 +50,7 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new User(EnumUserType.SUPER_AGENT, "Test", "foo@foo.foo");
-
+        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", false);
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);

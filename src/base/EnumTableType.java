@@ -7,5 +7,8 @@ package base;
 public enum EnumTableType {
     ALCOHOL,
     MANUFACTURER,
-    APPLICATION
+    APPLICATION,
+    AGENT,
+    USER,
+    NULL,
 }
