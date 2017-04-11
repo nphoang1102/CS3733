@@ -29,6 +29,7 @@ import java.io.File;
  * Created by Bailey Sostek on 4/7/17.
  */
 public class TopBarManager extends Screen{
+
     @FXML
     private Button pullNewBatch;
 
@@ -59,15 +60,18 @@ public class TopBarManager extends Screen{
     @FXML
     AnchorPane screenPane;
 
+    @FXML
+    TextField searchBar;
+
     public TopBarManager() {
         super(EnumScreenType.TOP_BAR);
     }
 
     @FXML
     public void initialize() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Both");
+        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
         searchTerm.setItems(typeList);
-        searchTerm.setValue(null);
+        searchTerm.setValue("Beer");
     }
 
     @Override
@@ -145,5 +149,28 @@ public class TopBarManager extends Screen{
     public void setScreen(Scene scene){
         screenPane.getChildren().clear();
         screenPane.getChildren().add(0,scene.getRoot());
+    }
+
+    /* Upon enter key hit within the search field, get the values and pass into the ColaSearchResultManager.java */
+    public void onEnter() {
+        DataSet data = new BasicDataSet();
+        data.addField("Keywords", searchBar.getText());
+        data.addField("AlcoholType", (searchTerm.getValue() + ""));
+        String toPrint = "User searches for " + searchBar.getText() + " under type " + searchTerm.getValue();
+        LogManager.println(toPrint);
+        this.searchBar.clear();
+        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
+    }
+
+    public String getSearchTerm(){
+        if(searchTerm!=null) {
+            if (searchTerm.getValue() != null) {
+                return searchTerm.getValue().toString();
+            } else {
+                return "";
+            }
+        }
+        return "";
+
     }
 }

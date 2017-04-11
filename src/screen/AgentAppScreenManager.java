@@ -39,7 +39,7 @@ public class AgentAppScreenManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data){
-        Application application = (Application)data;
+//        Application application = (Application)data;
     }
 
 
