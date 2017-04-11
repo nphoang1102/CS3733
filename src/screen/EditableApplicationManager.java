@@ -1,6 +1,7 @@
 package screen;
 
 import base.LogManager;
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.fxml.FXML;
@@ -75,7 +76,7 @@ public class EditableApplicationManager extends Screen {
 
     public DataSet data;
 
-    String manufacturer = "";
+    private String manufacturer = "";
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
@@ -84,22 +85,9 @@ public class EditableApplicationManager extends Screen {
 
     public void initialize(){
 
-        REPID.setText(data.getValueForKey("AgentID"));
-        Source.setText(data.getValueForKey("Source"));
-        BrandName.setText(data.getValueForKey("Brand"));
-        ApplicantName.setText("");
-        DBAorTradeName.setText("");
-        PhoneNum.setText(data.getValueForKey("PhoneNo"));
-        Registry.setText("");
-        Type.setText(data.getValueForKey("AlcoholType"));
-        Address.setText(data.getValueForKey("Address"));
-        AlternateAddress.setText(data.getValueForKey("Address2"));
-        Email.setText("");
-        Date.setText(data.getValueForKey("Completed Date"));
-        AlcoholContent.setText(data.getValueForKey("ABV"));
-        VintageYear.setText(data.getValueForKey("VintageDate"));
-        PHLevel.setText(data.getValueForKey("PH"));
+    }
 
+    public void onScreenFocused(DataSet data){
         REPID.setDisable(true);
         Source.setDisable(true);
         BrandName.setDisable(true);
@@ -116,6 +104,21 @@ public class EditableApplicationManager extends Screen {
         BeerSelect.setDisable(true);
         WineSelect.setDisable(true);
         OtherSelect.setDisable(true);
+        REPID.setText(data.getValueForKey("AgentID"));
+        Source.setText(data.getValueForKey("Source"));
+        BrandName.setText(data.getValueForKey("Brand"));
+        ApplicantName.setText("");
+        DBAorTradeName.setText("");
+        PhoneNum.setText(data.getValueForKey("PhoneNo"));
+        Registry.setText("");
+        Type.setText(data.getValueForKey("AlcoholType"));
+        Address.setText(data.getValueForKey("Address"));
+        AlternateAddress.setText(data.getValueForKey("Address2"));
+        Email.setText("");
+        Date.setText(data.getValueForKey("Completed Date"));
+        AlcoholContent.setText(data.getValueForKey("ABV"));
+        VintageYear.setText(data.getValueForKey("VintageDate"));
+        PHLevel.setText(data.getValueForKey("PH"));
     }
 
     public void submit(){
@@ -139,20 +142,25 @@ public class EditableApplicationManager extends Screen {
         Boolean otherSelect = OtherSelect.isSelected();
 
         //Databasessssssssssss
-        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
+//        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
 
         LogManager.println("Submitting Application");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        ScreenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 
     public Screen getScreen(){
         return this;
     }
+
+    @Override
+    public void shutdown(){
+        LogManager.println("SHUTTING DOWN THIS WINDOW!");
+    }
+
 }

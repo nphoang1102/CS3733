@@ -3,7 +3,10 @@ package database;
 import base.EnumTableType;
 import base.EnumWarningType;
 import base.LogManager;
+import base.Main;
 import screen.EnumUserType;
+import sun.awt.image.ImageWatched;
+import sun.rmi.runtime.Log;
 /*import com.sun.org.apache.xpath.internal.operations.Or;
 import com.sun.xml.internal.bind.v2.TODO
 import screen.EnumUserType;
@@ -15,11 +18,13 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.util.LinkedList;
 
+import static com.sun.xml.internal.org.jvnet.fastinfoset.EncodingAlgorithmIndexes.UUID;
+
 public class DatabaseManager {
     /**
      * Created by Evan Goldstein on 4/1/17.
      */
-    private static Statement statement = null;
+    private static Statement statement;
     private static Connection connection = null;
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -47,13 +52,13 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
         LogManager.println("Attempting Database Connection.");
-        try {
+       /* try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         } catch (ClassNotFoundException e) {
             LogManager.println("Java DB Driver not found. Add the classpath to your module.");
             e.printStackTrace();
             return;
-        }
+        }*/
         LogManager.println("    Java DB driver registered!");
         try {
             connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" +
@@ -73,6 +78,7 @@ public class DatabaseManager {
             statement = connection.createStatement();
         } catch (SQLException e) {
             LogManager.printStackTrace(e.getStackTrace());
+            LogManager.println("statement failed");
             e.printStackTrace();
         }
     }
@@ -148,13 +154,16 @@ public class DatabaseManager {
         }
 
         try {
-            //TODO - UPDATE FIELDS
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
-                    " UUID VARCHAR(30) PRIMARY KEY,\n" +
-                    " Username VARCHAR(30) NOT NULL UNIQUE,\n" +
-                    " passwordHash VARCHAR(30) NOT NULL,\n" +
-                    " Company VARCHAR(50) NOT NULL,\n" +
-                    " Name VARCHAR(50) NOT NULL\n" +
+                    " Username VARCHAR(30) PRIMARY KEY,\n" +
+                    " Password VARCHAR(30) NOT NULL,\n" +
+                    " Company VARCHAR(100) NOT NULL,\n" +
+                    " Name VARCHAR(50) NOT NULL,\n" +
+                    " RepID VARCHAR(50) NOT NULL,\n" +
+                    " Email VARCHAR(50) NOT NULL,\n" +
+                    " PlantRegistry VARCHAR(50) NOT NULL,\n" +
+                    " PhoneNo VARCHAR(20) NOT NULL,\n" +
+                    " Address2 VARCHAR(50) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Manufacturers' exists.", EnumWarningType.NOTE);
@@ -166,18 +175,27 @@ public class DatabaseManager {
     ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
+        String type = Main.screenManager.getSearchTerm();
+        LogManager.println("type = " + type);
         if (table.equals(EnumTableType.ALCOHOL)) {
-            //LinkedList<DataSet> alcoholList = new LinkedList<DataSet>();
-
-            if (column.equals("")) {
-                //alcoholList =
-                return queryAlcohol("SELECT * FROM Alcohol;");//alcoholList;//queryAlcohol("SELECT * FROM Alcohol");
+            if (value.isEmpty() && type == "All") {
+                return queryAlcohol("SELECT * FROM Alcohol;");
             } else {
-                return queryAlcohol("SELECT * FROM Alcohol WHERE '" + column + "' LIKE '" + value + "%' OR '" + column + "' LIKE '%" + value + "' OR '" + column + "' LIKE '%" + value + "%';");
+                if (type == "All") {
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
+                } else if (type == "Beer"){
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Beer' AND BrandName LIKE '" + value + "%';");
+                } else if (type == "Wine"){
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Wine' AND BrandName LIKE '" + value + "%';");
+                } else{
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value + "%';");
+                }
             }
-        } else if (table.equals(EnumTableType.APPLICATION)) {
+        }
+        else if (table.equals(EnumTableType.APPLICATION)) {
             return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
-        } else if (table.equals(EnumTableType.MANUFACTURER)) {
+        }
+        else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
             } else {
@@ -185,6 +203,41 @@ public class DatabaseManager {
             }
         }
         return null;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> queryAlcohol(String queryStr) {
+
+        LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
+
+        try {
+            ResultSet getAlcohol = statement.executeQuery(queryStr);
+
+            while (getAlcohol.next()) {
+                Alcohol alcohol = new Alcohol();
+                alcohol.TTBID = getAlcohol.getString("TTBID");
+                alcohol.PermitNo = getAlcohol.getString("PermitNo");
+                alcohol.SerialNo = getAlcohol.getString("SerialNo");
+                alcohol.CompletedDate = getAlcohol.getString("CompletedDate");
+                alcohol.FancifulName = getAlcohol.getString("FancifulName");
+                alcohol.BrandName = getAlcohol.getString("BrandName");
+                alcohol.Origin = getAlcohol.getString("Origin");
+                alcohol.Class = getAlcohol.getString("Class");
+                alcohol.Type = getAlcohol.getString("Type");
+                alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
+                alcohol.VintageYear = getAlcohol.getString("VintageYear");
+                alcohol.PH = getAlcohol.getString("PH");
+                alcoholLinkedList.add(alcohol);
+            }
+        } catch (SQLException e) {
+            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
+            return new LinkedList<>();
+        }
+
+        return alcoholLinkedList;
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -266,39 +319,7 @@ public class DatabaseManager {
         }
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
-    ///////////ALCOHOL QUERIES///////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> queryAlcohol(String queryStr) {
 
-        LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
-
-        try {
-            ResultSet getAlcohol = statement.executeQuery(queryStr);
-
-            while (getAlcohol.next()) {
-                Alcohol alcohol = new Alcohol();
-                alcohol.TTBID = getAlcohol.getString("TTBID");
-                alcohol.PermitNo = getAlcohol.getString("PermitNo");
-                alcohol.SerialNo = getAlcohol.getString("SerialNo");
-                alcohol.CompletedDate = getAlcohol.getString("CompletedDate");
-                alcohol.FancifulName = getAlcohol.getString("FancifulName");
-                alcohol.BrandName = getAlcohol.getString("BrandName");
-                alcohol.Origin = getAlcohol.getString("Origin");
-                alcohol.Class = getAlcohol.getString("Class");
-                alcohol.Type = getAlcohol.getString("Type");
-                alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
-                alcohol.VintageYear = getAlcohol.getString("VintageYear");
-                alcohol.PH = getAlcohol.getString("PH");
-                alcoholLinkedList.add(alcohol);
-            }
-        } catch (SQLException e) {
-            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
-            return new LinkedList<>();
-        }
-
-        return alcoholLinkedList;
-    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////MANUFACTURER QUERIES//////////////////////////////////////////////////
@@ -309,17 +330,16 @@ public class DatabaseManager {
         try {
             ResultSet searchManufacturers = statement.executeQuery(query);
             while (searchManufacturers.next()) {
-                UserManufacturer manufacturer = new UserManufacturer();
+                UserManufacturer manufacturer = new UserManufacturer(query);
                 String username = searchManufacturers.getString("Username");
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.username = username;
                 manufacturer.name = searchManufacturers.getString("name");
                 manufacturer.email = searchManufacturers.getString("email");
                 manufacturer.userType = EnumUserType.MANUFACTURER;
-                manufacturer.Address = searchManufacturers.getString("Address");
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company");
-                manufacturer.Name = searchManufacturers.getString("Name");
+                manufacturer.name = searchManufacturers.getString("Name");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
@@ -437,7 +457,7 @@ public class DatabaseManager {
                 application.DateOfExpiration = getApplications.getString("DateOfExpiration");
                 application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
                 application.AgentUsername = getApplications.getString("AgentUsername");
-                application.ApplicationNo = getApplications.getString("ApplicationNO");
+                application.ApplicationNo = getApplications.getString("ApplicationNo");
                 application.Status = getApplications.getString("Status");
                 application.AlcoholType = getApplications.getString("AlcoholType");
                 application.Source = getApplications.getString("Source");
@@ -483,14 +503,21 @@ public class DatabaseManager {
                     if (userType.equals(EnumUserType.SUPER_AGENT)) {
                         SuperAgent = "true";
                     }
-                    statement.executeUpdate("INSERT INTO Agents" + " (ID, Name, username, passwordHash, Email, SuperAgent) VALUES " +
-                            "('" + agent.ID + "', '" + agent.name + "', '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.email + "', '" + SuperAgent + "')");
+                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, Name, Email, SuperAgent) VALUES " +
+                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }
             }
             if (userType.equals(EnumUserType.MANUFACTURER)) {
-                //TODO - ADD STATEMENT TO INSERT MANUFACTURER
+                UserManufacturer manufacturer = (UserManufacturer) user;
+                try {
+                    statement.executeUpdate("INSERT INTO Manufacturers" +" (Username, Password, Company, Name, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
+                            "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')"  );
+
+                } catch (PasswordStorage.CannotPerformOperationException e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (SQLException e) {
@@ -506,13 +533,8 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent();
+                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), "false");
                 LogManager.println("User " + username + " is an agent");
-                agent.ID = user.getString("ID");
-                agent.name = user.getString("name");
-                agent.email = user.getString("email");
-                agent.username = username;
-                agent.userType = EnumUserType.AGENT;
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {

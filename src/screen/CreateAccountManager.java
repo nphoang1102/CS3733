@@ -5,8 +5,7 @@ package screen;
  */
 
 import base.*;
-import base.User;
-import database.DatabaseManager;
+import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -38,9 +37,9 @@ public class CreateAccountManager extends Screen{
     @FXML
     private Text accountError;
 
-    String userType;
+    EnumUserType userType;
 
-    public void clearFields(){
+    private void clearFields(){
         username.clear();
         accountError.setText(null);
         tickManufacturer.setIndeterminate(false);
@@ -52,8 +51,7 @@ public class CreateAccountManager extends Screen{
     @FXML
     private void goBack(){
         //go back to the login screen
-        clearFields();
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         return;
     }
 
@@ -64,41 +62,54 @@ public class CreateAccountManager extends Screen{
         //query database to get all usernames
         //check if user is in the list
 
-        if(user!=null) { //placeholder for now
+        if(userType!=null) { //placeholder for now
             //tell the system who made an account
             LogManager.println(user + " just made an account");
 
+
             //record the account in the database
-            if(userType == "AGENT") {
+            if(userType.equals(EnumUserType.AGENT)) {
+                UserAgent tempUser =  new UserAgent(user);
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new agent, no password
-                DatabaseManager.addUser(user,"", userType);
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType == "MANUFACTURER"){
+                DatabaseManager.addUser(tempUser,"", userType);
+                Main.setUser(tempUser);
+                LogManager.println(tempUser + "logged in");
+                Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+
+            }else if(userType.equals(EnumUserType.MANUFACTURER)){
+                UserManufacturer tempUser =  new UserManufacturer(user);
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
-                DatabaseManager.addUser(user,"", userType);
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType == "publicUser"){
+                DatabaseManager.addUser(tempUser,"",userType);
+
+                Main.setUser(tempUser);
+                System.out.println(Main.getUsername());
+
+                Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+
+            }/*else if(userType.equalsIgnoreCase("publicUser")){
+                User tempUser =  new User(username.getText());
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
-                DatabaseManager.addUser(user,"","publicUser");
-                ScreenManager.setScreen(EnumScreenType.LOG_IN);
-            } else{ //they didn't select a box
-                //tell the system they didn't select a box
-                LogManager.println(user+" didn't select a user type");
-                //repopulate the field with their name
-                accountError.setText(user+" select a box");
-            }
-        }else {
+                DatabaseManager.addUser(user,"",EnumUserType.MANUFACTURER);
+                Main.screenManager.setScreen(EnumScreenType.LOG_IN);*/
+        } else{ //they didn't select a box
+            //tell the system they didn't select a box
+            LogManager.println(user+" didn't select a user type");
+            //repopulate the field with their name
+            accountError.setText(user+" select a box");
+        }
+
+        /*else {
             //if name is taken, return to the make account screen
             accountError.setText("I'm sorry" + user+ ", that account is taken");
-            ScreenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
-        }
-        return;
+            Main.screenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
+        }*/
+
     }
     @FXML
     private void enterHit(){
@@ -112,7 +123,7 @@ public class CreateAccountManager extends Screen{
         tickManufacturer.setIndeterminate(false);
         /*tickPublicUser.setSelected(false);
         tickPublicUser.setIndeterminate(false);*/
-        userType = "AGENT";
+        userType = EnumUserType.AGENT;
 
     }
     @FXML
@@ -122,7 +133,12 @@ public class CreateAccountManager extends Screen{
         tickAgent.setIndeterminate(false);
         /*tickPublicUser.setSelected(false);
         tickPublicUser.setIndeterminate(false);*/
-        userType = "MANUFACTURER";
+        userType = EnumUserType.MANUFACTURER;
+    }
+
+    @Override
+    public void onScreenFocused(DataSet data) {
+        clearFields();
     }
    /* @FXML
     private void selectPublicUser(){
@@ -134,4 +150,3 @@ public class CreateAccountManager extends Screen{
         userType = "publicUser";
     }*/
 }
-

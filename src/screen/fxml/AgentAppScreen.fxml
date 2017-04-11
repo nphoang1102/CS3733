@@ -1,60 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1280.0" visible="true" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="screen.AgentAppScreenManager">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1280.0" visible="true" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AgentAppScreenManager">
   <children>
-    <Rectangle arcHeight="5.0" arcWidth="5.0" height="720.0" layoutX="1.0" layoutY="-2.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.3" width="1280.0">
-      <fill>
-        <Color blue="0.875" green="0.875" red="0.875" fx:id="x1" />
-      </fill>
-    </Rectangle>
-    <Label layoutX="163.0" layoutY="39.0" prefWidth="67.99990844726562" text="Rep ID NO. " />
-    <Label fx:id="repId" layoutX="163.0" layoutY="54.0" text="repId" />
-    <Label layoutX="553.0" layoutY="37.0" prefWidth="227.0" text="Plant Registry/ Basic Permit/ Brewers No.  " />
-    <Label fx:id="brewNo" layoutX="553.0" layoutY="54.0" text="brewNo" />
-    <Label layoutX="165.0" layoutY="155.0" text="Source of Product" />
-    <Label fx:id="productSrc" layoutX="165.0" layoutY="171.0" text="productSrc" />
-    <Label layoutX="556.0" layoutY="155.0" text="Type of Product" />
-    <Label fx:id="productType" layoutX="556.0" layoutY="171.0" text="productType" />
-    <Label layoutX="164.0" layoutY="254.0" text="Brand Name" />
-    <Label fx:id="brandName" layoutX="163.0" layoutY="270.0" text="brandName" />
-    <Label layoutX="162.0" layoutY="372.0" text="Name of Applicant" />
-    <Label fx:id="applicantName" layoutX="162.0" layoutY="390.0" text="applicantName" />
-    <Label layoutX="553.0" layoutY="372.0" prefWidth="116.9998779296875" text="Address of Applicant" />
-    <Label fx:id="applicantAdd" layoutX="553.0" layoutY="383.0" text="applicantAdd" />
-    <Label layoutX="166.0" layoutY="465.0" text="Approved DBA or Trade Name" />
-    <Label fx:id="tradeName" layoutX="166.0" layoutY="481.0" text="tradeName" />
-    <Label layoutX="554.0" layoutY="465.0" text="Alternate Mailing Address" />
-    <Label fx:id="alternateAdd" layoutX="553.0" layoutY="481.0" text="alternateAdd" />
-    <Label layoutX="165.0" layoutY="558.0" prefWidth="84.99990844726562" text="Phone Number" />
-    <Label fx:id="phoneNum" layoutX="165.0" layoutY="574.0" text="phoneNum" />
-    <Label layoutX="556.0" layoutY="558.0" prefWidth="80.99990844726562" text="Email Address" />
-    <Label fx:id="emailAdd" layoutX="553.0" layoutY="574.0" text="emailAdd" />
-    <Label layoutX="553.0" layoutY="638.0" text="Date of Submission" />
-    <Label fx:id="appDate" layoutX="553.0" layoutY="652.0" text="appDate" />
-    <Label layoutX="165.0" layoutY="636.0" prefWidth="95.0" text="Applicant Name" />
-    <Label fx:id="appName" layoutX="166.0" layoutY="652.0" text="appName" />
-    <SplitPane dividerPositions="0.4986072423398329" focusTraversable="true" layoutX="980.0" layoutY="0.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="300.0">
+    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
+    <Label layoutX="80.0" layoutY="70.0" prefHeight="21.0" prefWidth="106.0" text="Rep ID NO. ">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="repId" layoutX="80.0" layoutY="90.0" text="repId" />
+    <Label layoutX="80.0" layoutY="420.0" prefHeight="21.0" prefWidth="225.0" text="Basic Permit/ Brewers No.  ">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="brewNo" layoutX="80.0" layoutY="440.0" prefHeight="21.0" prefWidth="149.0" text="brewNo" />
+    <Label layoutX="80.0" layoutY="140.0" text="Source of Product">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="productSrc" layoutX="80.0" layoutY="160.0" text="productSrc" />
+    <Label layoutX="418.0" layoutY="310.0" text="Type of Product">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="productType" layoutX="418.0" layoutY="330.0" text="productType" />
+    <Label layoutX="80.0" layoutY="210.0" text="Brand Name">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="brandName" layoutX="80.0" layoutY="230.0" text="brandName" />
+    <Label layoutX="80.0" layoutY="280.0" text="Name of Applicant">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="applicantName" layoutX="80.0" layoutY="300.0" text="applicantName" />
+    <Label layoutX="80.0" layoutY="560.0" prefHeight="21.0" prefWidth="172.0" text="Address of Applicant">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="applicantAdd" alignment="TOP_LEFT" layoutX="80.0" layoutY="580.0" prefHeight="140.0" prefWidth="300.0" text="applicantAdd" />
+    <Label layoutX="760.0" layoutY="70.0" text="Alternate Mailing Address">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="alternateAdd" alignment="TOP_LEFT" layoutX="760.0" layoutY="90.0" prefHeight="140.0" prefWidth="300.0" text="alternateAdd" />
+    <Label layoutX="418.0" layoutY="210.0" prefHeight="21.0" prefWidth="119.0" text="Phone Number">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="phoneNum" layoutX="418.0" layoutY="230.0" text="phoneNum" />
+    <Label layoutX="418.0" layoutY="140.0" prefHeight="21.0" prefWidth="119.0" text="Email Address">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="emailAdd" layoutX="418.0" layoutY="160.0" text="emailAdd" />
+    <Label layoutX="80.0" layoutY="350.0" text="Date of Submission">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="appDate" layoutX="80.0" layoutY="370.0" text="appDate" />
+    <Label layoutX="80.0" layoutY="490.0" prefHeight="21.0" prefWidth="129.0" text="Applicant Name">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="appName" layoutX="80.0" layoutY="510.0" text="appName" />
+    <SplitPane focusTraversable="true" layoutX="1080.0" layoutY="0.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: 373737;">
       <items>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" visible="true">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="259.0" prefWidth="160.0" style="-fx-background-color: #373737; -fx-border-color: #34a88b; -fx-border-width: 2;">
           <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x1" height="360.0" layoutX="-2.0" layoutY="-1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.5" width="300.0" />
-            <Button fx:id="acceptButton" layoutX="121.0" layoutY="167.0" mnemonicParsing="false" onMouseClicked="#acceptApp" text="Accept" />
-          </children>
-        </AnchorPane>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="259.0" prefWidth="160.0">
-          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="$x1" height="360.0" layoutX="-2.0" layoutY="0.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.5" width="300.0" />
-            <Button fx:id="rejectButton" layoutX="123.0" layoutY="168.0" mnemonicParsing="false" onMouseClicked="#rejectApp" text="Reject" />
+            <Button fx:id="rejectButton" layoutX="19.0" layoutY="105.0" mnemonicParsing="false" onMouseClicked="#rejectApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Reject">
+              <font>
+                <Font name="Telugu Sangam MN" size="15.0" />
+              </font></Button>
+            <Button fx:id="acceptButton" layoutX="19.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#rejectApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Accept">
+              <font>
+                <Font name="Telugu Sangam MN" size="15.0" />
+              </font>
+            </Button>
+            <TextArea fx:id="rejectReason" layoutX="7.0" layoutY="176.0" prefHeight="536.0" prefWidth="185.0" promptText="Reason for Rejection (Required)">
+              <font>
+                <Font name="Telugu Sangam MN" size="15.0" />
+              </font>
+            </TextArea>
           </children>
         </AnchorPane>
       </items>
+      <effect>
+        <Blend />
+      </effect>
     </SplitPane>
+    <Label layoutX="420.0" layoutY="70.0" text="TTB ID.">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="ttbId" layoutX="420.0" layoutY="90.0" text="ttbId" />
+    <Label layoutX="420.0" layoutY="380.0" text="Fancy Name">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font></Label>
+    <Label fx:id="fancyName" layoutX="420.0" layoutY="400.0" text="fancyName" />
+    <Label layoutX="420.0" layoutY="450.0" text="Formula">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
+    <Label fx:id="formula" layoutX="420.0" layoutY="470.0" text="formula" />
+    <Label layoutX="340.0" layoutY="560.0" text="Grape Varietals (wine only)">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
+    <Label fx:id="wineVarietal" layoutX="340.0" layoutY="580.0" text="wineVarietal" />
+    <Label layoutX="760.0" layoutY="310.0" prefHeight="21.0" prefWidth="200.0" text="Wine Appellation">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
+    <Label fx:id="wineAppellation" layoutX="760.0" layoutY="330.0" text="wineAppellation" />
+    <Label layoutX="760.0" layoutY="380.0" prefHeight="21.0" prefWidth="200.0" text="Application Type">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
+    <Label fx:id="appType" layoutX="760.0" layoutY="400.0" text="appType" />
+    <Label layoutX="760.0" layoutY="450.0" prefHeight="21.0" prefWidth="200.0" text="Alcohol Content">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
+    <Label fx:id="alcContent" layoutX="760.0" layoutY="470.0" text="alcContent" />
+    <Label layoutX="840.0" layoutY="560.0" prefHeight="21.0" prefWidth="200.0" text="pH Level (wine only)">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
+    <Label fx:id="pHLevel" layoutX="840.0" layoutY="580.0" text="pHLevel" />
+    <Label layoutX="590.0" layoutY="560.0" prefHeight="21.0" prefWidth="200.0" text="Vintage Year (wine only)">
+      <font>
+        <Font name="System Bold" size="15.0" />
+      </font>
+    </Label>
+    <Label fx:id="alcContent11" layoutX="590.0" layoutY="580.0" text="vintageYear" />
   </children>
 </AnchorPane>

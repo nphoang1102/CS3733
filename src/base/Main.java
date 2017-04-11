@@ -1,10 +1,11 @@
 package base;
 
 import database.DatabaseManager;
+import database.PasswordStorage;
+import database.User;
+import database.UserAgent;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import screen.EnumScreenType;
-import screen.EnumUserType;
 import screen.ScreenManager;
 
 import java.io.File;
@@ -16,15 +17,15 @@ public class Main extends Application{
             ScreenManager
             DatabaseManager
      */
-    private ScreenManager screenManager;
+    public static ScreenManager screenManager;
     private LogManager logManager;
-    private DatabaseManager databaseManager;
+    public static DatabaseManager databaseManager;
     private static User user;
 
 
     public static final int WIDTH = 1280;
-    public static final int HEIGHT = 720;
-    public static final String NAME = "COLA Database Search Thing";
+    public static final int HEIGHT = 784;
+    public static final String NAME = "COLA Database Search Tool";
 
 
     private static Class reference = Main.class;
@@ -41,7 +42,6 @@ public class Main extends Application{
         initialize(primaryStage);
         primaryStage.setTitle(NAME);
         primaryStage.setResizable(false);
-        ScreenManager.setScreen(EnumScreenType.LOG_IN);
         primaryStage.show();
     }
 
@@ -52,12 +52,11 @@ public class Main extends Application{
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
 
-
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
-        user = new User(EnumUserType.PUBLIC_USER, "foo", "foo@foo.foo");
+
         //databaseManager.entryTest();
         /*
             Check to see if local directories for Saves and Log files exist,
@@ -103,12 +102,24 @@ public class Main extends Application{
     }
 
     public static String getUsername(){
-        return user.getUsername();
+        if(user != null){
+            return user.getUsername();
+        }
+        return "";
+    }
+
+    public static String getUserType(){
+        if(user != null){
+            return user.getType().getTextualName();
+        }
+        return "";
+    }
+
+    public static void logOutUser(){
+        user = null;
     }
 
     public static void setUser (User u){
-        user.setType(u.getType());
-        user.setEmail(u.getEmail());
-        user.setUsername(u.getUsername());
+        user = u;
     }
 }

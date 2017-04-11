@@ -4,3 +4,4 @@ lib/*.*
 derby.log
 out/
 ttb_iter1.iml
+/.idea/workspace.xml
