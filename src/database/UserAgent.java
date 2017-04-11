@@ -11,13 +11,13 @@ public class UserAgent extends User{
     String username="";
     int passwordHash = 0;
     String email="";
-    boolean superAgent=false;
+    String superAgent="false";
 
-    public UserAgent(String name, String username, String email, String ID, boolean isSuper){
+    public UserAgent(String name, String username, String email, String ID, String isSuper){
         super(EnumUserType.AGENT, username, email, name);
         this.superAgent = isSuper;
         this.ID = ID;
-        if(isSuper){
+        if(superAgent.equals("true")){
             this.userType = EnumUserType.SUPER_AGENT;
         }else{
             this.userType = EnumUserType.AGENT;

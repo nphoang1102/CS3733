@@ -491,7 +491,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void addUser(User user, String password, EnumUserType userType) {
         String table = "Agents";
-        boolean Super = false;
+        String Super = "false";
         try {
             //if(userType.equals(EnumUserType.SUPER_AGENT)){table = "Agents"; Super = true;}
             if (userType.equals(EnumUserType.AGENT)) {
@@ -499,7 +499,7 @@ public class DatabaseManager {
                 try {
                     UserAgent agent = (UserAgent) user;
                     String SuperAgent = "false";
-                    if (agent.superAgent) {
+                    if (agent.superAgent.equals("true")) {
                         SuperAgent = "true";
                     }
                     statement.executeUpdate("INSERT INTO Agents" + " (ID, Name, username, passwordHash, Email, SuperAgent) VALUES " +
@@ -526,7 +526,7 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), false);
+                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), "false");
                 LogManager.println("User " + username + " is an agent");
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;

@@ -38,7 +38,7 @@ public class CreateAccountManager extends Screen{
     @FXML
     private Text accountError;
 
-    String userType="";
+    Enum userType;
     String curUserName="";
 
     private void clearFields(){
@@ -69,20 +69,20 @@ public class CreateAccountManager extends Screen{
         if(username.getText()!=null) { //placeholder for now, in future check if they're the only user
 
             //record the account in the database
-            if(userType.equalsIgnoreCase( "AGENT")) {
+            if(userType.equals(EnumUserType.AGENT)) {
                 //create the user
-                UserAgent u = new UserAgent(curUserName, curUserName, "", "", false);
+                UserAgent u = new UserAgent(curUserName, curUserName, "", "", "false");
 
                 //create new agent, no password
                 Main.databaseManager.addUser(u,"", EnumUserType.AGENT);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType.equalsIgnoreCase( "MANUFACTURER")){
+            }else if(userType.equals(EnumUserType.MANUFACTURER)){
                 //create the user
                 UserManufacturer u = new UserManufacturer(curUserName);
                 //create new manufacturer, no password
                 Main.databaseManager.addUser(u,"", EnumUserType.MANUFACTURER);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);
-            }else if(userType.equalsIgnoreCase("publicUser")){
+            }else if(userType.equals(EnumUserType.PUBLIC_USER)){
 //                //tell the system what typ of user they are
 //                LogManager.println(curUserName+" is a "+userType);
 //                //create new manufacturer, no password
@@ -113,7 +113,7 @@ public class CreateAccountManager extends Screen{
         tickManufacturer.setIndeterminate(false);
         /*tickPublicUser.setSelected(false);
         tickPublicUser.setIndeterminate(false);*/
-        userType = "AGENT";
+        userType = EnumUserType.AGENT;
 
     }
     @FXML
@@ -123,7 +123,7 @@ public class CreateAccountManager extends Screen{
         tickAgent.setIndeterminate(false);
         /*tickPublicUser.setSelected(false);
         tickPublicUser.setIndeterminate(false);*/
-        userType = "MANUFACTURER";
+        userType = EnumUserType.MANUFACTURER;
     }
 
     @Override
