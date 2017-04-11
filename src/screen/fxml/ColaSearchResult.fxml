@@ -11,7 +11,7 @@
         <TableView fx:id="searchResult" layoutX="5.0" layoutY="5.0" prefHeight="660.0" prefWidth="1270.0" style="-fx-background-color: #dbdbdb;" stylesheets="@../css/ColaSearchResult.css">
             <columns>
                 <TableColumn fx:id="coLid" prefWidth="149.0" resizable="false" text="ID" />
-                <TableColumn fx:id="coLsource" prefWidth="244.0" resizable="false" text="Source" />
+                <TableColumn fx:id="coLsource" prefWidth="244.0" resizable="false" text="Origin" />
                 <TableColumn fx:id="coLalcoholType" prefWidth="295.0" resizable="false" styleClass="kjh" text="Type" />
                 <TableColumn fx:id="coLname" prefWidth="580.0" resizable="false" text="Brand Name" />
             </columns>

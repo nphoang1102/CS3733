@@ -1,5 +1,7 @@
 package misc;
 
+import database.BasicDataSet;
+import database.DataSet;
 import javafx.beans.property.SimpleStringProperty;
 import sun.java2d.pipe.SpanShapeRenderer;
 
@@ -9,6 +11,7 @@ import sun.java2d.pipe.SpanShapeRenderer;
 public class ColaResult {
     /* Class attributes */
     private final SimpleStringProperty id, permit, serial, date, fname, name, source, aclass, type, alCon, year, ph;
+    private final DataSet sourceMap = new BasicDataSet();
 
     /* Class constructors */
     public ColaResult(String id, String permit, String serial, String date, String fname, String name, String source, String aclass, String type, String alCon, String year, String ph) {
@@ -61,4 +64,19 @@ public class ColaResult {
     public String getAlCon() { return this.alCon.get(); }
     public String getYear() { return this.year.get(); }
     public String getPh() { return this.ph.get(); }
+
+    /* Setup the source states for the end-user */
+    public void initState() {
+        this.sourceMap.addField("00", "American");
+        this.sourceMap.addField("01", "California");
+        this.sourceMap.addField("02", "New York");
+        this.sourceMap.addField("00", "American");
+        this.sourceMap.addField("00", "American");
+        this.sourceMap.addField("00", "American");
+        this.sourceMap.addField("00", "American");
+        this.sourceMap.addField("00", "American");
+        this.sourceMap.addField("00", "American");
+        this.sourceMap.addField("00", "American");
+
+    }
 }
