@@ -2,6 +2,8 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import database.Application;
+import database.BasicDataSet;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
@@ -46,7 +48,7 @@ public class ManufacturerInboxManager extends Screen{
     @FXML
     TableColumn<ManufacturerInboxResult, String> DateColumn= new TableColumn<>();
 
-    private DataSet selected;
+    private Application selected;
 
     private String manufacturer;
 
@@ -64,21 +66,13 @@ public class ManufacturerInboxManager extends Screen{
 
     public void newApplication(){
         LogManager.println("Creating a new application");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_ADD_FORM);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_ADD_FORM, "New Application", 1280, 720, new BasicDataSet());
         return;
     }
 
     public void editApplication(){
         LogManager.println("Editing an application");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_EDIT);
-//        EditableApplicationManager currentScreen = (EditableApplicationManager) getCurrentScreen();
-//        currentScreen.data = selected;
-        return;
-    }
-
-    public void goBack() {
-        LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, selected.FanicifulName, 1280, 720, selected);
         return;
     }
 
@@ -88,25 +82,26 @@ public class ManufacturerInboxManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet dataSet){
-        manufacturer = Main.getUsername(); //move
+        manufacturer = Main.getUsername();
         LogManager.print("Current user is "+manufacturer); //move
-        LinkedList<database.DataSet> appList = DatabaseManager.queryManufacturers(manufacturer); //move
+        LinkedList<database.DataSet> appList = DatabaseManager.queryManufacturers(manufacturer);
 
         ObservableList tableList = FXCollections.observableArrayList(); //move
         LogManager.println("appList: "+Integer.toString(appList.size()));
 
         this.StatusColumn.setCellValueFactory(new PropertyValueFactory("Status"));
         this.DateColumn.setCellValueFactory(new PropertyValueFactory("Date"));
-        this.TTBIDColumn.setCellValueFactory(new PropertyValueFactory("TTBID"));
-        this.NameColumn.setCellValueFactory(new PropertyValueFactory("BrandName"));
+        this.TTBIDColumn.setCellValueFactory(new PropertyValueFactory("ApplicationNo"));
+        this.NameColumn.setCellValueFactory(new PropertyValueFactory("Brand"));
 
-        for(DataSet data : appList) {
-            String tempTTBID = data.getValueForKey("TTBID");
-            String tempName = data.getValueForKey("BrandName");
-            String tempStatus = data.getValueForKey("Status");
-            String tempDate = data.getValueForKey("CompletedDate");
+        for(DataSet tempData : appList) {
+            Application data = (Application) tempData;
+            String tempApplicationNo = data.ApplicationNo;
+            String tempBrand = data.Brand;
+            String tempStatus = data.Status;
+            String tempDate = data.Date;
 
-            this.tableList.add(new ManufacturerInboxResult(tempTTBID, tempName, tempStatus, tempDate));
+            this.tableList.add(new ManufacturerInboxResult(tempApplicationNo, tempBrand, tempStatus, tempDate));
 
             LogManager.println("tableList: "+Integer.toString(tableList.size()));
 
