@@ -3,7 +3,14 @@
 	-fx-text-fill:  #ffffff;
 }
 
+.choice-box . {
+	-fx-font: "Telugu Sangam MN";
+	-fx-text-fill:  #ffffff;
+}
+
 .choice-box .context-menu {
 	-fx-background-color: #939393 ;
 	-fx-pref-tile-width: 117;
+	-fx-accent: #34a88b;
+	-fx-focus-color: #34a88b;
 }

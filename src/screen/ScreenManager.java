@@ -81,28 +81,6 @@ public class ScreenManager {
             topBarScreen.onScreenFocused(new BasicDataSet());
         }
         screenStates.addFirst(new State(type, data));
-//        LogManager.println("Setting screen to:" + type.toString());
-//        Scene scene;
-//        if(loadedScenes.containsKey(type.toString())){
-//            scene = loadedScenes.get(type.toString());
-//            stage.setScene(scene);
-//            loadedScreens.get(type.toString()).onScreenFocused();
-//        }else{
-//            FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
-//            try {
-//                scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
-//                loadedScenes.put(type.toString(), scene);
-//                stage.setScene(scene);
-//                Screen theScreen = (Screen)loader.getController();
-//                loadedScreens.put(type.toString(), theScreen);
-//                theScreen.onScreenFocused();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        if(type.equals(EnumScreenType.TOP_BAR)){
-//            ((TopBarManager)loadedScreens.get(type.toString())).setScreen(loadedScenes.get(EnumScreenType.LOG_IN.toString()));
-//        }
     }
 
     public void popoutScreen(EnumScreenType type, String name, DataSet data){
@@ -111,7 +89,6 @@ public class ScreenManager {
 
     public void popoutScreen(EnumScreenType type, String title, int width, int height, DataSet data){
         //get all pop outs, check if they are not on top and are still active
-        LogManager.println(getSearchTerm());
         for(Stage stage: popOutWindows){
             if(stage.getOwner()!=null){
                 stage.toFront();
