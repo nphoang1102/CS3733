@@ -3,8 +3,12 @@
   <component name="ChangeListManager">
     <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/Main.java" afterPath="$PROJECT_DIR$/src/base/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" afterPath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/TopBarManager.java" afterPath="$PROJECT_DIR$/src/screen/TopBarManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/UserSettingsManager.java" afterPath="$PROJECT_DIR$/src/screen/UserSettingsManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\spartanvice\Documents\csgetdegrees\.idea\shelf/" />
@@ -24,14 +28,59 @@
       <file leaf-file-name="LoginScreenManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screen/LoginScreenManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="92" column="130" lean-forward="false" selection-start-line="92" selection-start-column="130" selection-end-line="92" selection-end-column="130" />
+            <state relative-caret-position="864">
+              <caret line="85" column="77" lean-forward="false" selection-start-line="85" selection-start-column="77" selection-end-line="85" selection-end-column="77" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#572#573#0" expanded="true" />
-                <element signature="e#616#617#0" expanded="true" />
-                <element signature="e#4031#4032#0" expanded="true" />
+                <element signature="e#678#679#0" expanded="true" />
+                <element signature="e#722#723#0" expanded="true" />
+                <element signature="e#3775#3776#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserSettings.fxml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+            <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UserSettingsManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/screen/UserSettingsManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="60" column="16" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="194" column="100" lean-forward="false" selection-start-line="194" selection-start-column="100" selection-end-line="194" selection-end-column="100" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/base/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="775">
+              <caret line="47" column="18" lean-forward="true" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -43,22 +92,6 @@
               <caret line="103" column="54" lean-forward="false" selection-start-line="103" selection-start-column="54" selection-end-line="103" selection-end-column="54" />
               <folding />
             </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="LoginScreen.fxml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="17" column="53" lean-forward="false" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
-              <folding>
-                <marker date="1491946051740" expanded="true" signature="3484:3558" ph="..." />
-                <marker date="1491946051740" expanded="true" signature="3601:3639" ph="..." />
-              </folding>
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-            <state />
           </provider>
         </entry>
       </file>
@@ -88,6 +121,8 @@
       <find>getUser</find>
       <find>back</find>
       <find>userT</find>
+      <find>println</find>
+      <find>search</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -124,14 +159,17 @@
         <option value="$PROJECT_DIR$/src/base/User.java" />
         <option value="$PROJECT_DIR$/src/screen/EditableApplicationManager.java" />
         <option value="$PROJECT_DIR$/src/screen/ColaSearchResultManager.java" />
-        <option value="$PROJECT_DIR$/src/screen/UserSettingsManager.java" />
-        <option value="$PROJECT_DIR$/src/database/DatabaseManager.java" />
-        <option value="$PROJECT_DIR$/src/base/Main.java" />
         <option value="$PROJECT_DIR$/src/database/UserAgent.java" />
         <option value="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" />
         <option value="$PROJECT_DIR$/src/screen/CreateAccountManager.java" />
-        <option value="$PROJECT_DIR$/src/screen/LoginScreenManager.java" />
         <option value="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
+        <option value="$PROJECT_DIR$/src/screen/LoginScreenManager.java" />
+        <option value="$PROJECT_DIR$/src/screen/FileChooser.java" />
+        <option value="$PROJECT_DIR$/src/screen/TopBarManager.java" />
+        <option value="$PROJECT_DIR$/src/base/Main.java" />
+        <option value="$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml" />
+        <option value="$PROJECT_DIR$/src/screen/UserSettingsManager.java" />
+        <option value="$PROJECT_DIR$/src/database/DatabaseManager.java" />
       </list>
     </option>
   </component>
@@ -752,7 +790,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491945692803</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="minor edits to error message">
+      <created>1491946070075</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1491946070076</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -771,13 +816,13 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33333334" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2532699" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16290131" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23186682" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32862645" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24352051" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24082074" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32990867" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -814,7 +859,8 @@
     <MESSAGE value="fixed things" />
     <MESSAGE value="fixed creating an account when user doesn't select a type" />
     <MESSAGE value="can't login over someone else" />
-    <option name="LAST_COMMIT_MESSAGE" value="can't login over someone else" />
+    <MESSAGE value="minor edits to error message" />
+    <option name="LAST_COMMIT_MESSAGE" value="minor edits to error message" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -827,13 +873,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10050">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/LoginScreen.java" />
     <entry file="file://$PROJECT_DIR$/src/screen/LoginScreen" />
     <entry file="file://$PROJECT_DIR$/src/screen/AgentInbox.fxml" />
@@ -978,7 +1017,7 @@
         <state relative-caret-position="106">
           <caret line="102" column="0" lean-forward="true" selection-start-line="102" selection-start-column="0" selection-end-line="102" selection-end-column="0" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1031,14 +1070,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/TopBarManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="139" column="20" lean-forward="false" selection-start-line="139" selection-start-column="16" selection-end-line="139" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/ManufacturerInboxManager.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1050">
@@ -1046,14 +1077,6 @@
           <folding>
             <element signature="e#1390#1391#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/UserSettingsManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="39" column="0" lean-forward="false" selection-start-line="39" selection-start-column="0" selection-end-line="39" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1065,44 +1088,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="528" column="134" lean-forward="false" selection-start-line="528" selection-start-column="134" selection-end-line="528" selection-end-column="134" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/base/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="52" column="90" lean-forward="false" selection-start-line="52" selection-start-column="90" selection-end-line="52" selection-end-column="90" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/database/UserAgent.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-125">
           <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding>
-            <element signature="e#918#919#0" expanded="true" />
-            <element signature="e#956#957#0" expanded="true" />
-            <element signature="e#1005#1006#0" expanded="true" />
-            <element signature="e#1036#1037#0" expanded="true" />
+            <element signature="e#918#919#0" expanded="false" />
+            <element signature="e#956#957#0" expanded="false" />
+            <element signature="e#1005#1006#0" expanded="false" />
+            <element signature="e#1036#1037#0" expanded="false" />
           </folding>
         </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/fxml/ManufacturerInbox.fxml">
@@ -1146,31 +1142,84 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/LoginScreenManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="92" column="130" lean-forward="false" selection-start-line="92" selection-start-column="130" selection-end-line="92" selection-end-column="130" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#572#573#0" expanded="true" />
-            <element signature="e#616#617#0" expanded="true" />
-            <element signature="e#4031#4032#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="425">
-          <caret line="17" column="53" lean-forward="false" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
-          <folding>
-            <marker date="1491946051740" expanded="true" signature="3484:3558" ph="..." />
-            <marker date="1491946051740" expanded="true" signature="3601:3639" ph="..." />
-          </folding>
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding />
         </state>
       </provider>
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/LoginScreenManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="864">
+          <caret line="85" column="77" lean-forward="false" selection-start-line="85" selection-start-column="77" selection-end-line="85" selection-end-column="77" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#678#679#0" expanded="true" />
+            <element signature="e#722#723#0" expanded="true" />
+            <element signature="e#3775#3776#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/TopBarManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="79" column="45" lean-forward="false" selection-start-line="79" selection-start-column="45" selection-end-line="79" selection-end-column="45" />
+          <folding>
+            <element signature="e#3873#3874#0" expanded="true" />
+            <element signature="e#3914#3915#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/FileChooser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="8" column="76" lean-forward="false" selection-start-line="8" selection-start-column="76" selection-end-line="8" selection-end-column="76" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/base/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="775">
+          <caret line="47" column="18" lean-forward="true" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/UserSettingsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="60" column="16" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="194" column="100" lean-forward="false" selection-start-line="194" selection-start-column="100" selection-end-line="194" selection-end-column="100" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

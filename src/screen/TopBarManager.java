@@ -78,7 +78,6 @@ public class TopBarManager extends Screen{
     public void onScreenFocused(DataSet data) {
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
-        LogManager.println("VICTOR wants to know if " + Main.getUsername()+" is a "+Main.getUserType());
         if(!Main.getUserType().isEmpty()) {
             //check if user has a custom image defined
 //            if(DatabaseManager.getImage()) {
