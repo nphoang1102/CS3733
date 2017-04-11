@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.util.LinkedList;
 
+import static com.sun.xml.internal.org.jvnet.fastinfoset.EncodingAlgorithmIndexes.UUID;
+
 public class DatabaseManager {
     /**
      * Created by Evan Goldstein on 4/1/17.
@@ -309,14 +311,13 @@ public class DatabaseManager {
         try {
             ResultSet searchManufacturers = statement.executeQuery(query);
             while (searchManufacturers.next()) {
-                UserManufacturer manufacturer = new UserManufacturer();
+                UserManufacturer manufacturer = new UserManufacturer(query);
                 String username = searchManufacturers.getString("Username");
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.username = username;
                 manufacturer.name = searchManufacturers.getString("name");
                 manufacturer.email = searchManufacturers.getString("email");
                 manufacturer.userType = EnumUserType.MANUFACTURER;
-                manufacturer.Address = searchManufacturers.getString("Address");
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.Name = searchManufacturers.getString("Name");
@@ -481,17 +482,24 @@ public class DatabaseManager {
                 try {
                     UserAgent agent = (UserAgent) user;
                     String SuperAgent = "false";
-                    if (agent.superAgent) {
+                    if (agent.superAgent.equals("true")) {
                         SuperAgent = "true";
                     }
-                    statement.executeUpdate("INSERT INTO Agents" + " (ID, Name, username, passwordHash, Email, SuperAgent) VALUES " +
-                            "('" + agent.ID + "', '" + agent.name + "', '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.email + "', '" + SuperAgent + "')");
+                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, Name, Email, SuperAgent) VALUES " +
+                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }
             }
             if (userType.equals(EnumUserType.MANUFACTURER)) {
-                //TODO - ADD STATEMENT TO INSERT MANUFACTURER
+                UserManufacturer manufacturer = (UserManufacturer) user;
+                try {
+                    statement.executeUpdate("INSERT INTO Manufacturers" +" (Username, Password, Company, Name, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
+                            "( '" + manufacturer.Username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')"  );
+
+                } catch (PasswordStorage.CannotPerformOperationException e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (SQLException e) {
@@ -507,7 +515,7 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), false);
+                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), "false");
                 LogManager.println("User " + username + " is an agent");
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;

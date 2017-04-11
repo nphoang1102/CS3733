@@ -7,6 +7,7 @@ import base.*;
 import database.Application;
 import database.DataSet;
 import database.DatabaseManager;
+import database.PasswordStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -80,6 +81,7 @@ public class AgentInboxManager extends Screen{
                     LinkedList<DataSet> tempData =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", tempResult.getApplicationNo());
                     screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempData.get(0));
                 }
+
             });
             return row;
         });
