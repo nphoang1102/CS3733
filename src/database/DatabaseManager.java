@@ -105,13 +105,13 @@ public class DatabaseManager {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
                     " ApplicationNo VARCHAR(20) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
-                    " Status ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
+                    " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " AgentName VARCHAR(30),\n" +
                     " AgentUsername BIT(1),\n" +
                     " RepID VARCHAR(30) PRIMARY KEY,\n" +
                     " PlantRegistry VARCHAR(30) NOT NULL,\n" +
-                    " Source VARCHAR(30) NOT NULL,\n" +
+                    " Locality VARCHAR(30) NOT NULL,\n" +
                     " Brand VARCHAR(50) NOT NULL,\n" +
                     " FancifulName VARCHAR(50),\n" +
                     " AlcoholType VARCHAR(10) NOT NULL,\n" +
