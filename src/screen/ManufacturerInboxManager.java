@@ -117,4 +117,9 @@ public class ManufacturerInboxManager extends Screen{
         //LogManager.println("TTBID 1: "+ tableList.get(0).getTTBID());
         this.Table.setItems(tableList);
     }
+
+    @FXML
+    void editAccount(){
+        Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
+    }
 }
