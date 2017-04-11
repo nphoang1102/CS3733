@@ -121,6 +121,7 @@ public class DatabaseManager {
                     " WineAppelation VARCHAR(50),\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
+                    " AppType VARCHAR(500),\n" +
                     " AdditionalInfo VARCHAR(500) NOT NULL,\n" +
                     " ABV VARCHAR(10) NOT NULL,\n" +
                     " VintageDate DATE,\n" +
@@ -172,8 +173,8 @@ public class DatabaseManager {
     ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
+        ////////////////////////////////////////////////// ALCOHOL SEARCH
         String type = Main.screenManager.getSearchTerm();
-
         value = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
             if (value.isEmpty() && type == "All") {
@@ -182,14 +183,15 @@ public class DatabaseManager {
                 if (type == "All") {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
                 } else if (type == "Beer"){
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Beer' AND BrandName LIKE '" + value + "%';");
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value + "');");
                 } else if (type == "Wine"){
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Wine' AND BrandName LIKE '" + value + "%';");
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value + "');");
                 } else{
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value + "%';");
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value + "');");
                 }
             }
         }
+        ////////////////////////////////////////////////// ALCOHOL SEARCH
         else if (table.equals(EnumTableType.APPLICATION)) {
             return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
         }
@@ -664,6 +666,21 @@ public class DatabaseManager {
         }
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('10096001000196', 'BW-CA-5920', '10LC08', '2010/04/05', 'MAGGY HAWK', 'LA CREMA', '01', '88', 'Wine', '4.0', '1998', '3')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('15337001000440', 'WA-DC-0239', '15012L', '2016/04/01', '', 'DRY FLY', '01', '88', 'Whiskey', '4.3', '', '')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('16048001000296', 'FL-I-15704', '16TBC1', '2016/04/01', 'COLLECTION PRIVEE', 'ALLAIRE', '99', '351', 'VODKA 80-90 PROOF FB', '4.4', '', '')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('16057001000032', 'BR-CT-20033', '160004', '2016/04/01', 'SLUGGY BUGGY', 'OATMEAL STOUT', '14', '906', 'MALT BEVERAGES SPECIALITIES - FLAVORED', '4.5', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
