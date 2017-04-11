@@ -31,7 +31,7 @@
       <Label contentDisplay="RIGHT" layoutX="100.0" layoutY="110.0" prefHeight="20.0" text="Plant Registry Number" textAlignment="RIGHT" />
       <Label contentDisplay="RIGHT" layoutX="325.0" layoutY="220.0" prefHeight="20.0" text="Formula:" textAlignment="RIGHT" />
       <Label layoutX="550.0" layoutY="55.0" text="Wine Appelation (If on Label)" />
-      <TextField fx:id="appelation_field" layoutX="550.0" layoutY="75.0" prefWidth="150.0" />
+      <TextField fx:id="appellation_field" layoutX="550.0" layoutY="75.0" prefWidth="150.0" />
       <Label layoutX="550.0" layoutY="165.0" text="Grape Varietals" />
       <TextField fx:id="grapes_field" layoutX="550.0" layoutY="185.0" />
       <Label layoutX="550.0" layoutY="110.0" text="Phone Number" />

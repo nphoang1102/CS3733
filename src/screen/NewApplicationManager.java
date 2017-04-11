@@ -2,11 +2,16 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import base.StringUtilities;
+import database.Application;
+import database.DataSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import java.util.Date;
+import java.util.Calendar;
 
 import java.lang.*;
 
@@ -99,7 +104,7 @@ public class NewApplicationManager extends Screen {
         String addressText = address_field.getText();
         String address2Text = address_field_2.getText();
         String formulaText = formula_field.getText();
-        String appelationText = appellation_field.getText();
+        String appellationText = appellation_field.getText();
         String grapeVarietals = grapes_field.getText();
         String phoneNum = phone_num_field.getText();
         String email = email_field.getText();
@@ -113,18 +118,44 @@ public class NewApplicationManager extends Screen {
 
         String manufacturer = Main.getUsername();
 
-        //Databasessssssssssss
+        Application app = new Application();
 
-        //database.DatabaseManager.submitApplication(manufacturer, registryNumber, "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), "", Email.getText());
+        app.RepID = repID;
+        app.PlantRegistry = registryNumber;
+        app.Source = source;
+        app.SerialNo = serialNumber;
+        app.AlcoholType = productType;
+        app.Brand = brandName;
+        app.FanicifulName = fancifulName;
+        app.Address = addressText;
+        app.Address2 = address2Text;
+        app.Formula = formulaText;
+        app.Grapes = grapeVarietals;
+        app.WineAppelation = appellationText;
+        app.PhoneNo = phoneNum;
+        app.Email = email;
+        app.AppType = appType;
+        app.AdditionalInfo = addInfo;
+        app.Date = dateSubmitted;
+        app.PrintName = applicantName;
+        app.ABV = abv;
+        app.VintageDate = vintageYear;
+        app.PH = ph;
+        app.Status = "PENDING";
+        app.ApplicationNo = StringUtilities.getTTBID();
+        app.DateOfExpiration = StringUtilities.getExpirationDate();
+        app.ManufacturerUsername = manufacturer;
+
+        database.DatabaseManager.submitApplication(app);
 
         LogManager.println("Submitting Application");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+
         return;
     }
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+
         return;
     }
     public Screen getScreen(){
@@ -132,7 +163,7 @@ public class NewApplicationManager extends Screen {
     }
 
     @Override
-    public void onScreenFocused() {
+    public void onScreenFocused(DataSet dataSet) {
 
     }
 }
