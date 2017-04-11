@@ -183,23 +183,22 @@ public class DatabaseManager {
             } else {
                 if (type == "All") {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
-                } else if (type == "Beer"){
+                } else if (type == "Beer") {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Beer' AND BrandName LIKE '" + value + "%';");
-                } else if (type == "Wine"){
+                } else if (type == "Wine") {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Wine' AND BrandName LIKE '" + value + "%';");
-                } else{
+                } else {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value + "%';");
                 }
             }
-        }
-        else if (table.equals(EnumTableType.APPLICATION)) {
+        } else if (table.equals(EnumTableType.APPLICATION)) {
             return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
-        }
-        else if (table.equals(EnumTableType.MANUFACTURER)) {
+        } else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
             } else {
-                return queryManufacturers("SELECT * FROM Manufacturers WHERE '" + column + "' = '" + value + "';");
+                LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
+                return queryManufacturers("SELECT * FROM Manufacturers WHERE " + column + " = '" + value + "';");
             }
         }
         return null;
@@ -320,7 +319,6 @@ public class DatabaseManager {
     }
 
 
-
     /////////////////////////////////////////////////////////////////////////////////
     ///////////MANUFACTURER QUERIES//////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -329,9 +327,11 @@ public class DatabaseManager {
         LinkedList<DataSet> manufacturers = new LinkedList<>();
         try {
             ResultSet searchManufacturers = statement.executeQuery(query);
+            LogManager.println("queryManufacturers() has run the query: " + query, EnumWarningType.NOTE);
             while (searchManufacturers.next()) {
-                UserManufacturer manufacturer = new UserManufacturer(query);
                 String username = searchManufacturers.getString("Username");
+                LogManager.println("queryManufacturers() is adding the user " + username + " to a list that is now ", EnumWarningType.NOTE);
+                UserManufacturer manufacturer = new UserManufacturer(query);
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.username = username;
                 manufacturer.name = searchManufacturers.getString("name");
@@ -343,6 +343,8 @@ public class DatabaseManager {
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
+                manufacturers.add(manufacturer);
+                LogManager.print( manufacturers.size() + "items long.");
             }
             searchManufacturers.close();
         } catch (SQLException e) {
@@ -512,8 +514,8 @@ public class DatabaseManager {
             if (userType.equals(EnumUserType.MANUFACTURER)) {
                 UserManufacturer manufacturer = (UserManufacturer) user;
                 try {
-                    statement.executeUpdate("INSERT INTO Manufacturers" +" (Username, Password, Company, Name, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
-                            "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')"  );
+                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, Password, Company, Name, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
+                            "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')");
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
@@ -533,21 +535,21 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), "false");
+                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"), user.getString("ID"), "false");
                 LogManager.println("User " + username + " is an agent");
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {
-                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
-                if (user.next()) {
-                    LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
+                //user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
+                LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
+                if (!manufacturerLinkedList.isEmpty()) {
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
                     LogManager.println("User " + username + " is an agent");
                     tryPassword(username, password, user.getString("PasswordHash"));
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
-                    throw new UserNotFoundException(username);
+                    //throw new UserNotFoundException(username);
                 }
 
             }
