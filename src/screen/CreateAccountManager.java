@@ -62,7 +62,7 @@ public class CreateAccountManager extends Screen{
         //query database to get all usernames
         //check if user is in the list
 
-        if(user!=null) { //placeholder for now
+        if(userType!=null) { //placeholder for now
             //tell the system who made an account
             LogManager.println(user + " just made an account");
 
