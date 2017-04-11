@@ -10,8 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import java.util.Date;
 import java.util.Calendar;
+
+import javafx.collections.*;
 
 import java.lang.*;
 
@@ -93,6 +96,67 @@ public class NewApplicationManager extends Screen {
     @FXML
     private Button cancel_button;
 
+    @FXML
+    private Label app_type_label;
+
+    @FXML
+    private TextField app_type_field;
+
+    @FXML
+    private Label ph_label;
+
+    @FXML
+    private Label abv_label;
+
+    @FXML
+    private Label vintage_label;
+
+    @FXML
+    public void initialize() {
+
+    }
+    @Override
+    public void onScreenFocused(DataSet dataSet) {
+        ObservableList<String> product_source = FXCollections.observableArrayList(
+                "Domestic",
+                "Imported");
+        ObservableList<String> product_type = FXCollections.observableArrayList(
+                "Beer",
+                "Wine",
+                "Distilled Spirits");
+        ObservableList<String> application_type = FXCollections.observableArrayList(
+                "Certificate of Label Approval",
+                "Certificate of Exemption From Label Approval",
+                "Distinctive Liqour Bottle Approval",
+                "Resubmission After Rejection");
+        product_type_box.setItems(product_type);
+        product_source_box.setItems(product_source);
+        app_type_box.setItems(application_type);
+        app_type_field.setVisible(false);
+        app_type_label.setVisible(false);
+    }
+
+    public void onTypeSelected() {
+        switch(app_type_box.getValue()) {
+            case "Certificate of Label Approval":
+                break;
+            case "Certificate of Exemption From Label Approval":
+                app_type_label.setText("For Sale Only in: ");
+                app_type_field.setVisible(true);
+                app_type_label.setVisible(true);
+                break;
+            case "Distinctive Liqour Bottle Approval":
+                app_type_label.setText("Total Bottle Capacity Before Closure:");
+                app_type_field.setVisible(true);
+                app_type_label.setVisible(true);
+                break;
+            case "Resubmission After Rejection":
+                app_type_label.setText("TTB ID: ");
+                app_type_field.setVisible(true);
+                app_type_label.setVisible(true);
+                break;
+        }
+    }
     public void submit(){
         String repID = repid_field.getText();
         String registryNumber = plant_number_field.getText();
@@ -162,8 +226,5 @@ public class NewApplicationManager extends Screen {
         return this;
     }
 
-    @Override
-    public void onScreenFocused(DataSet dataSet) {
 
-    }
 }
