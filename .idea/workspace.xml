@@ -2,12 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/database/images/ImageInterface.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/database/images/ImageOnServer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/database/images/ProxyImage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/Main.java" afterPath="$PROJECT_DIR$/src/base/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ttb_iter1.iml" afterPath="$PROJECT_DIR$/ttb_iter1.iml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\spartanvice\Documents\csgetdegrees\.idea\shelf/" />
@@ -712,7 +707,7 @@
       <updated>1491007843223</updated>
       <workItem from="1491007847435" duration="302000" />
       <workItem from="1491076392278" duration="1153000" />
-      <workItem from="1491943027983" duration="4678000" />
+      <workItem from="1491943027983" duration="4705000" />
     </task>
     <task id="LOCAL-00001" summary="Login screen push test">
       <created>1491145327458</created>
@@ -819,11 +814,18 @@
       <option name="project" value="LOCAL" />
       <updated>1491941951639</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="FTP integration">
+      <created>1491947900666</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1491947900666</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6133000" />
+    <option name="totallyTimeSpent" value="6160000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1440" height="874" extended-state="0" />
@@ -879,7 +881,8 @@
     <MESSAGE value="minor fix to edit account" />
     <MESSAGE value="added no username entered error on login" />
     <MESSAGE value="fixed things" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed things" />
+    <MESSAGE value="FTP integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="FTP integration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
