@@ -107,7 +107,7 @@ public class ColaSearchResultManager extends Screen{
         data.addField("AlcoholContent", rowData.getAlCon());
         data.addField("VintageYear", rowData.getYear());
         data.addField("PH", rowData.getPh());
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 680, 300, data);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 300, data);
     }
 
     /* Send the search keywords to the database and display reply from database */
