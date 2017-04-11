@@ -507,6 +507,7 @@ public class DatabaseManager {
                     }
                     statement.executeUpdate("INSERT INTO Agents" + " (ID, Name, username, passwordHash, Email, SuperAgent) VALUES " +
                             "('" + agent.ID + "', '" + agent.name + "', '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.email + "', '" + SuperAgent + "')");
+                    LogManager.println(agent.username + "  is a new agent");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }

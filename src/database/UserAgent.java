@@ -6,8 +6,12 @@ import screen.EnumUserType;
  * Created by Evan Goldstein on 4/8/17.
  */
 public class UserAgent extends User{
-    String ID;
-    boolean superAgent;
+    String ID="";
+    String name="";
+    String username="";
+    int passwordHash = 0;
+    String email="";
+    boolean superAgent=false;
 
     public UserAgent(String name, String username, String email, String ID, boolean isSuper){
         super(EnumUserType.AGENT, username, email, name);
@@ -21,5 +25,6 @@ public class UserAgent extends User{
         this.username = username;
         this.email = email;
         this.name = name;
+        this.passwordHash = 0;
     }
 }
