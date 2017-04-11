@@ -62,7 +62,7 @@ public class CreateAccountManager extends Screen{
         //query database to get all usernames
         //check if user is in the list
 
-        if(user!=null) { //placeholder for now
+        if(userType!=null) { //placeholder for now
             //tell the system who made an account
             LogManager.println(user + " just made an account");
 
@@ -98,10 +98,10 @@ public class CreateAccountManager extends Screen{
                 DatabaseManager.addUser(user,"",EnumUserType.MANUFACTURER);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);*/
         } else{ //they didn't select a box
-                //tell the system they didn't select a box
-                LogManager.println(user+" didn't select a user type");
-                //repopulate the field with their name
-                accountError.setText(user+" select a box");
+            //tell the system they didn't select a box
+            LogManager.println(user+" didn't select a user type");
+            //repopulate the field with their name
+            accountError.setText(user+" select a box");
         }
 
         /*else {
@@ -150,4 +150,3 @@ public class CreateAccountManager extends Screen{
         userType = "publicUser";
     }*/
 }
-
