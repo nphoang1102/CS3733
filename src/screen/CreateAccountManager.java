@@ -83,7 +83,7 @@ public class CreateAccountManager extends Screen{
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
-                DatabaseManager.addUser(tempUser,"",userType);
+                DatabaseManager.addUser(tempUser,"bub",userType);
 
                 Main.setUser(tempUser);
                 System.out.println(Main.getUsername());
