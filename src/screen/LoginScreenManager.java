@@ -31,7 +31,8 @@ public class LoginScreenManager extends Screen{
     private Button newUser;
     @FXML
     private Button editAccountButton;
-
+    @FXML
+    private Text noUser;
     //fxml methods
     @FXML
     void loginClicked() {
@@ -55,27 +56,31 @@ public class LoginScreenManager extends Screen{
         Main.setUser(curUser);
         LogManager.println(curUser.getUsername()+" is the current user");
 
-        /* To be replaced in the future with actual database query */
+        if(userName.equals("")){
+            //print to screen, tell user to enter username, exit
+            //noUser.visibleProperty().setValue(true);
+            noUser.setText("PLEASE ENTER A USERNAME");
 
-        if (userType.equals(EnumUserType.PUBLIC_USER)) {
-            Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
-            LogManager.println("Public user "+ userName +" has signed in");
-        }
-        // Currently not implemented since manufacturerScreen is not made
-        else if (userType.equals(EnumUserType.MANUFACTURER)) {
-            //build a manufacturer and store it globally
-            //User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
-            //Main.setUser(currentUser);
-            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-            LogManager.println("Manufacturer " + userName + " has signed in");
-        }
-        else if (userType.equals(EnumUserType.AGENT)) {
-            //build an agent and store it globally
-            LogManager.println("we have an agent!");
-            //User currentUser = new User(EnumUserType.AGENT, userName, "");
-            //Main.setUser(currentUser);
-            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
-            LogManager.println("Agent " + userName + " has signed in");
+        }else {
+            if (userType.equals(EnumUserType.PUBLIC_USER)) {
+                Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+                LogManager.println("Public user " + userName + " has signed in");
+            }
+            // Currently not implemented since manufacturerScreen is not made
+            else if (userType.equals(EnumUserType.MANUFACTURER)) {
+                //build a manufacturer and store it globally
+                //User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
+                //Main.setUser(currentUser);
+                Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+                LogManager.println("Manufacturer " + userName + " has signed in");
+            } else if (userType.equals(EnumUserType.AGENT)) {
+                //build an agent and store it globally
+                LogManager.println("we have an agent!");
+                //User currentUser = new User(EnumUserType.AGENT, userName, "");
+                //Main.setUser(currentUser);
+                Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+                LogManager.println("Agent " + userName + " has signed in");
+            }
         }
     }
 
@@ -102,5 +107,6 @@ public class LoginScreenManager extends Screen{
     @Override
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
+        noUser.visibleProperty().setValue(false);
     }
 }
