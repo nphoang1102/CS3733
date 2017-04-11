@@ -69,9 +69,9 @@ public class TopBarManager extends Screen{
 
     @FXML
     public void initialize() {
-        ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine", "Other");
+        ObservableList<String> typeList = FXCollections.observableArrayList("All", "Beer", "Wine", "Other");
         searchTerm.setItems(typeList);
-        searchTerm.setValue("Beer");
+        searchTerm.setValue("All");
     }
 
     @Override
@@ -129,6 +129,7 @@ public class TopBarManager extends Screen{
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
             onScreenFocused(new BasicDataSet());
+            Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         }else{
 
         }
