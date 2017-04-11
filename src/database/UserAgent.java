@@ -30,7 +30,13 @@ public class UserAgent extends User{
         this.name = "Bub";
         this.username = Username;
         super.userType = EnumUserType.AGENT;
+    }
+    public String getSuperAgent(){
+        return this.superAgent;
+    }
 
+    public void setUserType(EnumUserType temp){
+        userType = temp;
     }
 
 }

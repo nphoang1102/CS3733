@@ -40,10 +40,10 @@ public class AgentInboxManager extends Screen{
     @FXML
     private TableView inboxData;
     @FXML
-    private TableColumn<AgentInboxResult, String>  specificBrandName, manufacturerName;
+    private TableColumn<Application, String>  specificBrandName, manufacturerName;
 
 
-    private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
+    private ObservableList<Application> inboxInfo = FXCollections.observableArrayList();
     private LinkedList<Application> uuidCodes = new LinkedList<>();
     private AgentInboxResult testApp = new AgentInboxResult("budweiser", "summer Ale", "12345768");
 
@@ -61,15 +61,15 @@ public class AgentInboxManager extends Screen{
     public void onScreenFocused(DataSet data){
         System.out.println("type of alc box: " + typeBox);
 
-        inboxInfo.add(testApp);
+       // inboxInfo.add(testApp);
 
         //add the Label to the pane
         manufacturerName.setCellValueFactory(
-                new PropertyValueFactory<>("manufacturerName")
+                new PropertyValueFactory<>("ManufacturerUsername")
         );
         manufacturerName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
         specificBrandName.setCellValueFactory(
-                new PropertyValueFactory<>("brandName")
+                new PropertyValueFactory<>("Brand")
         );
         specificBrandName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
 
@@ -77,9 +77,8 @@ public class AgentInboxManager extends Screen{
             TableRow<AgentInboxResult> row = new TableRow<>();
             row.setOnMouseClicked( event-> {
                 if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    AgentInboxResult tempResult = (AgentInboxResult) row.getUserData();
-                    LinkedList<DataSet> tempData =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", tempResult.getApplicationNo());
-                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempData.get(0));
+                    Application tempResult = (Application) row.getUserData();
+                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempResult);
                 }
 
             });
@@ -89,13 +88,7 @@ public class AgentInboxManager extends Screen{
         //uuidCodes = DatabaseManager.getApplicationsByAgent(Main.getUsername());
 
         for(Application tempData: uuidCodes){
-            //fill Manufacturer and BrandName from temp
-            String Manufacturer = tempData.ManufacturerUsername;
-            String BrandName = tempData.Brand;
-            String ApplicationNo = tempData.ApplicationNo;
-
-            AgentInboxResult tempResult = new AgentInboxResult(Manufacturer, BrandName, ApplicationNo);
-            inboxInfo.add(tempResult);
+            inboxInfo.add(tempData);
 
         }
 
