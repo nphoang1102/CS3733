@@ -7,13 +7,13 @@ import screen.EnumUserType;
  */
 public class UserAgent extends User{
     String ID;
-    boolean superAgent;
+    String superAgent;
 
-    public UserAgent(String name, String username, String email, String ID, boolean isSuper){
+    public UserAgent(String name, String username, String email, String ID, String isSuper){
         super(EnumUserType.AGENT, username, email, name);
         this.superAgent = isSuper;
         this.ID = ID;
-        if(isSuper){
+        if(isSuper.equals("true")){
             this.userType = EnumUserType.SUPER_AGENT;
         }else{
             this.userType = EnumUserType.AGENT;
@@ -22,4 +22,15 @@ public class UserAgent extends User{
         this.email = email;
         this.name = name;
     }
+
+    public UserAgent(String Username){
+        this.ID = Math.random()+"";
+        this.superAgent = "false";
+        this.email = "";
+        this.name = "Bub";
+        this.username = Username;
+        super.userType = EnumUserType.AGENT;
+
+    }
+
 }

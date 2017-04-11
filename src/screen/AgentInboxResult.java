@@ -7,15 +7,38 @@ import javafx.scene.control.Label;
  */
 public class AgentInboxResult {
 
-     private Label ManufacturerName;
+     private String ManufacturerName;
      private String BrandName;
+     private String ApplicationNo;
 
-     public AgentInboxResult(Label aLabel, String aName ){
-        ManufacturerName = aLabel;
+     public AgentInboxResult(String aManufacturerName, String aName, String ApplicatoinNo ){
+        ManufacturerName = aManufacturerName;
         BrandName = aName;
+        this.ApplicationNo = ApplicatoinNo;
      }
 
 
+    public String getManufacturerName() {
+        return ManufacturerName;
+    }
 
+    public void setManufacturerName(String manufacturerName) {
+        ManufacturerName = manufacturerName;
+    }
 
+    public String getBrandName() {
+        return BrandName;
+    }
+
+    public void setBrandName(String brandName) {
+        BrandName = brandName;
+    }
+
+    public String getApplicationNo() {
+        return ApplicationNo;
+    }
+
+    public void setApplicationNo(String applicationNo) {
+        ApplicationNo = applicationNo;
+    }
 }

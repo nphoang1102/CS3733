@@ -4,11 +4,15 @@ import base.LogManager;
 import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
+import database.PasswordStorage;
+import database.User;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
+
+import static base.Main.screenManager;
 
 public class LoginScreenManager extends Screen{
     /* Class attributes */
@@ -35,31 +39,40 @@ public class LoginScreenManager extends Screen{
     void loginClicked() {
         this.userName = usernameField.getText();
         this.usernameField.clear();
-//        String userType = DatabaseManager.getUserType(userName);
-//        LogManager.println(userName+" wants to sign in, he is a "+userType);
-//
-//        /* To be replaced in the future with actual database query */
-//        if (userType.equalsIgnoreCase("publicUser")) {
-//            Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
-//            LogManager.println("Public user "+ userName +" has signed in");
-//        }
-//        // Currently not implemented since manufacturerScreen is not made
-//        else if (userType.equalsIgnoreCase("manufacturer")) {
-//            //build a manufacturer and store it globally
-//            User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
-//            Main.setUser(currentUser);
-//            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-//            LogManager.println("Manufacturer " + userName + " has signed in");
-////            ((ManufacturerInboxManager) ScreenManager.getCurrentScreen()).initialize();
-//        }
-//        else if (userType.equalsIgnoreCase("agent")) {
-//            //build an agent and store it globally
-//            LogManager.println("we have an agent!");
-//            User currentUser = new User(EnumUserType.AGENT, userName, "");
-//            Main.setUser(currentUser);
-//            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
-//            LogManager.println("Agent " + userName + " has signed in");
-//        }
+        User userType = null;
+        try {
+            userType = Main.databaseManager.login(userName, "");
+        } catch (DatabaseManager.UserNotFoundException e) {
+            e.printStackTrace();
+        } catch (DatabaseManager.IncorrectPasswordException e) {
+            e.printStackTrace();
+        } catch (PasswordStorage.InvalidHashException e) {
+            e.printStackTrace();
+        } catch (PasswordStorage.CannotPerformOperationException e) {
+            e.printStackTrace();
+        }
+        LogManager.println(userName+" wants to sign in, he is a "+userType);
+
+        /* To be replaced in the future with actual database query */
+/*        if (userType.equalsIgnoreCase("publicUser")) {
+            Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+            LogManager.println("Public user "+ userName +" has signed in");
+        }
+        // Currently not implemented since manufacturerScreen is not made*/
+        if (userType.getType().equals(EnumUserType.MANUFACTURER)) {
+            //build a manufacturer and store it globally
+            Main.setUser(userType);
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+            LogManager.println("Manufacturer " + userName + " has signed in");
+//            ((ManufacturerInboxManager) ScreenManager.getCurrentScreen()).initialize();
+        }
+        else if (userType.getType().equals(EnumUserType.AGENT)) {
+            //build an agent and store it globally
+            LogManager.println("we have an agent!");
+            Main.setUser(userType);
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+            LogManager.println("Agent " + userName + " has signed in");
+        }
     }
 
 

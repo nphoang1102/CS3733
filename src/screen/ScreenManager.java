@@ -126,6 +126,18 @@ public class ScreenManager {
         }
     }
 
+    public void closeCurrentPopOut(){
+        LogManager.println("Closing current popout");
+        for(Stage stage: popOutWindows){
+            if(stage!=null) {
+                if(stage.isFocused()) {
+                    stage.close();
+                    popOutWindows.remove(stage);
+                }
+            }
+        }
+    }
+
     public void back(){
         if(screenStates.size()>1){
             LogManager.println("Back Pressed:"+screenStates.getFirst().type);

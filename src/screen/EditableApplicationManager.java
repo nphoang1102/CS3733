@@ -156,7 +156,6 @@ public class EditableApplicationManager extends Screen {
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 
