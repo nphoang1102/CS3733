@@ -1,5 +1,6 @@
 package screen;
 
+import base.Main;
 import database.DataSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -36,6 +37,9 @@ public class UserSettingsManager extends Screen{
     @FXML
     private void saveChanges(){
         //talk to database to save all the changes
+
+        //set screen to manufacturer
+        Main.screenManager.back();
     }
 
     @Override
