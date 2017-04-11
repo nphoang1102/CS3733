@@ -90,7 +90,7 @@ public class LoginScreenManager extends Screen {
         }else{
             //print there is already a user signed in
             error.visibleProperty().setValue(true);
-            error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE's ALREADY SOMEONE SIGNED IN");
+            error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE'S ALREADY SOMEONE SIGNED IN, LOGOUT FIRST");
         }
     }
 

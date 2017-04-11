@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/CreateAccountManager.java" afterPath="$PROJECT_DIR$/src/screen/CreateAccountManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" afterPath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -23,16 +21,16 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="LoginScreenManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginScreenManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screen/LoginScreenManager.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="367">
-              <caret line="92" column="76" lean-forward="false" selection-start-line="92" selection-start-column="76" selection-end-line="92" selection-end-column="76" />
+              <caret line="92" column="130" lean-forward="false" selection-start-line="92" selection-start-column="130" selection-end-line="92" selection-end-column="130" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#572#573#0" expanded="true" />
                 <element signature="e#616#617#0" expanded="true" />
-                <element signature="e#4017#4018#0" expanded="true" />
+                <element signature="e#4031#4032#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -48,14 +46,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginScreen.fxml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoginScreen.fxml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml">
           <provider editor-type-id="text-editor">
             <state relative-caret-position="425">
               <caret line="17" column="53" lean-forward="false" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
               <folding>
-                <marker date="1491945583225" expanded="true" signature="3484:3558" ph="..." />
-                <marker date="1491945583225" expanded="true" signature="3601:3639" ph="..." />
+                <marker date="1491946051740" expanded="true" signature="3484:3558" ph="..." />
+                <marker date="1491946051740" expanded="true" signature="3601:3639" ph="..." />
               </folding>
             </state>
           </provider>
@@ -132,8 +130,8 @@
         <option value="$PROJECT_DIR$/src/database/UserAgent.java" />
         <option value="$PROJECT_DIR$/src/screen/fxml/CreateAccount.fxml" />
         <option value="$PROJECT_DIR$/src/screen/CreateAccountManager.java" />
-        <option value="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
         <option value="$PROJECT_DIR$/src/screen/LoginScreenManager.java" />
+        <option value="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
       </list>
     </option>
   </component>
@@ -747,7 +745,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491942983462</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="can't login over someone else">
+      <created>1491945692803</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1491945692803</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -766,7 +771,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33333334" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2532699" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2532699" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23186682" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32862645" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -808,7 +813,8 @@
     <MESSAGE value="added no username entered error on login" />
     <MESSAGE value="fixed things" />
     <MESSAGE value="fixed creating an account when user doesn't select a type" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed creating an account when user doesn't select a type" />
+    <MESSAGE value="can't login over someone else" />
+    <option name="LAST_COMMIT_MESSAGE" value="can't login over someone else" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1140,31 +1146,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/LoginScreenManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="92" column="130" lean-forward="false" selection-start-line="92" selection-start-column="130" selection-end-line="92" selection-end-column="130" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#572#573#0" expanded="true" />
+            <element signature="e#616#617#0" expanded="true" />
+            <element signature="e#4031#4032#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml">
       <provider editor-type-id="text-editor">
         <state relative-caret-position="425">
           <caret line="17" column="53" lean-forward="false" selection-start-line="17" selection-start-column="53" selection-end-line="17" selection-end-column="53" />
           <folding>
-            <marker date="1491945583225" expanded="true" signature="3484:3558" ph="..." />
-            <marker date="1491945583225" expanded="true" signature="3601:3639" ph="..." />
+            <marker date="1491946051740" expanded="true" signature="3484:3558" ph="..." />
+            <marker date="1491946051740" expanded="true" signature="3601:3639" ph="..." />
           </folding>
         </state>
       </provider>
       <provider selected="true" editor-type-id="JavaFX-Scene-Builder">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/LoginScreenManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="92" column="76" lean-forward="false" selection-start-line="92" selection-start-column="76" selection-end-line="92" selection-end-column="76" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#572#573#0" expanded="true" />
-            <element signature="e#616#617#0" expanded="true" />
-            <element signature="e#4017#4018#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
   </component>

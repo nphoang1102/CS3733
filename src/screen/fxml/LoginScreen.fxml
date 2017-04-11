@@ -71,9 +71,9 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </PasswordField>
-      <Text fx:id="error" fill="#34a88b" layoutX="496.0" layoutY="338.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="error" fill="#34a88b" layoutX="315.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font name="Telugu Sangam MN" size="24.0" />
+            <Font name="Telugu Sangam MN" size="23.0" />
          </font>
       </Text>
     </children>
