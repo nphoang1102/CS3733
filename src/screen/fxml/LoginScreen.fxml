@@ -60,7 +60,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <PasswordField layoutX="478.0" layoutY="347.0" prefHeight="48.0" prefWidth="224.0" promptText="Password" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <PasswordField layoutX="478.0" layoutY="347.0" prefHeight="48.0" prefWidth="330.0" promptText="Password" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -71,9 +71,9 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </PasswordField>
-      <Text fx:id="noUser" fill="#34a88b" layoutX="446.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please Enter A Username">
+      <Text fx:id="error" fill="#34a88b" layoutX="315.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
-            <Font name="Telugu Sangam MN" size="24.0" />
+            <Font name="Telugu Sangam MN" size="23.0" />
          </font>
       </Text>
     </children>

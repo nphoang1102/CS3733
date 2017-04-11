@@ -70,6 +70,9 @@
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></CheckBox>
         <!-- delete the previous to remove comment <CheckBox fx:id="tickPublicUser" layoutX="641.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#selectPublicUser" text="I am a public user" /> delete the following to remove comment-->
-      <Text fx:id="accountError" fill="#941b1b" layoutX="282.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+      <Text fx:id="accountError" fill="#34a88b" layoutX="401.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Telugu Sangam MN" size="24.0" />
+         </font></Text>
     </children>
 </Pane>
