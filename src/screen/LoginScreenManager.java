@@ -58,7 +58,7 @@ public class LoginScreenManager extends Screen{
 
         if(userName.equals("")){
             //print to screen, tell user to enter username, exit
-            //noUser.visibleProperty().setValue(true);
+            noUser.visibleProperty().setValue(true);
             noUser.setText("PLEASE ENTER A USERNAME");
 
         }else {
