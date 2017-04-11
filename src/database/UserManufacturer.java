@@ -7,20 +7,17 @@ import screen.EnumUserType;
  */
 public class UserManufacturer extends User {
     public String Address2;
-    public String Username;
-    public String Email;
     public String Company;
-    public String Name;
     public String RepID;
     public String PlantRegistry;
     public String PhoneNo;
 
     public UserManufacturer(String Username){
         Address2= "";
-        this.Username = Username;
-        Email= "";
+        super.username = Username;
+        super.email = "";
         Company= "";
-        Name= "";
+        super.name = "";
         RepID= "";
         PlantRegistry= "";
         PhoneNo = "";
