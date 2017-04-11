@@ -42,11 +42,11 @@
         <Font name="System Bold" size="15.0" />
       </font></Label>
     <Label fx:id="applicantName" layoutX="80.0" layoutY="300.0" text="applicantName" />
-    <Label layoutX="80.0" layoutY="560.0" prefHeight="21.0" prefWidth="172.0" text="Address of Applicant">
+    <Label layoutX="80.0" layoutY="500.0" prefHeight="21.0" prefWidth="225.0" text="Name and Address of Applicant">
       <font>
         <Font name="System Bold" size="15.0" />
       </font></Label>
-    <Label fx:id="applicantAdd" alignment="TOP_LEFT" layoutX="80.0" layoutY="580.0" prefHeight="140.0" prefWidth="300.0" text="applicantAdd" />
+    <Label fx:id="appNameAndAdd" alignment="TOP_LEFT" layoutX="80.0" layoutY="520.0" prefHeight="179.0" prefWidth="253.0" text="applNameAndAdd" />
     <Label layoutX="760.0" layoutY="70.0" text="Alternate Mailing Address">
       <font>
         <Font name="System Bold" size="15.0" />
@@ -67,11 +67,6 @@
         <Font name="System Bold" size="15.0" />
       </font></Label>
     <Label fx:id="appDate" layoutX="80.0" layoutY="370.0" text="appDate" />
-    <Label layoutX="80.0" layoutY="490.0" prefHeight="21.0" prefWidth="129.0" text="Applicant Name">
-      <font>
-        <Font name="System Bold" size="15.0" />
-      </font></Label>
-    <Label fx:id="appName" layoutX="80.0" layoutY="510.0" text="appName" />
     <SplitPane focusTraversable="true" layoutX="1080.0" layoutY="0.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="200.0" style="-fx-background-color: 373737;">
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="259.0" prefWidth="160.0" style="-fx-background-color: #373737; -fx-border-color: #34a88b; -fx-border-width: 2;">
@@ -148,6 +143,6 @@
         <Font name="System Bold" size="15.0" />
       </font>
     </Label>
-    <Label fx:id="alcContent11" layoutX="590.0" layoutY="580.0" text="vintageYear" />
+    <Label fx:id="vintageYear" layoutX="590.0" layoutY="580.0" text="vintageYear" />
   </children>
 </AnchorPane>
