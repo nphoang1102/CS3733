@@ -129,6 +129,7 @@ public class TopBarManager extends Screen{
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
             onScreenFocused(new BasicDataSet());
+            Main.screenManager.setScreen(EnumScreenType.LOG_IN);
         }else{
 
         }
