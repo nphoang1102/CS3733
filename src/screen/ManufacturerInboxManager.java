@@ -66,13 +66,13 @@ public class ManufacturerInboxManager extends Screen{
 
     public void newApplication(){
         LogManager.println("Creating a new application");
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_ADD_FORM, "New Application", 1280, 720, new BasicDataSet());
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_ADD_FORM, "New Application", 1025, 700, new BasicDataSet());
         return;
     }
 
     public void editApplication(){
         LogManager.println("Editing an application");
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, selected.FanicifulName, 1280, 720, selected);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, selected.FanicifulName, 1025, 700, selected);
         return;
     }
 
@@ -84,7 +84,7 @@ public class ManufacturerInboxManager extends Screen{
     public void onScreenFocused(DataSet dataSet){
         manufacturer = Main.getUsername();
         LogManager.print("Current user is "+manufacturer); //move
-        LinkedList<database.DataSet> appList = DatabaseManager.queryManufacturers(manufacturer);
+        LinkedList<database.DataSet> appList  = new LinkedList<DataSet>();// = DatabaseManager.queryManufacturers(manufacturer);
 
         ObservableList tableList = FXCollections.observableArrayList(); //move
         LogManager.println("appList: "+Integer.toString(appList.size()));
