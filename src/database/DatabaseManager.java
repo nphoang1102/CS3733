@@ -131,7 +131,7 @@ public class DatabaseManager {
                     " AgentName VARCHAR(30),\n" +
                     " DateOfExpiration DATE,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
-                    " AgentUsername BIT(1)\n" +
+                    " AgentUsername VARCHAR(30)\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -141,10 +141,10 @@ public class DatabaseManager {
             statement.executeUpdate("CREATE TABLE Agents(\n" +
                     " ID VARCHAR(30) PRIMARY KEY,\n" +
                     " Username VARCHAR(50) NOT NULL UNIQUE,\n" +
-                    " PasswordHash VARCHAR(30) NOT NULL,\n" +
+                    " PasswordHash VARCHAR(128) NOT NULL,\n" +
                     " Name VARCHAR(50) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
-                    " SuperAgent BOOLEAN NOT NULL\n" +
+                    " SuperAgent VARCHAR(10) NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Agents' exists.", EnumWarningType.NOTE);
@@ -173,7 +173,8 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         String type = Main.screenManager.getSearchTerm();
-        LogManager.println("type = " + type);
+
+        value = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
             if (value.isEmpty() && type == "All") {
                 return queryAlcohol("SELECT * FROM Alcohol;");
@@ -572,97 +573,97 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public void entry() {
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('06110001000003', 'ID-I-15001', '060028', '2016-04-01', 'ROSADO', 'LO BRUJO', '52', '80', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('06110001000003', 'ID-I-15001', '060028', '2016-04-01', 'ROSADO', 'LO BRUJO', '52', '80', 'Beer', '6.4', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('07362001000194', 'BWN-NC-15051', '070049', '2016-04-01', 'VENI VIDI VICI', 'INCORVAIA', '30', '80', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('07362001000194', 'BWN-NC-15051', '070049', '2016-04-01', 'VENI VIDI VICI', 'INCORVAIA', '30', '80', 'Beer', '4.5', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('16047001000297', 'IL-I-340', '160033', '2016-04-04', 'POULSARD VIEILLES VIGNES', 'DOMAINE ROLET PERE ET FILS', '51', '80', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('16047001000297', 'IL-I-340', '160033', '2016-04-04', 'POULSARD VIEILLES VIGNES', 'DOMAINE ROLET PERE ET FILS', '51', '80', 'Beer', '4.0', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('05348001000134', 'BR-MO-ANH-1', '05B645', '2005-12-21', '', 'BUDWEISER', '29', '901', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('05348001000134', 'BR-MO-ANH-1', '05B645', '2005-12-21', '', 'BUDWEISER', '29', '901', 'Beer', '3.9', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('06054001000120', 'BR-MO-ANH-1', '06B722', '2006-10-06', '', 'BUDWEISER', '29', '901', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('06054001000120', 'BR-MO-ANH-1', '06B722', '2006-10-06', '', 'BUDWEISER', '29', '901', 'Beer', '3.8', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('04267001000046', 'BR-MO-ANH-1', '04B554', '2004-10-19', '', 'BUDWEISER', '09', '901', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('04267001000046', 'BR-MO-ANH-1', '04B554', '2004-10-19', '', 'BUDWEISER', '09', '901', 'Beer', '3.7', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('07319001000233', 'BR-TX-ANH-1', '07B886', '2007-11-21', '', 'BUDWEISER', '44', '901', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('07319001000233', 'BR-TX-ANH-1', '07B886', '2007-11-21', '', 'BUDWEISER', '44', '901', 'Beer', '4.1', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer', '4.2', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer', '4.0', '', '')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('12076001000564', 'BWC-CA-5099', '12020A', '2012/04/04', '', 'BERINGER', '01', '81', 'Wine', '1995', '4')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('12076001000564', 'BWC-CA-5099', '12020A', '2012/04/04', '', 'BERINGER', '01', '81', 'Wine', '4.0', '1995', '4')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('12089001000135', 'TPWBH-CA-20114', '1204TP', '2012/04/17', '', 'BERINGER', '70', '81', 'Wine', '1990', '3')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('12089001000135', 'TPWBH-CA-20114', '1204TP', '2012/04/17', '', 'BERINGER', '70', '81', 'Wine', '4.0', '1990', '3')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('09351001000078', 'FL-I-540', '093836', '2009/12/21', '', 'CAVIT', '50', '80', 'Wine', '1999, '3.5')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('09351001000078', 'FL-I-540', '093836', '2009/12/21', '', 'CAVIT', '50', '80', 'Wine', '4.2', '1999, '3.5')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('10155001000193', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '1999', '4')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('10155001000193', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '4.0', '1999', '4')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '654813', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '2000', '4')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '654813', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '4.6', '2000', '4')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '9873331', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '1997', '3.6')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '9873331', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '3.0', '1997', '3.6')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('00568612654101', 'FL-I-540', '03452983', '2007/12/23', '', 'CAVIT', '50', '81', 'Wine', '1990', '4')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('00568612654101', 'FL-I-540', '03452983', '2007/12/23', '', 'CAVIT', '50', '81', 'Wine', '3.9', '1990', '4')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '1992', '5')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '4.6', '1992', '5')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('10096001000193', 'BW-CA-5920', '10LC08', '2010/04/15', 'MAGGY HAWK NO. 5', 'LA CREMA', '01', '88', 'Wine', '1999', '2.9')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('10096001000193', 'BW-CA-5920', '10LC08', '2010/04/15', 'MAGGY HAWK NO. 5', 'LA CREMA', '01', '88', 'Wine', '3.7', '1999', '2.9')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, VintageYear, PH) VALUES ('10096001000196', 'BW-CA-5920', '10LC08', '2010/04/05', 'MAGGY HAWK', 'LA CREMA', '01', '88', 'Wine', '1998', '3')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('10096001000196', 'BW-CA-5920', '10LC08', '2010/04/05', 'MAGGY HAWK', 'LA CREMA', '01', '88', 'Wine', '4.0', '1998', '3')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
