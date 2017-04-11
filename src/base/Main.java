@@ -50,7 +50,7 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", false);
+//        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", false);
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
