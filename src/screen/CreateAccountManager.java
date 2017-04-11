@@ -101,7 +101,7 @@ public class CreateAccountManager extends Screen{
             //tell the system they didn't select a box
             LogManager.println(user+" didn't select a user type");
             //repopulate the field with their name
-            accountError.setText(user+" select a box");
+            accountError.setText(user+", select a box.");
         }
 
         /*else {
