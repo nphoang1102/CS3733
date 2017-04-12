@@ -179,19 +179,19 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         String type = Main.screenManager.getSearchTerm();
-        //LogManager.println("type = " + type);
+        String value1 = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
             if (value.isEmpty() && type == "All") {
                 return queryAlcohol("SELECT * FROM Alcohol;");
             } else {
                 if (type == "All") {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
-                } else if (type == "Beer") {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Beer' AND BrandName LIKE '" + value + "%';");
-                } else if (type == "Wine") {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Wine' AND BrandName LIKE '" + value + "%';");
-                } else {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value + "%';");
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%';");
+                } else if (type == "Beer"){
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "');");
+                } else if (type == "Wine"){
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "');");
+                } else{
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "');");
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
