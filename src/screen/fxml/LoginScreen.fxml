@@ -60,7 +60,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <PasswordField layoutX="478.0" layoutY="347.0" prefHeight="48.0" prefWidth="330.0" promptText="Password" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <PasswordField fx:id ="password" layoutX="478.0" layoutY="347.0" prefHeight="48.0" prefWidth="330.0" promptText="Password" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>

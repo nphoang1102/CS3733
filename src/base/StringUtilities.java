@@ -70,4 +70,12 @@ public class StringUtilities {
         }
         return (dateFormat.format(date)+ttbNum);
     }
+
+    public static String getExpirationDate(){
+        DateFormat dateFormatYear = new SimpleDateFormat("yyyy");
+        DateFormat dateFormatMonth = new SimpleDateFormat("/MM");
+        DateFormat dateFormatDay = new SimpleDateFormat("/dd");
+        Date date = new Date();
+        return ""+(Integer.parseInt(dateFormatYear.format(date))+1)+dateFormatMonth.format(date)+dateFormatDay.format(date);
+    }
 }

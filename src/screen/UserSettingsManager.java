@@ -92,7 +92,9 @@ public class UserSettingsManager extends Screen {
             client.logout();
             fis.close();
             LogManager.println("Uploading image as:"+"TTB/users/"+Main.getUsername()+".jpg");
+
             ScreenManager.updateUserIcon();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

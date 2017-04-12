@@ -11,6 +11,7 @@ public abstract class User extends DataSet {
     public String username;
     public String email;
     public String name;
+    public String PasswordHash;
     public User(){}
     public User(EnumUserType userType, String username, String email, String name){
         this.userType = userType;
