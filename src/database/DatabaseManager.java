@@ -455,7 +455,6 @@ public class DatabaseManager {
             ResultSet getApplications = statement.executeQuery(queryStr);
 
             while (getApplications.next()) {
-                getApplications.next();
                 Application application = new Application();
                 application.ApplicationNo = getApplications.getString("ApplicationNo");
                 application.SerialNo = getApplications.getString("SerialNo");

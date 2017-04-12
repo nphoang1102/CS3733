@@ -216,6 +216,8 @@ public class NewApplicationManager extends Screen {
 
         LogManager.println("Submitting Application");
 
+        Main.screenManager.closeCurrentPopOut();
+
         return;
     }
 

@@ -10,15 +10,12 @@ import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.shape.Polygon;
-import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import java.util.LinkedList;
-import javafx.scene.control.TableColumn;
 
 /**
  * Created by ${mrfortmeyer} on 4/3/2017.
@@ -87,7 +84,6 @@ public class ManufacturerInboxManager extends Screen{
         LogManager.println("Current user is "+manufacturer); //move
         LinkedList<database.DataSet> appList = DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ManufacturerUsername", manufacturer);
 
-        ObservableList tableList = FXCollections.observableArrayList(); //move
         LogManager.println("appList: "+Integer.toString(appList.size()));
 
         this.StatusColumn.setCellValueFactory(new PropertyValueFactory("ApplicationStatus"));
@@ -102,25 +98,38 @@ public class ManufacturerInboxManager extends Screen{
             String tempStatus = data.ApplicationStatus;
             String tempDate = data.DateOfSubmission;
 
-            this.tableList.add(new ManufacturerInboxResult(tempApplicationNo, tempBrand, tempStatus, tempDate));
+            LogManager.println(tempApplicationNo);
+            LogManager.println(tempBrand);
+            LogManager.println(tempStatus);
+            LogManager.println(tempDate);
+
+            ManufacturerInboxResult tempName = new ManufacturerInboxResult(tempApplicationNo, tempBrand, tempStatus, tempDate, data);
+            tableList.add(tempName);
 
             LogManager.println("tableList: "+Integer.toString(tableList.size()));
-
-            /*tempName.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    int tempPlace = tableList.indexOf(tempName);
-                    selected = data;
-                    EditButton.setDisable(false);
-                }
-            });*/
         }
-        //LogManager.println("TTBID 1: "+ tableList.get(0).getTTBID());
+        LogManager.println("TTBID 1: "+ tableList.get(0).getApplicationNo());
+        //LogManager.println("TTBID 1: "+ tableList.get(0).getStatus());
         this.Table.setItems(tableList);
+
+        this.initializeMouseEvent();
     }
 
     @FXML
     void editAccount(){
         Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
+    }
+
+    public void initializeMouseEvent() {
+        Table.setRowFactory( tv -> {
+            TableRow<ManufacturerInboxResult> row = new TableRow();
+            row.setOnMouseClicked(event -> {
+                if ((event.getClickCount() == 2) && (! row.isEmpty())) {
+                    ManufacturerInboxResult rowData = row.getItem();
+                    Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "Edit Application", rowData.app);
+                }
+            });
+            return row;
+        });
     }
 }
