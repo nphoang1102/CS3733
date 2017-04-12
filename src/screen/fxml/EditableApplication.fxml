@@ -55,6 +55,6 @@
         <TextField fx:id="vintage_field" layoutX="775.0" layoutY="130.0" />
         <TextField fx:id="abv_field" layoutX="775.0" layoutY="185.0" />
         <Label fx:id="app_type_label" layoutX="775.0" layoutY="218.0" prefHeight="17.0" prefWidth="89.0" text="AppInfo" />
-        <TextField fx:id="app_type_field" layoutX="775.0" layoutY="238.0" onAction="#onTypeSelected" />
+        <TextField fx:id="app_type_field" layoutX="775.0" layoutY="238.0" />
     </children>
 </AnchorPane>
