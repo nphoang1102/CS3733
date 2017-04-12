@@ -52,13 +52,29 @@ public class UserSettingsManager extends Screen {
     private void saveChanges() {
         //talk to database to save all the changes
         String username = Main.getUsername();
-        UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", username).get(0);
+        //UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", username).get(0);
 
-        man.name = firstName.getText()+lastName.getText();
+        UserManufacturer man = (UserManufacturer) Main.getUser();
+
+        LogManager.println(man.name);
+        LogManager.println(man.PhoneNo);
+        LogManager.println(man.RepID);
+        LogManager.println(man.PlantRegistry);
+        LogManager.println(man.email);
+
+        man.name = firstName.getText()+" "+lastName.getText();
         man.PhoneNo = phoneNumber.getText();
         man.RepID = representativeIdNumber.getText();
         man.PlantRegistry = plantRegistryBasicPermitNumber.getText();
         man.email = email.getText();
+
+        LogManager.println(man.name);
+        LogManager.println(man.PhoneNo);
+        LogManager.println(man.RepID);
+        LogManager.println(man.PlantRegistry);
+        LogManager.println(man.email);
+
+        DatabaseManager.updateManufacturer(man);
 
         //set screen to manufacturer
         Main.screenManager.back();
@@ -78,5 +94,15 @@ public class UserSettingsManager extends Screen {
 //        FileChooser fileChooser = new FileChooser();
 //        fileChooser.setTitle("Open Resource File");
 //        fileChooser.showOpenDialog(stage);
+
+        UserManufacturer man = (UserManufacturer) Main.getUser();
+        firstName.setText(man.name.split(" ")[0]);
+        lastName.setText(man.name.split(" ")[1]);
+        email.setText(man.email);
+        phoneNumber.setText(man.PhoneNo);
+        representativeIdNumber.setText(man.RepID);
+        plantRegistryBasicPermitNumber.setText(man.PlantRegistry);
+
+
     }
 }
