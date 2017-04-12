@@ -30,7 +30,7 @@ import static base.Main.screenManager;
 public class AgentInboxManager extends Screen{
 
     @FXML
-    private Button pullNewBatch, editAccount;
+    private Button pullNewBatch, EditAccount;
     @FXML
     private Polygon backButton;
     @FXML
