@@ -1,29 +1,13 @@
 package base;
 
 import database.DatabaseManager;
-import database.PasswordStorage;
 import database.User;
 import database.UserAgent;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
 import screen.ScreenManager;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 
 public class Main extends Application{
 
@@ -66,13 +50,13 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-
+        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", false);
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
-
-        //databaseManager.entryTest();
+        //databaseManager.CreateTables();
+        //databaseManager.entry();
         /*
             Check to see if local directories for Saves and Log files exist,
             if any directories are not found, create them.
@@ -112,7 +96,6 @@ public class Main extends Application{
         @param args System arguments passed into the application through the command line.
      */
     public static void main(String[] args) {
-
         Main main = new Main();
         main.launch(args);
     }
@@ -136,6 +119,8 @@ public class Main extends Application{
     }
 
     public static void setUser (User u){
-        user = u;
+        user.setType(u.getType());
+        user.setEmail(u.getEmail());
+        user.setUsername(u.getUsername());
     }
 }
