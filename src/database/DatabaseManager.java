@@ -179,23 +179,23 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         String type = Main.screenManager.getSearchTerm();
-        LogManager.println("type = " + type);
+        String value1 = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
             if (value.isEmpty() && type == "All") {
                 return queryAlcohol("SELECT * FROM Alcohol;");
             } else {
                 if (type == "All") {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
-                } else if (type == "Beer") {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Beer' AND BrandName LIKE '" + value + "%';");
-                } else if (type == "Wine") {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Wine' AND BrandName LIKE '" + value + "%';");
-                } else {
-                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value + "%';");
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%';");
+                } else if (type == "Beer"){
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "');");
+                } else if (type == "Wine"){
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "');");
+                } else{
+                    return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "');");
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
-            return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
+            return queryApplications("SELECT * FROM Applications WHERE " + column + " = '" + value + "';", "");
         } else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
@@ -436,7 +436,12 @@ public class DatabaseManager {
         LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
         LinkedList<Application> addToInbox = new LinkedList<>();
         for (int i = 0; i < num; i++) {
-            addToInbox.add((Application) applicationLinkedList.get(i));
+            try{
+                addToInbox.add((Application) applicationLinkedList.get(i));
+            }catch(Exception e){
+                break;
+            }
+
         }
         return addToInbox;
     }
@@ -450,7 +455,6 @@ public class DatabaseManager {
             ResultSet getApplications = statement.executeQuery(queryStr);
 
             while (getApplications.next()) {
-                getApplications.next();
                 Application application = new Application();
                 application.ApplicationNo = getApplications.getString("ApplicationNo");
                 application.SerialNo = getApplications.getString("SerialNo");
@@ -552,17 +556,20 @@ public class DatabaseManager {
                 user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
                 LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                 if (!manufacturerLinkedList.isEmpty()) {
+                    LogManager.println("YARP! WE FOUND " + username + "!");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
-                    LogManager.println("User " + username + " is an agent");
+                    LogManager.println("User " + manufacturer.username + " is a manufacturer");
                     try{
                         tryPassword(username, password, user.getString("PasswordHash"));
-                    }catch(Exception e){
-
                     }
+                    catch (Exception e){
+                        LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+                    }
+                    LogManager.println("NIGGA WE MADE IT");
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
-                    throw new UserNotFoundException(username);
+                    //throw new UserNotFoundException(username);
                 }
 
             }

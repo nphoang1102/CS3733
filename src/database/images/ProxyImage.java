@@ -7,16 +7,19 @@ import javafx.scene.image.ImageView;
  */
 public class ProxyImage implements ImageInterface {
 
-
-    private String URL;
+    private String url;
 
     public ProxyImage(String URL){
-        this.URL = URL;
+        url = URL;
     }
 
     @Override
-    public void displayImage(ImageView imageView) {
-        ImageOnServer image = new ImageOnServer(URL);
-        image.displayImage(imageView);
+    public void displayImage(ImageView imageView){
+        new ImageOnServer(url).displayImage(imageView);
+    }
+
+    @Override
+    public boolean exists() {
+        return new ImageOnServer(url).exists();
     }
 }
