@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="Agent Inbox No more repeatable things and datbase changes">
+    <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/DatabaseManager.java" afterPath="$PROJECT_DIR$/src/database/DatabaseManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/AgentAppScreenManager.java" afterPath="$PROJECT_DIR$/src/screen/AgentAppScreenManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -22,8 +20,8 @@
       <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="440" column="81" lean-forward="false" selection-start-line="440" selection-start-column="81" selection-end-line="440" selection-end-column="81" />
+            <state relative-caret-position="221">
+              <caret line="514" column="4" lean-forward="false" selection-start-line="514" selection-start-column="4" selection-end-line="514" selection-end-column="4" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1207#1208#0" expanded="true" />
@@ -535,7 +533,14 @@
       <option name="project" value="LOCAL" />
       <updated>1492009745437</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Agent Inbox Fully opperational">
+      <created>1492012636679</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1492012636679</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -578,7 +583,8 @@
     <MESSAGE value="Merge branch 'master-2' of https://github.com/bhsostek/csgetdegrees into agent&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/database/DatabaseManager.java&#10;" />
     <MESSAGE value="Agent Inbox Works" />
     <MESSAGE value="Agent Inbox No more repeatable things and datbase changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Agent Inbox No more repeatable things and datbase changes" />
+    <MESSAGE value="Agent Inbox Fully opperational" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agent Inbox Fully opperational" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -987,8 +993,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="440" column="81" lean-forward="false" selection-start-line="440" selection-start-column="81" selection-end-line="440" selection-end-column="81" />
+        <state relative-caret-position="221">
+          <caret line="514" column="4" lean-forward="false" selection-start-line="514" selection-start-column="4" selection-end-line="514" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1207#1208#0" expanded="true" />

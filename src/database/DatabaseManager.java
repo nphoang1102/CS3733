@@ -513,61 +513,6 @@ public class DatabaseManager {
         return applicationLinkedList;
     }
 
-/*    /////////////////////////////////////////////////////////////////////////////////
-    /////////////////////PullApplications////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> PullAplications(String queryStr){
-
-        LinkedList<DataSet> applicationLinkedList = new LinkedList<>();
-        try {
-            ResultSet getApplications = statement.executeQuery(queryStr);
-
-            while (getApplications.next()) {
-                if(getApplications.getString("AgentUsername").equals(null) && getApplications.getString("Status").equals("PENDING")) {
-                    LogManager.println("pulling from Database");
-                    Application application = new Application();
-                    application.ApplicationNo = getApplications.getString("ApplicationNo");
-                    application.SerialNo = getApplications.getString("SerialNo");
-                    application.ApplicationType = getApplications.getString("ApplicationType");
-                    application.ApplicationStatus = getApplications.getString("ApplicationStatus");
-                    application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
-                    application.AgentName = getApplications.getString("AgentName");
-                    application.AgentUsername = queryStr;
-                    application.RepID = getApplications.getString("RepID");
-                    application.PlantRegistry = getApplications.getString("PlantRegistry");
-                    application.Locality = getApplications.getString("Locality");
-                    application.Brand = getApplications.getString("Brand");
-                    application.FancifulName = getApplications.getString("FancifulName");
-                    application.AlcoholType = getApplications.getString("AlcoholType");
-                    application.ABV = getApplications.getString("ABV");
-                    application.Address = getApplications.getString("Address");
-                    application.Address2 = getApplications.getString("Address2");
-                    application.Formula = getApplications.getString("Formula");
-                    application.WineAppelation = getApplications.getString("WineAppelation");
-                    application.VintageDate = getApplications.getString("VintageDate");
-                    application.Grapes = getApplications.getString("Grapes");
-                    application.PH = getApplications.getString("PH");
-                    application.PhoneNo = getApplications.getString("PhoneNo");
-                    application.Email = getApplications.getString("Email");
-                    application.AdditionalInfo = getApplications.getString("AdditionalInfo");
-                    application.DateOfSubmission = getApplications.getString("DateOfSubmission");
-                    application.DateOfApproval = getApplications.getString("DateOfApproval");
-                    application.DateOfExpiration = getApplications.getString("DateOfExpiration");
-                    application.ApprovedTTBID = getApplications.getString("ApprovedTTBID");
-                    application.ReasonForRejection = getApplications.getString("ReasonForRejection");
-                    applicationLinkedList.add(application);
-                    String thisApplicationNo = getApplications.getString("ApplicationNo");
-                }
-
-            }
-        } catch (SQLException e) {
-            LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
-            return new LinkedList<>();
-        }
-
-        return applicationLinkedList;
-
-    }*/
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD USERS/////////////////////////////////////////////////////////////
