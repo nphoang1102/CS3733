@@ -84,7 +84,7 @@ public class ManufacturerInboxManager extends Screen{
     @Override
     public void onScreenFocused(DataSet dataSet){
         manufacturer = Main.getUsername();
-        LogManager.print("Current user is "+manufacturer); //move
+        LogManager.println("Current user is "+manufacturer); //move
         LinkedList<database.DataSet> appList = DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ManufacturerUsername", manufacturer);
 
         ObservableList tableList = FXCollections.observableArrayList(); //move

@@ -72,8 +72,10 @@ public class StringUtilities {
     }
 
     public static String getExpirationDate(){
-        DateFormat dateFormat = new SimpleDateFormat("yyyy");
+        DateFormat dateFormatYear = new SimpleDateFormat("yyyy");
+        DateFormat dateFormatMonth = new SimpleDateFormat("/MM");
+        DateFormat dateFormatDay = new SimpleDateFormat("/dd");
         Date date = new Date();
-        return ""+(Integer.parseInt(dateFormat.format(date))+1);
+        return ""+(Integer.parseInt(dateFormatYear.format(date))+1)+dateFormatMonth.format(date)+dateFormatDay.format(date);
     }
 }
