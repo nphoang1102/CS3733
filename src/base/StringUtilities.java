@@ -71,6 +71,14 @@ public class StringUtilities {
         return (dateFormat.format(date)+ttbNum);
     }
 
+    public static String getDate(){
+        DateFormat dateFormatYear = new SimpleDateFormat("yyyy");
+        DateFormat dateFormatMonth = new SimpleDateFormat("/MM");
+        DateFormat dateFormatDay = new SimpleDateFormat("/dd");
+        Date date = new Date();
+        return ""+(Integer.parseInt(dateFormatYear.format(date)))+dateFormatMonth.format(date)+dateFormatDay.format(date);
+    }
+
     public static String getExpirationDate(){
         DateFormat dateFormatYear = new SimpleDateFormat("yyyy");
         DateFormat dateFormatMonth = new SimpleDateFormat("/MM");

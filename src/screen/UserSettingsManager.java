@@ -1,11 +1,9 @@
 package screen;
 
-import base.EnumWarningType;
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
-import database.Application;
-import database.DataSet;
-import javafx.embed.swing.SwingFXUtils;
+import database.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -17,13 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.apache.commons.net.ftp.FTPClient;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * Created by ${Victor} on 4/9/2017.
@@ -58,6 +51,30 @@ public class UserSettingsManager extends Screen {
     @FXML
     private void saveChanges() {
         //talk to database to save all the changes
+        String username = Main.getUsername();
+        //UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", username).get(0);
+
+        UserManufacturer man = (UserManufacturer) Main.getUser();
+
+        LogManager.println(man.name);
+        LogManager.println(man.PhoneNo);
+        LogManager.println(man.RepID);
+        LogManager.println(man.PlantRegistry);
+        LogManager.println(man.email);
+
+        man.name = firstName.getText()+" "+lastName.getText();
+        man.PhoneNo = phoneNumber.getText();
+        man.RepID = representativeIdNumber.getText();
+        man.PlantRegistry = plantRegistryBasicPermitNumber.getText();
+        man.email = email.getText();
+
+        LogManager.println(man.name);
+        LogManager.println(man.PhoneNo);
+        LogManager.println(man.RepID);
+        LogManager.println(man.PlantRegistry);
+        LogManager.println(man.email);
+
+        DatabaseManager.updateManufacturer(man);
 
         //set screen to manufacturer
         Main.screenManager.back();
@@ -67,37 +84,9 @@ public class UserSettingsManager extends Screen {
 
     @FXML
     private void EditProfilePic(){
-        if(Main.getUsername().isEmpty()){
-            return;
-        }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
-
-
-        if(!filename.endsWith(".jpg")){
-            return;
-        }
-
-        LogManager.println("File:"+filename);
-
-        FTPClient client = new FTPClient();
-        FileInputStream fis = null;
-        try {
-            client.connect("72.93.244.26");
-            client.login("cadbo", "seafoamgreen");
-
-            fis = new FileInputStream(filename);
-            client.storeFile("TTB/users/"+Main.getUsername()+".jpg", fis);
-            client.logout();
-            fis.close();
-            LogManager.println("Uploading image as:"+"TTB/users/"+Main.getUsername()+".jpg");
-
-            ScreenManager.updateUserIcon();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        fileChooser.showOpenDialog(primaryStage);
     }
 
     @Override
@@ -110,22 +99,26 @@ public class UserSettingsManager extends Screen {
                 //if we have a manufacturer fire up all the fields
                 firstName.visibleProperty().setValue(true);
                 lastName.visibleProperty().setValue(true);
-                company.visibleProperty().setValue(true);
                 email.visibleProperty().setValue(true);
-                breweryPermitNumber.visibleProperty().setValue(true);
                 phoneNumber.visibleProperty().setValue(true);
                 representativeIdNumber.visibleProperty().setValue(true);
                 plantRegistryBasicPermitNumber.visibleProperty().setValue(true);
             }
             if(Main.getUserType().equalsIgnoreCase("agent")){
                 //if we have an agent, hide manufacturer fields
-                company.visibleProperty().setValue(false);
                 email.visibleProperty().setValue(false);
-                breweryPermitNumber.visibleProperty().setValue(false);
                 phoneNumber.visibleProperty().setValue(false);
                 representativeIdNumber.visibleProperty().setValue(false);
                 plantRegistryBasicPermitNumber.visibleProperty().setValue(false);
             }
         }
+
+        UserManufacturer man = (UserManufacturer) Main.getUser();
+        firstName.setText(man.name.split(" ")[0]);
+        lastName.setText(man.name.split(" ")[1]);
+        email.setText(man.email);
+        phoneNumber.setText(man.PhoneNo);
+        representativeIdNumber.setText(man.RepID);
+        plantRegistryBasicPermitNumber.setText(man.PlantRegistry);
     }
 }

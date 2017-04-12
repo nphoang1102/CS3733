@@ -78,6 +78,12 @@ public class EditableApplicationManager extends Screen {
     private TextField abv_field;
 
     @FXML
+    private Label RejectionLabel;
+
+    @FXML
+    private Label RejectionField;
+
+    @FXML
     private Button submit_button;
 
     @FXML
@@ -94,7 +100,7 @@ public class EditableApplicationManager extends Screen {
     public void onScreenFocused(DataSet dataSet){
         //Load all field text
         if(dataSet instanceof Application) {
-            Application application = (Application)dataSet;
+            Application application = (Application) dataSet;
             repid_field.setText(application.RepID);
             // brewNo exists as PlantRegistry in Data Set
             plant_number_field.setText(application.PlantRegistry);
@@ -115,6 +121,7 @@ public class EditableApplicationManager extends Screen {
             abv_field.setText(application.ABV);
             ph_field.setText(application.PH);
             vintage_field.setText(application.VintageDate);
+            RejectionField.setText(((Application) dataSet).ReasonForRejection);
 
             app_type_box.setValue(application.ApplicationType);
             product_source_box.setValue(application.Locality);
@@ -123,26 +130,31 @@ public class EditableApplicationManager extends Screen {
             LogManager.println("Error: DataSet dataSet passed to EditableApplicationManager was not Application");
         }
 
+        if(((Application) dataSet).ApplicationStatus.equals("APPROVED")) {
+            // Disabled
+            email_field.setDisable(true);
+            app_type_box.setDisable(true);
+            date_submitted_field.setDisable(true);
+            applicant_name_field.setDisable(true);
+            plant_number_field.setDisable(true);
+            serial_number_field.setDisable(true);
+            phone_num_field.setDisable(true);
+            fanciful_field.setDisable(true);
+            //vintage_field.setDisable(true); //NOT DISABLED
+            //ph_field.setDisable(true); //NOT DISABLED
+            //abv_field.setDisable(true); //NOT DISABLED
+            formula_field.setDisable(true);
+            brand_name_field.setDisable(true);
+            repid_field.setDisable(true);
+            //add_info_field.setDisable(true);
+            address_field.setDisable(true);
+            address_field_2.setDisable(true);
 
-        // Disabled
-        email_field.setDisable(true);
-        app_type_box.setDisable(true);
-        add_info_field.setDisable(true);
-        date_submitted_field.setDisable(true);
-        applicant_name_field.setDisable(true);
-        //vintage_field.setDisable(true); //NOT DISABLED
-        //ph_field.setDisable(true); //NOT DISABLED
-        //abv_field.setDisable(true); //NOT DISABLED
-        formula_field.setDisable(true);
-        brand_name_field.setDisable(true);
-        repid_field.setDisable(true);
-        add_info_field.setDisable(true);
-        address_field.setDisable(true);
-        address_field_2.setDisable(true);
+            RejectionField.setVisible(false);
+            RejectionLabel.setVisible(false);
 
-
-        //setVisibility of additional elements
-
+            //setVisibility of additional elements
+        }
     }
 
     public void submit(){
@@ -197,6 +209,7 @@ public class EditableApplicationManager extends Screen {
         app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
+        app.AgentUsername = "";
 
         database.DatabaseManager.submitApplication(app);
         LogManager.println("Submitting Application");
