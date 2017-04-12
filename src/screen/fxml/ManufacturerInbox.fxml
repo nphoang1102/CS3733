@@ -23,7 +23,7 @@
          </cursor></Button>
         <ScrollPane layoutX="200.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="880.0" style="-fx-background-color: #;">
          <content>
-            <TableView fx:id="Table" prefHeight="578.0" prefWidth="878.0">
+            <TableView fx:id="Table" prefHeight="578.0" prefWidth="878.0" stylesheets="@../css/ColaSearchResult.css">
               <columns>
                 <TableColumn fx:id="TTBIDColumn" prefWidth="94.0" text="TTBID" />
                 <TableColumn fx:id="NameColumn" prefWidth="340.0" text="Name" />
