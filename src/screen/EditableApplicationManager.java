@@ -89,10 +89,17 @@ public class EditableApplicationManager extends Screen {
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
-        //initialize();
     }
 
     public void onScreenFocused(DataSet dataSet){
+        email_field.setDisable(true);
+        app_type_box.setDisable(true);
+        add_info_field.setDisable(true);
+        date_submitted_field.setDisable(true);
+        applicant_name_field.setDisable(true);
+        vintage_field.setDisable(true);
+        ph_field.setDisable(true);
+        abv_field.setDisable(true);
     }
 
     public void submit(){
