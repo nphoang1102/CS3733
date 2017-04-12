@@ -14,6 +14,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -26,7 +27,7 @@
          <effect>
             <InnerShadow blurType="ONE_PASS_BOX" height="0.0" radius="0.0" width="0.0" />
          </effect></Rectangle>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#34a88b" height="451.0" layoutX="370.0" layoutY="122.0" opacity="0.23" stroke="WHITE" strokeType="INSIDE" width="539.0">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#34a88b" height="451.0" layoutX="370.0" layoutY="122.0" opacity="0.05" stroke="WHITE" strokeType="INSIDE" width="539.0">
          <effect>
             <InnerShadow choke="0.89" color="#dbdbdb" height="255.0" radius="127.0" width="255.0" />
          </effect>
@@ -43,14 +44,7 @@
          </effect>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <Text fx:id="error" fill="#34a88b" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER">
-               <font>
-                  <Font name="Telugu Sangam MN" size="23.0" />
-               </font>
-            </Text>
-         </graphic></Button>
+         </cursor></Button>
       <TextField fx:id="usernameField" layoutX="475.0" layoutY="264.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" promptText="Username" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
@@ -72,7 +66,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <PasswordField layoutX="478.0" layoutY="347.0" prefHeight="48.0" prefWidth="330.0" promptText="Password" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <PasswordField layoutX="475.0" layoutY="348.0" prefHeight="48.0" prefWidth="330.0" promptText="Password" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -83,6 +77,11 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </PasswordField>
+      <Text fx:id="error" fill="#34a88b" layoutX="478.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="no errors yet" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="23.0" />
+         </font>
+      </Text>
     </children>
     <effect>
         <ColorAdjust />
