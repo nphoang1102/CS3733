@@ -48,28 +48,27 @@ public class LoginScreenManager extends Screen {
             this.userName = usernameField.getText();
             this.usernameField.clear();
 
-            User curUser = null;
-            try {
-                curUser = Main.databaseManager.login(userName, "");
-            } catch (DatabaseManager.UserNotFoundException e) {
-                e.printStackTrace();
-            } catch (DatabaseManager.IncorrectPasswordException e) {
-                e.printStackTrace();
-            } catch (PasswordStorage.InvalidHashException e) {
-                e.printStackTrace();
-            } catch (PasswordStorage.CannotPerformOperationException e) {
-                e.printStackTrace();
-            }
-
-            Enum userType = curUser.getType();
-            Main.setUser(curUser);
-
             if (userName.equals("")) {
                 //print to screen, tell user to enter username, exit
                 error.visibleProperty().setValue(true);
                 error.setText("PLEASE ENTER A USERNAME");
-
+                LogManager.println("need a username");
             } else {
+                User curUser = null;
+                try {
+                    curUser = Main.databaseManager.login(userName, "");
+                } catch (DatabaseManager.UserNotFoundException e) {
+                    e.printStackTrace();
+                } catch (DatabaseManager.IncorrectPasswordException e) {
+                    e.printStackTrace();
+                } catch (PasswordStorage.InvalidHashException e) {
+                    e.printStackTrace();
+                } catch (PasswordStorage.CannotPerformOperationException e) {
+                    e.printStackTrace();
+                }
+
+                Enum userType = curUser.getType();
+                Main.setUser(curUser);
                 if (userType.equals(EnumUserType.PUBLIC_USER)) {
                     Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
                 }
@@ -118,11 +117,5 @@ public class LoginScreenManager extends Screen {
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
         error.visibleProperty().setValue(false);
-    }
-
-    public void centerError(){
-        double center;
-        center = (background.getWidth()-error.getWrappingWidth())/2;
-        error.setTextAlignment(TextAlignment.CENTER);
     }
 }
