@@ -86,6 +86,8 @@ public class ManufacturerInboxManager extends Screen{
 
         LogManager.println("appList: "+Integer.toString(appList.size()));
 
+        tableList.clear();
+
         this.StatusColumn.setCellValueFactory(new PropertyValueFactory("ApplicationStatus"));
         this.DateColumn.setCellValueFactory(new PropertyValueFactory("DateOfSubmission"));
         this.TTBIDColumn.setCellValueFactory(new PropertyValueFactory("ApplicationNo"));
