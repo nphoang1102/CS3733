@@ -82,8 +82,12 @@ public class TopBarManager extends Screen{
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
         if(!lastFoucs.equals(Main.getUsername())) {
+            action.setVisible(true);
             if(Main.getUserType().equals(EnumUserType.AGENT.getTextualName())){
                 action.setText("Inbox");
+            }
+            if(Main.getUserType().equals(EnumUserType.MANUFACTURER.getTextualName())){
+                action.setText("Home");
             }
             if (!Main.getUserType().isEmpty()) {
                 logIn.setText("Log Out");
@@ -111,6 +115,7 @@ public class TopBarManager extends Screen{
                     userImage.displayImage(userIcon);
                 }
             } else {
+                action.setVisible(false);
                 imageLetter.setText("");
                 logIn.setText("Log In");
                 BufferedImage bufferedImage;
@@ -143,7 +148,10 @@ public class TopBarManager extends Screen{
     @FXML
     public void action(){
         if(Main.getUserType().equals(EnumUserType.AGENT.getTextualName())){
-            action.setText("Inbox");
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        }
+        if(Main.getUserType().equals(EnumUserType.MANUFACTURER.getTextualName())){
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         }
     }
 
