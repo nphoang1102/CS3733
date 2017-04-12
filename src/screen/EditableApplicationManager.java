@@ -84,6 +84,9 @@ public class EditableApplicationManager extends Screen {
     private Label RejectionField;
 
     @FXML
+    private TextField app_type_field;
+
+    @FXML
     private Button submit_button;
 
     @FXML
@@ -152,6 +155,36 @@ public class EditableApplicationManager extends Screen {
 
             RejectionField.setVisible(false);
             RejectionLabel.setVisible(false);
+
+            //setVisibility of additional elements
+        } if(((Application) dataSet).ApplicationStatus.equals("PENDING")) {
+            // Disabled
+            email_field.setDisable(true);
+            app_type_box.setDisable(true);
+            date_submitted_field.setDisable(true);
+            applicant_name_field.setDisable(true);
+            plant_number_field.setDisable(true);
+            serial_number_field.setDisable(true);
+            phone_num_field.setDisable(true);
+            fanciful_field.setDisable(true);
+            vintage_field.setDisable(true); //NOT DISABLED
+            ph_field.setDisable(true); //NOT DISABLED
+            abv_field.setDisable(true); //NOT DISABLED
+            formula_field.setDisable(true);
+            brand_name_field.setDisable(true);
+            repid_field.setDisable(true);
+            add_info_field.setDisable(true);
+            address_field.setDisable(true);
+            address_field_2.setDisable(true);
+            add_info_field.setDisable(true);
+            appellation_field.setDisable(true);
+            grapes_field.setDisable(true);
+
+            app_type_field.setDisable(true);
+
+            RejectionField.setVisible(false);
+            RejectionLabel.setVisible(false);
+            submit_button.setVisible(false);
 
             //setVisibility of additional elements
         }
