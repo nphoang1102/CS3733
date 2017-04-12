@@ -219,6 +219,28 @@ public class NewApplicationManager extends Screen {
         return;
     }
 
+    public void clearFields() {
+        app_type_field.clear();
+        repid_field.clear();
+        address_field_2.clear();
+        address_field.clear();
+        serial_number_field.clear();
+        abv_field.clear();
+        appellation_field.clear();
+        fanciful_field.clear();
+        add_info_field.clear();
+        applicant_name_field.clear();
+        brand_name_field.clear();
+        date_submitted_field.clear();
+        email_field.clear();
+        formula_field.clear();
+        grapes_field.clear();
+        ph_field.clear();
+        phone_num_field.clear();
+        plant_number_field.clear();
+        vintage_field.clear();
+    }
+
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
 
