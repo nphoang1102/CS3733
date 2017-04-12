@@ -16,7 +16,7 @@
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" stroke="#1c8c7b" strokeType="INSIDE" width="1280.0" />
         <Text layoutX="462.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" />
         <Sphere layoutX="632.0" layoutY="348.0" radius="0.77" />
-        <Text layoutX="351.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
+        <Text fill="#616161" layoutX="351.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
             <font>
                 <Font name="Telugu Sangam MN" size="48.0" />
             </font>
@@ -29,7 +29,7 @@
             <Cursor fx:constant="DEFAULT" />
          </cursor>
         </Text>
-        <TextField fx:id="username" layoutX="526.0" layoutY="271.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
+        <TextField fx:id="username" layoutX="526.0" layoutY="271.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
          <effect>
             <Reflection />
          </effect>
@@ -39,7 +39,7 @@
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></TextField>
-        <Button fx:id="createAccount" layoutX="541.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#makeAccount" prefHeight="50" prefWidth="200" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-background-color: #939393;" text="Create Account" textFill="WHITE">
+        <Button fx:id="createAccount" layoutX="541.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#makeAccount" prefHeight="50" prefWidth="200" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-background-color: #939393;" text="Create Account" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -59,7 +59,7 @@
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></CheckBox>
-        <CheckBox fx:id="tickManufacturer" layoutX="787.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" style="-fx-font: Teluga Sangam MN; -fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;" text="I am a Manufacturer" textFill="#616161">
+        <CheckBox fx:id="tickManufacturer" layoutX="787.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;" text="I am a Manufacturer" textFill="#616161">
          <effect>
             <Reflection fraction="0.18" />
          </effect>
@@ -70,6 +70,9 @@
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></CheckBox>
         <!-- delete the previous to remove comment <CheckBox fx:id="tickPublicUser" layoutX="641.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#selectPublicUser" text="I am a public user" /> delete the following to remove comment-->
-      <Text fx:id="accountError" fill="#941b1b" layoutX="282.0" layoutY="343.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+      <Text fx:id="accountError" fill="#34a88b" layoutX="401.0" layoutY="351.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font name="Telugu Sangam MN" size="24.0" />
+         </font></Text>
     </children>
 </Pane>
