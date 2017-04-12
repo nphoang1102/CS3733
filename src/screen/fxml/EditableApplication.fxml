@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.EditableApplicationManager">
+<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.EditableApplicationManager">
     <children>
         <TextField fx:id="repid_field" layoutX="100.0" layoutY="75.0" prefWidth="150.0" />
         <Label contentDisplay="RIGHT" layoutX="100.0" layoutY="55.0" prefHeight="20.0" text="Rep ID. No.:" textAlignment="RIGHT" />
@@ -56,6 +56,6 @@
         <Label fx:id="app_type_label" layoutX="775.0" layoutY="218.0" prefHeight="17.0" prefWidth="89.0" text="AppInfo" />
         <TextField fx:id="app_type_field" layoutX="775.0" layoutY="238.0" />
       <Label fx:id="RejectionLabel" layoutX="775.0" layoutY="345.0" text="Reason For Rejection:" />
-      <Label fx:id="RejectionField" alignment="CENTER" layoutX="775.0" layoutY="390.0" prefHeight="137.0" prefWidth="175.0" text="Rejection Reason" textAlignment="CENTER" wrapText="true" />
+      <Label fx:id="RejectionField" alignment="TOP_CENTER" layoutX="775.0" layoutY="390.0" prefHeight="137.0" prefWidth="175.0" text="Rejection Reason" textAlignment="CENTER" wrapText="true" />
     </children>
 </AnchorPane>
