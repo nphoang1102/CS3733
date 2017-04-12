@@ -115,7 +115,7 @@ public class DatabaseManager {
                     " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " AgentName VARCHAR(30),\n" +
-                    " AgentUsername BIT(1),\n" +
+                    " AgentUsername VARCHAR(30),\n" +
                     " RepID VARCHAR(30) PRIMARY KEY,\n" +
                     " PlantRegistry VARCHAR(30) NOT NULL,\n" +
                     " Locality VARCHAR(30) NOT NULL,\n" +
@@ -127,7 +127,7 @@ public class DatabaseManager {
                     " Address2 VARCHAR(100),\n" +
                     " Formula VARCHAR(500) NOT NULL,\n" +
                     " WineAppelation VARCHAR(50),\n" +
-                    " VintageDate DATE,\n" +
+                    " VintageDate VARCHAR(4),\n" +
                     " Grapes VARCHAR(50),\n" +
                     " PH VARCHAR(10),\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
