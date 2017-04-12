@@ -48,12 +48,16 @@ public class LoginScreenManager extends Screen {
                 curUser = Main.databaseManager.login(userName, "");
             } catch (DatabaseManager.UserNotFoundException e) {
                 e.printStackTrace();
+                return;
             } catch (DatabaseManager.IncorrectPasswordException e) {
                 e.printStackTrace();
+                return;
             } catch (PasswordStorage.InvalidHashException e) {
                 e.printStackTrace();
+                return;
             } catch (PasswordStorage.CannotPerformOperationException e) {
                 e.printStackTrace();
+                return;
             }
 
             Enum userType = curUser.getType();

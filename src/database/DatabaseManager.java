@@ -436,11 +436,7 @@ public class DatabaseManager {
         LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
         LinkedList<Application> addToInbox = new LinkedList<>();
         for (int i = 0; i < num; i++) {
-            try{
-                addToInbox.add((Application) applicationLinkedList.get(i));
-            }catch (Exception e){
-                LogManager.println("No Applications found", EnumWarningType.WARNING);
-            }
+            addToInbox.add((Application) applicationLinkedList.get(i));
         }
         return addToInbox;
     }
@@ -454,7 +450,7 @@ public class DatabaseManager {
             ResultSet getApplications = statement.executeQuery(queryStr);
 
             while (getApplications.next()) {
-                //getApplications.next();
+                getApplications.next();
                 Application application = new Application();
                 application.ApplicationNo = getApplications.getString("ApplicationNo");
                 application.SerialNo = getApplications.getString("SerialNo");
@@ -489,7 +485,7 @@ public class DatabaseManager {
                 String thisApplicationNo = getApplications.getString("ApplicationNo");
                 if (!setAgent.equals("")) {
                     try {
-                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
+                        statement.executeUpdate("UPDATE Applications SET InboxAgent = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + thisApplicationNo + " !", EnumWarningType.ERROR);
                     }
@@ -553,16 +549,20 @@ public class DatabaseManager {
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {
-                //user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
+                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
                 LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                 if (!manufacturerLinkedList.isEmpty()) {
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
                     LogManager.println("User " + username + " is an agent");
-                    tryPassword(username, password, user.getString("PasswordHash"));
+                    try{
+                        tryPassword(username, password, user.getString("PasswordHash"));
+                    }catch(Exception e){
+
+                    }
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
-                    //throw new UserNotFoundException(username);
+                    throw new UserNotFoundException(username);
                 }
 
             }

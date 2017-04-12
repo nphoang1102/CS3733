@@ -118,9 +118,6 @@ public class Main extends Application{
     }
 
     public static void setUser (User u){
-//        user.setType(u.getType());
-//        user.setEmail(u.getEmail());
-//        user.setUsername(u.getUsername());
         user = u;
     }
 }
