@@ -418,7 +418,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsByAgent(String agent) {
         LinkedList<Application> dataSets = new LinkedList<>();
-        return queryApplications("SELECT * FROM Applications WHERE AgentUsername = '" + agent + "';", "");
+        return queryApplications("SELECT * FROM Applications WHERE AgentUsername = '" + agent + "';", agent);
     }
 
     /////////////////////////////////////////////////////////////////////////////////

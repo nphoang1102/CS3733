@@ -44,7 +44,7 @@ public class AgentInboxManager extends Screen{
 
 
     private ObservableList<Application> inboxInfo = FXCollections.observableArrayList();
-    private LinkedList<Application> uuidCodes = new LinkedList<>();
+    private LinkedList<DataSet> uuidCodes = new LinkedList<>();
     private AgentInboxResult testApp = new AgentInboxResult("budweiser", "summer Ale", "12345768");
 
     //constructer for the screen
@@ -85,10 +85,10 @@ public class AgentInboxManager extends Screen{
             return row;
         });
         //query database for UUID's that current Agent has in inbox
-        //uuidCodes = DatabaseManager.getApplicationsByAgent(Main.getUsername());
+        uuidCodes =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "AgentUsername", Main.getUsername());
 
-        for(Application tempData: uuidCodes){
-            inboxInfo.add(tempData);
+        for(DataSet tempData: uuidCodes){
+            inboxInfo.add((Application) tempData);
 
         }
 
