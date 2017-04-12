@@ -111,6 +111,7 @@ public class DatabaseManager {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
                     " ApplicationNo VARCHAR(20) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
+                    " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " AgentName VARCHAR(30),\n" +
@@ -257,6 +258,7 @@ public class DatabaseManager {
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
                     "SerialNo, " +
+                    "ApplicationType," +
                     "ApplicationStatus," +
                     "ManufacturerUsername, " +
                     "AgentName, " +
@@ -288,6 +290,7 @@ public class DatabaseManager {
                     "('"
                     + application.ApplicationNo + "', '"
                     + application.SerialNo + "', '"
+                    + application.ApplicationType + "', '"
                     + application.ApplicationStatus + "', '"
                     + application.ManufacturerUsername + "', '"
                     + application.AgentName + "', '"
@@ -455,6 +458,7 @@ public class DatabaseManager {
                 Application application = new Application();
                 application.ApplicationNo = getApplications.getString("ApplicationNo");
                 application.SerialNo = getApplications.getString("SerialNo");
+                application.ApplicationType = getApplications.getString("ApplicationType");
                 application.ApplicationStatus = getApplications.getString("ApplicationStatus");
                 application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
                 application.AgentName = getApplications.getString("AgentName");
