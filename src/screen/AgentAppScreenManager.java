@@ -79,6 +79,7 @@ public class AgentAppScreenManager extends Screen{
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
             DatabaseManager.approveApplication(app.ApplicationNo);
+            Main.screenManager.closeCurrentPopOut();
         }
 
     }
@@ -92,6 +93,7 @@ public class AgentAppScreenManager extends Screen{
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
             DatabaseManager.rejectApplication(app.ApplicationNo);
+            Main.screenManager.closeCurrentPopOut();
         }
     }
 

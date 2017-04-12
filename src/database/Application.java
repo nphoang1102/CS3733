@@ -35,4 +35,12 @@ public class Application extends DataSet {
     public String DateOfExpiration;
     public String ApprovedTTBID;
     public String ReasonForRejection;
+
+    public String getBrand(){
+        return this.Brand;
+    }
+
+    public String getManufacturerUsername(){
+        return this.ManufacturerUsername;
+    }
 }

@@ -20,7 +20,7 @@
         <Font name="Telugu Sangam MN" size="48.0" />
       </font>
     </Text>
-    <TableView id="inbox" fx:id="inboxData" layoutX="0.0" layoutY="220.0" prefHeight="500.0" prefWidth="1280.0">
+    <TableView id="inbox" fx:id="inboxData" layoutX="0.0" layoutY="220.0" prefHeight="500.0" prefWidth="1280.0" stylesheets="@../css/ColaSearchResult.css">
       <columns>
         <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="640.0" style="&#10;" text="Manufacturer Name" fx:id="manufacturerName" />
         <TableColumn prefWidth="640.0" style="&#10;" text="Brand Name" fx:id="specificBrandName" />

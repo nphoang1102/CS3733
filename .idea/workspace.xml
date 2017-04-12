@@ -2,22 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/apacheFTP/commons-net-3.6-sources.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/apacheFTP/commons-net-3.6.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/apacheFTP/commons-net-examples-3.6.jar" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/Application.java" afterPath="$PROJECT_DIR$/src/database/Application.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/DatabaseManager.java" afterPath="$PROJECT_DIR$/src/database/DatabaseManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/images/ImageInterface.java" afterPath="$PROJECT_DIR$/src/database/images/ImageInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/images/ImageOnServer.java" afterPath="$PROJECT_DIR$/src/database/images/ImageOnServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/images/ProxyImage.java" afterPath="$PROJECT_DIR$/src/database/images/ProxyImage.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/AgentAppScreenManager.java" afterPath="$PROJECT_DIR$/src/screen/AgentAppScreenManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/AgentInboxManager.java" afterPath="$PROJECT_DIR$/src/screen/AgentInboxManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/TopBarManager.java" afterPath="$PROJECT_DIR$/src/screen/TopBarManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/css/ColaSearchResult.css" afterPath="$PROJECT_DIR$/src/screen/css/ColaSearchResult.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/ColaResultPopup.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/ColaResultPopup.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ttb_iter1.iml" afterPath="$PROJECT_DIR$/ttb_iter1.iml" />
     </list>
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,19 +21,19 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1299">
-              <caret line="492" column="86" lean-forward="false" selection-start-line="492" selection-start-column="86" selection-end-line="492" selection-end-column="86" />
+            <state relative-caret-position="-2635">
+              <caret line="367" column="56" lean-forward="false" selection-start-line="367" selection-start-column="56" selection-end-line="367" selection-end-column="56" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1207#1208#0" expanded="true" />
                 <element signature="e#1271#1272#0" expanded="true" />
                 <element signature="e#1429#1430#0" expanded="true" />
                 <element signature="e#1507#1508#0" expanded="true" />
-                <element signature="e#11837#11838#0" expanded="true" />
-                <element signature="e#11911#11912#0" expanded="true" />
+                <element signature="e#11833#11834#0" expanded="true" />
+                <element signature="e#11907#11908#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -79,8 +69,8 @@
       <file leaf-file-name="workspace.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="162" column="11" lean-forward="false" selection-start-line="162" selection-start-column="11" selection-end-line="162" selection-end-column="11" />
+            <state relative-caret-position="220">
+              <caret line="152" column="11" lean-forward="false" selection-start-line="152" selection-start-column="11" selection-end-line="152" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -89,21 +79,21 @@
       <file leaf-file-name="AgentInboxManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screen/AgentInboxManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="88" column="57" lean-forward="true" selection-start-line="88" selection-start-column="57" selection-end-line="88" selection-end-column="57" />
+            <state relative-caret-position="49">
+              <caret line="79" column="24" lean-forward="false" selection-start-line="79" selection-start-column="24" selection-end-line="79" selection-end-column="24" />
               <folding>
-                <marker date="1491973858183" expanded="false" signature="4204:4214" ph=" { " />
-                <marker date="1491973858183" expanded="false" signature="4240:4246" ph=" }" />
+                <marker date="1492009492326" expanded="false" signature="4279:4289" ph=" { " />
+                <marker date="1492009492326" expanded="false" signature="4315:4321" ph=" }" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AgentInbox.fxml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AgentInbox.fxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="21" column="11" lean-forward="true" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+            <state relative-caret-position="156">
+              <caret line="24" column="69" lean-forward="false" selection-start-line="24" selection-start-column="66" selection-end-line="24" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -174,11 +164,11 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/.idea/workspace.xml" />
-        <option value="$PROJECT_DIR$/src/database/DatabaseManager.java" />
         <option value="$PROJECT_DIR$/src/database/Application.java" />
-        <option value="$PROJECT_DIR$/src/screen/AgentInboxManager.java" />
         <option value="$PROJECT_DIR$/src/screen/AgentAppScreenManager.java" />
         <option value="$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml" />
+        <option value="$PROJECT_DIR$/src/screen/AgentInboxManager.java" />
+        <option value="$PROJECT_DIR$/src/database/DatabaseManager.java" />
       </list>
     </option>
   </component>
@@ -550,11 +540,19 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TaskManager">
+    <task id="LOCAL-00001" summary="Agent Inbox Works">
+      <created>1491974238045</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1491974238045</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -563,7 +561,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28968903" sideWeight="0.505295" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28968903" sideWeight="0.505295" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28968903" sideWeight="0.494705" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23076923" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
@@ -571,7 +569,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32569557" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25113463" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25113463" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -590,7 +588,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Agent Inbox brings stuff up" />
     <MESSAGE value="Merge branch 'master-2' of https://github.com/bhsostek/csgetdegrees into agent&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/database/DatabaseManager.java&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge branch 'master-2' of https://github.com/bhsostek/csgetdegrees into agent&#10;&#10;# Conflicts:&#10;#&#9;.idea/workspace.xml&#10;#&#9;src/database/DatabaseManager.java&#10;" />
+    <MESSAGE value="Agent Inbox Works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Agent Inbox Works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -904,8 +903,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="162" column="11" lean-forward="false" selection-start-line="162" selection-start-column="11" selection-end-line="162" selection-end-column="11" />
+        <state relative-caret-position="220">
+          <caret line="152" column="11" lean-forward="false" selection-start-line="152" selection-start-column="11" selection-end-line="152" selection-end-column="11" />
           <folding />
         </state>
       </provider>
@@ -920,22 +919,6 @@
             <element signature="e#616#617#0" expanded="true" />
             <element signature="e#4200#4201#0" expanded="true" />
             <element signature="e#4273#4274#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1299">
-          <caret line="492" column="86" lean-forward="false" selection-start-line="492" selection-start-column="86" selection-end-line="492" selection-end-column="86" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1207#1208#0" expanded="true" />
-            <element signature="e#1271#1272#0" expanded="true" />
-            <element signature="e#1429#1430#0" expanded="true" />
-            <element signature="e#1507#1508#0" expanded="true" />
-            <element signature="e#11837#11838#0" expanded="true" />
-            <element signature="e#11911#11912#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -969,17 +952,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/AgentInboxManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="88" column="57" lean-forward="true" selection-start-line="88" selection-start-column="57" selection-end-line="88" selection-end-column="57" />
-          <folding>
-            <marker date="1491973858183" expanded="false" signature="4204:4214" ph=" { " />
-            <marker date="1491973858183" expanded="false" signature="4240:4246" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/fxml/ColaResultPopup.fxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -1004,13 +976,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="21" column="11" lean-forward="true" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+        <state relative-caret-position="156">
+          <caret line="24" column="69" lean-forward="false" selection-start-line="24" selection-start-column="66" selection-end-line="24" selection-end-column="69" />
           <folding />
         </state>
       </provider>
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/AgentInboxManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="79" column="24" lean-forward="false" selection-start-line="79" selection-start-column="24" selection-end-line="79" selection-end-column="24" />
+          <folding>
+            <marker date="1492009492326" expanded="false" signature="4279:4289" ph=" { " />
+            <marker date="1492009492326" expanded="false" signature="4315:4321" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2635">
+          <caret line="367" column="56" lean-forward="false" selection-start-line="367" selection-start-column="56" selection-end-line="367" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1207#1208#0" expanded="true" />
+            <element signature="e#1271#1272#0" expanded="true" />
+            <element signature="e#1429#1430#0" expanded="true" />
+            <element signature="e#1507#1508#0" expanded="true" />
+            <element signature="e#11833#11834#0" expanded="true" />
+            <element signature="e#11907#11908#0" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

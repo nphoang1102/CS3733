@@ -45,7 +45,6 @@ public class AgentInboxManager extends Screen{
 
     private ObservableList<Application> inboxInfo = FXCollections.observableArrayList();
     private LinkedList<DataSet> uuidCodes = new LinkedList<>();
-    private AgentInboxResult testApp = new AgentInboxResult("budweiser", "summer Ale", "12345768");
 
     //constructer for the screen
     public AgentInboxManager() {
@@ -59,40 +58,44 @@ public class AgentInboxManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data){
+        typeBox.setValue("Beer");
         System.out.println("type of alc box: " + typeBox);
 
        // inboxInfo.add(testApp);
 
         //add the Label to the pane
-        manufacturerName.setCellValueFactory(
-                new PropertyValueFactory<>("ManufacturerUsername")
-        );
-        manufacturerName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
-        specificBrandName.setCellValueFactory(
-                new PropertyValueFactory<>("Brand")
-        );
-        specificBrandName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
+        manufacturerName.setCellValueFactory(new PropertyValueFactory<>("ManufacturerUsername"));
+       // manufacturerName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
+        specificBrandName.setCellValueFactory(new PropertyValueFactory<>("Brand"));
+       // specificBrandName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
 
-        inboxData.setRowFactory( tv -> {
-            TableRow<AgentInboxResult> row = new TableRow<>();
-            row.setOnMouseClicked( event-> {
-                if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Application tempResult = (Application) row.getUserData();
-                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempResult);
-                }
 
-            });
-            return row;
-        });
         //query database for UUID's that current Agent has in inbox
-        uuidCodes =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "AgentUsername", Main.getUsername());
+        uuidCodes =  DatabaseManager.getApplicationsByAgent(Main.getUsername());
+        System.out.println(uuidCodes.size());
 
+        //wipes the list
+        inboxInfo.clear();
+
+        //fills the list
         for(DataSet tempData: uuidCodes){
             inboxInfo.add((Application) tempData);
 
         }
 
         this.inboxData.setItems(inboxInfo);
+
+        inboxData.setRowFactory( tv -> {
+            TableRow<Application> row = new TableRow<>();
+            row.setOnMouseClicked( event-> {
+                if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Application tempResult = row.getItem();
+                    System.out.println(tempResult);
+                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempResult);
+                }
+            });
+            return row;
+        });
     }
 
     @FXML
