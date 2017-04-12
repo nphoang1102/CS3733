@@ -26,7 +26,7 @@ public class LoginScreenManager extends Screen {
 
     /* FXML objects */
     @FXML
-    private TextField usernameField, password;
+    private TextField usernameField;
     @FXML
     private Button loginButton;
     @FXML
@@ -41,28 +41,19 @@ public class LoginScreenManager extends Screen {
     void loginClicked() {
         if (Main.getUsername().equals("")) {
             this.userName = usernameField.getText();
-            String tempPassword = password.getText();
             this.usernameField.clear();
 
             User curUser = null;
             try {
-                curUser = Main.databaseManager.login(userName, tempPassword);
+                curUser = Main.databaseManager.login(userName, "");
             } catch (DatabaseManager.UserNotFoundException e) {
-                LogManager.println("NO FUCKING USERS");
                 e.printStackTrace();
-                return;
             } catch (DatabaseManager.IncorrectPasswordException e) {
-                LogManager.println("incorrect password");
                 e.printStackTrace();
-                return;
             } catch (PasswordStorage.InvalidHashException e) {
-                LogManager.println("SOME WIERD ASS SHIT");
                 e.printStackTrace();
-                return;
             } catch (PasswordStorage.CannotPerformOperationException e) {
-                LogManager.println("LAZY MOTHA FUCKA");
                 e.printStackTrace();
-                return;
             }
 
             Enum userType = curUser.getType();
@@ -99,7 +90,8 @@ public class LoginScreenManager extends Screen {
         }else{
             //print there is already a user signed in
             error.visibleProperty().setValue(true);
-            error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE's ALREADY SOMEONE SIGNED IN");
+            //error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE'S ALREADY SOMEONE SIGNED IN, LOGOUT FIRST");
+            error.setText("Sorry, there's already someone signed in");
         }
     }
 
