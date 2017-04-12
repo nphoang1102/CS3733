@@ -8,4 +8,5 @@ import javafx.scene.image.ImageView;
  */
 public interface ImageInterface {
     void displayImage(ImageView image);
+    boolean exists();
 }
