@@ -140,6 +140,8 @@ public class NewApplicationManager extends Screen {
     public void onTypeSelected() {
         switch(app_type_box.getValue()) {
             case "Certificate of Label Approval":
+                app_type_field.setVisible(false);
+                app_type_label.setVisible(false);
                 break;
             case "Certificate of Exemption From Label Approval":
                 app_type_label.setText("For Sale Only in: ");
