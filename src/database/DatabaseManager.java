@@ -283,7 +283,6 @@ public class DatabaseManager {
                     "DateOfSubmission," +
                     "DateOfApproval," +
                     "DateOfExpiration," +
-                    "DateOfExpiration," +
                     "ApprovedTTBID," +
                     "ReasonForRejection" +
                     ") VALUES " +

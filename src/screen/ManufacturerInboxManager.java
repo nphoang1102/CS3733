@@ -73,7 +73,7 @@ public class ManufacturerInboxManager extends Screen{
 
     public void editApplication(){
         LogManager.println("Editing an application");
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, selected.FanicifulName, 1025, 700, selected);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, selected.FancifulName, 1025, 700, selected);
         return;
     }
 
@@ -90,8 +90,8 @@ public class ManufacturerInboxManager extends Screen{
         ObservableList tableList = FXCollections.observableArrayList(); //move
         LogManager.println("appList: "+Integer.toString(appList.size()));
 
-        this.StatusColumn.setCellValueFactory(new PropertyValueFactory("Status"));
-        this.DateColumn.setCellValueFactory(new PropertyValueFactory("Date"));
+        this.StatusColumn.setCellValueFactory(new PropertyValueFactory("ApplicationStatus"));
+        this.DateColumn.setCellValueFactory(new PropertyValueFactory("DateOfSubmission"));
         this.TTBIDColumn.setCellValueFactory(new PropertyValueFactory("ApplicationNo"));
         this.NameColumn.setCellValueFactory(new PropertyValueFactory("Brand"));
 
@@ -99,8 +99,8 @@ public class ManufacturerInboxManager extends Screen{
             Application data = (Application) tempData;
             String tempApplicationNo = data.ApplicationNo;
             String tempBrand = data.Brand;
-            String tempStatus = data.Status;
-            String tempDate = data.Date;
+            String tempStatus = data.ApplicationStatus;
+            String tempDate = data.DateOfSubmission;
 
             this.tableList.add(new ManufacturerInboxResult(tempApplicationNo, tempBrand, tempStatus, tempDate));
 

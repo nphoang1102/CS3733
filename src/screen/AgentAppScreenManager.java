@@ -45,7 +45,7 @@ public class AgentAppScreenManager extends Screen{
         repId.setText(application.RepID);
     // brewNo exists as PlantRegistry in Data Set
         brewNo.setText(application.PlantRegistry);
-        productSrc.setText(application.Source);
+        productSrc.setText(application.Locality);
         productType.setText(application.AlcoholType);
         brandName.setText(application.Brand);
         applicantName.setText(application.AgentName);
@@ -53,15 +53,15 @@ public class AgentAppScreenManager extends Screen{
         alternateAdd.setText(application.Address2);
         phoneNum.setText(application.PhoneNo);
         emailAdd.setText(application.Email);
-        appDate.setText(application.Date);
+        appDate.setText(application.DateOfSubmission);
     //What is TTBID in Dataset?
     // ttbId.setText(application.SerialNo);
-        fancyName.setText(application.FanicifulName);
+        fancyName.setText(application.FancifulName);
         formula.setText(application.Formula);
     // wineVarietal exists as Grapes in Data Set
         wineVarietal.setText(application.Grapes);
         wineAppellation.setText(application.WineAppelation);
-        appType.setText(application.AppType);
+        appType.setText(application.ApplicationType);
     // alcoholContent exists as ABV in Data Set
         alcContent.setText(application.ABV);
         pHLevel.setText(application.PH);
