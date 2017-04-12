@@ -324,6 +324,28 @@ public class DatabaseManager {
         }
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////EDIT APPLICATIONS///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void editApplication(Application application) {
+        try {
+            if(application.ApplicationStatus.equals("APPROVED")){
+                statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "';");
+                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
+                submitApplication(application);
+                approveApplication(application.ApplicationNo);
+            }
+            else{
+                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
+                submitApplication(application);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////MANUFACTURER QUERIES//////////////////////////////////////////////////

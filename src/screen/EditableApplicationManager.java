@@ -211,7 +211,7 @@ public class EditableApplicationManager extends Screen {
         app.ManufacturerUsername = manufacturer;
         app.AgentUsername = "";
 
-        //database.DatabaseManager.editApplication(app);
+        database.DatabaseManager.editApplication(app);
         LogManager.println("Submitting Application");
 
         Main.screenManager.closeCurrentPopOut();
