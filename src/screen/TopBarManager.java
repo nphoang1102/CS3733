@@ -82,7 +82,11 @@ public class TopBarManager extends Screen{
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
         if(!lastFoucs.equals(Main.getUsername())) {
+            if(Main.getUserType().equals(EnumUserType.AGENT.getTextualName())){
+                action.setText("Inbox");
+            }
             if (!Main.getUserType().isEmpty()) {
+                logIn.setText("Log Out");
                 //check if user has a custom image defined
                 ProxyImage userImage = new ProxyImage(Main.getUsername() + ".jpg");
                 if (!userImage.exists()) {
@@ -94,7 +98,6 @@ public class TopBarManager extends Screen{
                     } else {
                         imageLetter.setLayoutX(userIcon.getX() + 23);
                     }
-                    logIn.setText("Log Out");
                     BufferedImage bufferedImage;
                     try {
                         bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
@@ -139,8 +142,9 @@ public class TopBarManager extends Screen{
 
     @FXML
     public void action(){
-//        action.setVisible(false);
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "TEST",1280, 720, new BasicDataSet());
+        if(Main.getUserType().equals(EnumUserType.AGENT.getTextualName())){
+            action.setText("Inbox");
+        }
     }
 
     public void setScreen(Scene scene){
@@ -168,6 +172,44 @@ public class TopBarManager extends Screen{
             }
         }
         return "";
+    }
 
+    public void updateUserIcon(){
+        if (!Main.getUserType().isEmpty()) {
+            //check if user has a custom image defined
+            ProxyImage userImage = new ProxyImage(Main.getUsername() + ".jpg");
+            if (!userImage.exists()) {
+                System.out.println(userImage);
+                //This method sets the image to the users type first letter.
+                imageLetter.setText(Main.getUserType().substring(0, 1));
+                if (imageLetter.getText().toUpperCase().equals("W")) {
+                    imageLetter.setLayoutX(userIcon.getX() + 19);
+                } else {
+                    imageLetter.setLayoutX(userIcon.getX() + 23);
+                }
+                BufferedImage bufferedImage;
+                try {
+                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                    userIcon.setImage(image);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                imageLetter.setText("");
+                LogManager.println("User:" + Main.getUsername() + " has a custom icon.");
+                userImage.displayImage(userIcon);
+            }
+        } else {
+            imageLetter.setText("");
+            BufferedImage bufferedImage;
+            try {
+                bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot_empty_user.png"));
+                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                userIcon.setImage(image);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
