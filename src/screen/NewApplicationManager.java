@@ -227,6 +227,7 @@ public class NewApplicationManager extends Screen {
         LogManager.println("Submitting Application");
 
         Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
 
         return;
     }
