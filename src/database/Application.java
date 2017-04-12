@@ -6,6 +6,7 @@ package database;
 public class Application extends DataSet {
     public String ApplicationNo;
     public String SerialNo;
+    public String ApplicationType;
     public String ApplicationStatus;
     public String ManufacturerUsername;
     public String AgentName;
