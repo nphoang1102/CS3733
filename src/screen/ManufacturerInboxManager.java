@@ -1,5 +1,6 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
 import database.Application;
@@ -84,7 +85,7 @@ public class ManufacturerInboxManager extends Screen{
     public void onScreenFocused(DataSet dataSet){
         manufacturer = Main.getUsername();
         LogManager.print("Current user is "+manufacturer); //move
-        LinkedList<database.DataSet> appList  = new LinkedList<DataSet>();// = DatabaseManager.queryManufacturers(manufacturer);
+        LinkedList<database.DataSet> appList = DatabaseManager.queryDatabase(EnumTableType.APPLICATION, "ManufacturerUsername", manufacturer);
 
         ObservableList tableList = FXCollections.observableArrayList(); //move
         LogManager.println("appList: "+Integer.toString(appList.size()));

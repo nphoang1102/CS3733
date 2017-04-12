@@ -192,7 +192,7 @@ public class DatabaseManager {
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
-            return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
+            return queryApplications("SELECT * FROM Applications WHERE " + column + " = '" + value + "';", "");
         } else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
