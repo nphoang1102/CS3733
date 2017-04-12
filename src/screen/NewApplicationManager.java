@@ -2,12 +2,20 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import base.StringUtilities;
+import database.Application;
 import database.DataSet;
-import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import java.util.Date;
+import java.util.Calendar;
+
+import javafx.collections.*;
+
 import java.lang.*;
 
 /**
@@ -20,107 +28,204 @@ public class NewApplicationManager extends Screen {
     }
 
     @FXML
-    private TextField REPID;
+    private TextField repid_field;
 
     @FXML
-    private TextField Source;
+    private TextField plant_number_field;
 
     @FXML
-    private TextField BrandName;
+    private ComboBox<String> product_source_box;
 
     @FXML
-    private TextField ApplicantName;
+    private TextField serial_number_field;
 
     @FXML
-    private TextField DBAorTradeName;
+    private ComboBox<String> product_type_box;
 
     @FXML
-    private TextField PhoneNum;
+    private TextField brand_name_field;
 
     @FXML
-    private TextField Registry;
+    private TextField fanciful_field;
 
     @FXML
-    private TextField Type;
+    private TextArea address_field;
 
     @FXML
-    private TextField Address;
+    private TextArea address_field_2;
 
     @FXML
-    private TextField AlternateAddress;
+    private TextField formula_field;
 
     @FXML
-    private TextField Email;
+    private TextField appellation_field;
 
     @FXML
-    private TextField Date;
+    private TextField grapes_field;
 
     @FXML
-    private RadioButton BeerSelect;
+    private TextField phone_num_field;
 
     @FXML
-    private RadioButton WineSelect;
+    private TextField email_field;
 
     @FXML
-    private RadioButton OtherSelect;
+    private ComboBox<String> app_type_box;
 
     @FXML
-    private TextField AlcoholContent;
+    private TextArea add_info_field;
 
     @FXML
-    private TextField VintageYear;
+    private TextField date_submitted_field;
 
     @FXML
-    private TextField PHLevel;
+    private TextField applicant_name_field;
 
     @FXML
-    private Button SubmitButton;
+    private TextField ph_field;
 
     @FXML
-    private Button CancelButton;
+    private TextField vintage_field;
 
+    @FXML
+    private TextField abv_field;
+
+    @FXML
+    private Button submit_button;
+
+    @FXML
+    private Button cancel_button;
+
+    @FXML
+    private Label app_type_label;
+
+    @FXML
+    private TextField app_type_field;
+
+    @FXML
+    private Label ph_label;
+
+    @FXML
+    private Label abv_label;
+
+    @FXML
+    private Label vintage_label;
+
+    @FXML
+    public void initialize() {
+
+    }
+    @Override
+    public void onScreenFocused(DataSet dataSet) {
+        ObservableList<String> product_source = FXCollections.observableArrayList(
+                "Domestic",
+                "Imported");
+        ObservableList<String> product_type = FXCollections.observableArrayList(
+                "Beer",
+                "Wine",
+                "Distilled Spirits");
+        ObservableList<String> application_type = FXCollections.observableArrayList(
+                "Certificate of Label Approval",
+                "Certificate of Exemption From Label Approval",
+                "Distinctive Liqour Bottle Approval",
+                "Resubmission After Rejection");
+        product_type_box.setItems(product_type);
+        product_source_box.setItems(product_source);
+        app_type_box.setItems(application_type);
+        app_type_field.setVisible(false);
+        app_type_label.setVisible(false);
+        app_type_label.setMaxWidth(Double.MAX_VALUE);
+    }
+
+    public void onTypeSelected() {
+        switch(app_type_box.getValue()) {
+            case "Certificate of Label Approval":
+                break;
+            case "Certificate of Exemption From Label Approval":
+                app_type_label.setText("For Sale Only in: ");
+                app_type_field.setVisible(true);
+                app_type_label.setVisible(true);
+                break;
+            case "Distinctive Liqour Bottle Approval":
+                app_type_label.setText("Total Bottle Capacity Before Closure:");
+                app_type_field.setVisible(true);
+                app_type_label.setVisible(true);
+                break;
+            case "Resubmission After Rejection":
+                app_type_label.setText("TTB ID: ");
+                app_type_field.setVisible(true);
+                app_type_label.setVisible(true);
+                break;
+        }
+    }
     public void submit(){
-        String repID = REPID.getText();
-        String source = Source.getText();
-        String brandName = BrandName.getText();
-        String applicantName = ApplicantName.getText();
-        String dba_or_tradeName = DBAorTradeName.getText();
-        String phoneNum = PhoneNum.getText();
-        String registry = Registry.getText();
-        String type = Type.getText();
-        String address = Address.getText();
-        String alternateAddress = AlternateAddress.getText();
-        String email = Email.getText();
-        String date = Date.getText();
-        String alcoholContent = AlcoholContent.getText();
-        String vintageYear = VintageYear.getText();
-        String phLevel = PHLevel.getText();
-        Boolean beerSelect = BeerSelect.isSelected();
-        Boolean wineSelect = WineSelect.isSelected();
-        Boolean otherSelect = OtherSelect.isSelected();
+        String repID = repid_field.getText();
+        String registryNumber = plant_number_field.getText();
+        String source = product_source_box.getValue();
+        String serialNumber = serial_number_field.getText();
+        String productType = product_type_box.getValue();
+        String brandName = brand_name_field.getText();
+        String fancifulName = fanciful_field.getText();
+        String addressText = address_field.getText();
+        String address2Text = address_field_2.getText();
+        String formulaText = formula_field.getText();
+        String appellationText = appellation_field.getText();
+        String grapeVarietals = grapes_field.getText();
+        String phoneNum = phone_num_field.getText();
+        String email = email_field.getText();
+        String appType = app_type_box.getValue();
+        String addInfo = add_info_field.getText();
+        String applicantName = applicant_name_field.getText();
+        String dateSubmitted = date_submitted_field.getText();
+        String ph = ph_field.getText();
+        String vintageYear = vintage_field.getText();
+        String abv = abv_field.getText();
 
         String manufacturer = Main.getUsername();
 
-        //Databasessssssssssss
+        Application app = new Application();
 
-//        database.DatabaseManager.submitApplication(manufacturer, Registry.getText(), "PENDING", Type.getText(), REPID.getText(), Source.getText(), BrandName.getText(), Address.getText(), AlternateAddress.getText(), "", AlcoholContent.getText(), PhoneNum.getText(), "", VintageYear.getText(), PHLevel.getText(), ApplicantName.getText(), Date.getText(), DBAorTradeName.getText(), Email.getText());
+        app.RepID = repID;
+        app.PlantRegistry = registryNumber;
+        app.Source = source;
+        app.SerialNo = serialNumber;
+        app.AlcoholType = productType;
+        app.Brand = brandName;
+        app.FanicifulName = fancifulName;
+        app.Address = addressText;
+        app.Address2 = address2Text;
+        app.Formula = formulaText;
+        app.Grapes = grapeVarietals;
+        app.WineAppelation = appellationText;
+        app.PhoneNo = phoneNum;
+        app.Email = email;
+        app.AppType = appType;
+        app.AdditionalInfo = addInfo;
+        app.Date = dateSubmitted;
+        app.PrintName = applicantName;
+        app.ABV = abv;
+        app.VintageDate = vintageYear;
+        app.PH = ph;
+        app.Status = "PENDING";
+        app.ApplicationNo = StringUtilities.getTTBID();
+        app.DateOfExpiration = StringUtilities.getExpirationDate();
+        app.ManufacturerUsername = manufacturer;
+
+        database.DatabaseManager.submitApplication(app);
 
         LogManager.println("Submitting Application");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+
         return;
     }
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+
         return;
     }
     public Screen getScreen(){
         return this;
     }
 
-    @Override
-    public void onScreenFocused(DataSet data) {
 
-    }
 }

@@ -2,64 +2,70 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1000.0" visible="true" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.EditableApplicationManager">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" visible="true" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.EditableApplicationManager
+">
     <children>
-        <Rectangle arcHeight="5.0" arcWidth="5.0" height="720.0" layoutX="6.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" strokeWidth="2.3" width="1007.0">
-            <fill>
-                <Color blue="0.875" green="0.875" red="0.875" fx:id="x1" />
-            </fill>
-        </Rectangle>
-        <Label layoutX="144.0" layoutY="39.0" prefWidth="67.99990844726562" text="Rep ID NO. " />
-        <Label layoutX="553.0" layoutY="37.0" prefHeight="17.0" prefWidth="229.0" text="Plant Registry/ Basic Permit/ Brewers No.  " />
-        <Label layoutX="144.0" layoutY="138.0" text="Source of Product" />
-        <Label layoutX="556.0" layoutY="138.0" text="Type of Product" />
-        <Label layoutX="144.0" layoutY="226.0" text="Brand Name" />
-        <Label layoutX="144.0" layoutY="305.0" text="Name of Applicant" />
-        <Label layoutX="556.0" layoutY="226.0" prefWidth="116.9998779296875" text="Address of Applicant" />
-        <Label layoutX="144.0" layoutY="387.0" text="Approved DBA or Trade Name" />
-        <Label layoutX="559.0" layoutY="318.0" text="Alternate Mailing Address" />
-        <Label layoutX="144.0" layoutY="453.0" prefWidth="84.99990844726562" text="Phone Number" />
-        <Label layoutX="559.0" layoutY="387.0" prefWidth="80.99990844726562" text="Email Address" />
-        <Label layoutX="553.0" layoutY="453.0" text="Date of Submission" />
+        <Label layoutX="144.0" layoutY="39.0" prefHeight="25.0" prefWidth="68.0" text="Rep ID NO. " />
+        <Label layoutX="553.0" layoutY="37.0" prefHeight="25.0" prefWidth="229.0" text="Plant Registry/ Basic Permit/ Brewers No.  ">
+            <font>
+                <Font name="Telugu Sangam MN" size="12.0" />
+            </font></Label>
+        <Label layoutX="144.0" layoutY="85.0" prefHeight="25.0" prefWidth="95.0" text="Source of Product" />
+        <Label layoutX="144.0" layoutY="135.0" prefHeight="25.0" prefWidth="85.0" text="Type of Product" />
+        <Label layoutX="553.0" layoutY="135.0" prefHeight="25.0" prefWidth="66.0" text="Brand Name" />
+        <Label layoutX="553.0" layoutY="485.0" prefHeight="25.0" prefWidth="100.0" text="Name of Applicant" />
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="553.0" layoutY="185.0" prefHeight="75.0" prefWidth="209.0" text="Name and Address of Applicant as shown on Plant Registry, Basic Permit, or Brewer's Notice. Include Basic DBA or Tradename if used on the label" textAlignment="CENTER" wrapText="true" />
+        <Label layoutX="144.0" layoutY="235.0" prefHeight="25.0" prefWidth="149.0" text="Mailing Address, If Different" />
+        <Label layoutX="553.0" layoutY="335.0" prefHeight="25.0" prefWidth="85.0" text="Phone Number" />
+        <Label layoutX="144.0" layoutY="385.0" prefHeight="25.0" prefWidth="81.0" text="Email Address" />
+        <Label layoutX="554.0" layoutY="435.0" prefHeight="25.0" prefWidth="124.0" text="Date of Submission" />
         <SplitPane focusTraversable="true" layoutX="1280.0" layoutY="0.0" orientation="VERTICAL" prefHeight="720.0" prefWidth="0.0" />
-        <TextField fx:id="REPID" layoutX="320.0" layoutY="35.0" />
-        <TextField fx:id="Source" layoutX="320.0" layoutY="134.0" />
-        <TextField fx:id="BrandName" layoutX="320.0" layoutY="222.0" />
-        <TextField fx:id="ApplicantName" layoutX="320.0" layoutY="301.0" />
-        <TextField fx:id="DBAorTradeName" layoutX="320.0" layoutY="383.0" />
-        <TextField fx:id="PhoneNum" layoutX="320.0" layoutY="449.0" />
+        <TextField fx:id="REPID" layoutX="320.0" layoutY="35.0" prefHeight="25.0" prefWidth="149.0" />
+        <TextField fx:id="Source" layoutX="320.0" layoutY="85.0" />
+        <TextField fx:id="BrandName" layoutX="791.0" layoutY="135.0" />
+        <TextField fx:id="ApplicantName" layoutX="789.0" layoutY="485.0" />
+        <TextField fx:id="PhoneNum" layoutX="789.0" layoutY="335.0" />
         <TextField fx:id="Registry" layoutX="790.0" layoutY="35.0" />
-        <TextField fx:id="Type" layoutX="790.0" layoutY="134.0" />
-        <TextField fx:id="Address" layoutX="790.0" layoutY="222.0" />
-        <TextField fx:id="AlternateAddress" layoutX="790.0" layoutY="314.0" />
-        <TextField fx:id="Email" layoutX="791.0" layoutY="383.0" />
-        <TextField fx:id="Date" layoutX="787.0" layoutY="449.0" />
-        <RadioButton fx:id="BeerSelect" layoutX="553.0" layoutY="523.0" mnemonicParsing="false" text="Beer" />
-        <RadioButton fx:id="WineSelect" layoutX="632.0" layoutY="523.0" mnemonicParsing="false" text="Wine" />
-        <RadioButton fx:id="OtherSelect" layoutX="716.0" layoutY="523.0" mnemonicParsing="false" text="Other" />
-        <Label layoutX="144.0" layoutY="527.0" text="Alcohol Content" />
-        <TextField fx:id="AlcoholContent" layoutX="320.0" layoutY="523.0" />
-        <Label layoutX="553.0" layoutY="590.0" text="If Wine: Vintage Year" />
-        <TextField fx:id="VintageYear" layoutX="787.0" layoutY="586.0" />
-        <Label layoutX="144.0" layoutY="590.0" text="If Wine: pHLevel" />
-        <TextField fx:id="PHLevel" layoutX="320.0" layoutY="586.0" />
-        <Button fx:id="SubmitButton" layoutX="411.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="54.0" prefWidth="197.0" text="Submit Application">
+        <TextField fx:id="Type" layoutX="320.0" layoutY="135.0" />
+        <TextField fx:id="AlternateAddress" layoutX="320.0" layoutY="235.0" />
+        <TextField fx:id="Email" layoutX="320.0" layoutY="385.0" />
+        <TextField fx:id="Date" layoutX="789.0" layoutY="435.0" />
+        <Label layoutX="144.0" layoutY="562.0" prefHeight="25.0" prefWidth="86.0" text="Alcohol Content" />
+        <TextField fx:id="AlcoholContent" layoutX="320.0" layoutY="562.0" />
+        <Label layoutX="554.0" layoutY="535.0" prefHeight="25.0" prefWidth="111.0" text="If Wine: Vintage Year" />
+        <TextField fx:id="VintageYear" layoutX="789.0" layoutY="535.0" />
+        <Label layoutX="145.0" layoutY="599.0" prefHeight="25.0" prefWidth="86.0" text="If Wine: pHLevel" />
+        <TextField fx:id="PHLevel" layoutX="321.0" layoutY="599.0" />
+        <Button fx:id="SubmitButton" layoutX="555.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="54.0" prefWidth="197.0" style="-fx-background-color: #939393;" text="Submit Application">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-      <Button fx:id="CancelButton" layoutX="144.0" layoutY="645.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="117.0" text="Cancel" onMouseClicked="#goBack">
-         <font>
-            <Font size="18.0" />
-         </font>
-      </Button>
+        <Button fx:id="CancelButton" layoutX="136.0" layoutY="636.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="54.0" prefWidth="149.0" style="-fx-background-color: #939393;" text="Cancel">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Label layoutX="553.0" layoutY="85.0" prefHeight="25.0" prefWidth="81.0" text="Serial Number" />
+        <TextField fx:id="SerialNo" layoutX="791.0" layoutY="85.0" />
+        <TextField fx:id="FancifulName" layoutX="320.0" layoutY="185.0" />
+        <Label layoutX="144.0" layoutY="185.0" prefHeight="25.0" prefWidth="81.0" text="Fanciful Name" />
+        <TextArea fx:id="Address" layoutX="791.0" layoutY="185.0" prefHeight="75.0" prefWidth="149.0" />
+        <Label layoutX="144.0" layoutY="285.0" prefHeight="25.0" prefWidth="47.0" text="Formula" />
+        <TextField fx:id="Formula" layoutX="320.0" layoutY="285.0" />
+        <Label layoutX="553.0" layoutY="285.0" prefHeight="25.0" prefWidth="131.0" text="If Wine: Grape Varietals" />
+        <TextField fx:id="GrapeVarietals" layoutX="789.0" layoutY="285.0" />
+        <Label layoutX="144.0" layoutY="335.0" prefHeight="25.0" prefWidth="139.0" text="If Wine: Wine Appelation" />
+        <TextField fx:id="WineAppellation" layoutX="320.0" layoutY="335.0" />
+        <TextField fx:id="AppType" layoutX="789.0" layoutY="385.0" />
+        <Label layoutX="553.0" layoutY="389.0" prefHeight="25.0" prefWidth="111.0" text="Type of Application" />
+        <Label alignment="CENTER" layoutX="136.0" layoutY="421.0" prefHeight="128.0" prefWidth="178.0" text="Show any Infomation that is Blown, Branded, or Embossed on the Container Only If It Does Not Appear on the Labels Affixed Below.  Also, show Translations of Foreign Language Text Appearing on Labels" textAlignment="CENTER" wrapText="true" />
+        <TextArea fx:id="AdditionalInfo" layoutX="320.0" layoutY="425.0" prefHeight="128.0" prefWidth="149.0" />
     </children>
 </AnchorPane>
