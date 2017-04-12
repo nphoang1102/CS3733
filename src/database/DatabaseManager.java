@@ -195,7 +195,7 @@ public class DatabaseManager {
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
-            return queryApplications("SELECT * FROM Applications WHERE " + column + " = '" + value + "';", "");
+            return queryApplications("SELECT * FROM Applications WHERE " + column + " = '" + value + "';");
         } else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
@@ -401,7 +401,7 @@ public class DatabaseManager {
     public static void approveApplication(String ApplicationNum) {
         String TTBID = generateTTBID();
         try {
-            statement.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "';");
             statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "';");
         } catch (SQLException e) {
@@ -419,8 +419,8 @@ public class DatabaseManager {
         String Date = approvedApplication.DateOfApproval;
 //        String PrintName = approvedApplication.PrintName;
 //        String ABV = approvedApplication.ABV;
-//        String VintageDate = approvedApplication.VintageDate;
-//        String PH = approvedApplication.PH;
+        String VintageDate = approvedApplication.VintageDate;
+        String PH = approvedApplication.PH;
 //        String Status = approvedApplication.Status;
 //        String ApplicationNo = approvedApplication.ApplicationNO;
 //        String DateOfApproval = approvedApplication.DateOfApproval;
@@ -438,7 +438,7 @@ public class DatabaseManager {
 //        String AdditionalInfo = approvedApplication.AdditionalInfo;
 
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "');");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "', '" + "'3'" + "', '" + VintageDate + "', '" +PH + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -449,10 +449,11 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
         try {
-            statement.executeUpdate("UPDATE Users SET status = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "';");
-            statement.executeUpdate("UPDATE Applications SET AgentInbox = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "';");
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
+            LogManager.println("could not remove application");
             e.printStackTrace();
         }
     }
@@ -462,18 +463,28 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsByAgent(String agent) {
         LinkedList<Application> dataSets = new LinkedList<>();
-        return queryApplications("SELECT * FROM Applications WHERE AgentUsername = '" + agent + "';", "");
+        return queryApplications("SELECT * FROM Applications WHERE AgentUsername = '" + agent + "';");
     }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD APPLICATIONS TO AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
-        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
+        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';");
         LinkedList<Application> addToInbox = new LinkedList<>();
         for (int i = 0; i < num; i++) {
             try{
-                addToInbox.add((Application) applicationLinkedList.get(i));
+                Application tempApp = (Application) applicationLinkedList.get(i);
+                if(tempApp.ApplicationStatus.equals("PENDING") && tempApp.AgentUsername.equals("")) {
+                    LogManager.println("Application added");
+                    addToInbox.add((Application) applicationLinkedList.get(i));
+
+                    try {
+                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "';");
+                    } catch (SQLException e) {
+                        LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
+                    }
+                }
             }catch(Exception e){
                 break;
             }
@@ -485,7 +496,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////QUERY APPLICATIONS////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    private static LinkedList<DataSet> queryApplications(String queryStr, String setAgent) {
+    private static LinkedList<DataSet> queryApplications(String queryStr) {
         LinkedList<DataSet> applicationLinkedList = new LinkedList<>();
         try {
             ResultSet getApplications = statement.executeQuery(queryStr);
@@ -523,13 +534,13 @@ public class DatabaseManager {
                 application.ReasonForRejection = getApplications.getString("ReasonForRejection");
                 applicationLinkedList.add(application);
                 String thisApplicationNo = getApplications.getString("ApplicationNo");
-                if (!setAgent.equals("")) {
+/*                if (!setAgent.equals("")) {
                     try {
-                        statement.executeUpdate("UPDATE Applications SET InboxAgent = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
+                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + thisApplicationNo + " !", EnumWarningType.ERROR);
                     }
-                }
+                }*/
             }
         } catch (SQLException e) {
             LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
@@ -592,7 +603,7 @@ public class DatabaseManager {
                 user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
                 LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                 if (!manufacturerLinkedList.isEmpty()) {
-                    //LogManager.println("YARP! WE FOUND " + username + "!");
+                    LogManager.println("YARP! WE FOUND " + username + "!");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
                     LogManager.println("User " + manufacturer.username + " is a manufacturer");
                     try{
@@ -601,7 +612,6 @@ public class DatabaseManager {
                     catch (Exception e){
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                     }
-                    //LogManager.println("NIGGA WE MADE IT");
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);

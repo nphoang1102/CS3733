@@ -60,7 +60,7 @@ public class StringUtilities {
     }
 
     public static String getTTBID(){
-        DateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
+        /*DateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
         Date date = new Date();
         if(dateFormat.format(date).equals(lastDate)){
             ttbNum++;
@@ -68,7 +68,9 @@ public class StringUtilities {
             ttbNum = 0;
             lastDate = dateFormat.format(date);
         }
-        return (dateFormat.format(date)+ttbNum);
+        return (dateFormat.format(date)+ttbNum);*/
+
+        return ( ((int)Math.floor( Math.random()* 10000000)) + "");
     }
 
     public static String getDate(){

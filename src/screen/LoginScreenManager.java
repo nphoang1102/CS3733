@@ -130,4 +130,10 @@ public class LoginScreenManager extends Screen {
         usernameField.clear();
         error.visibleProperty().setValue(false);
     }
+
+    public void centerError(){
+        double center;
+        center = (background.getWidth()-error.getWrappingWidth())/2;
+        error.setTextAlignment(TextAlignment.CENTER);
+    }
 }
