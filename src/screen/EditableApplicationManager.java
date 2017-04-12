@@ -124,11 +124,11 @@ public class EditableApplicationManager extends Screen {
 
         app.RepID = repID;
         app.PlantRegistry = registryNumber;
-        app.Source = source;
+        app.Locality = source;
         app.SerialNo = serialNumber;
         app.AlcoholType = productType;
         app.Brand = brandName;
-        app.FanicifulName = fancifulName;
+        app.FancifulName = fancifulName;
         app.Address = addressText;
         app.Address2 = address2Text;
         app.Formula = formulaText;
@@ -136,14 +136,14 @@ public class EditableApplicationManager extends Screen {
         app.WineAppelation = appellationText;
         app.PhoneNo = phoneNum;
         app.Email = email;
-        app.AppType = appType;
+        app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.Date = dateSubmitted;
-        app.PrintName = applicantName;
+        app.DateOfSubmission = dateSubmitted;
+        app.AgentName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;
         app.PH = ph;
-        app.Status = "PENDING";
+        app.ApplicationStatus = "PENDING";
         app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
