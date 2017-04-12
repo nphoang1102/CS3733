@@ -1,10 +1,10 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
 import base.StringUtilities;
-import database.Application;
-import database.DataSet;
+import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -135,6 +135,14 @@ public class NewApplicationManager extends Screen {
         app_type_field.setVisible(false);
         app_type_label.setVisible(false);
         app_type_label.setMaxWidth(Double.MAX_VALUE);
+
+        UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", Main.getUsername()).get(0);
+
+        applicant_name_field.setText(man.name);
+        plant_number_field.setText(man.PlantRegistry);
+        email_field.setText(man.email);
+        repid_field.setText(man.RepID);
+        phone_num_field.setText(man.PhoneNo);
     }
 
     public void onTypeSelected() {
@@ -203,7 +211,7 @@ public class NewApplicationManager extends Screen {
         app.Email = email;
         app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.DateOfSubmission = "1234-12-11";
+        app.DateOfSubmission = StringUtilities.getDate();
         app.AgentName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;

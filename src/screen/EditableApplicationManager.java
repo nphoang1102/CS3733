@@ -78,6 +78,12 @@ public class EditableApplicationManager extends Screen {
     private TextField abv_field;
 
     @FXML
+    private Label RejectionLabel;
+
+    @FXML
+    private Label RejectionField;
+
+    @FXML
     private Button submit_button;
 
     @FXML
@@ -115,6 +121,7 @@ public class EditableApplicationManager extends Screen {
             abv_field.setText(application.ABV);
             ph_field.setText(application.PH);
             vintage_field.setText(application.VintageDate);
+            RejectionField.setText(((Application) dataSet).ReasonForRejection);
 
             app_type_box.setValue(application.ApplicationType);
             product_source_box.setValue(application.Locality);
@@ -143,6 +150,8 @@ public class EditableApplicationManager extends Screen {
             address_field.setDisable(true);
             address_field_2.setDisable(true);
 
+            RejectionField.setVisible(false);
+            RejectionLabel.setVisible(false);
 
             //setVisibility of additional elements
         }
