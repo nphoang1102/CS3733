@@ -10,5 +10,6 @@ public enum EnumTableType {
     APPLICATION,
     AGENT,
     USER,
+    TTBID,
     NULL,
 }
