@@ -6,18 +6,14 @@ import screen.EnumUserType;
  * Created by Evan Goldstein on 4/8/17.
  */
 public class UserAgent extends User{
-    String ID="";
-    String name="";
-    String username="";
-    int passwordHash = 0;
-    String email="";
-    boolean superAgent=false;
+    String ID;
+    String superAgent;
 
-    public UserAgent(String name, String username, String email, String ID, boolean isSuper){
+    public UserAgent(String name, String username, String email, String ID, String isSuper){
         super(EnumUserType.AGENT, username, email, name);
         this.superAgent = isSuper;
         this.ID = ID;
-        if(isSuper){
+        if(isSuper.equals("true")){
             this.userType = EnumUserType.SUPER_AGENT;
         }else{
             this.userType = EnumUserType.AGENT;
@@ -25,6 +21,22 @@ public class UserAgent extends User{
         this.username = username;
         this.email = email;
         this.name = name;
-        this.passwordHash = 0;
     }
+
+    public UserAgent(String Username){
+        this.ID = Math.random()+"";
+        this.superAgent = "false";
+        this.email = "";
+        this.name = "Bub";
+        this.username = Username;
+        super.userType = EnumUserType.AGENT;
+    }
+    public String getSuperAgent(){
+        return this.superAgent;
+    }
+
+    public void setUserType(EnumUserType temp){
+        userType = temp;
+    }
+
 }

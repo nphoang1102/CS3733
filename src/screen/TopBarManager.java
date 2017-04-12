@@ -5,6 +5,7 @@ import base.Main;
 import database.BasicDataSet;
 import database.DataSet;
 import database.UserManufacturer;
+import database.images.ProxyImage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -78,10 +79,11 @@ public class TopBarManager extends Screen{
     public void onScreenFocused(DataSet data) {
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
-        LogManager.println("VICTOR wants to know if " + Main.getUsername()+" is a "+Main.getUserType());
         if(!Main.getUserType().isEmpty()) {
             //check if user has a custom image defined
-//            if(DatabaseManager.getImage()) {
+            ProxyImage userImage = new ProxyImage(Main.getUsername()+".jpg");
+            if(!userImage.exists()) {
+                System.out.println(userImage);
                 //This method sets the image to the users type first letter.
                 imageLetter.setText(Main.getUserType().substring(0, 1));
                 if(imageLetter.getText().toUpperCase().equals("W")){
@@ -98,18 +100,10 @@ public class TopBarManager extends Screen{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-//            }else {
-//                imageLetter.setText("");
-//                logIn.setText("Log Out");
-//                BufferedImage bufferedImage;
-//                try {
-//                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
-//                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-//                    userIcon.setImage(image);
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//            }
+            }else {
+                LogManager.println("User:"+Main.getUsername()+" has a custom icon.");
+                userImage.displayImage(userIcon);
+            }
         }else{
             imageLetter.setText("");
             logIn.setText("Log In");
@@ -130,10 +124,8 @@ public class TopBarManager extends Screen{
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
             onScreenFocused(new BasicDataSet());
-            Main.screenManager.setScreen(EnumScreenType.LOG_IN);
-        }else{
-
         }
+        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
     }
 
     @FXML
