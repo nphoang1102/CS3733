@@ -201,7 +201,7 @@ public class NewApplicationManager extends Screen {
         app.Email = email;
         app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.DateOfSubmission = dateSubmitted;
+        app.DateOfSubmission = "1234-12-11";
         app.AgentName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;

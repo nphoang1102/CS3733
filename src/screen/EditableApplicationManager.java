@@ -89,10 +89,60 @@ public class EditableApplicationManager extends Screen {
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
-        //initialize();
     }
 
     public void onScreenFocused(DataSet dataSet){
+        //Load all field text
+        if(dataSet instanceof Application) {
+            Application application = (Application)dataSet;
+            repid_field.setText(application.RepID);
+            // brewNo exists as PlantRegistry in Data Set
+            plant_number_field.setText(application.PlantRegistry);
+            brand_name_field.setText(application.Brand);
+            applicant_name_field.setText(application.AgentName);
+            address_field.setText(application.Address);
+            address_field_2.setText(application.Address2);
+            phone_num_field.setText(application.PhoneNo);
+            email_field.setText(application.Email);
+            date_submitted_field.setText(application.DateOfSubmission);
+            //What is TTBID in Dataset?
+            // ttbId.setText(application.SerialNo);
+            fanciful_field.setText(application.FancifulName);
+            formula_field.setText(application.Formula);
+            grapes_field.setText(application.Grapes);
+            appellation_field.setText(application.WineAppelation);
+            // alcoholContent exists as ABV in Data Set
+            abv_field.setText(application.ABV);
+            ph_field.setText(application.PH);
+            vintage_field.setText(application.VintageDate);
+
+            app_type_box.setValue(application.ApplicationType);
+            product_source_box.setValue(application.Locality);
+            product_type_box.setValue(application.AlcoholType);
+        } else {
+            LogManager.println("Error: DataSet dataSet passed to EditableApplicationManager was not Application");
+        }
+
+
+        // Disabled
+        email_field.setDisable(true);
+        app_type_box.setDisable(true);
+        add_info_field.setDisable(true);
+        date_submitted_field.setDisable(true);
+        applicant_name_field.setDisable(true);
+        //vintage_field.setDisable(true); //NOT DISABLED
+        //ph_field.setDisable(true); //NOT DISABLED
+        //abv_field.setDisable(true); //NOT DISABLED
+        formula_field.setDisable(true);
+        brand_name_field.setDisable(true);
+        repid_field.setDisable(true);
+        add_info_field.setDisable(true);
+        address_field.setDisable(true);
+        address_field_2.setDisable(true);
+
+
+        //setVisibility of additional elements
+
     }
 
     public void submit(){

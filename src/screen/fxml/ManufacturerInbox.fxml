@@ -1,21 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ManufacturerInboxManager">
     <children>
-        <Button fx:id="NewApplication" layoutX="549.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#newApplication" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #939393;" text="New Application" textFill="#373737">
+        <Button fx:id="NewApplication" layoutX="549.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#newApplication" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #939393;" text="New Application" textFill="WHITE">
             <font>
                 <Font name="Telugu Sangam MN" size="18.0" />
-            </font></Button>
+            </font>
+         <effect>
+            <Reflection fraction="0.18" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></Button>
         <ScrollPane layoutX="200.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="880.0" style="-fx-background-color: #;">
          <content>
-            <TableView fx:id="Table" prefHeight="578.0" prefWidth="878.0">
+            <TableView fx:id="Table" prefHeight="578.0" prefWidth="878.0" stylesheets="@../css/ColaSearchResult.css">
               <columns>
                 <TableColumn fx:id="TTBIDColumn" prefWidth="94.0" text="TTBID" />
                 <TableColumn fx:id="NameColumn" prefWidth="340.0" text="Name" />
@@ -24,15 +32,27 @@
               </columns>
             </TableView>
          </content></ScrollPane>
-        <Button fx:id="EditButton" disable="true" layoutX="933.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#editApplication" prefHeight="49.0" prefWidth="134.0" style="-fx-background-color: #939393;" text="Edit" textFill="#373737">
+        <Button fx:id="EditButton" disable="true" layoutX="885.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#editApplication" prefHeight="49.0" prefWidth="182.0" style="-fx-background-color: #939393;" text="Edit Application" textFill="WHITE">
             <font>
                 <Font name="Telugu Sangam MN" size="18.0" />
             </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Reflection fraction="0.18" />
+         </effect>
         </Button>
-      <Button layoutX="193.0" layoutY="33.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="123.0" style="-fx-background-color: #939393;" text="Back" textFill="#373737">
+      <Button fx:id="editAccountButton" layoutX="200.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#editAccount" prefHeight="48.0" prefWidth="182.0" style="-fx-background-color: #939393;" text="Edit Account" textFill="WHITE">
+         <effect>
+            <Reflection fraction="0.18" />
+         </effect>
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
     </children>
 </Pane>

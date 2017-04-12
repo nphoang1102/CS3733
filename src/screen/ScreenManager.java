@@ -44,7 +44,7 @@ public class ScreenManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setScreen(EnumScreenType.MANUFACTURER_ADD_FORM );
+        setScreen(EnumScreenType.LOG_IN);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 closeAllPopOuts();
