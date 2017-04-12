@@ -11,6 +11,8 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
@@ -24,7 +26,7 @@
          <effect>
             <InnerShadow choke="0.47" color="#939393" height="255.0" radius="127.0" width="255.0" />
          </effect></Rectangle>
-        <Text layoutX="462.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+        <Text fill="#34a88b" layoutX="518.0" layoutY="344.0" strokeType="OUTSIDE" strokeWidth="0.0" />
         <Sphere layoutX="632.0" layoutY="348.0" radius="0.77" />
         <Text fill="#616161" layoutX="351.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your New Account">
             <font>
@@ -34,7 +36,7 @@
             <DropShadow color="#939393" height="15.34" radius="3.335" spread="0.27" width="0.0" />
          </effect>
         </Text>
-        <TextField fx:id="username" layoutX="526.0" layoutY="271.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" promptText="Username" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
+        <TextField fx:id="username" layoutX="518.0" layoutY="201.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" promptText="Username" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
          <effect>
             <Reflection />
          </effect>
@@ -44,7 +46,7 @@
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></TextField>
-        <Button fx:id="createAccount" layoutX="541.0" layoutY="361.0" mnemonicParsing="false" onMouseClicked="#makeAccount" prefHeight="50" prefWidth="200" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-background-color: #34a88b;" text="Create Account" textFill="WHITE">
+        <Button fx:id="createAccount" layoutX="531.0" layoutY="366.0" mnemonicParsing="false" onMouseClicked="#makeAccount" prefHeight="50" prefWidth="200" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-background-color: #34a88b;" text="Create Account" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -54,7 +56,7 @@
          <effect>
             <Reflection fraction="0.18" />
          </effect></Button>
-      <CheckBox fx:id="tickAgent" layoutX="787.0" layoutY="247.0" mnemonicParsing="false" onMouseClicked="#selectAgent" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-unfocus-color: #34a88b;" text="I am an Agent" textFill="#616161">
+      <CheckBox fx:id="tickAgent" layoutX="787.0" layoutY="282.0" mnemonicParsing="false" onMouseClicked="#selectAgent" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b; -fx-unfocus-color: #34a88b;" text="I am an Agent" textFill="#616161">
          <effect>
             <Reflection fraction="0.18" />
          </effect>
@@ -64,7 +66,7 @@
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></CheckBox>
-        <CheckBox fx:id="tickManufacturer" layoutX="787.0" layoutY="315.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;" text="I am a Manufacturer" textFill="#616161">
+        <CheckBox fx:id="tickManufacturer" layoutX="787.0" layoutY="226.0" mnemonicParsing="false" onMouseClicked="#selectManufacturer" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;" text="I am a Manufacturer" textFill="#616161">
          <effect>
             <Reflection fraction="0.18" />
          </effect>
@@ -79,5 +81,16 @@
          <font>
             <Font name="Telugu Sangam MN" size="24.0" />
          </font></Text>
+      <TextField fx:id="password" layoutX="518.0" layoutY="275.0" onAction="#enterPassword" prefHeight="50.0" prefWidth="230.0" promptText="Password" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <effect>
+            <Reflection />
+         </effect>
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </TextField>
     </children>
 </Pane>

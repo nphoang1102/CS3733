@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.UserSettingsManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.UserSettingsManager">
    <children>
        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1280.0">
          <cursor>
@@ -50,7 +50,7 @@
          <effect>
             <Reflection fraction="0.58" topOpacity="0.36" />
          </effect></TextField>
-      <TextField fx:id="email" layoutX="178.0" layoutY="362.0" prefHeight="50.0" prefWidth="370.0" promptText="Email" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <TextField fx:id="company" layoutX="178.0" layoutY="362.0" prefHeight="50.0" prefWidth="370.0" promptText="Company Name" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -60,7 +60,17 @@
          <effect>
             <Reflection fraction="0.58" topOpacity="0.36" />
          </effect></TextField>
-       <TextField fx:id="phoneNumber" layoutX="735.0" layoutY="182.0" prefHeight="50.0" prefWidth="370.0" promptText="Phone Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+      <TextField fx:id="email" layoutX="178.0" layoutY="453.0" prefHeight="50.0" prefWidth="370.0" promptText="Email" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="TEXT" />
+         </cursor>
+         <effect>
+            <Reflection fraction="0.58" topOpacity="0.36" />
+         </effect></TextField>
+       <TextField fx:id="breweryPermitNumber" layoutX="735.0" layoutY="182.0" prefHeight="50.0" prefWidth="370.0" promptText="Brewery Permit Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
            <font>
                <Font name="Telugu Sangam MN" size="18.0" />
            </font>
@@ -70,7 +80,7 @@
            <effect>
                <Reflection fraction="0.58" topOpacity="0.36" />
            </effect></TextField>
-       <TextField fx:id="representativeIdNumber" layoutX="735.0" layoutY="272.0" prefHeight="50.0" prefWidth="370.0" promptText="Rep ID" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+       <TextField fx:id="phoneNumber" layoutX="735.0" layoutY="272.0" prefHeight="50.0" prefWidth="370.0" promptText="Phone Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
            <font>
                <Font name="Telugu Sangam MN" size="18.0" />
            </font>
@@ -80,7 +90,7 @@
            <effect>
                <Reflection fraction="0.58" topOpacity="0.36" />
            </effect></TextField>
-       <TextField fx:id="plantRegistryBasicPermitNumber" layoutX="735.0" layoutY="362.0" prefHeight="50.0" prefWidth="370.0" promptText="Plant Registry Basic Permit Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+       <TextField fx:id="representativeIdNumber" layoutX="735.0" layoutY="362.0" prefHeight="50.0" prefWidth="370.0" promptText="Rep ID" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
            <font>
                <Font name="Telugu Sangam MN" size="18.0" />
            </font>
@@ -90,7 +100,17 @@
            <effect>
                <Reflection fraction="0.58" topOpacity="0.36" />
            </effect></TextField>
-      <Button fx:id="saveChangesButton" layoutX="957.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#saveChanges" style="-fx-background-color: #939393;" text="Save Changes" textFill="WHITE">
+       <TextField fx:id="plantRegistryBasicPermitNumber" layoutX="735.0" layoutY="453.0" prefHeight="50.0" prefWidth="370.0" promptText="Plant Registry Basic Permit Number" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+           <font>
+               <Font name="Telugu Sangam MN" size="18.0" />
+           </font>
+           <cursor>
+               <Cursor fx:constant="TEXT" />
+           </cursor>
+           <effect>
+               <Reflection fraction="0.58" topOpacity="0.36" />
+           </effect></TextField>
+      <Button fx:id="saveChangesButton" layoutX="1105.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#saveChanges" style="-fx-background-color: #34a88b;" text="Save Changes" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -101,7 +121,7 @@
             <Reflection fraction="0.18" />
          </effect>
       </Button>
-      <Button fx:id="EditProfilePic" layoutX="178.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#EditProfilePic" style="-fx-background-color: #939393;" text="Edit Profile Picture" textFill="WHITE">
+      <Button fx:id="EditProfilePic" layoutX="551.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#EditProfilePic" style="-fx-background-color: #939393;" text="Edit Profile Picture" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.collections.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane id="Inbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb&#10;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="screen.AgentInboxManager">
+<Pane id="Inbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb&#10;" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AgentInboxManager">
   <children>
     <Button fx:id="pullNewBatch" layoutX="56.0" layoutY="79.0" mnemonicParsing="false" onMouseClicked="#pullNewBatch" prefHeight="48.44631576538086" prefWidth="170.0" style="-fx-background-color: #939393&#10;" text="Pull New Batch" textFill="WHITE">
       <font>
@@ -22,8 +25,8 @@
     </Text>
     <TableView id="inbox" fx:id="inboxData" layoutX="0.0" layoutY="220.0" prefHeight="500.0" prefWidth="1280.0" stylesheets="@../css/ColaSearchResult.css">
       <columns>
-        <TableColumn maxWidth="5000.0" minWidth="10.0" prefWidth="640.0" style="&#10;" text="Manufacturer Name" fx:id="manufacturerName" />
-        <TableColumn prefWidth="640.0" style="&#10;" text="Brand Name" fx:id="specificBrandName" />
+        <TableColumn fx:id="manufacturerName" maxWidth="5000.0" minWidth="10.0" prefWidth="640.0" style="&#10;" text="Manufacturer Name" />
+        <TableColumn fx:id="specificBrandName" prefWidth="640.0" style="&#10;" text="Brand Name" />
       </columns>
     </TableView>
     <ChoiceBox fx:id="typeBox" layoutX="56.0" layoutY="140.0" prefWidth="122.0" style="-fx-background-color: #939393&#10;">
@@ -34,6 +37,11 @@
         </FXCollections>
       </items>
     </ChoiceBox>
+      <Button fx:id="EditAccount" layoutX="956.0" layoutY="84.0" mnemonicParsing="false" onMouseClicked="#editAccount" style="-fx-background-color: #939393;" text="Edit Account" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Button>
   </children>
   <effect>
     <ColorAdjust />

@@ -25,7 +25,7 @@ public class CreateAccountManager extends Screen{
     @FXML
     private Button createAccount;
     @FXML
-    private TextField username;
+    private TextField username, password;
     @FXML
     private Polygon backButton;
     @FXML
@@ -83,7 +83,7 @@ public class CreateAccountManager extends Screen{
                     //tell the system what typ of user they are
                     LogManager.println(user + " is a " + userType);
                     //create new manufacturer, no password
-                    DatabaseManager.addUser(tempUser, "bub", userType);
+                    DatabaseManager.addUser(tempUser, "", userType);
 
                     Main.setUser(tempUser);
                     System.out.println(Main.getUsername());
@@ -119,6 +119,11 @@ public class CreateAccountManager extends Screen{
         return;
     }
     @FXML
+    private void enterPassword(){
+        makeAccount();
+        return;
+    }
+    @FXML
     private void selectAgent(){
         //untick others
         tickManufacturer.setSelected(false);
@@ -141,6 +146,7 @@ public class CreateAccountManager extends Screen{
     @Override
     public void onScreenFocused(DataSet data) {
         clearFields();
+        //password.visibleProperty().setValue(false);
     }
    /* @FXML
     private void selectPublicUser(){
@@ -151,4 +157,5 @@ public class CreateAccountManager extends Screen{
         tickManufacturer.setIndeterminate(false);
         userType = "publicUser";
     }*/
+
 }

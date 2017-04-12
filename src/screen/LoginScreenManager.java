@@ -29,7 +29,7 @@ public class LoginScreenManager extends Screen {
 
     /* FXML objects */
     @FXML
-    private TextField usernameField;
+    private TextField usernameField, password;
     @FXML
     private Button loginButton;
     @FXML
@@ -65,7 +65,10 @@ public class LoginScreenManager extends Screen {
                     e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
+                    //error.visibleProperty().setValue(true);
+                    //error.setText("Incorrect password");
                     e.printStackTrace();
+                    //return;
                 } catch (PasswordStorage.InvalidHashException e) {
                     e.printStackTrace();
                 } catch (PasswordStorage.CannotPerformOperationException e) {
@@ -104,7 +107,11 @@ public class LoginScreenManager extends Screen {
         this.loginClicked();
         return;
     }
-
+    @FXML
+    void enterPassword(){
+        this.loginClicked();
+        return;
+    }
     @FXML
     void userSignUp() {
         //tell the screen manager to go to the create account screen
