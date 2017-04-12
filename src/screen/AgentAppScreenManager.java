@@ -80,6 +80,7 @@ public class AgentAppScreenManager extends Screen{
             Application app = (Application) dataGlobal;
             DatabaseManager.approveApplication(app.ApplicationNo);
             Main.screenManager.closeCurrentPopOut();
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
 
     }
@@ -94,6 +95,7 @@ public class AgentAppScreenManager extends Screen{
             Application app = (Application) dataGlobal;
             DatabaseManager.rejectApplication(app.ApplicationNo);
             Main.screenManager.closeCurrentPopOut();
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
     }
 

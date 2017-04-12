@@ -365,7 +365,7 @@ public class DatabaseManager {
     public static void approveApplication(String ApplicationNum) {
         String TTBID = generateTTBID();
         try {
-            statement.executeUpdate("UPDATE Applications SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "';");
             statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "';");
         } catch (SQLException e) {
@@ -413,7 +413,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
         try {
-            statement.executeUpdate("UPDATE Applications SET status = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "';");
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "';");
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
@@ -434,16 +434,20 @@ public class DatabaseManager {
     ///////////ADD APPLICATIONS TO AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
-        LinkedList<DataSet> applicationLinkedList = PullAplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';");
+        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';");
         LinkedList<Application> addToInbox = new LinkedList<>();
         for (int i = 0; i < num; i++) {
             try{
-                addToInbox.add((Application) applicationLinkedList.get(i));
+                Application tempApp = (Application) applicationLinkedList.get(i);
+                if(tempApp.ApplicationStatus.equals("PENDING") && tempApp.AgentUsername.equals("")) {
+                    LogManager.println("Application added");
+                    addToInbox.add((Application) applicationLinkedList.get(i));
 
-                try {
-                    statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + ((Application) applicationLinkedList.get(i)).ApplicationNo + "';");
-                }catch (SQLException e) {
-                    LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
+                    try {
+                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "';");
+                    } catch (SQLException e) {
+                        LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
+                    }
                 }
             }catch(Exception e){
                 break;
@@ -509,7 +513,7 @@ public class DatabaseManager {
         return applicationLinkedList;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
+/*    /////////////////////////////////////////////////////////////////////////////////
     /////////////////////PullApplications////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> PullAplications(String queryStr){
@@ -553,7 +557,6 @@ public class DatabaseManager {
                     application.ReasonForRejection = getApplications.getString("ReasonForRejection");
                     applicationLinkedList.add(application);
                     String thisApplicationNo = getApplications.getString("ApplicationNo");
-
                 }
 
             }
@@ -564,7 +567,7 @@ public class DatabaseManager {
 
         return applicationLinkedList;
 
-    }
+    }*/
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD USERS/////////////////////////////////////////////////////////////
