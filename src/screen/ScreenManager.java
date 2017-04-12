@@ -151,6 +151,9 @@ public class ScreenManager {
         return topBarScreen.getSearchTerm();
     }
 
+    public static void updateUserIcon() {
+        topBarScreen.updateUserIcon();
+    }
 }
 
 class State{

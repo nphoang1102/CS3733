@@ -29,7 +29,7 @@ public class LoginScreenManager extends Screen {
 
     /* FXML objects */
     @FXML
-    private TextField usernameField, password;
+    private TextField usernameField;
     @FXML
     private Button loginButton;
     @FXML
@@ -44,41 +44,36 @@ public class LoginScreenManager extends Screen {
     //fxml methods
     @FXML
     void loginClicked() {
+        //clear any previous error messages
+        error.visibleProperty().setValue(false);
         if (Main.getUsername().equals("")) {
             this.userName = usernameField.getText();
-            String tempPassword = password.getText();
             this.usernameField.clear();
-
-            User curUser = null;
-            try {
-                curUser = Main.databaseManager.login(userName, tempPassword);
-            } catch (DatabaseManager.UserNotFoundException e) {
-                LogManager.println("NO FUCKING USERS");
-                e.printStackTrace();
-                return;
-            } catch (DatabaseManager.IncorrectPasswordException e) {
-                LogManager.println("incorrect password");
-                e.printStackTrace();
-                return;
-            } catch (PasswordStorage.InvalidHashException e) {
-                LogManager.println("SOME WIERD ASS SHIT");
-                e.printStackTrace();
-                return;
-            } catch (PasswordStorage.CannotPerformOperationException e) {
-                LogManager.println("LAZY MOTHA FUCKA");
-                e.printStackTrace();
-                return;
-            }
-
-            Enum userType = curUser.getType();
-            Main.setUser(curUser);
 
             if (userName.equals("")) {
                 //print to screen, tell user to enter username, exit
                 error.visibleProperty().setValue(true);
                 error.setText("PLEASE ENTER A USERNAME");
-
+                LogManager.println("need a username");
             } else {
+                User curUser = null;
+                try {
+                    curUser = Main.databaseManager.login(userName, "");
+                } catch (DatabaseManager.UserNotFoundException e) {
+                    error.visibleProperty().setValue(true);
+                    error.setText("Username does not exist");
+                    e.printStackTrace();
+                    return;
+                } catch (DatabaseManager.IncorrectPasswordException e) {
+                    e.printStackTrace();
+                } catch (PasswordStorage.InvalidHashException e) {
+                    e.printStackTrace();
+                } catch (PasswordStorage.CannotPerformOperationException e) {
+                    e.printStackTrace();
+                }
+
+                Enum userType = curUser.getType();
+                Main.setUser(curUser);
                 if (userType.equals(EnumUserType.PUBLIC_USER)) {
                     Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
                 }
@@ -127,11 +122,5 @@ public class LoginScreenManager extends Screen {
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
         error.visibleProperty().setValue(false);
-    }
-
-    public void centerError(){
-        double center;
-        center = (background.getWidth()-error.getWrappingWidth())/2;
-        error.setTextAlignment(TextAlignment.CENTER);
     }
 }

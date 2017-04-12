@@ -61,49 +61,51 @@ public class CreateAccountManager extends Screen{
         clearFields();
         //query database to get all usernames
         //check if user is in the list
+        if(!user.equals("")) {
+            if (userType != null) { //placeholder for now
+                //tell the system who made an account
+                LogManager.println(user + " just made an account");
 
-        if(userType!=null) { //placeholder for now
-            //tell the system who made an account
-            LogManager.println(user + " just made an account");
 
+                //record the account in the database
+                if (userType.equals(EnumUserType.AGENT)) {
+                    UserAgent tempUser = new UserAgent(user);
+                    //tell the system what type of user they are
+                    LogManager.println(user + " is a " + userType);
+                    //create new agent, no password
+                    DatabaseManager.addUser(tempUser, "", userType);
+                    Main.setUser(tempUser);
+                    LogManager.println(tempUser + "logged in");
+                    Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
-            //record the account in the database
-            if(userType.equals(EnumUserType.AGENT)) {
-                UserAgent tempUser =  new UserAgent(user);
-                //tell the system what typ of user they are
-                LogManager.println(user+" is a "+userType);
-                //create new agent, no password
-                DatabaseManager.addUser(tempUser,"", userType);
-                Main.setUser(tempUser);
-                LogManager.println(tempUser + "logged in");
-                Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+                } else if (userType.equals(EnumUserType.MANUFACTURER)) {
+                    UserManufacturer tempUser = new UserManufacturer(user);
+                    //tell the system what typ of user they are
+                    LogManager.println(user + " is a " + userType);
+                    //create new manufacturer, no password
+                    DatabaseManager.addUser(tempUser, "bub", userType);
 
-            }else if(userType.equals(EnumUserType.MANUFACTURER)){
-                UserManufacturer tempUser =  new UserManufacturer(user);
-                //tell the system what typ of user they are
-                LogManager.println(user+" is a "+userType);
-                //create new manufacturer, no password
-                DatabaseManager.addUser(tempUser,"bub",userType);
+                    Main.setUser(tempUser);
+                    System.out.println(Main.getUsername());
 
-                Main.setUser(tempUser);
-                System.out.println(Main.getUsername());
+                    Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
 
-                Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-
-            }/*else if(userType.equalsIgnoreCase("publicUser")){
+                }/*else if(userType.equalsIgnoreCase("publicUser")){
                 User tempUser =  new User(username.getText());
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
                 DatabaseManager.addUser(user,"",EnumUserType.MANUFACTURER);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);*/
-        } else{ //they didn't select a box
-            //tell the system they didn't select a box
-            LogManager.println(user+" didn't select a user type");
-            //repopulate the field with their name
-            accountError.setText(user+", select a box.");
+            } else { //they didn't select a box
+                //tell the system they didn't select a box
+                LogManager.println(user + " didn't select a user type");
+                //repopulate the field with their name
+                accountError.setText(user + ", select a box.");
+            }
+        }else {//user didn't enter a username
+            accountError.setText("Enter a username");
         }
-
         /*else {
             //if name is taken, return to the make account screen
             accountError.setText("I'm sorry" + user+ ", that account is taken");

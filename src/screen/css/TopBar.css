@@ -1,10 +1,12 @@
 .choice-box .label {
-	-fx-font: "Telugu Sangam MN";
+	-fx-font-family: "Telugu Sangam MN";
+    -fx-font-size: 12px;
 	-fx-text-fill:  #ffffff;
 }
 
 .choice-box . {
-	-fx-font: "Telugu Sangam MN";
+	-fx-font-family: "Telugu Sangam MN";
+    -fx-font-size: 12px;
 	-fx-text-fill:  #ffffff;
 }
 
