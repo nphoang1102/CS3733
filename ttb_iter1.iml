@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
           <root url="file://$MODULE_DIR$/lib/mysql" />
@@ -29,16 +29,6 @@
         <jarDirectory url="file://$MODULE_DIR$/lib/mysql" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib/mysql" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/lib/mysql" recursive="false" />
-      </library>
-    </orderEntry>
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
@@ -52,25 +42,24 @@
     <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-examples-3.6.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-3.6.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/mysql" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-3.6-sources.jar!/" />
-        </SOURCES>
+        <SOURCES />
+        <jarDirectory url="file://$MODULE_DIR$/lib/mysql" recursive="false" />
       </library>
     </orderEntry>
-    <orderEntry type="module-library">
+    <orderEntry type="module-library" exported="">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/lib/commons-net-examples-3.6.jar!/" />
-          <root url="jar://$MODULE_DIR$/lib/commons-net-3.6.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/ftp" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$MODULE_DIR$/lib/commons-net-3.6-sources.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/ftp" />
         </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib/ftp" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/ftp" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
   </component>
