@@ -30,7 +30,7 @@ import static base.Main.screenManager;
 public class AgentInboxManager extends Screen{
 
     @FXML
-    private Button pullNewBatch;
+    private Button pullNewBatch, editAccount;
     @FXML
     private Polygon backButton;
     @FXML
@@ -130,7 +130,10 @@ public class AgentInboxManager extends Screen{
 
 
     }
-
+    @FXML
+    public void editAccount(){
+        Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
+    }
 
     public void removeId(String rString){
         uuidCodes.remove(rString);

@@ -105,5 +105,27 @@ public class UserSettingsManager extends Screen {
 //        FileChooser fileChooser = new FileChooser();
 //        fileChooser.setTitle("Open Resource File");
 //        fileChooser.showOpenDialog(stage);
+        if(Main.getUserType()!=null){
+            if(Main.getUserType().equalsIgnoreCase("manufacturer")){
+                //if we have a manufacturer fire up all the fields
+                firstName.visibleProperty().setValue(true);
+                lastName.visibleProperty().setValue(true);
+                company.visibleProperty().setValue(true);
+                email.visibleProperty().setValue(true);
+                breweryPermitNumber.visibleProperty().setValue(true);
+                phoneNumber.visibleProperty().setValue(true);
+                representativeIdNumber.visibleProperty().setValue(true);
+                plantRegistryBasicPermitNumber.visibleProperty().setValue(true);
+            }
+            if(Main.getUserType().equalsIgnoreCase("agent")){
+                //if we have an agent, hide manufacturer fields
+                company.visibleProperty().setValue(false);
+                email.visibleProperty().setValue(false);
+                breweryPermitNumber.visibleProperty().setValue(false);
+                phoneNumber.visibleProperty().setValue(false);
+                representativeIdNumber.visibleProperty().setValue(false);
+                plantRegistryBasicPermitNumber.visibleProperty().setValue(false);
+            }
+        }
     }
 }
