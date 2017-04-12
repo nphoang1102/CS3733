@@ -45,7 +45,6 @@ public class AgentInboxManager extends Screen{
 
     private ObservableList<Application> inboxInfo = FXCollections.observableArrayList();
     private LinkedList<DataSet> uuidCodes = new LinkedList<>();
-    private AgentInboxResult testApp = new AgentInboxResult("budweiser", "summer Ale", "12345768");
 
     //constructer for the screen
     public AgentInboxManager() {

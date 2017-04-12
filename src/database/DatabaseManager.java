@@ -436,7 +436,11 @@ public class DatabaseManager {
         LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
         LinkedList<Application> addToInbox = new LinkedList<>();
         for (int i = 0; i < num; i++) {
-            addToInbox.add((Application) applicationLinkedList.get(i));
+            try{
+                addToInbox.add((Application) applicationLinkedList.get(i));
+            }catch (Exception e){
+                LogManager.println("No Applications found", EnumWarningType.WARNING);
+            }
         }
         return addToInbox;
     }
@@ -450,7 +454,7 @@ public class DatabaseManager {
             ResultSet getApplications = statement.executeQuery(queryStr);
 
             while (getApplications.next()) {
-                getApplications.next();
+                //getApplications.next();
                 Application application = new Application();
                 application.ApplicationNo = getApplications.getString("ApplicationNo");
                 application.SerialNo = getApplications.getString("SerialNo");
@@ -485,7 +489,7 @@ public class DatabaseManager {
                 String thisApplicationNo = getApplications.getString("ApplicationNo");
                 if (!setAgent.equals("")) {
                     try {
-                        statement.executeUpdate("UPDATE Applications SET InboxAgent = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
+                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + thisApplicationNo + " !", EnumWarningType.ERROR);
                     }

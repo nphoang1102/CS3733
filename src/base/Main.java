@@ -50,7 +50,7 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", false);
+
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
@@ -119,8 +119,6 @@ public class Main extends Application{
     }
 
     public static void setUser (User u){
-        user.setType(u.getType());
-        user.setEmail(u.getEmail());
-        user.setUsername(u.getUsername());
+        user = u;
     }
 }
