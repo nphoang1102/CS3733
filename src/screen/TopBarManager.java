@@ -68,6 +68,8 @@ public class TopBarManager extends Screen{
         super(EnumScreenType.TOP_BAR);
     }
 
+    private String lastFoucs = "initialUserName";
+
     @FXML
     public void initialize() {
         ObservableList<String> typeList = FXCollections.observableArrayList("All", "Beer", "Wine", "Other");
@@ -79,44 +81,46 @@ public class TopBarManager extends Screen{
     public void onScreenFocused(DataSet data) {
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
-        if(!Main.getUserType().isEmpty()) {
-            //check if user has a custom image defined
-            ProxyImage userImage = new ProxyImage(Main.getUsername()+".jpg");
-            if(!userImage.exists()) {
-                System.out.println(userImage);
-                //This method sets the image to the users type first letter.
-                imageLetter.setText(Main.getUserType().substring(0, 1));
-                if(imageLetter.getText().toUpperCase().equals("W")){
-                    imageLetter.setLayoutX(userIcon.getX()+19);
-                }else{
-                    imageLetter.setLayoutX(userIcon.getX()+23);
+        if(!lastFoucs.equals(Main.getUsername())) {
+            if (!Main.getUserType().isEmpty()) {
+                //check if user has a custom image defined
+                ProxyImage userImage = new ProxyImage(Main.getUsername() + ".jpg");
+                if (!userImage.exists()) {
+                    System.out.println(userImage);
+                    //This method sets the image to the users type first letter.
+                    imageLetter.setText(Main.getUserType().substring(0, 1));
+                    if (imageLetter.getText().toUpperCase().equals("W")) {
+                        imageLetter.setLayoutX(userIcon.getX() + 19);
+                    } else {
+                        imageLetter.setLayoutX(userIcon.getX() + 23);
+                    }
+                    logIn.setText("Log Out");
+                    BufferedImage bufferedImage;
+                    try {
+                        bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+                        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+                        userIcon.setImage(image);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    LogManager.println("User:" + Main.getUsername() + " has a custom icon.");
+                    userImage.displayImage(userIcon);
                 }
-                logIn.setText("Log Out");
+            } else {
+                imageLetter.setText("");
+                logIn.setText("Log In");
                 BufferedImage bufferedImage;
                 try {
-                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot_empty_user.png"));
                     Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                     userIcon.setImage(image);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-            }else {
-                LogManager.println("User:"+Main.getUsername()+" has a custom icon.");
-                userImage.displayImage(userIcon);
-            }
-        }else{
-            imageLetter.setText("");
-            logIn.setText("Log In");
-            BufferedImage bufferedImage;
-            try {
-                bufferedImage = ImageIO.read(new File(Main.PATH+"/res/dot_empty_user.png"));
-                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                userIcon.setImage(image);
-            } catch (Exception e) {
-                e.printStackTrace();
             }
         }
-
+        lastFoucs = Main.getUsername();
     }
 
     @FXML
