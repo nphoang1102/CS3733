@@ -19,7 +19,7 @@ public class Main extends Application{
     public static ScreenManager screenManager;
     private LogManager logManager;
     public static DatabaseManager databaseManager;
-    private static User user;
+    public static User user;
 
 
     public static final int WIDTH = 1280;
@@ -115,6 +115,10 @@ public class Main extends Application{
 
     public static void logOutUser(){
         user = null;
+    }
+
+    public static User getUser(){
+        return user;
     }
 
     public static void setUser (User u){

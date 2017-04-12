@@ -359,6 +359,20 @@ public class DatabaseManager {
         return manufacturers;
     }
 
+    public static void updateManufacturer(UserManufacturer userm){
+        try {
+            //ResultSet searchManufacturers = statement.executeQuery("SELECT * FROM Manufacturers;");
+            //LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "username", userm.username);
+            /*while(searchManufacturers.next()) {
+                userm.username = searchManufacturers.getString("Username");
+            }*/
+            statement.executeUpdate("UPDATE Manufacturers SET Name = '" + userm.name + "', RepID = '" + userm.RepID + "', Email = '" + userm.email + "', PlantRegistry = '" + userm.PlantRegistry + "', PhoneNo = '" + userm.PhoneNo + "' WHERE Username = '" + userm.username + "';");
+        } catch (SQLException e) {
+            e.printStackTrace();
+
+        }
+    }
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////

@@ -130,7 +130,7 @@ public class EditableApplicationManager extends Screen {
             LogManager.println("Error: DataSet dataSet passed to EditableApplicationManager was not Application");
         }
 
-        if(((Application) dataSet).ApplicationStatus == "Approved") {
+        if(((Application) dataSet).ApplicationStatus.equals("APPROVED")) {
             // Disabled
             email_field.setDisable(true);
             app_type_box.setDisable(true);
