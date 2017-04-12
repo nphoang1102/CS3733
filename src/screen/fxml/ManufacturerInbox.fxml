@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.InnerShadow?>
 <?import javafx.scene.effect.Reflection?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -26,7 +27,7 @@
             <TableView fx:id="Table" prefHeight="578.0" prefWidth="878.0" stylesheets="@../css/ColaSearchResult.css">
               <columns>
                 <TableColumn fx:id="TTBIDColumn" prefWidth="94.0" text="TTBID" />
-                <TableColumn fx:id="NameColumn" prefWidth="340.0" text="Name" />
+                <TableColumn fx:id="NameColumn" prefWidth="340.0" text="Brand Name" />
                   <TableColumn fx:id="StatusColumn" minWidth="0.0" prefWidth="217.0" text="Status" />
                   <TableColumn fx:id="DateColumn" prefWidth="214.0" text="Date Submitted" />
               </columns>
@@ -44,4 +45,7 @@
          </cursor>
       </Button>
     </children>
+   <effect>
+      <InnerShadow choke="0.47" color="#939393" height="255.0" radius="127.0" width="255.0" />
+   </effect>
 </Pane>
