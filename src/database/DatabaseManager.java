@@ -135,7 +135,9 @@ public class DatabaseManager {
                     " AdditionalInfo VARCHAR(500) NOT NULL,\n" +
                     " DateOfSubmission DATE,\n" +
                     " DateOfApproval DATE,\n" +
-                    " DateOfExpiration DATE\n" +
+                    " DateOfExpiration DATE,\n" +
+                    " ApprovedTTBID VARCHAR(14),\n" +
+                    " ReasonForRejection VARCHAR(100)\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -282,7 +284,6 @@ public class DatabaseManager {
                     "AdditionalInfo, " +
                     "DateOfSubmission," +
                     "DateOfApproval," +
-                    "DateOfExpiration," +
                     "DateOfExpiration," +
                     "ApprovedTTBID," +
                     "ReasonForRejection" +
