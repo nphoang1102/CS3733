@@ -209,6 +209,7 @@ public class EditableApplicationManager extends Screen {
         app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
+        app.AgentUsername = "";
 
         database.DatabaseManager.submitApplication(app);
         LogManager.println("Submitting Application");

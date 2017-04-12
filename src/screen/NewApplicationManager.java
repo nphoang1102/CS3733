@@ -220,7 +220,7 @@ public class NewApplicationManager extends Screen {
         app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
-        //app.AgentUsername = "";
+        app.AgentUsername = "";
 
         database.DatabaseManager.submitApplication(app);
 
