@@ -383,8 +383,8 @@ public class DatabaseManager {
         String Date = approvedApplication.DateOfApproval;
 //        String PrintName = approvedApplication.PrintName;
 //        String ABV = approvedApplication.ABV;
-//        String VintageDate = approvedApplication.VintageDate;
-//        String PH = approvedApplication.PH;
+        String VintageDate = approvedApplication.VintageDate;
+        String PH = approvedApplication.PH;
 //        String Status = approvedApplication.Status;
 //        String ApplicationNo = approvedApplication.ApplicationNO;
 //        String DateOfApproval = approvedApplication.DateOfApproval;
@@ -402,7 +402,7 @@ public class DatabaseManager {
 //        String AdditionalInfo = approvedApplication.AdditionalInfo;
 
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "');");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "', '" + "'3'" + "', '" + VintageDate + "', '" +PH + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }

@@ -29,7 +29,7 @@ public class LoginScreenManager extends Screen {
 
     /* FXML objects */
     @FXML
-    private TextField usernameField, password;
+    private TextField usernameField;
     @FXML
     private Button loginButton;
     @FXML
@@ -48,7 +48,6 @@ public class LoginScreenManager extends Screen {
         error.visibleProperty().setValue(false);
         if (Main.getUsername().equals("")) {
             this.userName = usernameField.getText();
-            String tempPassword = password.getText();
             this.usernameField.clear();
 
             if (userName.equals("")) {
