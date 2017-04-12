@@ -428,7 +428,12 @@ public class DatabaseManager {
         LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
         LinkedList<Application> addToInbox = new LinkedList<>();
         for (int i = 0; i < num; i++) {
-            addToInbox.add((Application) applicationLinkedList.get(i));
+            try{
+                addToInbox.add((Application) applicationLinkedList.get(i));
+            }catch(Exception e){
+                break;
+            }
+
         }
         return addToInbox;
     }
@@ -540,12 +545,19 @@ public class DatabaseManager {
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {
-                //user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
+                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
                 LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                 if (!manufacturerLinkedList.isEmpty()) {
+                    LogManager.println("YARP! WE FOUND " + username + "!");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
-                    LogManager.println("User " + username + " is an agent");
-                    tryPassword(username, password, user.getString("PasswordHash"));
+                    LogManager.println("User " + manufacturer.username + " is a manufacturer");
+                    try{
+                        tryPassword(username, password, user.getString("PasswordHash"));
+                    }
+                    catch (Exception e){
+                        LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+                    }
+                    LogManager.println("NIGGA WE MADE IT");
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);

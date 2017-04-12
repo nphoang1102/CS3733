@@ -26,7 +26,7 @@ public class LoginScreenManager extends Screen {
 
     /* FXML objects */
     @FXML
-    private TextField usernameField;
+    private TextField usernameField, password;
     @FXML
     private Button loginButton;
     @FXML
@@ -41,19 +41,28 @@ public class LoginScreenManager extends Screen {
     void loginClicked() {
         if (Main.getUsername().equals("")) {
             this.userName = usernameField.getText();
+            String tempPassword = password.getText();
             this.usernameField.clear();
 
             User curUser = null;
             try {
-                curUser = Main.databaseManager.login(userName, "");
+                curUser = Main.databaseManager.login(userName, tempPassword);
             } catch (DatabaseManager.UserNotFoundException e) {
+                LogManager.println("NO FUCKING USERS");
                 e.printStackTrace();
+                return;
             } catch (DatabaseManager.IncorrectPasswordException e) {
+                LogManager.println("incorrect password");
                 e.printStackTrace();
+                return;
             } catch (PasswordStorage.InvalidHashException e) {
+                LogManager.println("SOME WIERD ASS SHIT");
                 e.printStackTrace();
+                return;
             } catch (PasswordStorage.CannotPerformOperationException e) {
+                LogManager.println("LAZY MOTHA FUCKA");
                 e.printStackTrace();
+                return;
             }
 
             Enum userType = curUser.getType();
