@@ -5,9 +5,16 @@ import database.User;
 import database.UserAgent;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import screen.ScreenManager;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class Main extends Application{
 
@@ -50,7 +57,6 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
-        user = new UserAgent("evanistheokayest", "Evan123", "foo@foo.foo", "evan", false);
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
@@ -96,6 +102,7 @@ public class Main extends Application{
         @param args System arguments passed into the application through the command line.
      */
     public static void main(String[] args) {
+
         Main main = new Main();
         main.launch(args);
     }
@@ -119,8 +126,9 @@ public class Main extends Application{
     }
 
     public static void setUser (User u){
-        user.setType(u.getType());
-        user.setEmail(u.getEmail());
-        user.setUsername(u.getUsername());
+//        user.setType(u.getType());
+//        user.setEmail(u.getEmail());
+//        user.setUsername(u.getUsername());
+        user = u;
     }
 }

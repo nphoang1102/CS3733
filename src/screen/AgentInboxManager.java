@@ -4,8 +4,10 @@ package screen;
  * Created by ${Victor} on 4/2/2017.
  */
 import base.*;
+import database.Application;
 import database.DataSet;
 import database.DatabaseManager;
+import database.PasswordStorage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
+import static base.Main.screenManager;
+
 
 public class AgentInboxManager extends Screen{
 
@@ -36,89 +40,65 @@ public class AgentInboxManager extends Screen{
     @FXML
     private TableView inboxData;
     @FXML
-    private TableColumn manufacturerName, specificBrandName;
+    private TableColumn<Application, String>  specificBrandName, manufacturerName;
 
 
-
-
-    private ObservableList<AgentInboxResult> inboxInfo = FXCollections.observableArrayList();
-    private ObservableList<String> typeList = FXCollections.observableArrayList("Beer", "Wine");
-    private LinkedList<DataSet> uuidCodes = new LinkedList<>();
+    private ObservableList<Application> inboxInfo = FXCollections.observableArrayList();
+    private LinkedList<Application> uuidCodes = new LinkedList<>();
+    private AgentInboxResult testApp = new AgentInboxResult("budweiser", "summer Ale", "12345768");
 
     //constructer for the screen
     public AgentInboxManager() {
         super(EnumScreenType.AGENT_INBOX);
-        initialize();
+
     }
 
     /*
         sets up the entire screent including the choice box and the specific agents inbox
      */
-    @FXML
-    public void initialize() {
 
-    }
-
+    @Override
     public void onScreenFocused(DataSet data){
         System.out.println("type of alc box: " + typeBox);
 
+       // inboxInfo.add(testApp);
+
+        //add the Label to the pane
+        manufacturerName.setCellValueFactory(
+                new PropertyValueFactory<>("ManufacturerUsername")
+        );
+        manufacturerName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
+        specificBrandName.setCellValueFactory(
+                new PropertyValueFactory<>("Brand")
+        );
+        specificBrandName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
+
+        inboxData.setRowFactory( tv -> {
+            TableRow<AgentInboxResult> row = new TableRow<>();
+            row.setOnMouseClicked( event-> {
+                if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    Application tempResult = (Application) row.getUserData();
+                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempResult);
+                }
+
+            });
+            return row;
+        });
         //query database for UUID's that current Agent has in inbox
-//        uuidCodes = DatabaseManager.getApplicationsInitialAgent(Main.getUsername());
+        //uuidCodes = DatabaseManager.getApplicationsByAgent(Main.getUsername());
 
-        for(DataSet tempData: uuidCodes){
+        for(Application tempData: uuidCodes){
+            inboxInfo.add(tempData);
 
-            Label tempLabel = new Label();
-
-            //fill Manufacturer and BrandName from temp
-            String Manufacturer = tempData.getValueForKey("Manufacturer");
-            String BrandName = tempData.getValueForKey("Brand");
-
-            tempLabel.setText(Manufacturer);
-
-            AgentInboxResult tempResult = new AgentInboxResult(tempLabel, BrandName);
-
-            //add the Label to the pane
-            manufacturerName.setCellValueFactory(
-                    new PropertyValueFactory<AgentInboxResult, Label>("manufacturerName")
-            );
-            specificBrandName.setCellValueFactory(
-                    new PropertyValueFactory<AgentInboxManager, String>("brandName")
-            );
-
-
-            //add the label to the linked list of possible labels
-
-
-            //set an onclick command to send screen to application screen
-            tempLabel.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    Main.screenManager.setScreen(EnumScreenType.AGENT_APP_SCREEN);
-//                    AgentAppScreenManager currentScreen = (AgentAppScreenManager) getCurrentScreen();
-//                    currentScreen.setData(tempData);
-                }
-            });
-
-            //highlight the label that can be clicked
-            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    tempLabel.setTextFill(Color.web("#0000FF"));
-                }
-            });
-            tempLabel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    tempLabel.setTextFill(Color.web("#000000"));
-                }
-            });
         }
+
+        this.inboxData.setItems(inboxInfo);
     }
 
     @FXML
     void goBack() {
         LogManager.println("Back button pressed from AgentInboxScreen");
-        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+        screenManager.setScreen(EnumScreenType.LOG_IN);
 
     }
 
@@ -135,18 +115,19 @@ public class AgentInboxManager extends Screen{
             String currentUser = Main.getUsername();
 
             //call Database to get number of applications
-//            LinkedList<DataSet> results  = DatabaseManager.getApplications(tempType, numAppsNeeded, currentUser);
-//            if(results.size() > 0){
-//                for(DataSet tempSet: results) {
-//                    uuidCodes.add(tempSet);
-//                }
-//            }
+            LinkedList<Application> results  = DatabaseManager.addApplicationToInbox(tempType,  currentUser, numAppsNeeded);
+            if(results.size() > 0){
+                for(Application tempSet: results) {
+                    uuidCodes.add(tempSet);
+                }
+            }
             System.out.println("datesets: " + results);
         }
         else {
             LogManager.println("Agent Inbox is not empty no new applications can be added");
         }
-        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+
 
     }
 

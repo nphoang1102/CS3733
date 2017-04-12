@@ -89,10 +89,17 @@ public class EditableApplicationManager extends Screen {
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
-        //initialize();
     }
 
     public void onScreenFocused(DataSet dataSet){
+        email_field.setDisable(true);
+        app_type_box.setDisable(true);
+        add_info_field.setDisable(true);
+        date_submitted_field.setDisable(true);
+        applicant_name_field.setDisable(true);
+        vintage_field.setDisable(true);
+        ph_field.setDisable(true);
+        abv_field.setDisable(true);
     }
 
     public void submit(){
@@ -124,11 +131,11 @@ public class EditableApplicationManager extends Screen {
 
         app.RepID = repID;
         app.PlantRegistry = registryNumber;
-        app.Source = source;
+        app.Locality = source;
         app.SerialNo = serialNumber;
         app.AlcoholType = productType;
         app.Brand = brandName;
-        app.FanicifulName = fancifulName;
+        app.FancifulName = fancifulName;
         app.Address = addressText;
         app.Address2 = address2Text;
         app.Formula = formulaText;
@@ -136,14 +143,14 @@ public class EditableApplicationManager extends Screen {
         app.WineAppelation = appellationText;
         app.PhoneNo = phoneNum;
         app.Email = email;
-        app.AppType = appType;
+        app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.Date = dateSubmitted;
-        app.PrintName = applicantName;
+        app.DateOfSubmission = dateSubmitted;
+        app.AgentName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;
         app.PH = ph;
-        app.Status = "PENDING";
+        app.ApplicationStatus = "PENDING";
         app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
@@ -156,7 +163,6 @@ public class EditableApplicationManager extends Screen {
 
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
         return;
     }
 

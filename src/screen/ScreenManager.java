@@ -44,7 +44,7 @@ public class ScreenManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        setScreen(EnumScreenType.MANUFACTURER_ADD_FORM );
+        setScreen(EnumScreenType.LOG_IN);
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 closeAllPopOuts();
@@ -122,6 +122,18 @@ public class ScreenManager {
         for(Stage stage: popOutWindows){
             if(stage!=null) {
                 stage.close();
+            }
+        }
+    }
+
+    public void closeCurrentPopOut(){
+        LogManager.println("Closing current popout");
+        for(Stage stage: popOutWindows){
+            if(stage!=null) {
+                if(stage.isFocused()) {
+                    stage.close();
+                    popOutWindows.remove(stage);
+                }
             }
         }
     }

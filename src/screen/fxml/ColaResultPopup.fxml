@@ -1,61 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="680.0" style="-fx-background-color: #34a88b;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="misc.ResultPopupManager">
+<Pane fx:id="window" prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: #939393;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="misc.ResultPopupManager">
    <children>
-      <Label fx:id="dis_ID" layoutX="30.0" layoutY="72.0" text="TTB ID: N/A" textFill="#dbdbdb">
+      <Label fx:id="dis_ID" layoutX="30.0" layoutY="72.0" text="TTB ID: N/A" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label fx:id="dis_permit" layoutX="30.0" layoutY="107.0" text="Permit No: N/A" textFill="#dbdbdb">
+      <Label fx:id="dis_permit" layoutX="30.0" layoutY="107.0" text="Permit No: N/A" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label fx:id="dis_serial" layoutX="30.0" layoutY="142.0" text="Serial No: N/A" textFill="#dbdbdb">
+      <Label fx:id="dis_serial" layoutX="30.0" layoutY="142.0" text="Serial No: N/A" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label fx:id="dis_date" layoutX="30.0" layoutY="177.0" text="Permit completed date: N/A" textFill="#dbdbdb">
+      <Label fx:id="dis_date" layoutX="30.0" layoutY="177.0" text="Permit completed date: N/A" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label fx:id="dis_fanName" layoutX="370.0" layoutY="72.0" text="Fanciful name: N/A" textFill="#dbdbdb">
+      <Label fx:id="dis_fanName" layoutX="430.0" layoutY="72.0" text="Fanciful name: N/A" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="17.0" />
          </font></Label>
-      <Label fx:id="dis_brandName" alignment="CENTER" contentDisplay="CENTER" layoutX="282.0" layoutY="14.0" text="Brandname" textFill="#373737">
+      <Label fx:id="dis_origin" layoutX="430.0" layoutY="107.0" text="Origin: N/A" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font></Label>
+      <Label fx:id="dis_class" layoutX="430.0" layoutY="142.0" text="Class: N/A" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font></Label>
+      <Label fx:id="dis_type" layoutX="430.0" layoutY="177.0" text="Type: N/A" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font></Label>
+      <Label fx:id="dis_year" layoutX="430.0" layoutY="212.0" text="Vintage year: N/A" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="dis_alCon" layoutX="30.0" layoutY="212.0" text="Alcohol content: N/A" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font>
+      </Label>
+      <Label fx:id="dis_ph" layoutX="430.0" layoutY="247.0" text="pH level: N/A" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="17.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#34a88b" height="55.0" layoutX="10.0" layoutY="10.0" stroke="#373737" strokeMiterLimit="0.0" strokeType="INSIDE" width="780.0" />
+      <Label fx:id="dis_brandName" alignment="CENTER" contentDisplay="CENTER" layoutX="342.0" layoutY="14.0" text="Brandname" textFill="#373737">
          <font>
             <Font name="Telugu Sangam MN Bold" size="22.0" />
          </font></Label>
-      <Label fx:id="dis_origin" layoutX="370.0" layoutY="107.0" text="Origin: N/A" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_class" layoutX="370.0" layoutY="142.0" text="Class: N/A" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_type" layoutX="370.0" layoutY="177.0" text="Type: N/A" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font></Label>
-      <Label fx:id="dis_year" layoutX="370.0" layoutY="212.0" text="Vintage year: N/A" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="dis_alCon" layoutX="30.0" layoutY="212.0" text="Alcohol content: N/A" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font>
-      </Label>
-      <Label fx:id="dis_ph" layoutX="370.0" layoutY="247.0" text="pH level: N/A" textFill="#dbdbdb">
-         <font>
-            <Font name="Telugu Sangam MN" size="17.0" />
-         </font>
-      </Label>
    </children>
-</AnchorPane>
+</Pane>

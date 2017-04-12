@@ -18,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.util.LinkedList;
 
+import static com.sun.xml.internal.org.jvnet.fastinfoset.EncodingAlgorithmIndexes.UUID;
+
 public class DatabaseManager {
     /**
      * Created by Evan Goldstein on 4/1/17.
@@ -84,7 +86,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////CREATE TABLES/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void CreateTables() {
+    public static void createTables() {
 
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
@@ -107,31 +109,33 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
+                    " ApplicationNo VARCHAR(20) NOT NULL,\n" +
+                    " SerialNo VARCHAR(30) NOT NULL,\n" +
+                    " ApplicationType VARCHAR(30) NOT NULL,\n" +
+                    " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
+                    " ManufacturerUsername VARCHAR(20),\n" +
+                    " AgentName VARCHAR(30),\n" +
+                    " AgentUsername BIT(1),\n" +
                     " RepID VARCHAR(30) PRIMARY KEY,\n" +
                     " PlantRegistry VARCHAR(30) NOT NULL,\n" +
-                    " Source VARCHAR(30) NOT NULL,\n" +
-                    " SerialNo VARCHAR(30) NOT NULL,\n" +
-                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
+                    " Locality VARCHAR(30) NOT NULL,\n" +
                     " Brand VARCHAR(50) NOT NULL,\n" +
                     " FancifulName VARCHAR(50),\n" +
+                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
+                    " ABV VARCHAR(10) NOT NULL,\n" +
                     " Address VARCHAR(100) NOT NULL,\n" +
                     " Address2 VARCHAR(100),\n" +
                     " Formula VARCHAR(500) NOT NULL,\n" +
-                    " Grapes VARCHAR(50),\n" +
                     " WineAppelation VARCHAR(50),\n" +
+                    " VintageDate DATE,\n" +
+                    " Grapes VARCHAR(50),\n" +
+                    " PH VARCHAR(10),\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
                     " AdditionalInfo VARCHAR(500) NOT NULL,\n" +
-                    " ABV VARCHAR(10) NOT NULL,\n" +
-                    " VintageDate DATE,\n" +
-                    " PH VARCHAR(10),\n" +
-                    " Status ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
-                    " ApplicationNo VARCHAR(20) NOT NULL,\n" +
+                    " DateOfSubmission DATE,\n" +
                     " DateOfApproval DATE,\n" +
-                    " AgentName VARCHAR(30),\n" +
-                    " DateOfExpiration DATE,\n" +
-                    " ManufacturerUsername VARCHAR(20),\n" +
-                    " AgentUsername VARCHAR(30)\n" +
+                    " DateOfExpiration DATE\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
@@ -141,10 +145,10 @@ public class DatabaseManager {
             statement.executeUpdate("CREATE TABLE Agents(\n" +
                     " ID VARCHAR(30) PRIMARY KEY,\n" +
                     " Username VARCHAR(50) NOT NULL UNIQUE,\n" +
-                    " PasswordHash VARCHAR(128) NOT NULL,\n" +
+                    " PasswordHash VARCHAR(30) NOT NULL,\n" +
                     " Name VARCHAR(50) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
-                    " SuperAgent VARCHAR(10) NOT NULL\n" +
+                    " SuperAgent BOOLEAN NOT NULL\n" +
                     ");\n");
         } catch (SQLException e) {
             LogManager.println("Table 'Agents' exists.", EnumWarningType.NOTE);
@@ -153,7 +157,7 @@ public class DatabaseManager {
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
                     " Username VARCHAR(30) PRIMARY KEY,\n" +
-                    " Password VARCHAR(128) NOT NULL,\n" +
+                    " Password VARCHAR(30) NOT NULL,\n" +
                     " Company VARCHAR(100) NOT NULL,\n" +
                     " Name VARCHAR(50) NOT NULL,\n" +
                     " RepID VARCHAR(50) NOT NULL,\n" +
@@ -173,31 +177,29 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
         String type = Main.screenManager.getSearchTerm();
-
-        value = value.toUpperCase();
+        LogManager.println("type = " + type);
         if (table.equals(EnumTableType.ALCOHOL)) {
             if (value.isEmpty() && type == "All") {
                 return queryAlcohol("SELECT * FROM Alcohol;");
             } else {
                 if (type == "All") {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value + "%' OR BrandName LIKE '%" + value + "' OR BrandName LIKE '%" + value + "%';");
-                } else if (type == "Beer"){
+                } else if (type == "Beer") {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Beer' AND BrandName LIKE '" + value + "%';");
-                } else if (type == "Wine"){
+                } else if (type == "Wine") {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE Type = 'Wine' AND BrandName LIKE '" + value + "%';");
-                } else{
+                } else {
                     return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value + "%';");
                 }
             }
-        }
-        else if (table.equals(EnumTableType.APPLICATION)) {
-            return queryApplications("SELECT * FROM Applications WHERE '" + column + "' = '" + value + "';", "");
-        }
-        else if (table.equals(EnumTableType.MANUFACTURER)) {
+        } else if (table.equals(EnumTableType.APPLICATION)) {
+            return queryApplications("SELECT * FROM Applications WHERE " + column + " = '" + value + "';", "");
+        } else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
             } else {
-                return queryManufacturers("SELECT * FROM Manufacturers WHERE '" + column + "' = '" + value + "';");
+                LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
+                return queryManufacturers("SELECT * FROM Manufacturers WHERE " + column + " = '" + value + "';");
             }
         }
         return null;
@@ -255,68 +257,70 @@ public class DatabaseManager {
             String status = "PENDING";
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
-                    "PlantRegistry, " +
-                    "Source, " +
                     "SerialNo, " +
-                    "AlcoholType, " +
+                    "ApplicationType," +
+                    "ApplicationStatus," +
+                    "ManufacturerUsername, " +
+                    "AgentName, " +
+                    "AgentUsername, " +
+                    "RepID, " +
+                    "PlantRegistry, " +
+                    "Locality, " +
                     "Brand, " +
                     "FancifulName, " +
+                    "AlcoholType, " +
+                    "ABV, " +
                     "Address, " +
                     "Address2, " +
                     "Formula, " +
-                    "Grapes, " +
                     "WineAppelation, " +
+                    "VintageDate," +
+                    "Grapes, " +
+                    "PH," +
                     "PhoneNo, " +
                     "Email, " +
-                    "AppType, " +
                     "AdditionalInfo, " +
-                    "Date, " +
-                    "PrintName, " +
-                    "ABV, " +
-                    "VintageDate," +
-                    "PH," +
-                    "Status, " +
-                    "ApplicationNo, " +
+                    "DateOfSubmission," +
                     "DateOfApproval," +
-                    "AgentName, " +
-                    "DateOfExpiration, " +
-                    "ManufacturerUsername, " +
-                    "AgentUsername) VALUES " +
+                    "DateOfExpiration," +
+                    "ApprovedTTBID," +
+                    "ReasonForRejection" +
+                    ") VALUES " +
                     "('"
                     + application.ApplicationNo + "', '"
-                    + application.PlantRegistry + "', '"
-                    + application.Source + "', '"
                     + application.SerialNo + "', '"
-                    + application.AlcoholType + "', '"
+                    + application.ApplicationType + "', '"
+                    + application.ApplicationStatus + "', '"
+                    + application.ManufacturerUsername + "', '"
+                    + application.AgentName + "', '"
+                    + application.AgentUsername + "', '"
+                    + application.RepID + "', '"
+                    + application.PlantRegistry + "', '"
+                    + application.Locality + "', '"
                     + application.Brand + "', '"
-                    + application.FanicifulName + "', '"
+                    + application.FancifulName + "', '"
+                    + application.AlcoholType + "', '"
+                    + application.ABV + "', '"
                     + application.Address + "', '"
                     + application.Address2 + "', '"
                     + application.Formula + "', '"
-                    + application.Grapes + "', '"
                     + application.WineAppelation + "', '"
+                    + application.VintageDate + "', '"
+                    + application.Grapes + "', '"
+                    + application.PH + "', '"
                     + application.PhoneNo + "', '"
                     + application.Email + "', '"
-                    + application.AppType + "', '"
                     + application.AdditionalInfo + "', '"
-                    + application.Date + "', '"
-                    + application.PrintName + "', '"
-                    + application.ABV + "', '"
-                    + application.VintageDate + "', '"
-                    + application.PH + "', '"
-                    + application.Status + "', '"
-                    + application.ApplicationNo + "', '"
+                    + application.DateOfSubmission + "', '"
                     + application.DateOfApproval + "', '"
-                    + application.AgentName + "', '"
                     + application.DateOfExpiration + "', '"
-                    + application.ManufacturerUsername + "', '"
-                    + application.AgentUsername
+                    + application.ApprovedTTBID + "', '"
+                    + application.ReasonForRejection
                     + "');");
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
-
 
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -327,21 +331,24 @@ public class DatabaseManager {
         LinkedList<DataSet> manufacturers = new LinkedList<>();
         try {
             ResultSet searchManufacturers = statement.executeQuery(query);
+            LogManager.println("queryManufacturers() has run the query: " + query, EnumWarningType.NOTE);
             while (searchManufacturers.next()) {
-                UserManufacturer manufacturer = new UserManufacturer();
                 String username = searchManufacturers.getString("Username");
+                LogManager.println("queryManufacturers() is adding the user " + username + " to a list that is now ", EnumWarningType.NOTE);
+                UserManufacturer manufacturer = new UserManufacturer(query);
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.username = username;
                 manufacturer.name = searchManufacturers.getString("name");
                 manufacturer.email = searchManufacturers.getString("email");
                 manufacturer.userType = EnumUserType.MANUFACTURER;
-                manufacturer.Address = searchManufacturers.getString("Address");
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company");
-                manufacturer.Name = searchManufacturers.getString("Name");
+                manufacturer.name = searchManufacturers.getString("Name");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
+                manufacturers.add(manufacturer);
+                LogManager.print( manufacturers.size() + "items long.");
             }
             searchManufacturers.close();
         } catch (SQLException e) {
@@ -354,9 +361,11 @@ public class DatabaseManager {
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void approveApplication(String ApplicationNum) {
+        String TTBID = generateTTBID();
         try {
             statement.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "';");
+            statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -364,12 +373,12 @@ public class DatabaseManager {
         Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
         //TODO - Double check fields
         String PlantRegistry = approvedApplication.PlantRegistry;
-        String Source = approvedApplication.Source;
+        String Source = approvedApplication.Locality;
         String SerialNo = approvedApplication.SerialNo;
         String AlcoholType = approvedApplication.AlcoholType;
         String Brand = approvedApplication.Brand;
-        String FancifulName = approvedApplication.FanicifulName;
-        String Date = approvedApplication.Date;
+        String FancifulName = approvedApplication.FancifulName;
+        String Date = approvedApplication.DateOfApproval;
 //        String PrintName = approvedApplication.PrintName;
 //        String ABV = approvedApplication.ABV;
 //        String VintageDate = approvedApplication.VintageDate;
@@ -389,7 +398,7 @@ public class DatabaseManager {
 //        String Email = approvedApplication.Email;
 //        String AppType = approvedApplication.AppType;
 //        String AdditionalInfo = approvedApplication.AdditionalInfo;
-        String TTBID = generateTTBID();
+
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "');");
         } catch (SQLException e) {
@@ -425,7 +434,12 @@ public class DatabaseManager {
         LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';", username);
         LinkedList<Application> addToInbox = new LinkedList<>();
         for (int i = 0; i < num; i++) {
-            addToInbox.add((Application) applicationLinkedList.get(i));
+            try{
+                addToInbox.add((Application) applicationLinkedList.get(i));
+            }catch(Exception e){
+                break;
+            }
+
         }
         return addToInbox;
     }
@@ -441,34 +455,35 @@ public class DatabaseManager {
             while (getApplications.next()) {
                 getApplications.next();
                 Application application = new Application();
+                application.ApplicationNo = getApplications.getString("ApplicationNo");
+                application.SerialNo = getApplications.getString("SerialNo");
+                application.ApplicationType = getApplications.getString("ApplicationType");
+                application.ApplicationStatus = getApplications.getString("ApplicationStatus");
+                application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
+                application.AgentName = getApplications.getString("AgentName");
+                application.AgentUsername = getApplications.getString("AgentUsername");
                 application.RepID = getApplications.getString("RepID");
                 application.PlantRegistry = getApplications.getString("PlantRegistry");
-                application.SerialNo = getApplications.getString("SerialNo");
-                application.FanicifulName = getApplications.getString("FanicifulName");
-                application.Formula = getApplications.getString("Formula");
-                application.Grapes = getApplications.getString("Grapes");
-                application.WineAppelation = getApplications.getString("WineAppelation");
-                application.AdditionalInfo = getApplications.getString("AdditionalInfo");
-                application.Date = getApplications.getString("Date");
-                application.PrintName = getApplications.getString("PrintName");
-                application.DateOfApproval = getApplications.getString("DateOfApproval");
-                application.AgentName = getApplications.getString("AgentName");
-                application.DateOfExpiration = getApplications.getString("DateOfExpiration");
-                application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
-                application.AgentUsername = getApplications.getString("AgentUsername");
-                application.ApplicationNo = getApplications.getString("ApplicationNo");
-                application.Status = getApplications.getString("Status");
-                application.AlcoholType = getApplications.getString("AlcoholType");
-                application.Source = getApplications.getString("Source");
+                application.Locality = getApplications.getString("Locality");
                 application.Brand = getApplications.getString("Brand");
+                application.FancifulName = getApplications.getString("FancifulName");
+                application.AlcoholType = getApplications.getString("AlcoholType");
+                application.ABV = getApplications.getString("ABV");
                 application.Address = getApplications.getString("Address");
                 application.Address2 = getApplications.getString("Address2");
-                application.ABV = getApplications.getString("ABV");
-                application.PhoneNo = getApplications.getString("PhoneNo");
-                application.AppType = getApplications.getString("AppType");
+                application.Formula = getApplications.getString("Formula");
+                application.WineAppelation = getApplications.getString("WineAppelation");
                 application.VintageDate = getApplications.getString("VintageDate");
+                application.Grapes = getApplications.getString("Grapes");
                 application.PH = getApplications.getString("PH");
+                application.PhoneNo = getApplications.getString("PhoneNo");
                 application.Email = getApplications.getString("Email");
+                application.AdditionalInfo = getApplications.getString("AdditionalInfo");
+                application.DateOfSubmission = getApplications.getString("DateOfSubmission");
+                application.DateOfApproval = getApplications.getString("DateOfApproval");
+                application.DateOfExpiration = getApplications.getString("DateOfExpiration");
+                application.ApprovedTTBID = getApplications.getString("ApprovedTTBID");
+                application.ReasonForRejection = getApplications.getString("ReasonForRejection");
                 applicationLinkedList.add(application);
                 String thisApplicationNo = getApplications.getString("ApplicationNo");
                 if (!setAgent.equals("")) {
@@ -495,22 +510,28 @@ public class DatabaseManager {
         boolean Super = false;
         try {
             //if(userType.equals(EnumUserType.SUPER_AGENT)){table = "Agents"; Super = true;}
-            if (userType.equals(EnumUserType.AGENT)) {
-                table = "Agents";
+            if (userType.equals(EnumUserType.AGENT) || userType.equals(EnumUserType.SUPER_AGENT)) {
                 try {
                     UserAgent agent = (UserAgent) user;
                     String SuperAgent = "false";
-                    if (agent.superAgent) {
+                    if (userType.equals(EnumUserType.SUPER_AGENT)) {
                         SuperAgent = "true";
                     }
-                    statement.executeUpdate("INSERT INTO Agents" + " (ID, Name, username, passwordHash, Email, SuperAgent) VALUES " +
-                            "('" + agent.ID + "', '" + agent.name + "', '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.email + "', '" + SuperAgent + "')");
+                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, Name, Email, SuperAgent) VALUES " +
+                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }
             }
             if (userType.equals(EnumUserType.MANUFACTURER)) {
-                //TODO - ADD STATEMENT TO INSERT MANUFACTURER
+                UserManufacturer manufacturer = (UserManufacturer) user;
+                try {
+                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, Password, Company, Name, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
+                            "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')");
+
+                } catch (PasswordStorage.CannotPerformOperationException e) {
+                    e.printStackTrace();
+                }
             }
 
         } catch (SQLException e) {
@@ -526,21 +547,28 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"),user.getString("ID"), false);
+                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"), user.getString("ID"), "false");
                 LogManager.println("User " + username + " is an agent");
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent;
             } else {
                 user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
-                if (user.next()) {
-                    LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
+                LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
+                if (!manufacturerLinkedList.isEmpty()) {
+                    LogManager.println("YARP! WE FOUND " + username + "!");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
-                    LogManager.println("User " + username + " is an agent");
-                    tryPassword(username, password, user.getString("PasswordHash"));
+                    LogManager.println("User " + manufacturer.username + " is a manufacturer");
+                    try{
+                        tryPassword(username, password, user.getString("PasswordHash"));
+                    }
+                    catch (Exception e){
+                        LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+                    }
+                    LogManager.println("NIGGA WE MADE IT");
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
-                    throw new UserNotFoundException(username);
+                    //throw new UserNotFoundException(username);
                 }
 
             }
@@ -571,101 +599,134 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////TESTS/////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public void entry() {
+    /*public void entryTest() {
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('06110001000003', 'ID-I-15001', '060028', '2016-04-01', 'ROSADO', 'LO BRUJO', '52', '80', 'Beer', '6.4', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06110001000003', 'ID-I-15001', '060028', '2016-04-01', 'ROSADO', 'LO BRUJO', '52', '80', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('07362001000194', 'BWN-NC-15051', '070049', '2016-04-01', 'VENI VIDI VICI', 'INCORVAIA', '30', '80', 'Beer', '4.5', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('07362001000194', 'BWN-NC-15051', '070049', '2016-04-01', 'VENI VIDI VICI', 'INCORVAIA', '30', '80', 'Beer')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('16047001000297', 'IL-I-340', '160033', '2016-04-04', 'POULSARD VIEILLES VIGNES', 'DOMAINE ROLET PERE ET FILS', '51', '80', 'Beer', '4.0', '', '')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('16047001000297', 'IL-I-340', '160033', '2016-04-04', 'POULSARD VIEILLES VIGNES', 'DOMAINE ROLET PERE ET FILS', '51', '80', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('05348001000134', 'BR-MO-ANH-1', '05B645', '2005-12-21', '', 'BUDWEISER', '29', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06054001000120', 'BR-MO-ANH-1', '06B722', '2006-10-06', '', 'BUDWEISER', '29', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('04267001000046', 'BR-MO-ANH-1', '04B554', '2004-10-19', '', 'BUDWEISER', '09', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('07319001000233', 'BR-TX-ANH-1', '07B886', '2007-11-21', '', 'BUDWEISER', '44', '901', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12076001000564', 'BWC-CA-5099', '12020A', '2012/04/04', '', 'BERINGER', '01', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12089001000135', 'TPWBH-CA-20114', '1204TP', '2012/04/17', '', 'BERINGER', '70', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('09351001000078', 'FL-I-540', '093836', '2009/12/21', '', 'CAVIT', '50', '80', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10155001000193', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '654813', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '9873331', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('00568612654101', 'FL-I-540', '03452983', '2007/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('62987272654101', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10096001000193', 'BW-CA-5920', '10LC08', '2010/04/15', 'MAGGY HAWK NO. 5', 'LA CREMA', '01', '88', 'Wine')");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('10096001000196', 'BW-CA-5920', '10LC08', '2010/04/05', 'MAGGY HAWK', 'LA CREMA', '01', '88', 'Wine')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('05348001000134', 'BR-MO-ANH-1', '05B645', '2005-12-21', '', 'BUDWEISER', '29', '901', 'Beer', '3.9', '', '')");
+            statement.executeUpdate("INSERT INTO Manufacturers (UUID, Username, Company) VALUES ('FakeUUID123', 'TheAlcoholic12', 'AlcoholicsAnonymous')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('06054001000120', 'BR-MO-ANH-1', '06B722', '2006-10-06', '', 'BUDWEISER', '29', '901', 'Beer', '3.8', '', '')");
+            statement.executeUpdate("INSERT INTO Manufacturers (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('04267001000046', 'BR-MO-ANH-1', '04B554', '2004-10-19', '', 'BUDWEISER', '09', '901', 'Beer', '3.7', '', '')");
+            statement.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES ('user123', 'password123', 'Agent')");
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('07319001000233', 'BR-TX-ANH-1', '07B886', '2007-11-21', '', 'BUDWEISER', '44', '901', 'Beer', '4.1', '', '')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer', '4.2', '', '')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer', '4.0', '', '')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('12076001000564', 'BWC-CA-5099', '12020A', '2012/04/04', '', 'BERINGER', '01', '81', 'Wine', '4.0', '1995', '4')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('12089001000135', 'TPWBH-CA-20114', '1204TP', '2012/04/17', '', 'BERINGER', '70', '81', 'Wine', '4.0', '1990', '3')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('09351001000078', 'FL-I-540', '093836', '2009/12/21', '', 'CAVIT', '50', '80', 'Wine', '4.2', '1999, '3.5')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('10155001000193', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '4.0', '1999', '4')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '654813', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '4.6', '2000', '4')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '9873331', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '3.0', '1997', '3.6')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('00568612654101', 'FL-I-540', '03452983', '2007/12/23', '', 'CAVIT', '50', '81', 'Wine', '3.9', '1990', '4')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('62987272654101', 'FL-I-540', '104091', '2006/12/23', '', 'CAVIT', '50', '81', 'Wine', '4.6', '1992', '5')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('10096001000193', 'BW-CA-5920', '10LC08', '2010/04/15', 'MAGGY HAWK NO. 5', 'LA CREMA', '01', '88', 'Wine', '3.7', '1999', '2.9')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type, AlcoholContent, VintageYear, PH) VALUES ('10096001000196', 'BW-CA-5920', '10LC08', '2010/04/05', 'MAGGY HAWK', 'LA CREMA', '01', '88', 'Wine', '4.0', '1998', '3')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+    }*/
 }
