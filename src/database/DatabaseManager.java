@@ -452,6 +452,7 @@ public class DatabaseManager {
             }catch(Exception e){
                 break;
             }
+
         }
         return addToInbox;
     }
@@ -512,7 +513,6 @@ public class DatabaseManager {
 
         return applicationLinkedList;
     }
-
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD USERS/////////////////////////////////////////////////////////////
@@ -579,7 +579,7 @@ public class DatabaseManager {
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
-                    //throw new UserNotFoundException(username);
+                    throw new UserNotFoundException(username);
                 }
 
             }

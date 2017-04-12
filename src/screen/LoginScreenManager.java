@@ -7,10 +7,13 @@ import database.DatabaseManager;
 import database.PasswordStorage;
 import database.User;
 import javafx.fxml.FXML;
+import javafx.geometry.VPos;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 
 import static base.Main.screenManager;
 
@@ -26,7 +29,7 @@ public class LoginScreenManager extends Screen {
 
     /* FXML objects */
     @FXML
-    private TextField usernameField;
+    private TextField usernameField, password;
     @FXML
     private Button loginButton;
     @FXML
@@ -35,45 +38,45 @@ public class LoginScreenManager extends Screen {
     private Button editAccountButton;
     @FXML
     private Text error;
+    @FXML
+    private Rectangle background;
 
     //fxml methods
     @FXML
     void loginClicked() {
+        //clear any previous error messages
+        error.visibleProperty().setValue(false);
         if (Main.getUsername().equals("")) {
             this.userName = usernameField.getText();
+            String tempPassword = password.getText();
             this.usernameField.clear();
-
-            User curUser = null;
-            try {
-                curUser = Main.databaseManager.login(userName, "");
-            } catch (DatabaseManager.UserNotFoundException e) {
-                e.printStackTrace();
-                return;
-            } catch (DatabaseManager.IncorrectPasswordException e) {
-                e.printStackTrace();
-                return;
-            } catch (PasswordStorage.InvalidHashException e) {
-                e.printStackTrace();
-                return;
-            } catch (PasswordStorage.CannotPerformOperationException e) {
-                e.printStackTrace();
-                return;
-            }
-
-            Enum userType = curUser.getType();
-            LogManager.println(userName + " wants to sign in, he is a " + userType);
-            Main.setUser(curUser);
-            LogManager.println(curUser.getUsername() + " is the current user");
 
             if (userName.equals("")) {
                 //print to screen, tell user to enter username, exit
                 error.visibleProperty().setValue(true);
                 error.setText("PLEASE ENTER A USERNAME");
-
+                LogManager.println("need a username");
             } else {
+                User curUser = null;
+                try {
+                    curUser = Main.databaseManager.login(userName, "");
+                } catch (DatabaseManager.UserNotFoundException e) {
+                    error.visibleProperty().setValue(true);
+                    error.setText("Username does not exist");
+                    e.printStackTrace();
+                    return;
+                } catch (DatabaseManager.IncorrectPasswordException e) {
+                    e.printStackTrace();
+                } catch (PasswordStorage.InvalidHashException e) {
+                    e.printStackTrace();
+                } catch (PasswordStorage.CannotPerformOperationException e) {
+                    e.printStackTrace();
+                }
+
+                Enum userType = curUser.getType();
+                Main.setUser(curUser);
                 if (userType.equals(EnumUserType.PUBLIC_USER)) {
                     Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
-                    LogManager.println("Public user " + userName + " has signed in");
                 }
                 // Currently not implemented since manufacturerScreen is not made
                 else if (userType.equals(EnumUserType.MANUFACTURER)) {
@@ -81,14 +84,11 @@ public class LoginScreenManager extends Screen {
                     //User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
                     //Main.setUser(currentUser);
                     Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-                    LogManager.println("Manufacturer " + userName + " has signed in");
                 } else if (userType.equals(EnumUserType.AGENT)) {
                     //build an agent and store it globally
-                    LogManager.println("we have an agent!");
                     //User currentUser = new User(EnumUserType.AGENT, userName, "");
                     //Main.setUser(currentUser);
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
-                    LogManager.println("Agent " + userName + " has signed in");
                 }
             }
         }else{
@@ -123,5 +123,11 @@ public class LoginScreenManager extends Screen {
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
         error.visibleProperty().setValue(false);
+    }
+
+    public void centerError(){
+        double center;
+        center = (background.getWidth()-error.getWrappingWidth())/2;
+        error.setTextAlignment(TextAlignment.CENTER);
     }
 }

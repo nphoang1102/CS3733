@@ -1,10 +1,10 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
 import base.StringUtilities;
-import database.Application;
-import database.DataSet;
+import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -135,11 +135,21 @@ public class NewApplicationManager extends Screen {
         app_type_field.setVisible(false);
         app_type_label.setVisible(false);
         app_type_label.setMaxWidth(Double.MAX_VALUE);
+
+        UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", Main.getUsername()).get(0);
+
+        applicant_name_field.setText(man.name);
+        plant_number_field.setText(man.PlantRegistry);
+        email_field.setText(man.email);
+        repid_field.setText(man.RepID);
+        phone_num_field.setText(man.PhoneNo);
     }
 
     public void onTypeSelected() {
         switch(app_type_box.getValue()) {
             case "Certificate of Label Approval":
+                app_type_field.setVisible(false);
+                app_type_label.setVisible(false);
                 break;
             case "Certificate of Exemption From Label Approval":
                 app_type_label.setText("For Sale Only in: ");
@@ -201,7 +211,7 @@ public class NewApplicationManager extends Screen {
         app.Email = email;
         app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.DateOfSubmission = "1234-12-11";
+        app.DateOfSubmission = StringUtilities.getDate();
         app.AgentName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;
@@ -210,12 +220,37 @@ public class NewApplicationManager extends Screen {
         app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
+        app.AgentUsername = "";
 
         database.DatabaseManager.submitApplication(app);
 
         LogManager.println("Submitting Application");
 
+        Main.screenManager.closeCurrentPopOut();
+
         return;
+    }
+
+    public void clearFields() {
+        app_type_field.clear();
+        repid_field.clear();
+        address_field_2.clear();
+        address_field.clear();
+        serial_number_field.clear();
+        abv_field.clear();
+        appellation_field.clear();
+        fanciful_field.clear();
+        add_info_field.clear();
+        applicant_name_field.clear();
+        brand_name_field.clear();
+        date_submitted_field.clear();
+        email_field.clear();
+        formula_field.clear();
+        grapes_field.clear();
+        ph_field.clear();
+        phone_num_field.clear();
+        plant_number_field.clear();
+        vintage_field.clear();
     }
 
     public void goBack() {

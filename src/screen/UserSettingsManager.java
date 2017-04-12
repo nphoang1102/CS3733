@@ -1,9 +1,9 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
-import database.Application;
-import database.DataSet;
+import database.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -51,6 +51,14 @@ public class UserSettingsManager extends Screen {
     @FXML
     private void saveChanges() {
         //talk to database to save all the changes
+        String username = Main.getUsername();
+        UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", username).get(0);
+
+        man.name = firstName.getText()+lastName.getText();
+        man.PhoneNo = phoneNumber.getText();
+        man.RepID = representativeIdNumber.getText();
+        man.PlantRegistry = plantRegistryBasicPermitNumber.getText();
+        man.email = email.getText();
 
         //set screen to manufacturer
         Main.screenManager.back();
