@@ -86,7 +86,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////CREATE TABLES/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void CreateTables() {
+    public static void createTables() {
 
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
@@ -256,62 +256,64 @@ public class DatabaseManager {
             String status = "PENDING";
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
-                    "PlantRegistry, " +
-                    "Source, " +
                     "SerialNo, " +
-                    "AlcoholType, " +
+                    "ApplicationStatus," +
+                    "ManufacturerUsername, " +
+                    "AgentName, " +
+                    "AgentUsername, " +
+                    "RepID, " +
+                    "PlantRegistry, " +
+                    "Locality, " +
                     "Brand, " +
                     "FancifulName, " +
+                    "AlcoholType, " +
+                    "ABV, " +
                     "Address, " +
                     "Address2, " +
                     "Formula, " +
-                    "Grapes, " +
                     "WineAppelation, " +
+                    "VintageDate," +
+                    "Grapes, " +
+                    "PH," +
                     "PhoneNo, " +
                     "Email, " +
-                    "AppType, " +
                     "AdditionalInfo, " +
-                    "Date, " +
-                    "PrintName, " +
-                    "ABV, " +
-                    "VintageDate," +
-                    "PH," +
-                    "Status, " +
-                    "ApplicationNo, " +
+                    "DateOfSubmission," +
                     "DateOfApproval," +
-                    "AgentName, " +
-                    "DateOfExpiration, " +
-                    "ManufacturerUsername, " +
-                    "AgentUsername) VALUES " +
+                    "DateOfExpiration," +
+                    "DateOfExpiration," +
+                    "ApprovedTTBID," +
+                    "ReasonForRejection" +
+                    ") VALUES " +
                     "('"
                     + application.ApplicationNo + "', '"
-                    + application.PlantRegistry + "', '"
-                    + application.Source + "', '"
                     + application.SerialNo + "', '"
-                    + application.AlcoholType + "', '"
+                    + application.ApplicationStatus + "', '"
+                    + application.ManufacturerUsername + "', '"
+                    + application.AgentName + "', '"
+                    + application.AgentUsername + "', '"
+                    + application.RepID + "', '"
+                    + application.PlantRegistry + "', '"
+                    + application.Locality + "', '"
                     + application.Brand + "', '"
-                    + application.FanicifulName + "', '"
+                    + application.FancifulName + "', '"
+                    + application.AlcoholType + "', '"
+                    + application.ABV + "', '"
                     + application.Address + "', '"
                     + application.Address2 + "', '"
                     + application.Formula + "', '"
-                    + application.Grapes + "', '"
                     + application.WineAppelation + "', '"
+                    + application.VintageDate + "', '"
+                    + application.Grapes + "', '"
+                    + application.PH + "', '"
                     + application.PhoneNo + "', '"
                     + application.Email + "', '"
-                    + application.AppType + "', '"
                     + application.AdditionalInfo + "', '"
-                    + application.Date + "', '"
-                    + application.PrintName + "', '"
-                    + application.ABV + "', '"
-                    + application.VintageDate + "', '"
-                    + application.PH + "', '"
-                    + application.Status + "', '"
-                    + application.ApplicationNo + "', '"
+                    + application.DateOfSubmission + "', '"
                     + application.DateOfApproval + "', '"
-                    + application.AgentName + "', '"
                     + application.DateOfExpiration + "', '"
-                    + application.ManufacturerUsername + "', '"
-                    + application.AgentUsername
+                    + application.ApprovedTTBID + "', '"
+                    + application.ReasonForRejection
                     + "');");
         } catch (SQLException e) {
             e.printStackTrace();
@@ -357,9 +359,11 @@ public class DatabaseManager {
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void approveApplication(String ApplicationNum) {
+        String TTBID = generateTTBID();
         try {
             statement.executeUpdate("UPDATE Users SET status = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "';");
+            statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "';");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -367,12 +371,12 @@ public class DatabaseManager {
         Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
         //TODO - Double check fields
         String PlantRegistry = approvedApplication.PlantRegistry;
-        String Source = approvedApplication.Source;
+        String Source = approvedApplication.Locality;
         String SerialNo = approvedApplication.SerialNo;
         String AlcoholType = approvedApplication.AlcoholType;
         String Brand = approvedApplication.Brand;
-        String FancifulName = approvedApplication.FanicifulName;
-        String Date = approvedApplication.Date;
+        String FancifulName = approvedApplication.FancifulName;
+        String Date = approvedApplication.DateOfApproval;
 //        String PrintName = approvedApplication.PrintName;
 //        String ABV = approvedApplication.ABV;
 //        String VintageDate = approvedApplication.VintageDate;
@@ -392,7 +396,7 @@ public class DatabaseManager {
 //        String Email = approvedApplication.Email;
 //        String AppType = approvedApplication.AppType;
 //        String AdditionalInfo = approvedApplication.AdditionalInfo;
-        String TTBID = generateTTBID();
+
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('" + TTBID + "', '" + PlantRegistry + "', '" + SerialNo + "', '" + Date + "', '" + FancifulName + "', '" + Brand + "', '" + Source + "', '" + AlcoholType + "');");
         } catch (SQLException e) {
@@ -444,34 +448,34 @@ public class DatabaseManager {
             while (getApplications.next()) {
                 getApplications.next();
                 Application application = new Application();
+                application.ApplicationNo = getApplications.getString("ApplicationNo");
+                application.SerialNo = getApplications.getString("SerialNo");
+                application.ApplicationStatus = getApplications.getString("ApplicationStatus");
+                application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
+                application.AgentName = getApplications.getString("AgentName");
+                application.AgentUsername = getApplications.getString("AgentUsername");
                 application.RepID = getApplications.getString("RepID");
                 application.PlantRegistry = getApplications.getString("PlantRegistry");
-                application.SerialNo = getApplications.getString("SerialNo");
-                application.FanicifulName = getApplications.getString("FanicifulName");
-                application.Formula = getApplications.getString("Formula");
-                application.Grapes = getApplications.getString("Grapes");
-                application.WineAppelation = getApplications.getString("WineAppelation");
-                application.AdditionalInfo = getApplications.getString("AdditionalInfo");
-                application.Date = getApplications.getString("Date");
-                application.PrintName = getApplications.getString("PrintName");
-                application.DateOfApproval = getApplications.getString("DateOfApproval");
-                application.AgentName = getApplications.getString("AgentName");
-                application.DateOfExpiration = getApplications.getString("DateOfExpiration");
-                application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
-                application.AgentUsername = getApplications.getString("AgentUsername");
-                application.ApplicationNo = getApplications.getString("ApplicationNo");
-                application.Status = getApplications.getString("Status");
-                application.AlcoholType = getApplications.getString("AlcoholType");
-                application.Source = getApplications.getString("Source");
+                application.Locality = getApplications.getString("Locality");
                 application.Brand = getApplications.getString("Brand");
+                application.FancifulName = getApplications.getString("FancifulName");
+                application.AlcoholType = getApplications.getString("AlcoholType");
+                application.ABV = getApplications.getString("ABV");
                 application.Address = getApplications.getString("Address");
                 application.Address2 = getApplications.getString("Address2");
-                application.ABV = getApplications.getString("ABV");
-                application.PhoneNo = getApplications.getString("PhoneNo");
-                application.AppType = getApplications.getString("AppType");
+                application.Formula = getApplications.getString("Formula");
+                application.WineAppelation = getApplications.getString("WineAppelation");
                 application.VintageDate = getApplications.getString("VintageDate");
+                application.Grapes = getApplications.getString("Grapes");
                 application.PH = getApplications.getString("PH");
+                application.PhoneNo = getApplications.getString("PhoneNo");
                 application.Email = getApplications.getString("Email");
+                application.AdditionalInfo = getApplications.getString("AdditionalInfo");
+                application.DateOfSubmission = getApplications.getString("DateOfSubmission");
+                application.DateOfApproval = getApplications.getString("DateOfApproval");
+                application.DateOfExpiration = getApplications.getString("DateOfExpiration");
+                application.ApprovedTTBID = getApplications.getString("ApprovedTTBID");
+                application.ReasonForRejection = getApplications.getString("ReasonForRejection");
                 applicationLinkedList.add(application);
                 String thisApplicationNo = getApplications.getString("ApplicationNo");
                 if (!setAgent.equals("")) {
