@@ -556,7 +556,7 @@ public class DatabaseManager {
                 user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
                 LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                 if (!manufacturerLinkedList.isEmpty()) {
-                    LogManager.println("YARP! WE FOUND " + username + "!");
+                    //LogManager.println("YARP! WE FOUND " + username + "!");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
                     LogManager.println("User " + manufacturer.username + " is a manufacturer");
                     try{
@@ -565,11 +565,11 @@ public class DatabaseManager {
                     catch (Exception e){
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                     }
-                    LogManager.println("NIGGA WE MADE IT");
+                    //LogManager.println("NIGGA WE MADE IT");
                     return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
-                    //throw new UserNotFoundException(username);
+                    throw new UserNotFoundException(username);
                 }
 
             }
