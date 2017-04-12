@@ -70,7 +70,7 @@ public class StringUtilities {
         }
         return (dateFormat.format(date)+ttbNum);*/
 
-        return (Math.floor( Math.random()* 10000000) + "");
+        return ( ((int)Math.floor( Math.random()* 10000000)) + "");
     }
 
     public static String getDate(){
