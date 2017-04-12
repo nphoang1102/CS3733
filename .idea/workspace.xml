@@ -3,12 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="850734f7-8b58-4e47-9375-a3ddd815bbba" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/base/Main.java" afterPath="$PROJECT_DIR$/src/base/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" afterPath="$PROJECT_DIR$/src/screen/LoginScreenManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/TopBarManager.java" afterPath="$PROJECT_DIR$/src/screen/TopBarManager.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/database/DatabaseManager.java" afterPath="$PROJECT_DIR$/src/database/DatabaseManager.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/UserSettingsManager.java" afterPath="$PROJECT_DIR$/src/screen/UserSettingsManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/LoginScreen.fxml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml" afterPath="$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="C:\Users\spartanvice\Documents\csgetdegrees\.idea\shelf/" />
@@ -53,11 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserSettingsManager.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="UserSettingsManager.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/screen/UserSettingsManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="296">
-              <caret line="60" column="16" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+            <state relative-caret-position="185">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -65,11 +61,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DatabaseManager.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="194" column="100" lean-forward="false" selection-start-line="194" selection-start-column="100" selection-end-line="194" selection-end-column="100" />
+            <state relative-caret-position="-210">
+              <caret line="185" column="112" lean-forward="false" selection-start-line="185" selection-start-column="112" selection-end-line="185" selection-end-column="112" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageOnServer.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/database/images/ImageOnServer.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="200">
+              <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
               <folding />
             </state>
           </provider>
@@ -78,9 +84,17 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/base/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="775">
-              <caret line="47" column="18" lean-forward="true" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
-              <folding />
+            <state relative-caret-position="1000">
+              <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+              <folding>
+                <marker date="1491954319431" expanded="false" signature="22:462" ph="..." />
+                <marker date="1491954319431" expanded="true" signature="3570:3671" ph="{...}" />
+                <marker date="1491954319431" expanded="true" signature="3711:3825" ph="{...}" />
+                <marker date="1491954319431" expanded="false" signature="3862:3872" ph=" { " />
+                <marker date="1491954319431" expanded="false" signature="3884:3890" ph=" }" />
+                <marker date="1491954319431" expanded="false" signature="3931:3941" ph=" { " />
+                <marker date="1491954319431" expanded="false" signature="3950:3956" ph=" }" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -168,8 +182,8 @@
         <option value="$PROJECT_DIR$/src/screen/TopBarManager.java" />
         <option value="$PROJECT_DIR$/src/base/Main.java" />
         <option value="$PROJECT_DIR$/src/screen/fxml/UserSettings.fxml" />
-        <option value="$PROJECT_DIR$/src/screen/UserSettingsManager.java" />
         <option value="$PROJECT_DIR$/src/database/DatabaseManager.java" />
+        <option value="$PROJECT_DIR$/src/screen/UserSettingsManager.java" />
       </list>
     </option>
   </component>
@@ -299,6 +313,28 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="database" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="images" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csgetdegrees" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="csgetdegrees" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="base" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -331,16 +367,6 @@
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/base/Main.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/DatabaseManager.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/UserAgent.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/UserManufacturer.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/screen/AgentInboxManager.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/screen/AgentInboxResult.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/screen/CreateAccountManager.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/screen/LoginScreenManager.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/screen/TopBarManager.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/screen/fxml/AgentAppScreen.fxml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/screen/fxml/AgentInbox.fxml</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/ttb_iter1.iml</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
@@ -349,6 +375,12 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/lib/apacheFTP/commons-net-3.6-sources.jar</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/lib/apacheFTP/commons-net-3.6.jar</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/lib/apacheFTP/commons-net-examples-3.6.jar</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/images/ImageInterface.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/images/ImageOnServer.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/database/images/ProxyImage.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -356,7 +388,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -797,7 +828,14 @@
       <option name="project" value="LOCAL" />
       <updated>1491946070076</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="user can select pictures">
+      <created>1491954308665</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1491954308665</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -816,7 +854,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33333334" sideWeight="0.50208336" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16290131" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16171224" sideWeight="0.49791667" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23186682" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32862645" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -860,7 +898,8 @@
     <MESSAGE value="fixed creating an account when user doesn't select a type" />
     <MESSAGE value="can't login over someone else" />
     <MESSAGE value="minor edits to error message" />
-    <option name="LAST_COMMIT_MESSAGE" value="minor edits to error message" />
+    <MESSAGE value="user can select pictures" />
+    <option name="LAST_COMMIT_MESSAGE" value="user can select pictures" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -873,8 +912,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/screen/LoginScreen.java" />
-    <entry file="file://$PROJECT_DIR$/src/screen/LoginScreen" />
     <entry file="file://$PROJECT_DIR$/src/screen/AgentInbox.fxml" />
     <entry file="file://$PROJECT_DIR$/src/screen/AgentAppScreen.fxml" />
     <entry file="file://$PROJECT_DIR$/src/StringUtilities.java" />
@@ -1187,9 +1224,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/base/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="775">
-          <caret line="47" column="18" lean-forward="true" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
-          <folding />
+        <state relative-caret-position="1000">
+          <caret line="54" column="18" lean-forward="false" selection-start-line="54" selection-start-column="18" selection-end-line="54" selection-end-column="18" />
+          <folding>
+            <marker date="1491954319431" expanded="false" signature="22:462" ph="..." />
+            <marker date="1491954319431" expanded="true" signature="3570:3671" ph="{...}" />
+            <marker date="1491954319431" expanded="true" signature="3711:3825" ph="{...}" />
+            <marker date="1491954319431" expanded="false" signature="3862:3872" ph=" { " />
+            <marker date="1491954319431" expanded="false" signature="3884:3890" ph=" }" />
+            <marker date="1491954319431" expanded="false" signature="3931:3941" ph=" { " />
+            <marker date="1491954319431" expanded="false" signature="3950:3956" ph=" }" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1204,21 +1249,37 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/screen/UserSettingsManager.java">
+    <entry file="file://$PROJECT_DIR$/src/database/images/ProxyImage.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="296">
-          <caret line="60" column="16" lean-forward="false" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="356">
+          <caret line="17" column="43" lean-forward="false" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/database/DatabaseManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="194" column="100" lean-forward="false" selection-start-line="194" selection-start-column="100" selection-end-line="194" selection-end-column="100" />
+        <state relative-caret-position="-210">
+          <caret line="185" column="112" lean-forward="false" selection-start-line="185" selection-start-column="112" selection-end-line="185" selection-end-column="112" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/database/images/ImageOnServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="200">
+          <caret line="20" column="13" lean-forward="false" selection-start-line="20" selection-start-column="13" selection-end-line="20" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/screen/UserSettingsManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="185">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

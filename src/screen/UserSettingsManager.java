@@ -57,6 +57,7 @@ public class UserSettingsManager extends Screen {
     }
 
 
+
     @FXML
     private void EditProfilePic(){
         FileChooser fileChooser = new FileChooser();
