@@ -48,6 +48,9 @@ public class ManufacturerInboxManager extends Screen{
     @FXML
     TableColumn<ManufacturerInboxResult, String> DateColumn= new TableColumn<>();
 
+    @FXML
+    TableColumn<ManufacturerInboxResult, String> TypeColumn= new TableColumn<>();
+
     private Application selected;
 
     private String manufacturer;
@@ -94,6 +97,7 @@ public class ManufacturerInboxManager extends Screen{
         this.DateColumn.setCellValueFactory(new PropertyValueFactory("DateOfSubmission"));
         this.TTBIDColumn.setCellValueFactory(new PropertyValueFactory("ApplicationNo"));
         this.NameColumn.setCellValueFactory(new PropertyValueFactory("Brand"));
+        this.TypeColumn.setCellValueFactory(new PropertyValueFactory("AlcoholType"));
 
         for(DataSet tempData : appList) {
             Application data = (Application) tempData;
@@ -101,13 +105,14 @@ public class ManufacturerInboxManager extends Screen{
             String tempBrand = data.Brand;
             String tempStatus = data.ApplicationStatus;
             String tempDate = data.DateOfSubmission;
+            String tempType = data.AlcoholType;
 
-            LogManager.println(tempApplicationNo);
+            /*LogManager.println(tempApplicationNo);
             LogManager.println(tempBrand);
             LogManager.println(tempStatus);
-            LogManager.println(tempDate);
+            LogManager.println(tempDate);*/
 
-            ManufacturerInboxResult tempName = new ManufacturerInboxResult(tempApplicationNo, tempBrand, tempStatus, tempDate, data);
+            ManufacturerInboxResult tempName = new ManufacturerInboxResult(tempApplicationNo, tempBrand, tempStatus, tempDate, tempType, data);
             tableList.add(tempName);
 
             LogManager.println("tableList: "+Integer.toString(tableList.size()));
@@ -133,9 +138,7 @@ public class ManufacturerInboxManager extends Screen{
                 if ((event.getClickCount() == 2) && (! row.isEmpty())) {
                     ManufacturerInboxResult rowData = row.getItem();
                     //LogManager.println();
-                    if(!rowData.app.ApplicationStatus.equals("PENDING")) {
-                        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "Edit Application", 1025, 700, rowData.app);
-                    }
+                    Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "Edit Application", 1025, 700, rowData.app);
                 }
             });
             return row;
