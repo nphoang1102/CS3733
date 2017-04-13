@@ -117,9 +117,13 @@ public class ManufacturerInboxManager extends Screen{
 
             LogManager.println("tableList: "+Integer.toString(tableList.size()));
         }
-        this.Table.setItems(tableList);
+        if(tableList.size()>0) {
+            LogManager.println("TTBID 1: " + tableList.get(0).getApplicationNo());
+            //LogManager.println("TTBID 1: "+ tableList.get(0).getStatus());
+            this.Table.setItems(tableList);
 
-        this.initializeMouseEvent();
+            this.initializeMouseEvent();
+        }
     }
 
     @FXML

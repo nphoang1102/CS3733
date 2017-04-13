@@ -114,6 +114,7 @@ public class EditableApplicationManager extends Screen {
             phone_num_field.setText(application.PhoneNo);
             email_field.setText(application.Email);
             date_submitted_field.setText(application.DateOfSubmission);
+            add_info_field.setText(application.AdditionalInfo);
             //What is TTBID in Dataset?
             // ttbId.setText(application.SerialNo);
             fanciful_field.setText(application.FancifulName);

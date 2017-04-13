@@ -9,7 +9,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1280.0" visible="true" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AgentAppScreenManager">
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="1.0" prefHeight="720.0" prefWidth="1280.0" visible="true" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AgentAppScreenManager">
   <children>
     <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" pickOnBounds="true" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
     <Label layoutX="80.0" layoutY="70.0" prefHeight="21.0" prefWidth="106.0" text="Rep ID NO. ">
@@ -75,7 +75,7 @@
               <font>
                 <Font name="Telugu Sangam MN" size="15.0" />
               </font></Button>
-            <Button fx:id="acceptButton" layoutX="19.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#rejectApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Accept">
+            <Button fx:id="acceptButton" layoutX="19.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#acceptApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Accept">
               <font>
                 <Font name="Telugu Sangam MN" size="15.0" />
               </font>

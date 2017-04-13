@@ -151,7 +151,7 @@ public class ColaSearchResultManager extends Screen{
                 + "Class" + ","
                 + "Type";
         String columns = "";
-        String outputPath = "./searchResult.csv";
+        String outputPath = "/searchResult.csv";
         for (ColaResult data : this.resultTable){
             columns += data.getId() + ","
                     + data.getPermit() + ","

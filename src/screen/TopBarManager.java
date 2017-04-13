@@ -220,4 +220,14 @@ public class TopBarManager extends Screen{
             }
         }
     }
+
+    public DataSet generateTopBarData(){
+        BasicDataSet data = new BasicDataSet();
+        data.addField("username", Main.getUsername());
+        data.addField("userType", Main.getUserType());
+        data.addField("searchField", searchBar.getText());
+        data.addField("searchTerm", searchTerm.getValue().toString());
+        return data;
+    }
+
 }
