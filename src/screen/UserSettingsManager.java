@@ -144,12 +144,14 @@ public class UserSettingsManager extends Screen {
             }
         }
 
-        UserManufacturer man = (UserManufacturer) Main.getUser();
-        firstName.setText(man.name.split(" ")[0]);
-        lastName.setText(man.name.split(" ")[1]);
-        email.setText(man.email);
-        phoneNumber.setText(man.PhoneNo);
-        representativeIdNumber.setText(man.RepID);
-        plantRegistryBasicPermitNumber.setText(man.PlantRegistry);
+        if(Main.getUser() instanceof  UserManufacturer) {
+            UserManufacturer man = (UserManufacturer) Main.getUser();
+            firstName.setText(man.name.split(" ")[0]);
+            lastName.setText(man.name.split(" ")[1]);
+            email.setText(man.email);
+            phoneNumber.setText(man.PhoneNo);
+            representativeIdNumber.setText(man.RepID);
+            plantRegistryBasicPermitNumber.setText(man.PlantRegistry);
+        }
     }
 }
