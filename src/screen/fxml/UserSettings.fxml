@@ -110,11 +110,7 @@
            <effect>
                <Reflection fraction="0.58" topOpacity="0.36" />
            </effect></TextField>
-<<<<<<< HEAD
-      <Button fx:id="saveChangesButton" layoutX="1105.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#saveChanges" style="-fx-background-color: #34a88b;" text="Save Changes" textFill="WHITE">
-=======
       <Button fx:id="saveChangesButton" layoutX="957.0" layoutY="503.0" mnemonicParsing="false" onMouseClicked="#saveChanges" style="-fx-background-color: #939393;" text="Save Changes" textFill="WHITE">
->>>>>>> c4e09ff55c216bdbc36ca4d33142a39a6883c92b
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>

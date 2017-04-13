@@ -18,6 +18,14 @@ public abstract class DataSet{
         dataSet.put(key,  obj);
     }
 
+    public boolean hasKey(String key){
+        if(getValueForKey(key)!=null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public String getValueForKey(String key){
         return dataSet.get(key);
     }

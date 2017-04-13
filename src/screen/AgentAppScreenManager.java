@@ -93,6 +93,9 @@ public class AgentAppScreenManager extends Screen{
     public void rejectApp(MouseEvent mouseEvent) {
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
+            if(!rejectReason.getText().isEmpty()){
+                app.ReasonForRejection = rejectReason.getText();
+            }
             DatabaseManager.rejectApplication(app.ApplicationNo);
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);

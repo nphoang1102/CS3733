@@ -15,8 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.apache.commons.net.ftp.FTPClient;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Created by ${Victor} on 4/9/2017.
@@ -84,9 +87,37 @@ public class UserSettingsManager extends Screen {
 
     @FXML
     private void EditProfilePic(){
+        if(Main.getUsername().isEmpty()){
+            return;
+        }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        fileChooser.showOpenDialog(primaryStage);
+        String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
+
+
+        if(!filename.endsWith(".jpg")){
+            return;
+        }
+
+        LogManager.println("File:"+filename);
+
+        FTPClient client = new FTPClient();
+        FileInputStream fis = null;
+        try {
+            client.connect("72.93.244.26");
+            client.login("cadbo", "seafoamgreen");
+
+            fis = new FileInputStream(filename);
+            client.storeFile("TTB/users/"+Main.getUsername()+".jpg", fis);
+            client.logout();
+            fis.close();
+            LogManager.println("Uploading image as:"+"TTB/users/"+Main.getUsername()+".jpg");
+
+            ScreenManager.updateUserIcon();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
