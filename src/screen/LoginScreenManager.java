@@ -58,17 +58,17 @@ public class LoginScreenManager extends Screen {
             } else {
                 User curUser = null;
                 try {
-                    curUser = Main.databaseManager.login(userName, "");
+                    curUser = Main.databaseManager.login(userName, password.getText());
                 } catch (DatabaseManager.UserNotFoundException e) {
                     error.visibleProperty().setValue(true);
                     error.setText("Username does not exist");
                     e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
-                    //error.visibleProperty().setValue(true);
-                    //error.setText("Incorrect password");
+                    error.visibleProperty().setValue(true);
+                    error.setText("Incorrect username or password");
                     e.printStackTrace();
-                    //return;
+                    return;
                 } catch (PasswordStorage.InvalidHashException e) {
                     e.printStackTrace();
                 } catch (PasswordStorage.CannotPerformOperationException e) {
@@ -82,14 +82,8 @@ public class LoginScreenManager extends Screen {
                 }
                 // Currently not implemented since manufacturerScreen is not made
                 else if (userType.equals(EnumUserType.MANUFACTURER)) {
-                    //build a manufacturer and store it globally
-                    //User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
-                    //Main.setUser(currentUser);
                     Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
                 } else if (userType.equals(EnumUserType.AGENT)) {
-                    //build an agent and store it globally
-                    //User currentUser = new User(EnumUserType.AGENT, userName, "");
-                    //Main.setUser(currentUser);
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
                 }
             }
@@ -128,6 +122,7 @@ public class LoginScreenManager extends Screen {
     @Override
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
+        password.clear();
         error.visibleProperty().setValue(false);
         //check if user has a type
         if(Main.getUserType().equals(null)){
