@@ -140,7 +140,7 @@ public class ColaSearchResultManager extends Screen{
     }
 
     /* Print search result into a CSV file on button click */
-    public void onButtonClicked() {
+    public void toCSV() {
         String columnHeaders = "TTB ID" + ","
                 + "Permit number" + ","
                 + "Serial number" + ","
@@ -164,7 +164,73 @@ public class ColaSearchResultManager extends Screen{
                     + data.getType() + "\n";
         }
         StringUtilities.saveData(outputPath, new String[] {columnHeaders, columns});
-        LogManager.println("Search result saved to ./searchResult.csv");
+        LogManager.println("Search result saved to /searchResult.csv");
+    }
+
+    /* Print search result into a tab-delimited text file */
+    public void toTab() {
+        String columnHeaders = "TTB ID" + "\t"
+                + "Permit number" + "\t"
+                + "Serial number" + "\t"
+                + "Date approved" + "\t"
+                + "Fancy name" + "\t"
+                + "Brand name" + "\t"
+                + "Origin" + "\t"
+                + "Class" + "\t"
+                + "Type" + "\n";
+        int index = 0;
+        String[] output = new String[this.resultTable.size() + 1];
+        LogManager.println(this.resultTable.size() + 1 + "");
+        output[0] = columnHeaders;
+        String outputPath = "/searchResult-tab.txt";
+        for (ColaResult data : this.resultTable){
+            String columns = data.getId() + "\t"
+                    + data.getPermit() + "\t"
+                    + data.getSerial() + "\t"
+                    + data.getDate() + "\t"
+                    + data.getFname() + "\t"
+                    + data.getName() + "\t"
+                    + data.getSource() + "\t"
+                    + data.getAclass() + "\t"
+                    + data.getType() + "\n";
+            index++;
+            output[index] = columns;
+        }
+        StringUtilities.saveData(outputPath, output);
+        LogManager.println("Search result saved to /searchResult-tab.txt");
+    }
+
+    /* Print search result into a character-delimited text file */
+    public void toChar() {
+        String columnHeaders = "TTB ID" + ","
+                + "Permit number" + ","
+                + "Serial number" + ","
+                + "Date approved" + ","
+                + "Fancy name" + ","
+                + "Brand name" + ","
+                + "Origin" + ","
+                + "Class" + ","
+                + "Type";
+        int index = 0;
+        String[] output = new String[this.resultTable.size() + 1];
+        LogManager.println(this.resultTable.size() + 1 + "");
+        output[0] = columnHeaders;
+        String outputPath = "/searchResult-char.txt";
+        for (ColaResult data : this.resultTable){
+            String columns = data.getId() + ","
+                    + data.getPermit() + ","
+                    + data.getSerial() + ","
+                    + data.getDate() + ","
+                    + data.getFname() + ","
+                    + data.getName() + ","
+                    + data.getSource() + ","
+                    + data.getAclass() + ","
+                    + data.getType() + "\n";
+            index++;
+            output[index] = columns;
+        }
+        StringUtilities.saveData(outputPath, output);
+        LogManager.println("Search result saved to /searchResult-char.txt");
     }
 
     /* Initialize the origin mapping for end-user */

@@ -16,7 +16,17 @@
                 <TableColumn fx:id="coLname" prefWidth="580.0" resizable="false" text="Brand Name" />
             </columns>
         </TableView>
-      <Button fx:id="saveToCsv" layoutX="5.0" layoutY="665.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="50.0" prefWidth="1270.0" style="-fx-background-color: #939393;" text="Save search result to .csv file" textFill="WHITE">
+      <Button fx:id="saveToCsv" layoutX="5.0" layoutY="665.0" mnemonicParsing="false" onAction="#toCSV" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #939393;" text="Save as .csv file" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveToTab" layoutX="440.0" layoutY="665.0" mnemonicParsing="false" onAction="#toTab" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #939393;" text="Save as tab-delimitted .txt file" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="17.0" />
+         </font>
+      </Button>
+      <Button fx:id="saveToChar" layoutX="875.0" layoutY="665.0" mnemonicParsing="false" onAction="#toChar" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #939393;" text="Save as character delimiter .txt file" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN Bold" size="17.0" />
          </font>
