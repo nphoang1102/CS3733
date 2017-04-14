@@ -129,6 +129,19 @@ public class LoginScreenManager extends Screen {
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
         error.visibleProperty().setValue(false);
+        //check if user has a type
+        if(Main.getUserType().equals(null)){
+            LogManager.println("You don't have a type");
+            return;
+        }else if(Main.getUserType().equalsIgnoreCase("MANUFACTURER")){
+            LogManager.println("You are a manufacturer");
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+            return;
+        }else if(Main.getUserType().equalsIgnoreCase("AGENT")){
+            LogManager.println("You are an agent");
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+            return;
+        }
     }
 
     public void centerError(){
