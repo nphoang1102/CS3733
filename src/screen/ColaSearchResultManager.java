@@ -108,7 +108,7 @@ public class ColaSearchResultManager extends Screen{
         data.addField("AlcoholContent", rowData.getAlCon());
         data.addField("VintageYear", rowData.getYear());
         data.addField("PH", rowData.getPh());
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 300, data);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
     }
 
     /* Send the search keywords to the database and display reply from database */
@@ -180,7 +180,6 @@ public class ColaSearchResultManager extends Screen{
                 + "Type" + "\n";
         int index = 0;
         String[] output = new String[this.resultTable.size() + 1];
-        LogManager.println(this.resultTable.size() + 1 + "");
         output[0] = columnHeaders;
         String outputPath = "/searchResult-tab.txt";
         for (ColaResult data : this.resultTable){
@@ -213,7 +212,6 @@ public class ColaSearchResultManager extends Screen{
                 + "Type";
         int index = 0;
         String[] output = new String[this.resultTable.size() + 1];
-        LogManager.println(this.resultTable.size() + 1 + "");
         output[0] = columnHeaders;
         String outputPath = "/searchResult-char.txt";
         for (ColaResult data : this.resultTable){

@@ -24,18 +24,18 @@ public class ResultPopupManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet result){
-        if (!result.getValueForKey("TTBID").equals("")) dis_ID.setText("TTB ID: " + result.getValueForKey("TTBID"));
-        if (!result.getValueForKey("PermitNo").equals("")) dis_permit.setText("Permit No: " + result.getValueForKey("PermitNo"));
-        if (!result.getValueForKey("SerialNo").equals("")) dis_serial.setText("Serial No: " + result.getValueForKey("SerialNo"));
-        if (!result.getValueForKey("CompletedDate").equals("")) dis_date.setText("Permit completed date: " +result.getValueForKey("CompletedDate"));
-        if (!result.getValueForKey("FancifulName").equals("")) dis_fanName.setText("Fanciful name: " +result.getValueForKey("FancifulName"));
+        dis_ID.setText("TTB ID: " + result.getValueForKey("TTBID"));
+        dis_permit.setText("Permit No: " + result.getValueForKey("PermitNo"));
+        dis_serial.setText("Serial No: " + result.getValueForKey("SerialNo"));
+        dis_date.setText("Permit completed date: " +result.getValueForKey("CompletedDate"));
+        dis_fanName.setText("Fanciful name: " +result.getValueForKey("FancifulName"));
         dis_brandName.setText(result.getValueForKey("BrandName"));
         dis_brandName.layoutXProperty().bind(window.widthProperty().subtract(dis_brandName.widthProperty()).divide(2));
-        if (!result.getValueForKey("Origin").equals("")) dis_origin.setText("Origin: " +result.getValueForKey("Origin"));
-        if (!result.getValueForKey("Class").equals("")) dis_class.setText("Class: " +result.getValueForKey("Class"));
-        if (!result.getValueForKey("Type").equals("")) dis_type.setText("Type: " +result.getValueForKey("Type"));
-        if (!result.getValueForKey("AlcoholContent").equals("")) dis_alCon.setText("Alcohol content: "+ result.getValueForKey("AlcoholContent"));
-        if (!result.getValueForKey("VintageYear").equals("")) dis_year.setText("Vintage year: " + result.getValueForKey("VintageYear"));
-        if (!result.getValueForKey("VintageYear").equals("")) dis_ph.setText("pH level: " + result.getValueForKey("PH"));
+        dis_origin.setText("Origin: " +result.getValueForKey("Origin"));
+        dis_class.setText("Class: " +result.getValueForKey("Class"));
+        dis_type.setText("Type: " +result.getValueForKey("Type"));
+        dis_alCon.setText("Alcohol content: "+ result.getValueForKey("AlcoholContent"));
+        dis_year.setText("Vintage year: " + result.getValueForKey("VintageYear"));
+        dis_ph.setText("pH level: " + result.getValueForKey("PH"));
     }
 }
