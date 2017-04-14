@@ -9,6 +9,7 @@ import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
@@ -32,6 +33,8 @@ public class CreateAccountManager extends Screen{
     private CheckBox tickAgent;
     @FXML
     private CheckBox tickManufacturer;
+    @FXML
+    private Slider securitySlider;
     //@FXML
     //private CheckBox tickPublicUser;
     @FXML
@@ -41,6 +44,7 @@ public class CreateAccountManager extends Screen{
 
     private void clearFields(){
         username.clear();
+        password.clear();
         accountError.setText(null);
         tickManufacturer.setIndeterminate(false);
         tickManufacturer.setSelected(false);
@@ -58,14 +62,14 @@ public class CreateAccountManager extends Screen{
     @FXML
     private void makeAccount(){
         String user = username.getText();
+        String curPassword = password.getText();
         clearFields();
         //query database to get all usernames
         //check if user is in the list
         if(!user.equals("")) {
-            if (userType != null) { //placeholder for now
+            if ((userType != null)&&(curPassword!=null)) { //placeholder for now
                 //tell the system who made an account
                 LogManager.println(user + " just made an account");
-
 
                 //record the account in the database
                 if (userType.equals(EnumUserType.AGENT)) {
@@ -73,7 +77,7 @@ public class CreateAccountManager extends Screen{
                     //tell the system what type of user they are
                     LogManager.println(user + " is a " + userType);
                     //create new agent, no password
-                    DatabaseManager.addUser(tempUser, "", userType);
+                    DatabaseManager.addUser(tempUser, password.getText(), userType);
                     Main.setUser(tempUser);
                     LogManager.println(tempUser + "logged in");
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
@@ -83,7 +87,7 @@ public class CreateAccountManager extends Screen{
                     //tell the system what typ of user they are
                     LogManager.println(user + " is a " + userType);
                     //create new manufacturer, no password
-                    DatabaseManager.addUser(tempUser, "", userType);
+                    DatabaseManager.addUser(tempUser, password.getText(), userType);
 
                     Main.setUser(tempUser);
                     System.out.println(Main.getUsername());
@@ -104,14 +108,17 @@ public class CreateAccountManager extends Screen{
                 accountError.setText(user + ", select a box.");
             }
         }else {//user didn't enter a username
-            accountError.setText("Enter a username");
+            accountError.setText("No username or password");
         }
-        /*else {
+        /* {
             //if name is taken, return to the make account screen
             accountError.setText("I'm sorry" + user+ ", that account is taken");
             Main.screenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
         }*/
 
+    }
+    private void checkPassword(){
+        LogManager.println(String.valueOf(securitySlider.getBlockIncrement()));
     }
     @FXML
     private void enterHit(){
@@ -146,7 +153,6 @@ public class CreateAccountManager extends Screen{
     @Override
     public void onScreenFocused(DataSet data) {
         clearFields();
-        //password.visibleProperty().setValue(false);
     }
    /* @FXML
     private void selectPublicUser(){
