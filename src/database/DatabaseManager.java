@@ -105,7 +105,7 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(20) NOT NULL,\n" +
+                    " ApplicationNo VARCHAR(20) NOT NULL PRIMARY KEY,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
@@ -440,8 +440,10 @@ public class DatabaseManager {
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
+        LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
 
         try {
+            LogManager.println("INSERTING THINGS NOW!!!");
             statement.executeUpdate("INSERT INTO Alcohol (" +
                     "TTBID, " +
                     "PermitNo, " +
@@ -470,7 +472,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
+    //HACK
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
