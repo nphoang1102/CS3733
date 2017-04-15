@@ -1,4 +1,4 @@
-package misc;
+package screen.cola_search;
 
 import database.BasicDataSet;
 import database.DataSet;

@@ -1,4 +1,4 @@
-package misc;
+package screen.cola_search;
 
 import database.DataSet;
 import javafx.fxml.FXML;
