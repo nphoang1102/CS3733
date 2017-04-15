@@ -57,8 +57,8 @@ public class DatabaseManager {
         LogManager.println("    Java DB driver registered!");
         Connection connection;
         try {
-            //connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
-            connection = DriverManager.getConnection("jdbc:derby:TTB;create=true");
+            connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
+            //connection = DriverManager.getConnection("jdbc:derby:TTB;create=true");
 
         } catch (SQLException e) {
             LogManager.println("    Connection failed. Check output console.");
@@ -93,7 +93,6 @@ public class DatabaseManager {
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
-                    //" Class VARCHAR(10) NOT NULL,\n" +
                     " Type VARCHAR(10) NOT NULL,\n" +
                     " AlcoholContent VARCHAR(30),\n" +
                     " VintageYear VARCHAR(10),\n" +
@@ -223,7 +222,6 @@ public class DatabaseManager {
                 alcohol.FancifulName = getAlcohol.getString("FancifulName");
                 alcohol.BrandName = getAlcohol.getString("BrandName");
                 alcohol.Origin = getAlcohol.getString("Origin");
-                alcohol.Class = getAlcohol.getString("Class");
                 alcohol.Type = getAlcohol.getString("Type");
                 alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
                 alcohol.VintageYear = getAlcohol.getString("VintageYear");
