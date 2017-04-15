@@ -214,7 +214,6 @@ public class DatabaseManager {
 
         try {
             ResultSet getAlcohol = statement.executeQuery(queryStr);
-
             while (getAlcohol.next()) {
                 Alcohol alcohol = new Alcohol();
                 alcohol.TTBID = getAlcohol.getString("TTBID");
@@ -322,31 +321,8 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////EDIT APPLICATIONS///////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static void editApplication(Application application) {
-        try {
-            if (application.ApplicationStatus.equals("APPROVED")) {
-                statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "';");
-                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
-                submitApplication(application);
-                approveApplication(application.ApplicationNo);
-            } else {
-                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
-                submitApplication(application);
-            }
-
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    /////////////////////////////////////////////////////////////////////////////////
     ///////////MANUFACTURER QUERIES//////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-
     private static LinkedList<DataSet> queryManufacturers(String query) {
         LinkedList<DataSet> manufacturers = new LinkedList<>();
         try {
@@ -377,17 +353,46 @@ public class DatabaseManager {
         return manufacturers;
     }
 
-    public static void updateManufacturer(UserManufacturer userm) {
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////EDIT MANUFACTURER/////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void updateManufacturer(UserManufacturer manufacturer) {
         try {
             //ResultSet searchManufacturers = statement.executeQuery("SELECT * FROM Manufacturers;");
             //LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "username", userm.username);
             /*while(searchManufacturers.next()) {
                 userm.username = searchManufacturers.getString("Username");
             }*/
-            statement.executeUpdate("UPDATE Manufacturers SET Name = '" + userm.name + "', RepID = '" + userm.RepID + "', Email = '" + userm.email + "', PlantRegistry = '" + userm.PlantRegistry + "', PhoneNo = '" + userm.PhoneNo + "' WHERE Username = '" + userm.username + "';");
+            statement.executeUpdate("UPDATE Manufacturers SET " +
+                    "Name = '" + manufacturer.name + "', " +
+                    "RepID = '" + manufacturer.RepID + "', " +
+                    "Email = '" + manufacturer.email + "', " +
+                    "PlantRegistry = '" + manufacturer.PlantRegistry + "', " +
+                    "PhoneNo = '" + manufacturer.PhoneNo + "' " +
+                    "WHERE Username = '" + manufacturer.username + "';");
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////EDIT APPLICATIONS/////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void editApplication(Application application) {
+        try {
+            if (application.ApplicationStatus.equals("APPROVED")) {
+                statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "';");
+                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
+                submitApplication(application);
+                approveApplication(application.ApplicationNo);
+            } else {
+                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
+                submitApplication(application);
+            }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -478,6 +483,13 @@ public class DatabaseManager {
             LogManager.println("could not remove application");
             e.printStackTrace();
         }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////FORWARD APPLICATION///////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public void forwardApplication(String ApplicationNo, String AgentUsername){
+//        Change the Agent username on the the specific application to the new username passed
     }
 
     /////////////////////////////////////////////////////////////////////////////////
