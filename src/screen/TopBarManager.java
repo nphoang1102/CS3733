@@ -31,38 +31,13 @@ import java.io.File;
  */
 public class TopBarManager extends Screen{
 
-    @FXML
-    private Button pullNewBatch;
-
-    @FXML
-    Label username;
-
-    @FXML
-    Label userType;
-
-    @FXML
-    Label imageLetter;
-
-    @FXML
-    ChoiceBox searchTerm;
-
-    @FXML
-    Button logIn;
-
-    @FXML
-    Button action;
-
-    @FXML
-    Button backButton;
-
-    @FXML
-    ImageView userIcon;
-
-    @FXML
-    AnchorPane screenPane;
-
-    @FXML
-    TextField searchBar;
+    /* FXML objects */
+    @FXML private Label username, userType, imageLetter;
+    @FXML private ChoiceBox searchTerm;
+    @FXML private Button logIn, action, backButton, search;
+    @FXML private ImageView userIcon;
+    @FXML private AnchorPane screenPane;
+    @FXML private TextField searchBar;
 
     public TopBarManager() {
         super(EnumScreenType.TOP_BAR);
