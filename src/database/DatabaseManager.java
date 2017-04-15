@@ -413,33 +413,33 @@ public class DatabaseManager {
         Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
         String ApplicationNo = approvedApplication.ApplicationNo;
         String SerialNo = approvedApplication.SerialNo;
-        String ApplicationType = approvedApplication.ApplicationType;
-        String ApplicationStatus = approvedApplication.ApplicationStatus;
-        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
-        String AgentName = approvedApplication.AgentName;
-        String AgentUsername = approvedApplication.AgentUsername;
-        String RepID = approvedApplication.RepID;
+//        String ApplicationType = approvedApplication.ApplicationType;
+//        String ApplicationStatus = approvedApplication.ApplicationStatus;
+//        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
+//        String AgentName = approvedApplication.AgentName;
+//        String AgentUsername = approvedApplication.AgentUsername;
+//        String RepID = approvedApplication.RepID;
         String PlantRegistry = approvedApplication.PlantRegistry;
         String Locality = approvedApplication.Locality;
         String Brand = approvedApplication.Brand;
         String FancifulName = approvedApplication.FancifulName;
         String AlcoholType = approvedApplication.AlcoholType;
         String ABV = approvedApplication.ABV;
-        String Address = approvedApplication.Address;
-        String Address2 = approvedApplication.Address2;
-        String Formula = approvedApplication.Formula;
-        String WineAppelation = approvedApplication.WineAppelation;
+//        String Address = approvedApplication.Address;
+//        String Address2 = approvedApplication.Address2;
+//        String Formula = approvedApplication.Formula;
+//        String WineAppelation = approvedApplication.WineAppelation;
         String VintageDate = approvedApplication.VintageDate;
-        String Grapes = approvedApplication.Grapes;
+//        String Grapes = approvedApplication.Grapes;
         String PH = approvedApplication.PH;
-        String PhoneNo = approvedApplication.PhoneNo;
-        String Email = approvedApplication.Email;
-        String AdditionalInfo = approvedApplication.AdditionalInfo;
-        String DateOfSubmission = approvedApplication.DateOfSubmission;
+//        String PhoneNo = approvedApplication.PhoneNo;
+//        String Email = approvedApplication.Email;
+//        String AdditionalInfo = approvedApplication.AdditionalInfo;
+//        String DateOfSubmission = approvedApplication.DateOfSubmission;
         String DateOfApproval = approvedApplication.DateOfApproval;
-        String DateOfExpiration = approvedApplication.DateOfExpiration;
+//        String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
-        String ReasonForRejection = approvedApplication.ReasonForRejection;
+//        String ReasonForRejection = approvedApplication.ReasonForRejection;
         LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
 
         try {
@@ -464,6 +464,7 @@ public class DatabaseManager {
                     FancifulName + "', '" +
                     Brand + "', '" +
                     Locality + "', '" +
+                    "Class??" + "', '" + //TODO - Class?
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
