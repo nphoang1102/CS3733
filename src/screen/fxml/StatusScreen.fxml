@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#34a88b" height="385.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0" />
+      <Label layoutX="578.0" text="ABOUT US">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="26.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="115.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="345.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="575.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="815.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="1045.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="230.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="460.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="700.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="930.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/bailey%203.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="137.0" layoutY="265.0" text="Bailey Sostek" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="107.0" layoutY="287.0" text="Lead Software Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="359.0" layoutY="265.0" text="Hoang Nguyen" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="307.0" layoutY="287.0" text="Assistant Lead Software Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="591.0" layoutY="265.0" text="Evan Goldstein" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="844.0" layoutY="265.0" text="Daniel Yun" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="838.0" layoutY="287.0" text="Test Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="1050.0" layoutY="265.0" text="Manuel Gonsalves" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="1038.0" layoutY="287.0" text="Documentation Analyst" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="959.0" layoutY="453.0" text="Victor Pina" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="927.0" layoutY="474.0" text="Algorithms Specialists" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="714.0" layoutY="453.0" text="Matt Fortmeyer" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="692.0" layoutY="474.0" text="User Interface Specialist" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="474.0" layoutY="453.0" text="Turner Robbins" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="479.0" layoutY="474.0" text="Product Owner" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="257.0" layoutY="453.0" text="Harsh Rana" textAlignment="CENTER" textFill="WHITE" />
+      <Label layoutX="244.0" layoutY="474.0" text="Project Manager" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label layoutX="538.0" layoutY="287.0" text="Assistant Lead Software Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Line endX="1000.0" layoutX="195.0" layoutY="511.0" startX="-100.0" stroke="WHITE" />
+      <Line endX="200.0" layoutX="639.0" layoutY="68.0" startX="-200.0" stroke="WHITE" />
+      <Label layoutX="521.0" layoutY="521.0" text="SPECIAL THANKS TO" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="372.0" layoutY="577.0" text="Worcester Polytechnic Institute Computer Science Department" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="387.0" layoutY="616.0" text="US Treasury’s Alcohol and Tobacco Tax and Trade Bureau" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="345.0" layoutY="656.0" text="Greg Greeley, Assistant CIO Alcohol &amp; Tobacco Tax and Trade Bureau" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="87.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Wong.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="75.0" layoutY="662.0" text="Professor Wilson Wong" textAlignment="CENTER" />
+      <Label layoutX="105.0" layoutY="683.0" text="Project Advisor" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="1075.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../../../Desktop/Cory.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="1101.0" layoutY="662.0" text="Cory Tapply" textAlignment="CENTER" />
+      <Label layoutX="1102.0" layoutY="683.0" text="Team Coach" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Line endX="1000.0" layoutX="195.0" layoutY="516.0" startX="-100.0" stroke="WHITE" />
+      <Line endX="200.0" layoutX="639.0" layoutY="108.0" startX="-200.0" stroke="WHITE" />
+      <Label layoutX="530.0" layoutY="68.0" text="MEET OUR CORE TEAM" textFill="#373737">
+         <font>
+            <Font name="Telugu Sangam MN" size="20.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>
