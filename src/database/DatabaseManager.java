@@ -57,8 +57,8 @@ public class DatabaseManager {
         LogManager.println("    Java DB driver registered!");
         Connection connection;
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" +
-                    "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
+            //connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
+            connection = DriverManager.getConnection("jdbc:derby:TTB;create=true");
 
         } catch (SQLException e) {
             LogManager.println("    Connection failed. Check output console.");
@@ -93,7 +93,7 @@ public class DatabaseManager {
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
-                    " Class VARCHAR(10) NOT NULL,\n" +
+                    //" Class VARCHAR(10) NOT NULL,\n" +
                     " Type VARCHAR(10) NOT NULL,\n" +
                     " AlcoholContent VARCHAR(30),\n" +
                     " VintageYear VARCHAR(10),\n" +
@@ -105,7 +105,7 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(20) NOT NULL PRIMARY KEY,\n" +
+                    " ApplicationNo VARCHAR(20) PRIMARY KEY,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
