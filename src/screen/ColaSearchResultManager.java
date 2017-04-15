@@ -10,22 +10,12 @@ import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import misc.ColaResult;
-import misc.ResultPopupManager;
+import screen.cola_search.*;
 
-import javax.xml.transform.Result;
-import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -108,7 +98,7 @@ public class ColaSearchResultManager extends Screen{
         data.addField("AlcoholContent", rowData.getAlCon());
         data.addField("VintageYear", rowData.getYear());
         data.addField("PH", rowData.getPh());
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 300, data);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
     }
 
     /* Send the search keywords to the database and display reply from database */
@@ -140,31 +130,21 @@ public class ColaSearchResultManager extends Screen{
     }
 
     /* Print search result into a CSV file on button click */
-    public void onButtonClicked() {
-        String columnHeaders = "TTB ID" + ","
-                + "Permit number" + ","
-                + "Serial number" + ","
-                + "Date approved" + ","
-                + "Fancy name" + ","
-                + "Brand name" + ","
-                + "Origin" + ","
-                + "Class" + ","
-                + "Type";
-        String columns = "";
-        String outputPath = "/searchResult.csv";
-        for (ColaResult data : this.resultTable){
-            columns += data.getId() + ","
-                    + data.getPermit() + ","
-                    + data.getSerial() + ","
-                    + data.getDate() + ","
-                    + data.getFname() + ","
-                    + data.getName() + ","
-                    + data.getSource() + ","
-                    + data.getAclass() + ","
-                    + data.getType() + "\n";
-        }
-        StringUtilities.saveData(outputPath, new String[] {columnHeaders, columns});
-        LogManager.println("Search result saved to ./searchResult.csv");
+    public void toCSV() {
+        IDataDownload downloadCSV = new toCSV();
+        downloadCSV.downloadData(this.resultTable);
+    }
+
+    /* Print search result into a tab-delimited text file */
+    public void toTab() {
+        IDataDownload downloadTab = new toTSV();
+        downloadTab.downloadData(this.resultTable);
+    }
+
+    /* Print search result into a character-delimited text file */
+    public void toChar() {
+        IDataDownload downloadChar = new toChSV();
+        downloadChar.downloadData(this.resultTable);
     }
 
     /* Initialize the origin mapping for end-user */
