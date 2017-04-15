@@ -137,22 +137,26 @@ public class EditableApplicationManager extends Screen {
         if(((Application) dataSet).ApplicationStatus.equals("APPROVED")) {
             // Disabled
             email_field.setDisable(true);
-            app_type_box.setDisable(true);
             date_submitted_field.setDisable(true);
             applicant_name_field.setDisable(true);
             plant_number_field.setDisable(true);
             serial_number_field.setDisable(true);
             phone_num_field.setDisable(true);
             fanciful_field.setDisable(true);
-            //vintage_field.setDisable(true); //NOT DISABLED
-            //ph_field.setDisable(true); //NOT DISABLED
-            //abv_field.setDisable(true); //NOT DISABLED
+            vintage_field.setDisable(true);
+            ph_field.setDisable(true);
+            abv_field.setDisable(true);
             formula_field.setDisable(true);
             brand_name_field.setDisable(true);
             repid_field.setDisable(true);
-            //add_info_field.setDisable(true);
+            add_info_field.setDisable(true);
             address_field.setDisable(true);
             address_field_2.setDisable(true);
+            appellation_field.setDisable(true);
+            grapes_field.setDisable(true);
+
+            app_type_box.setDisable(true);
+            app_type_field.setDisable(true);
 
             RejectionField.setVisible(false);
             RejectionLabel.setVisible(false);
@@ -240,7 +244,6 @@ public class EditableApplicationManager extends Screen {
         app.VintageDate = vintageYear;
         app.PH = ph;
         app.ApplicationStatus = "PENDING";
-        app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
         app.AgentUsername = "";
