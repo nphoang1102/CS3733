@@ -17,8 +17,9 @@ public enum EnumScreenType {
     TOP_BAR("TopBar.fxml"),
     LOG_IN("LoginScreen.fxml"),
     CREATE_ACCOUNT("CreateAccount.fxml"),
-    COLA_SEARCH("ColaSearchScreen.fxml"),
+    COLA_ADVANCE_SEARCH("AdvanceColaSearch.fxml"),
     COLA_SEARCH_RESULT("ColaSearchResult.fxml"),
+    COLA_RESULT_POPUP("ColaResultPopup.fxml"),
     MANUFACTURER_SCREEN("ManufacturerInbox.fxml"),
     //    MANUFACTURER_VIEW_FORMS(""),
     MANUFACTURER_ADD_FORM("Application.fxml"),
@@ -26,7 +27,6 @@ public enum EnumScreenType {
     AGENT_APP_SCREEN("AgentAppScreen.fxml"),
     AGENT_INBOX("AgentInbox.fxml"),
     EDIT_ACCOUNT("UserSettings.fxml"),
-    COLA_RESULT_POPUP("ColaResultPopup.fxml"),
     ;
 
     private String scene;

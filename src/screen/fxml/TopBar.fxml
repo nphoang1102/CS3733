@@ -28,24 +28,27 @@
                <font>
                   <Font name="Telugu Sangam MN" size="29.0" />
                </font></Label>
-            <Button fx:id="logIn" layoutX="1142.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#logIn" prefHeight="31.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Log In" textFill="WHITE">
+            <Button fx:id="logIn" layoutX="1142.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#logIn" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Log In" textFill="WHITE">
                <font>
                   <Font name="Telugu Sangam MN" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="action" layoutX="1004.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#action" prefHeight="31.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Action" textFill="WHITE">
+            <Button fx:id="action" layoutX="1004.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#action" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Action" textFill="WHITE">
                <font>
                   <Font name="Telugu Sangam MN" size="12.0" />
                </font>
             </Button>
-            <Button fx:id="backButton" layoutX="866.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="31.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Back" textFill="WHITE">
+            <Button fx:id="backButton" layoutX="866.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Back" textFill="WHITE">
                <font>
                   <Font name="Telugu Sangam MN" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="searchBar" layoutX="212.0" layoutY="15.0" onAction="#onEnter" prefHeight="31.0" prefWidth="368.0" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;" />
-            <ChoiceBox fx:id="searchTerm" layoutX="590.0" layoutY="15.0" prefHeight="31.0" prefWidth="128.0" style="-fx-background-color: #939393; -fx-focus-color: #34a88b; -fx-shadow-highlight-color: #34a88b;" stylesheets="@../css/TopBar.css" />
-            <Button fx:id="search" layoutX="728.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#onEnter" prefHeight="31.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Search" textFill="WHITE">
+            <TextField fx:id="searchBar" layoutX="212.0" layoutY="15.0" onAction="#onEnter" prefHeight="33.0" prefWidth="368.0" promptText="What brand are you looking for?" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+               <font>
+                  <Font name="Telugu Sangam MN" size="12.0" />
+               </font></TextField>
+            <ChoiceBox fx:id="searchTerm" layoutX="590.0" layoutY="15.0" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: #939393; -fx-focus-color: #34a88b; -fx-shadow-highlight-color: #34a88b;" stylesheets="@../css/TopBar.css" />
+            <Button fx:id="search" layoutX="728.0" layoutY="15.0" mnemonicParsing="false" onMouseClicked="#onEnter" prefHeight="33.0" prefWidth="128.0" style="-fx-background-color: #939393" text="Search" textFill="WHITE">
                <font>
                   <Font name="Telugu Sangam MN" size="12.0" />
                </font>

@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AdvanceColaSearchManager">
+<Pane fx:id="contain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#onCheck" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AdvanceColaSearchManager">
    <children>
-      <TextField fx:id="field1" layoutX="243.0" layoutY="92.0" />
-      <TextField fx:id="field2" layoutX="243.0" layoutY="181.0" />
-      <TextField fx:id="field3" layoutX="243.0" layoutY="268.0" />
-      <Button fx:id="clearButton" layoutX="178.0" layoutY="539.0" mnemonicParsing="false" onAction="#clearClicked" text="Clear all fields" />
-      <Button fx:id="searchButton" layoutX="538.0" layoutY="539.0" mnemonicParsing="false" onAction="#searchClicked" text="Search" />
-      <CheckBox fx:id="and1" layoutX="40.0" layoutY="186.0" mnemonicParsing="false" text="And" />
-      <CheckBox fx:id="or1" layoutX="115.0" layoutY="186.0" mnemonicParsing="false" text="Or" />
-      <CheckBox fx:id="and2" layoutX="40.0" layoutY="273.0" mnemonicParsing="false" text="And" />
-      <CheckBox fx:id="or2" layoutX="113.0" layoutY="273.0" mnemonicParsing="false" text="Or" />
-      <ChoiceBox fx:id="drop1" layoutX="631.0" layoutY="92.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="drop2" layoutX="631.0" layoutY="181.0" prefWidth="150.0" />
-      <ChoiceBox fx:id="drop3" layoutX="631.0" layoutY="268.0" prefWidth="150.0" />
-      <Label layoutX="538.0" layoutY="97.0" text="Search by" />
-      <Label layoutX="538.0" layoutY="186.0" text="Search by" />
-      <Label layoutX="538.0" layoutY="273.0" text="Search by" />
+      <TextField fx:id="field1" layoutX="250.0" layoutY="150.0" prefHeight="33.0" prefWidth="930.0" promptText="Choose your search field and enter what you want to search for" style="-fx-focus-color: #34a88b;" />
+      <TextField fx:id="field2" editable="false" layoutX="250.0" layoutY="233.0" prefHeight="33.0" prefWidth="930.0" promptText="Additional field 1, will enable when search field selected" style="-fx-focus-color: #34a88b;" />
+      <TextField fx:id="field3" editable="false" layoutX="250.0" layoutY="316.0" prefHeight="33.0" prefWidth="930.0" promptText="Additional field 2, will enable when search field selected" style="-fx-focus-color: #34a88b;" />
+      <Button fx:id="clearButton" layoutX="100.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#clearClicked" prefHeight="50.0" prefWidth="390.0" style="-fx-background-color: #939393;" text="Clear all fields" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font></Button>
+      <Button fx:id="searchButton" layoutX="790.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#searchClicked" prefHeight="50.0" prefWidth="390.0" style="-fx-background-color: #939393;" text="Search" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="18.0" />
+         </font></Button>
+      <ChoiceBox fx:id="drop1" layoutX="100.0" layoutY="150.0" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
+      <ChoiceBox fx:id="drop2" layoutX="100.0" layoutY="233.0" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
+      <ChoiceBox fx:id="drop3" layoutX="100.0" layoutY="316.0" prefHeight="33.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
    </children>
 </Pane>

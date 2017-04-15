@@ -41,7 +41,7 @@ public class ColaSearchResultManager extends Screen{
     @FXML
     private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
     @FXML
-    private Button saveToCsv;
+    private Button saveToCsv, advanceSearch;
     @FXML
     private Pane colaSearchPanel;
 
@@ -145,6 +145,11 @@ public class ColaSearchResultManager extends Screen{
     public void toChar() {
         IDataDownload downloadChar = new toChSV();
         downloadChar.downloadData(this.resultTable);
+    }
+
+    /* Navigate to advance search screen on mouse click */
+    public void toAdvanceSearch() {
+        Main.screenManager.setScreen(EnumScreenType.COLA_ADVANCE_SEARCH);
     }
 
     /* Initialize the origin mapping for end-user */
