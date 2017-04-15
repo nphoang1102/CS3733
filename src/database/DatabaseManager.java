@@ -82,7 +82,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////CREATE TABLES/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    /*public static void createTables() {
+    public static void createTables() {
 
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
@@ -105,7 +105,7 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(20) NOT NULL,\n" +
+                    " ApplicationNo VARCHAR(20) NOT NULL PRIMARY KEY,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
@@ -169,7 +169,7 @@ public class DatabaseManager {
         }
 
     }
-*/
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -251,7 +251,7 @@ public class DatabaseManager {
     public static void submitApplication(Application application) {
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
         try {
-            String ApplicationNo = generateTTBID(); //TODO - Replace this with the correct method for generating Application Numbers
+            String ApplicationNo = generateTTBID();
 //            String status = "PENDING";
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
@@ -411,36 +411,39 @@ public class DatabaseManager {
         LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNum);
         assert approvedApplicationLinkedList != null;
         Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
-        //TODO - Double check fields
-        String PlantRegistry = approvedApplication.PlantRegistry;
-        String Source = approvedApplication.Locality;
+        String ApplicationNo = approvedApplication.ApplicationNo;
         String SerialNo = approvedApplication.SerialNo;
-        String AlcoholType = approvedApplication.AlcoholType;
+        String ApplicationType = approvedApplication.ApplicationType;
+        String ApplicationStatus = approvedApplication.ApplicationStatus;
+        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
+        String AgentName = approvedApplication.AgentName;
+        String AgentUsername = approvedApplication.AgentUsername;
+        String RepID = approvedApplication.RepID;
+        String PlantRegistry = approvedApplication.PlantRegistry;
+        String Locality = approvedApplication.Locality;
         String Brand = approvedApplication.Brand;
         String FancifulName = approvedApplication.FancifulName;
-        String Date = approvedApplication.DateOfApproval;
-//        String PrintName = approvedApplication.PrintName;
-//        String ABV = approvedApplication.ABV;
-        String VintageDate = approvedApplication.VintageDate;
-        String PH = approvedApplication.PH;
+        String AlcoholType = approvedApplication.AlcoholType;
         String ABV = approvedApplication.ABV;
-//        String Status = approvedApplication.Status;
-//        String ApplicationNo = approvedApplication.ApplicationNO;
-//        String DateOfApproval = approvedApplication.DateOfApproval;
-//        String AgentName = approvedApplication.AgentName;
-//        String DateOfExpiration = approvedApplication.DateOfExpiration;
-//        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
-//        String AgentUsername = approvedApplication.AgentUsername;
-//        String Address = approvedApplication.Address;
-//        String Address2 = approvedApplication.Address2;
-//        String Formula = approvedApplication.Formula;
-//        String Grapes = approvedApplication.WineAppelation;
-//        String PhoneNo = approvedApplication.PhoneNo;
-//        String Email = approvedApplication.Email;
-//        String AppType = approvedApplication.AppType;
-//        String AdditionalInfo = approvedApplication.AdditionalInfo;
+        String Address = approvedApplication.Address;
+        String Address2 = approvedApplication.Address2;
+        String Formula = approvedApplication.Formula;
+        String WineAppelation = approvedApplication.WineAppelation;
+        String VintageDate = approvedApplication.VintageDate;
+        String Grapes = approvedApplication.Grapes;
+        String PH = approvedApplication.PH;
+        String PhoneNo = approvedApplication.PhoneNo;
+        String Email = approvedApplication.Email;
+        String AdditionalInfo = approvedApplication.AdditionalInfo;
+        String DateOfSubmission = approvedApplication.DateOfSubmission;
+        String DateOfApproval = approvedApplication.DateOfApproval;
+        String DateOfExpiration = approvedApplication.DateOfExpiration;
+        String ApprovedTTBID = approvedApplication.ApprovedTTBID;
+        String ReasonForRejection = approvedApplication.ReasonForRejection;
+        LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
 
         try {
+            LogManager.println("INSERTING THINGS NOW!!!");
             statement.executeUpdate("INSERT INTO Alcohol (" +
                     "TTBID, " +
                     "PermitNo, " +
@@ -454,14 +457,13 @@ public class DatabaseManager {
                     "AlcoholContent, " +
                     "VintageYear, " +
                     "PH) VALUES ('" +
-                    TTBID + "', '" +
+                    ApprovedTTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
-                    Date + "', '" +
+                    DateOfApproval + "', '" +
                     FancifulName + "', '" +
                     Brand + "', '" +
-                    Source + "', '" +
-                    "Class???" + "', '" + //TODO - Class?
+                    Locality + "', '" +
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
@@ -470,7 +472,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
-
+    //HACK
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
