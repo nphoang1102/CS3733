@@ -24,8 +24,10 @@ import java.util.LinkedList;
 public class ColaSearchResultManager extends Screen{
     /* Class attributes */
     private DataSet mapOrigin = new BasicDataSet();
+    private DataSet advanceFields = new BasicDataSet();
     private String keywords = "";
     private String searchType = "";
+    private boolean isAdvance = false;
     private LinkedList<DataSet> databaseResult = new LinkedList();
     private ObservableList<ColaResult> resultTable = FXCollections.observableArrayList();
     private DataSet tempSet = new BasicDataSet();
@@ -48,9 +50,20 @@ public class ColaSearchResultManager extends Screen{
     /* Class methods */
     @Override
     public void onScreenFocused(DataSet data){
-        /* Retrieve search information from TopBarManager */
-        this.keywords = data.getValueForKey("Keywords");
-        this.searchType = data.getValueForKey("AlcoholType");
+        /* Check for advance or general search */
+        if (data.getValueForKey("isAdvance").equals("false")) {
+            this.keywords = data.getValueForKey("Keywords");
+            this.searchType = data.getValueForKey("AlcoholType");
+        }
+        else {
+            this.isAdvance = true;
+            this.advanceFields.addField("searchCat1", data.getValueForKey("searchCat1"));
+            this.advanceFields.addField("searchTerm1", data.getValueForKey("searchTerm1"));
+            this.advanceFields.addField("searchCat2", data.getValueForKey("searchCat3"));
+            this.advanceFields.addField("searchTerm2", data.getValueForKey("searchTerm3"));
+            this.advanceFields.addField("searchCat3", data.getValueForKey("searchCat3"));
+            this.advanceFields.addField("searchTerm3", data.getValueForKey("searchTerm3"));
+        }
 
         /* Get the TableView stuff and result setup */
         this.initializeTable();
@@ -103,7 +116,18 @@ public class ColaSearchResultManager extends Screen{
 
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
-        this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
+        if (this.isAdvance) {
+            String cat1 = this.advanceFields.getValueForKey("searchCat1");
+            String val1 = this.advanceFields.getValueForKey("searchTerm1");
+            String cat2 = this.advanceFields.getValueForKey("searchCat2");
+            String val2 = this.advanceFields.getValueForKey("searchTerm2");
+            String cat3 = this.advanceFields.getValueForKey("searchCat3");
+            String val3 = this.advanceFields.getValueForKey("searchTerm3");
+            this.databaseResult = DatabaseManager.advancedSearch(cat1,val1,cat2,val2,cat3,val3);
+        }
+        else {
+            this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
+        }
         this.resultTable.clear();
         this.setMapOrigin();
         for (DataSet tempSet: this.databaseResult) {

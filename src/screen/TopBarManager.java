@@ -155,6 +155,7 @@ public class TopBarManager extends Screen{
         DataSet data = new BasicDataSet();
         data.addField("Keywords", searchBar.getText());
         data.addField("AlcoholType", (searchTerm.getValue() + ""));
+        data.addField("isAdvance", "false");
         String toPrint = "User searches for " + searchBar.getText() + " under type " + searchTerm.getValue();
         LogManager.println(toPrint);
         this.searchBar.clear();

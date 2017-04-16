@@ -1,5 +1,7 @@
 package screen;
 
+import base.Main;
+import database.BasicDataSet;
 import database.DataSet;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -78,6 +80,8 @@ public class AdvanceColaSearchManager extends Screen {
 
     /* What to do when the search button is clicked */
     public void searchClicked() {
-
+        DataSet searchFields = new BasicDataSet();
+        searchFields.addField("isAdvance", "true");
+        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
     }
 }
