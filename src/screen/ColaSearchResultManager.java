@@ -104,7 +104,6 @@ public class ColaSearchResultManager extends Screen{
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
         this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
-        /* Please remove this line whenever during actual implementation */
         this.resultTable.clear();
         this.setMapOrigin();
         for (DataSet tempSet: this.databaseResult) {

@@ -76,19 +76,4 @@ public class ColaResult {
     public String getAlCon() { return this.alCon.get(); }
     public String getYear() { return this.year.get(); }
     public String getPh() { return this.ph.get(); }
-
-    /* Setup the source states for the end-user */
-    public void initState() {
-        this.sourceMap.addField("00", "American");
-        this.sourceMap.addField("01", "California");
-        this.sourceMap.addField("02", "New York");
-        this.sourceMap.addField("00", "American");
-        this.sourceMap.addField("00", "American");
-        this.sourceMap.addField("00", "American");
-        this.sourceMap.addField("00", "American");
-        this.sourceMap.addField("00", "American");
-        this.sourceMap.addField("00", "American");
-        this.sourceMap.addField("00", "American");
-
-    }
 }

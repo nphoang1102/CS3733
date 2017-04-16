@@ -1,10 +1,9 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
-import database.BasicDataSet;
-import database.DataSet;
-import database.UserManufacturer;
+import database.*;
 import database.images.ProxyImage;
 import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import impl.org.controlsfx.autocompletion.SuggestionProvider;
@@ -26,6 +25,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.xml.crypto.Data;
 import javax.xml.soap.Text;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -34,6 +34,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.LinkedList;
 
 import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
@@ -57,17 +58,13 @@ public class TopBarManager extends Screen{
     }
 
     private String lastFoucs = "initialUserName";
+    private ArrayList<String> suggestField = new ArrayList<String>();
 
     @FXML
     public void initialize() {
         ObservableList<String> typeList = FXCollections.observableArrayList("All", "Beer", "Wine", "Other");
         searchTerm.setItems(typeList);
         searchTerm.setValue("All");
-        String[] suggestField = new String[]{"Hey", "Hello", "Hello World", "Apple", "Cool", "Costa", "Cola", "Coca Cola"};
-        TextFields.bindAutoCompletion(
-                this.searchBar,
-                suggestField
-        );
     }
 
     @Override
@@ -122,6 +119,7 @@ public class TopBarManager extends Screen{
             }
         }
         lastFoucs = Main.getUsername();
+        this.initSuggestiveSearch();
     }
 
     @FXML
@@ -223,4 +221,20 @@ public class TopBarManager extends Screen{
         return data;
     }
 
+    public void initSuggestiveSearch() {
+        this.suggestField.clear();
+        LogManager.println("The search type is " + this.getSearchTerm());
+        LogManager.println("The search type is " + Main.screenManager.getSearchTerm());
+        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
+        for (DataSet tempSet : databaseResult) {
+            Alcohol data = (Alcohol) tempSet;
+            if (!this.suggestField.contains(data.BrandName)) {
+                this.suggestField.add(data.BrandName);
+            }
+        }
+        TextFields.bindAutoCompletion(
+                this.searchBar,
+                this.suggestField
+        );
+    }
 }
