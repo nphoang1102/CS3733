@@ -65,7 +65,6 @@ public class TopBarManager extends Screen{
         ObservableList<String> typeList = FXCollections.observableArrayList("All", "Beer", "Wine", "Other");
         searchTerm.setItems(typeList);
         searchTerm.setValue("All");
-        this.initSuggestiveSearch();
     }
 
     @Override
@@ -120,7 +119,6 @@ public class TopBarManager extends Screen{
             }
         }
         lastFoucs = Main.getUsername();
-
     }
 
     @FXML
@@ -161,6 +159,7 @@ public class TopBarManager extends Screen{
         LogManager.println(toPrint);
         this.searchBar.clear();
         Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
+        this.initSuggestiveSearch();
     }
 
     public String getSearchTerm(){
@@ -224,12 +223,11 @@ public class TopBarManager extends Screen{
 
     public void initSuggestiveSearch() {
         this.suggestField.clear();
-//        LogManager.println("The search type is " + this.getSearchTerm());
-//        LogManager.println("The search type is " + Main.screenManager.getSearchTerm());
-        LinkedList<DataSet> databaseResult = DatabaseManager.getFromDB();
+        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
         for (DataSet tempSet : databaseResult) {
-            if (!this.suggestField.contains(tempSet.getValueForKey("BrandName"))) {
-                this.suggestField.add(tempSet.getValueForKey("BrandName"));
+            Alcohol data = (Alcohol) tempSet;
+            if (!this.suggestField.contains(data.BrandName)) {
+                this.suggestField.add(data.BrandName);
             }
         }
         TextFields.bindAutoCompletion(
