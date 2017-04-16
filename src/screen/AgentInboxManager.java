@@ -32,8 +32,6 @@ public class AgentInboxManager extends Screen{
     @FXML
     private Button pullNewBatch, EditAccount;
     @FXML
-    private Polygon backButton;
-    @FXML
     private TextArea results;
     @FXML
     private ChoiceBox typeBox;
@@ -65,9 +63,7 @@ public class AgentInboxManager extends Screen{
 
         //add the Label to the pane
         manufacturerName.setCellValueFactory(new PropertyValueFactory<>("ManufacturerUsername"));
-       // manufacturerName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
         specificBrandName.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-       // specificBrandName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
 
 
         //query database for UUID's that current Agent has in inbox
