@@ -207,10 +207,10 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////HOANG WANTED THIS/////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getFromDB(String column, String value){
+    public static LinkedList<DataSet> getFromDB(){
 
         LinkedList<DataSet> result = new LinkedList<>();
-        String query = "SELECT * FROM Alcohol WHERE " + column + " = '" + value + "'";
+        String query = "SELECT * FROM Alcohol";
 
         try {
             ResultSet getFromDB = statement.executeQuery(query);
