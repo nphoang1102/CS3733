@@ -24,7 +24,7 @@ import java.util.LinkedList;
 public class ColaSearchResultManager extends Screen{
     /* Class attributes */
     private DataSet mapOrigin = new BasicDataSet();
-    private DataSet advanceFields = new BasicDataSet();
+    private String[] adStrings = new String[6];
     private String keywords = "";
     private String searchType = "";
     private boolean isAdvance = false;
@@ -57,12 +57,12 @@ public class ColaSearchResultManager extends Screen{
         }
         else {
             this.isAdvance = true;
-            this.advanceFields.addField("searchCat1", data.getValueForKey("searchCat1"));
-            this.advanceFields.addField("searchTerm1", data.getValueForKey("searchTerm1"));
-            this.advanceFields.addField("searchCat2", data.getValueForKey("searchCat3"));
-            this.advanceFields.addField("searchTerm2", data.getValueForKey("searchTerm3"));
-            this.advanceFields.addField("searchCat3", data.getValueForKey("searchCat3"));
-            this.advanceFields.addField("searchTerm3", data.getValueForKey("searchTerm3"));
+            this.adStrings[0] = data.getValueForKey("searchCat1");
+            this.adStrings[1] = data.getValueForKey("searchTerm1");
+            this.adStrings[2] = data.getValueForKey("searchCat3");
+            this.adStrings[3] = data.getValueForKey("searchTerm3");
+            this.adStrings[4] = data.getValueForKey("searchCat3");
+            this.adStrings[5] = data.getValueForKey("searchTerm3");
         }
 
         /* Get the TableView stuff and result setup */
@@ -117,13 +117,12 @@ public class ColaSearchResultManager extends Screen{
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
         if (this.isAdvance) {
-            String cat1 = this.advanceFields.getValueForKey("searchCat1");
-            String val1 = this.advanceFields.getValueForKey("searchTerm1");
-            String cat2 = this.advanceFields.getValueForKey("searchCat2");
-            String val2 = this.advanceFields.getValueForKey("searchTerm2");
-            String cat3 = this.advanceFields.getValueForKey("searchCat3");
-            String val3 = this.advanceFields.getValueForKey("searchTerm3");
-            this.databaseResult = DatabaseManager.advancedSearch(cat1,val1,cat2,val2,cat3,val3);
+            this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
+                    this.adStrings[1],
+                    this.adStrings[2],
+                    this.adStrings[3],
+                    this.adStrings[4],
+                    this.adStrings[5]);
         }
         else {
             this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
@@ -150,6 +149,7 @@ public class ColaSearchResultManager extends Screen{
         }
         this.searchResult.setEditable(false);
         this.searchResult.getItems().setAll(resultTable);
+        this.isAdvance = false;
     }
 
     /* Print search result into a CSV file on button click */
@@ -172,6 +172,7 @@ public class ColaSearchResultManager extends Screen{
 
     /* Navigate to advance search screen on mouse click */
     public void toAdvanceSearch() {
+        LogManager.println("Navigate to advance search screen from cola-search result screen");
         Main.screenManager.setScreen(EnumScreenType.COLA_ADVANCE_SEARCH);
     }
 

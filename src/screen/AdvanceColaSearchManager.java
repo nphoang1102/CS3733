@@ -1,5 +1,6 @@
 package screen;
 
+import base.LogManager;
 import base.Main;
 import database.BasicDataSet;
 import database.DataSet;
@@ -80,8 +81,15 @@ public class AdvanceColaSearchManager extends Screen {
 
     /* What to do when the search button is clicked */
     public void searchClicked() {
+//        LogManager.println("Search field 2 value is " + field2.getText().equals(""));
         DataSet searchFields = new BasicDataSet();
         searchFields.addField("isAdvance", "true");
+        searchFields.addField("searchCat1", drop1.getValue() + "");
+        searchFields.addField("searchTerm1", field1.getText());
+        searchFields.addField("searchCat2", drop2.getValue() + "");
+        searchFields.addField("searchTerm2", field2.getText());
+        searchFields.addField("searchCat3", drop3.getValue() + "");
+        searchFields.addField("searchTerm3", field3.getText());
         Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
     }
 }
