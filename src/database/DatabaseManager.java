@@ -92,6 +92,7 @@ public class DatabaseManager {
                     " CompletedDate DATE,\n" +
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
+                    " Class VARCHAR(50) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
                     " Type VARCHAR(10) NOT NULL,\n" +
                     " AlcoholContent VARCHAR(30),\n" +
@@ -221,6 +222,7 @@ public class DatabaseManager {
                 alcohol.CompletedDate = getAlcohol.getString("CompletedDate");
                 alcohol.FancifulName = getAlcohol.getString("FancifulName");
                 alcohol.BrandName = getAlcohol.getString("BrandName");
+                alcohol.Class = getAlcohol.getString("Class");
                 alcohol.Origin = getAlcohol.getString("Origin");
                 alcohol.Type = getAlcohol.getString("Type");
                 alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
@@ -678,7 +680,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////TESTS/////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    /*public void entryTest() {
+    public void entryTest() {
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06110001000003', 'ID-I-15001', '060028', '2016-04-01', 'ROSADO', 'LO BRUJO', '52', '80', 'Beer')");
         } catch (SQLException e) {
@@ -790,22 +792,5 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            statement.executeUpdate("INSERT INTO Manufacturers (UUID, Username, Company) VALUES ('FakeUUID123', 'TheAlcoholic12', 'AlcoholicsAnonymous')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            statement.executeUpdate("INSERT INTO Manufacturers (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            statement.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES ('user123', 'password123', 'Agent')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
+    }
 }
