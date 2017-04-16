@@ -210,7 +210,7 @@ public class DatabaseManager {
     public static LinkedList<DataSet> getFromDB(String column, String value){
 
         LinkedList<DataSet> result = new LinkedList<>();
-        String query = "SELECT * FROM Alcohol WHERE " + column + " = '" + value + "'";
+        String query = "SELECT * FROM Alcohol";
 
         try {
             ResultSet getFromDB = statement.executeQuery(query);
