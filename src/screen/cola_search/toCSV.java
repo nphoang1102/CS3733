@@ -20,7 +20,10 @@ public class toCSV implements IDataDownload {
                 + "Brand name" + ","
                 + "Origin" + ","
                 + "Class" + ","
-                + "Type";
+                + "Type" + ","
+                + "Alcohol content" + ","
+                + "Vintage year" + ","
+                + "pH level";
         String outputPath = "/searchResult.csv";
         for (ColaResult data : result){
             index++;
@@ -32,7 +35,10 @@ public class toCSV implements IDataDownload {
                     + data.getName() + ","
                     + data.getSource() + ","
                     + data.getAclass() + ","
-                    + data.getType();
+                    + data.getType() + ","
+                    + data.getAlCon() + ","
+                    + data.getYear() + ","
+                    + data.getPh();
             output[index] = columns;
         }
         StringUtilities.saveData(outputPath, output);
