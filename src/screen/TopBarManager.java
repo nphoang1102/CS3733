@@ -6,6 +6,8 @@ import database.BasicDataSet;
 import database.DataSet;
 import database.UserManufacturer;
 import database.images.ProxyImage;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -17,14 +19,25 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.xml.soap.Text;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
+import javafx.util.Callback;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 /**
  * Created by Bailey Sostek on 4/7/17.
@@ -50,6 +63,11 @@ public class TopBarManager extends Screen{
         ObservableList<String> typeList = FXCollections.observableArrayList("All", "Beer", "Wine", "Other");
         searchTerm.setItems(typeList);
         searchTerm.setValue("All");
+        String[] suggestField = new String[]{"Hey", "Hello", "Hello World", "Apple", "Cool", "Costa", "Cola", "Coca Cola"};
+        TextFields.bindAutoCompletion(
+                this.searchBar,
+                suggestField
+        );
     }
 
     @Override
