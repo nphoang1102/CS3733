@@ -36,6 +36,8 @@ public class Application extends DataSet {
     public String ApprovedTTBID;
     public String ReasonForRejection;
 
+    public int revisionNo;
+
     public String getBrand(){
         return this.Brand;
     }

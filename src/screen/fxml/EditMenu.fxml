@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="850.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.EditMenuManager">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="60.0" prefWidth="850.0" text="Select Your Desired Revision" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="24.0" />
+         </font>
+      </Label>
+      <CheckBox fx:id="revision1" layoutX="15.0" layoutY="65.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="1. Delete any non-mandatory label information, including text, illustrations, graphics, etc." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision2" layoutX="15.0" layoutY="145.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="2. Reposition any label information, including text, illustrations, graphics, etc." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision3" layoutX="15.0" layoutY="227.0" mnemonicParsing="false" prefHeight="200.0" prefWidth="375.0" text="3. Change the color(s) (background and text), shape and proportionate size of labels. Change the type size and font, and make appropriate changes to the spelling (including punctuation marks, changing letters from upper case to lower case and vice versa, and abbreviations) of words, in compliance with the regulations.  Change from an adhesive label to one where label information is etched, painted or printed directly on the container and vice versa." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision4" layoutX="15.0" layoutY="463.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="4. Change the stated percentages for blends of grape varietals and appelations of origin for wine labels." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision5" layoutX="15.0" layoutY="549.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="5. Add, change or delete a vintage date for wine labels." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision6" layoutX="15.0" layoutY="625.0" mnemonicParsing="false" prefHeight="80.0" prefWidth="375.0" text="6. Change the optional &quot;priduced&quot; or &quot;made&quot; by statements on wine labels to &quot;blended&quot;, &quot;vinted&quot;, &quot;cellared&quot;, or &quot;prepared&quot; by statements." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision7" layoutX="460.0" layoutY="65.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="7. Add, change or delete the stated amount of acid and/or the pH level for wine labels." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision8" layoutX="460.0" layoutY="162.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="8. Change the stated amount of sugat at harvest and/or residual sugar for wine labels." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision9" layoutX="460.0" layoutY="264.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="9. Add or delete bonded winery or taxpaid wine bottling house number for wine labels." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision10" layoutX="460.0" layoutY="366.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="10. Change the net contents statement." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision11" layoutX="460.0" layoutY="468.0" mnemonicParsing="false" prefHeight="150.0" prefWidth="375.0" text="11. Change the mandatory statement of alcohol content, aslong as the change is consistent with the labeled class and type designation, and all other labeling statements.11. Change the mandatory statement of alcohol content, aslong as the change is consistent with the labeled class and type designation, and all other labeling statements." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="revision12" layoutX="460.0" layoutY="645.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="375.0" text="12. Add, delete, or change an optional statement of alcohol content for malt beverage labels." wrapText="true">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </CheckBox>
+      <Button fx:id="nextButton" layoutX="637.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#next" prefHeight="50.0" prefWidth="119.0" style="-fx-background-color: #939393;" text="Next" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

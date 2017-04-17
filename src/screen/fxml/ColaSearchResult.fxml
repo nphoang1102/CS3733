@@ -3,12 +3,13 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <Pane fx:id="colaSearchPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ColaSearchResultManager">
     <children>
-        <TableView fx:id="searchResult" layoutX="5.0" layoutY="5.0" prefHeight="660.0" prefWidth="1270.0" style="-fx-background-color: #dbdbdb;" stylesheets="@../css/ColaSearchResult.css">
+        <TableView fx:id="searchResult" layoutX="5.0" layoutY="55.0" prefHeight="610.0" prefWidth="1270.0" style="-fx-background-color: #dbdbdb;" stylesheets="@../css/ColaSearchResult.css">
             <columns>
                 <TableColumn fx:id="coLid" prefWidth="149.0" resizable="false" text="ID" />
                 <TableColumn fx:id="coLsource" prefWidth="244.0" resizable="false" text="Origin" />
@@ -16,10 +17,37 @@
                 <TableColumn fx:id="coLname" prefWidth="580.0" resizable="false" text="Brand Name" />
             </columns>
         </TableView>
-      <Button fx:id="saveToCsv" layoutX="5.0" layoutY="665.0" mnemonicParsing="false" onAction="#onButtonClicked" prefHeight="50.0" prefWidth="1270.0" style="-fx-background-color: #939393;" text="Save search result to .csv file" textFill="WHITE">
+      <Button fx:id="saveToCsv" depthTest="ENABLE" layoutX="5.0" layoutY="665.0" mnemonicParsing="false" onAction="#toCSV" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #939393; -fx-border-color: BLACK; -fx-border-style: solid;" text="Save as .csv file" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN Bold" size="17.0" />
          </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Button>
+      <Button fx:id="saveToTab" depthTest="ENABLE" layoutX="405.0" layoutY="665.0" mnemonicParsing="false" onAction="#toTab" prefHeight="50.0" prefWidth="470.0" style="-fx-background-color: #939393; -fx-border-color: BLACK;" text="Save as tab-delimitted .txt file" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="17.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Button>
+      <Button fx:id="saveToChar" depthTest="ENABLE" layoutX="875.0" layoutY="665.0" mnemonicParsing="false" onAction="#toChar" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #939393; -fx-border-color: BLACK;" text="Save as character delimiter .txt file" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="17.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Button>
+      <Button fx:id="advanceSearch" depthTest="ENABLE" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#toAdvanceSearch" prefHeight="50.0" prefWidth="1270.0" style="-fx-background-color: #939393;" text="Cannot find what you are looking for? Go to advance search here" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="17.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
       </Button>
     </children>
 </Pane>

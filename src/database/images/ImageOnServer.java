@@ -38,11 +38,11 @@ public class ImageOnServer implements ImageInterface{
             FTPClient client = new FTPClient();
             client.connect("72.93.244.26");
             client.login("cadbo", "seafoamgreen");
-            bufferedImage = ImageIO.read(client.retrieveFileStream("/home/cadbo/TTB/users/"+url));
+            bufferedImage = ImageIO.read(client.retrieveFileStream("/home/cadbo/TTB/"+url));
             image = SwingFXUtils.toFXImage(bufferedImage, null);
             client.disconnect();
         } catch (Exception e) {
-            LogManager.println("Image not found on FTP server:"+"/home/cadbo/TTB/users/"+url, EnumWarningType.ERROR);
+            LogManager.println("Image not found on FTP server:"+"/home/cadbo/TTB/"+url, EnumWarningType.ERROR);
             e.printStackTrace();
         }
 

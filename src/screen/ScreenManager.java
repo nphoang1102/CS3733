@@ -58,6 +58,12 @@ public class ScreenManager {
     }
 
     public void setScreen(EnumScreenType type, DataSet data){
+        if(Main.getUser()!=null){
+            if(type.equals(EnumScreenType.LOG_IN)){
+                return;
+            }
+        }
+        DataSet topBarData = topBarScreen.generateTopBarData();
         if(!type.equals(EnumScreenType.TOP_BAR)){
             LogManager.println("Setting screen to:" + type.toString());
             Scene scene;
@@ -80,7 +86,7 @@ public class ScreenManager {
             }
             topBarScreen.onScreenFocused(new BasicDataSet());
         }
-        screenStates.addFirst(new State(type, data));
+        screenStates.addFirst(new State(type, data, topBarData));
     }
 
     public void popoutScreen(EnumScreenType type, String name, DataSet data){
@@ -140,11 +146,16 @@ public class ScreenManager {
 
     public void back(){
         if(screenStates.size()>1){
-            LogManager.println("Back Pressed:"+screenStates.getFirst().type);
+            DataSet topBarData = screenStates.getFirst().topBarData;
             screenStates.removeFirst();
             setScreen(screenStates.getFirst().type, screenStates.getFirst().data);
+            topBarScreen.onScreenFocused(topBarData);
             screenStates.removeFirst();
         }
+    }
+
+    public void clearScreenHistory(){
+        screenStates.clear();
     }
 
     public String getSearchTerm(){
@@ -154,13 +165,19 @@ public class ScreenManager {
     public static void updateUserIcon() {
         topBarScreen.updateUserIcon();
     }
+
+    public void initializeTopBar() {
+        topBarScreen.initSuggestiveSearch();
+    }
 }
 
 class State{
     EnumScreenType type;
     DataSet data;
-    public State(EnumScreenType type, DataSet data){
+    DataSet topBarData;
+    public State(EnumScreenType type, DataSet data, DataSet topBarData){
         this.type = type;
         this.data = data;
+        this.topBarData = topBarData;
     }
 }
