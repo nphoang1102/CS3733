@@ -58,6 +58,7 @@ public class ScreenManager {
     }
 
     public void setScreen(EnumScreenType type, DataSet data){
+        DataSet topBarData = topBarScreen.generateTopBarData();
         if(!type.equals(EnumScreenType.TOP_BAR)){
             LogManager.println("Setting screen to:" + type.toString());
             Scene scene;
@@ -80,7 +81,7 @@ public class ScreenManager {
             }
             topBarScreen.onScreenFocused(new BasicDataSet());
         }
-        screenStates.addFirst(new State(type, data));
+        screenStates.addFirst(new State(type, data, topBarData));
     }
 
     public void popoutScreen(EnumScreenType type, String name, DataSet data){
@@ -140,9 +141,9 @@ public class ScreenManager {
 
     public void back(){
         if(screenStates.size()>1){
-            LogManager.println("Back Pressed:"+screenStates.getFirst().type);
             screenStates.removeFirst();
             setScreen(screenStates.getFirst().type, screenStates.getFirst().data);
+            topBarScreen.onScreenFocused(screenStates.getFirst().data);
             screenStates.removeFirst();
         }
     }
@@ -163,8 +164,10 @@ public class ScreenManager {
 class State{
     EnumScreenType type;
     DataSet data;
-    public State(EnumScreenType type, DataSet data){
+    DataSet topBarData;
+    public State(EnumScreenType type, DataSet data, DataSet topBarData){
         this.type = type;
         this.data = data;
+        this.topBarData = topBarData;
     }
 }
