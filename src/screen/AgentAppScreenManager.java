@@ -25,11 +25,11 @@ public class AgentAppScreenManager extends Screen{
     Label repId, brewNo, productSrc, productType, brandName, applicantName, appNameAndAdd, alternateAdd, phoneNum, emailAdd, appDate, ttbId, fancyName, formula, wineVarietal, wineAppellation, appType, alcContent, pHLevel, vintageYear;
 
     @FXML
-    TextArea rejectReason;
+    TextArea rejectReason, newAgentID, sendBackReason;
 
     //all the Buttons on the screen
     @FXML
-    Button acceptButton, rejectButton;
+    Button acceptButton, rejectButton, sendBackButtong, forwardButton;
 
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
@@ -103,6 +103,24 @@ public class AgentAppScreenManager extends Screen{
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
+    }
+
+    public void forwardApp(MouseEvent mouseEvent) {
+        Application app = (Application) dataGlobal;
+        String agentID = newAgentID.getText();
+        if((agentID.equals(null)) || (agentID.equals(""))){
+            //screenManager.popoutScreen(EnumScreenType.ERROR_SCREEN, "Review Application", agentID);
+            return;
+        }
+        try{
+            Main.databaseManager.forwardApplication(app.ApplicationNo, agentID);
+        }catch(Exception e){
+            LogManager.println("there was an error forwarding the message");
+        }
+    }
+
+    public void sendBackApp(MouseEvent mouseEvent) {
+
     }
 
 }

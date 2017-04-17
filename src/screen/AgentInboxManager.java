@@ -27,13 +27,11 @@ import static base.Main.screenManager;
 public class AgentInboxManager extends Screen{
 
     @FXML
-    private Button pullNewBatch, EditAccount;
-    @FXML
-    private Polygon backButton;
+    private Button pullNewBatch, EditAccount, clearInboxButton, setStatusButton;
     @FXML
     private TextArea results;
     @FXML
-    private ChoiceBox typeBox;
+    private ChoiceBox typeBox, agentStatus;
     @FXML
     private TableView inboxData;
     @FXML
@@ -42,6 +40,8 @@ public class AgentInboxManager extends Screen{
 
     private ObservableList<Application> inboxInfo = FXCollections.observableArrayList();
     private LinkedList<DataSet> uuidCodes = new LinkedList<>();
+    private UserAgent thisUser;
+    private UserAgent tempUser;
 
     //constructer for the screen
     public AgentInboxManager() {
@@ -55,44 +55,76 @@ public class AgentInboxManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data){
+        if(data instanceof UserAgent) {
+            tempUser = (UserAgent) data;
+        }
+        //set everything invisible and then make them reappear based on the account
+        pullNewBatch.setVisible(false);
+        EditAccount.setVisible(false);
+        clearInboxButton.setVisible(false);
+        setStatusButton.setVisible(false);
+        typeBox.setVisible(false);
+        agentStatus.setVisible(false);
+
         typeBox.setValue("Beer");
-        System.out.println("type of alc box: " + typeBox);
 
        // inboxInfo.add(testApp);
 
         //add the Label to the pane
         manufacturerName.setCellValueFactory(new PropertyValueFactory<>("ManufacturerUsername"));
-       // manufacturerName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
         specificBrandName.setCellValueFactory(new PropertyValueFactory<>("Brand"));
-       // specificBrandName.setStyle("-fx-alignment: Center; -fx-background-color: #dbdbdb; -fx-font: 16px 'Telugu Sangam MN'");
+
+        //wipes the table
+        inboxInfo.clear();
 
 
         //query database for UUID's that current Agent has in inbox
-        uuidCodes =  DatabaseManager.getApplicationsByAgent(Main.getUsername());
-        System.out.println(uuidCodes.size());
+        thisUser = (UserAgent) Main.getUser();
+        if(thisUser.getSuperAgent().equals("false")) {
+            uuidCodes = DatabaseManager.getApplicationsByAgent(thisUser.getUsername());
 
-        //wipes the list
-        inboxInfo.clear();
+            //fills the table
+            for (DataSet tempData : uuidCodes) {
+                inboxInfo.add((Application) tempData);
 
-        //fills the list
-        for(DataSet tempData: uuidCodes){
-            inboxInfo.add((Application) tempData);
+            }
 
+            this.inboxData.setItems(inboxInfo);
+
+
+            inboxData.setRowFactory(tv -> {
+                TableRow<Application> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        Application tempResult = row.getItem();
+                        System.out.println(tempResult);
+                        screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application", tempResult);
+                    }
+                });
+                return row;
+            });
+            if(thisUser.getstatus().equals("APPROVED")){
+
+            }
+            pullNewBatch.setVisible(true);
+            EditAccount.setVisible(true);
+            typeBox.setVisible(true);
+        }else{
+            uuidCodes = DatabaseManager.getApplicationsByAgent(tempUser.getUsername());
+
+            //fills the table
+            for (DataSet tempData : uuidCodes) {
+                inboxInfo.add((Application) tempData);
+
+            }
+
+            this.inboxData.setItems(inboxInfo);
+            clearInboxButton.setVisible(true);
+            setStatusButton.setVisible(true);
+            agentStatus.setVisible(true);
         }
 
-        this.inboxData.setItems(inboxInfo);
 
-        inboxData.setRowFactory( tv -> {
-            TableRow<Application> row = new TableRow<>();
-            row.setOnMouseClicked( event-> {
-                if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Application tempResult = row.getItem();
-                    System.out.println(tempResult);
-                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempResult);
-                }
-            });
-            return row;
-        });
     }
 
     @FXML
@@ -108,7 +140,6 @@ public class AgentInboxManager extends Screen{
     @FXML
     public void pullNewBatch(){
         //check if the inbox is empty if its not dont pull new batch
-        System.out.println("typeBoxinfo" + typeBox.getValue());
         if(inboxInfo.size() <= 9){
             int numAppsNeeded = 10 - inboxInfo.size();
             String tempType = (String) typeBox.getValue();
@@ -139,5 +170,16 @@ public class AgentInboxManager extends Screen{
         uuidCodes.remove(rString);
     }
 
+    public void setAgentStatus(MouseEvent mouseEvent) {
+        String statusType = (String) agentStatus.getValue();
+        if(statusType.equals("REMOVE")){
+            //DatabaseManager.createInbox(thisUser.getUsername());
+        }
+        //DatabaseManager.setStatus(statusType, thisUser.getUsername());
+    }
+
+    public void wipeInbox(MouseEvent mouseEvent) {
+        //DatabaseManager.clearInbox(thisUser.getUsername());
+    }
 }
 
