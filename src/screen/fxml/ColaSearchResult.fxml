@@ -9,7 +9,7 @@
 
 <Pane fx:id="colaSearchPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #373737;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.ColaSearchResultManager">
     <children>
-        <TableView fx:id="searchResult" layoutX="5.0" layoutY="5.0" prefHeight="660.0" prefWidth="1270.0" style="-fx-background-color: #dbdbdb;" stylesheets="@../css/ColaSearchResult.css">
+        <TableView fx:id="searchResult" layoutX="5.0" layoutY="55.0" prefHeight="610.0" prefWidth="1270.0" style="-fx-background-color: #dbdbdb;" stylesheets="@../css/ColaSearchResult.css">
             <columns>
                 <TableColumn fx:id="coLid" prefWidth="149.0" resizable="false" text="ID" />
                 <TableColumn fx:id="coLsource" prefWidth="244.0" resizable="false" text="Origin" />
@@ -34,6 +34,14 @@
          </effect>
       </Button>
       <Button fx:id="saveToChar" depthTest="ENABLE" layoutX="875.0" layoutY="665.0" mnemonicParsing="false" onAction="#toChar" prefHeight="50.0" prefWidth="400.0" style="-fx-background-color: #939393; -fx-border-color: BLACK;" text="Save as character delimiter .txt file" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="17.0" />
+         </font>
+         <effect>
+            <Blend />
+         </effect>
+      </Button>
+      <Button fx:id="advanceSearch" depthTest="ENABLE" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" onMouseClicked="#toAdvanceSearch" prefHeight="50.0" prefWidth="1270.0" style="-fx-background-color: #939393;" text="Cannot find what you are looking for? Go to advance search here" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN Bold" size="17.0" />
          </font>

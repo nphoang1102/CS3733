@@ -13,38 +13,6 @@
           <root url="file://$MODULE_DIR$/lib/mysql" />
         </CLASSES>
         <JAVADOC />
-        <SOURCES>
-          <root url="file://$MODULE_DIR$/lib/mysql/src" />
-        </SOURCES>
-        <jarDirectory url="file://$MODULE_DIR$/lib/mysql" recursive="false" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib/mysql" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/lib/mysql" recursive="false" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib/mysql" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-        <jarDirectory url="file://$MODULE_DIR$/lib/mysql" recursive="false" />
-      </library>
-    </orderEntry>
-    <orderEntry type="module-library" exported="">
-      <library>
-        <CLASSES>
-          <root url="file://$MODULE_DIR$/lib/mysql" />
-        </CLASSES>
-        <JAVADOC />
         <SOURCES />
         <jarDirectory url="file://$MODULE_DIR$/lib/mysql" recursive="false" />
       </library>
@@ -53,11 +21,15 @@
       <library>
         <CLASSES>
           <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-3.6.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/ftp" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
           <root url="jar://$MODULE_DIR$/lib/apacheFTP/commons-net-3.6-sources.jar!/" />
+          <root url="file://$MODULE_DIR$/lib/ftp" />
         </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib/ftp" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/ftp" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
@@ -85,6 +57,19 @@
         </SOURCES>
         <jarDirectory url="file://$MODULE_DIR$/lib/ftp" recursive="false" />
         <jarDirectory url="file://$MODULE_DIR$/lib/ftp" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/lib/controlsfx" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/lib/controlsfx" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/lib/controlsfx" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/lib/controlsfx" recursive="false" type="SOURCES" />
       </library>
     </orderEntry>
   </component>
