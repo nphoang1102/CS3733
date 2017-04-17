@@ -125,4 +125,8 @@ public class Main extends Application{
     public static void setUser (User u){
         user = u;
     }
+
+   /* public static String getUserStatus(){
+        return user.st
+    }*/
 }
