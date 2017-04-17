@@ -20,7 +20,10 @@ public class toChSV implements IDataDownload {
                 + "Brand name" + ";"
                 + "Origin" + ";"
                 + "Class" + ";"
-                + "Type";
+                + "Type" + ";"
+                + "Alcohol content" + ";"
+                + "Vintage year" + ";"
+                + "pH level";
         String outputPath = "/searchResult-char.txt";
         for (ColaResult data : result){
             String columns = data.getId() + ";"
@@ -31,7 +34,10 @@ public class toChSV implements IDataDownload {
                     + data.getName() + ";"
                     + data.getSource() + ";"
                     + data.getAclass() + ";"
-                    + data.getType() + "\n";
+                    + data.getType() + ";"
+                    + data.getAlCon() + ";"
+                    + data.getYear() + ";"
+                    + data.getPh();
             index++;
             output[index] = columns;
         }

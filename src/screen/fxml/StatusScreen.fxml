@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.Reflection?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.CubicCurve?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.StatusScreenManager">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#34a88b" height="385.0" layoutY="118.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1280.0">
+         <effect>
+            <DropShadow color="#8d8d8d" offsetY="5.0" />
+         </effect></Rectangle>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="115.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/bailey 3.png" />
+         </image>
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="345.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="575.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="815.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="1045.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="230.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="460.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="700.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="930.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <effect>
+            <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
+         </effect>
+      </ImageView>
+      <Label layoutX="137.0" layoutY="265.0" text="Bailey Sostek" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="107.0" layoutY="287.0" text="Lead Software Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect>
+      </Label>
+      <Label layoutX="359.0" layoutY="265.0" text="Hoang Nguyen" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="307.0" layoutY="287.0" text="Assistant Lead Software Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect>
+      </Label>
+      <Label layoutX="591.0" layoutY="265.0" text="Evan Goldstein" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="844.0" layoutY="265.0" text="Daniel Yun" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="838.0" layoutY="287.0" text="Test Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="1050.0" layoutY="265.0" text="Manuel Gonsalves" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="1038.0" layoutY="287.0" text="Documentation Analyst" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="959.0" layoutY="453.0" text="Victor Pina" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="927.0" layoutY="474.0" text="Algorithms Specialists" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="714.0" layoutY="453.0" text="Matt Fortmeyer" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="692.0" layoutY="474.0" text="User Interface Specialist" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="474.0" layoutY="453.0" text="Turner Robbins" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="479.0" layoutY="474.0" text="Product Owner" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="257.0" layoutY="453.0" text="Harsh Rana" textAlignment="CENTER" textFill="WHITE">
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="244.0" layoutY="474.0" text="Project Manager" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="538.0" layoutY="287.0" text="Assistant Lead Software Engineer" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow offsetY="5.0" />
+         </effect>
+      </Label>
+      <Line endX="200.0" layoutX="645.0" layoutY="67.0" startX="-200.0" stroke="WHITE" strokeWidth="2.0">
+         <effect>
+            <DropShadow offsetY="8.0" />
+         </effect></Line>
+      <Label layoutX="521.0" layoutY="511.0" text="SPECIAL THANKS TO" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="24.0" />
+         </font>
+         <effect>
+            <Reflection topOffset="-10.0" topOpacity="0.3" />
+         </effect>
+      </Label>
+      <Label layoutX="372.0" layoutY="660.0" text="Worcester Polytechnic Institute Computer Science Department" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="387.0" layoutY="620.0" text="US Treasury’s Alcohol and Tobacco Tax and Trade Bureau" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="343.0" layoutY="580.0" text="Greg Greeley, Assistant CIO, Alcohol &amp; Tobacco Tax and Trade Bureau" textAlignment="CENTER">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="87.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Wong.png"></Image>
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Label layoutX="75.0" layoutY="662.0" text="Professor Wilson Wong" textAlignment="CENTER">
+         <effect>
+            <DropShadow color="#575757" offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="105.0" layoutY="683.0" text="Project Advisor" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow color="#575757" offsetY="5.0" />
+         </effect>
+      </Label>
+      <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="1075.0" layoutY="526.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Cory.png"></Image>
+         </image>
+         <effect>
+            <DropShadow />
+         </effect>
+      </ImageView>
+      <Label layoutX="1101.0" layoutY="662.0" text="Cory Tapply" textAlignment="CENTER">
+         <effect>
+            <DropShadow color="#575757" offsetY="5.0" />
+         </effect></Label>
+      <Label layoutX="1102.0" layoutY="683.0" text="Team Coach" textAlignment="CENTER">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow color="#575757" offsetY="5.0" />
+         </effect>
+      </Label>
+      <Label layoutX="473.0" layoutY="14.0" text="MEET OUR CORE TEAM" textFill="#373737">
+         <font>
+            <Font name="Telugu Sangam MN" size="30.0" />
+         </font>
+         <effect>
+            <Reflection topOffset="-10.0" topOpacity="0.3" />
+         </effect>
+      </Label>
+      <CubicCurve controlX1="-50.0" controlX2="50.0" controlY1="-100.0" controlY2="100.0" endX="150.0" fill="#d9d9d900" layoutX="257.0" layoutY="67.0" startX="-150.0" stroke="WHITE" strokeWidth="2.0">
+         <effect>
+            <DropShadow offsetY="8.0" />
+         </effect></CubicCurve>
+      <CubicCurve controlX1="-50.0" controlX2="50.0" controlY1="-100.0" controlY2="100.0" endX="150.0" fill="#d9d9d900" layoutX="1030.0" layoutY="67.0" startX="-150.0" stroke="WHITE" strokeWidth="2.0">
+         <effect>
+            <DropShadow offsetY="8.0" />
+         </effect>
+      </CubicCurve>
+   </children>
+</Pane>
