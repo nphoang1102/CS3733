@@ -2,6 +2,7 @@ package database;
 
 import base.*;
 import screen.EnumUserType;
+import sun.awt.image.ImageWatched;
 /*import com.sun.org.apache.xpath.internal.operations.Or;
 import com.sun.xml.internal.bind.v2.TODO
 import screen.EnumUserType;
@@ -189,7 +190,8 @@ public class DatabaseManager {
                     " PasswordHash VARCHAR(75) NOT NULL,\n" +
                     " FullName VARCHAR(50) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
-                    " SuperAgent BOOLEAN NOT NULL\n" +
+                    " SuperAgent BOOLEAN NOT NULL,\n" +
+                    " Status VARCHAR(30)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
@@ -254,6 +256,9 @@ public class DatabaseManager {
                 LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
                 return queryManufacturers("SELECT * FROM Manufacturers WHERE " + column + " = '" + value + "'" + endQueryLine);
             }
+        } else if (table.equals(EnumTableType.AGENT)) {
+            LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
+            return queryAgents("SELECT * FROM Agents WHERE " + column + " = '" + value + "'" + endQueryLine);
         }
         return null;
     }
@@ -286,29 +291,10 @@ public class DatabaseManager {
             else{
                 combinedQuery = "SELECT * FROM Alcohol";
             }
-
-            /*ResultSet getAdvanced = statement.executeQuery(combinedQuery);
-            while (getAdvanced.next()) {
-                Alcohol alcohol = new Alcohol();
-                alcohol.TTBID = getAdvanced.getString("TTBID");
-                alcohol.PermitNo = getAdvanced.getString("PermitNo");
-                alcohol.SerialNo = getAdvanced.getString("SerialNo");
-                alcohol.CompletedDate = getAdvanced.getString("CompletedDate");
-                alcohol.FancifulName = getAdvanced.getString("FancifulName");
-                alcohol.BrandName = getAdvanced.getString("BrandName");
-                alcohol.Class = getAdvanced.getString("Class");
-                alcohol.Origin = getAdvanced.getString("Origin");
-                alcohol.Type = getAdvanced.getString("Type");
-                alcohol.AlcoholContent = getAdvanced.getString("AlcoholContent");
-                alcohol.VintageYear = getAdvanced.getString("VintageYear");
-                alcohol.PH = getAdvanced.getString("PH");
-                advancedLinkedList.add(alcohol);
-            }*/
         } catch (Exception e) {
             LogManager.println("No matches found!", EnumWarningType.WARNING);
             return new LinkedList<>();
         }
-//        return advancedLinkedList;
         return queryAlcohol(combinedQuery);
     }
 
@@ -470,6 +456,32 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return manufacturers;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////AGENT QUERIES/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    private static LinkedList<DataSet> queryAgents(String query) {
+        LinkedList<DataSet> agents = new LinkedList<>();
+        try {
+            ResultSet searchAgents = statement.executeQuery(query);
+            LogManager.println("queryAgents() has run the query: " + query, EnumWarningType.NOTE);
+            while (searchAgents.next()) {
+                UserAgent agent = new UserAgent(query);
+                agent.ID = searchAgents.getString("ID");
+                agent.username = searchAgents.getString("Username");
+                agent.PasswordHash = searchAgents.getString("PasswordHash");
+                agent.name = searchAgents.getString("Name");
+                agent.email = searchAgents.getString("Email");
+                agent.superAgent = searchAgents.getString("SuperAgent");
+                agent.status = searchAgents.getString("Status");
+                agents.add(agent);
+            }
+            searchAgents.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return agents;
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -742,6 +754,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER BY USERNAME//////////////////////////////////////////////////
