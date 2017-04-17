@@ -72,6 +72,17 @@ public class TopBarManager extends Screen{
     public void onScreenFocused(DataSet data) {
         username.setText(Main.getUsername());
         userType.setText(Main.getUserType());
+        System.out.println("Called");
+        if(data.hasKey("searchField")){
+            searchBar.setText(data.getValueForKey("searchField"));
+        }else{
+            searchBar.clear();
+        }
+        data.printContents();
+
+        if(data.hasKey("searchTerm")){
+            searchTerm.setValue(data.getValueForKey("searchTerm"));
+        }
         if(!lastFoucs.equals(Main.getUsername())) {
             action.setVisible(true);
             if(Main.getUserType().equals(EnumUserType.AGENT.getTextualName())){
@@ -83,7 +94,7 @@ public class TopBarManager extends Screen{
             if (!Main.getUserType().isEmpty()) {
                 logIn.setText("Log Out");
                 //check if user has a custom image defined
-                ProxyImage userImage = new ProxyImage(Main.getUsername() + ".jpg");
+                ProxyImage userImage = new ProxyImage("users/"+Main.getUsername() + ".jpg");
                 if (!userImage.exists()) {
                     System.out.println(userImage);
                     //This method sets the image to the users type first letter.
@@ -126,6 +137,7 @@ public class TopBarManager extends Screen{
     public void logIn(){
         if(!Main.getUsername().isEmpty()){
             Main.logOutUser();
+            Main.screenManager.clearScreenHistory();
             onScreenFocused(new BasicDataSet());
         }
         Main.screenManager.setScreen(EnumScreenType.LOG_IN);
@@ -159,7 +171,6 @@ public class TopBarManager extends Screen{
         data.addField("isAdvance", "false");
         String toPrint = "User searches for " + searchBar.getText() + " under type " + searchTerm.getValue();
         LogManager.println(toPrint);
-        this.searchBar.clear();
         Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
     }
 
@@ -177,7 +188,7 @@ public class TopBarManager extends Screen{
     public void updateUserIcon(){
         if (!Main.getUserType().isEmpty()) {
             //check if user has a custom image defined
-            ProxyImage userImage = new ProxyImage(Main.getUsername() + ".jpg");
+            ProxyImage userImage = new ProxyImage("users/"+Main.getUsername() + ".jpg");
             if (!userImage.exists()) {
                 System.out.println(userImage);
                 //This method sets the image to the users type first letter.
