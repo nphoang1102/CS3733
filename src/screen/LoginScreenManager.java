@@ -35,6 +35,8 @@ public class LoginScreenManager extends Screen {
     @FXML
     private Button newUser;
     @FXML
+    private Button aboutUs;
+    @FXML
     private Button editAccountButton;
     @FXML
     private Text error;
@@ -99,6 +101,11 @@ public class LoginScreenManager extends Screen {
             //error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE'S ALREADY SOMEONE SIGNED IN, LOGOUT FIRST");
             error.setText("Sorry, there's already someone signed in");
         }
+    }
+
+    @FXML
+    void aboutUsClicked(){
+        Main.screenManager.setScreen(EnumScreenType.STATUS_SCREEN);
     }
 
 
