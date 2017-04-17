@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.LoginScreenManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8.0.72" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.LoginScreenManager">
     <children>
         <Rectangle fx:id="background" arcHeight="5.0" arcWidth="5.0" fill="#dbdbdb" height="720.0" layoutY="-2.0" stroke="BLACK" strokeType="INSIDE" width="1280.0">
          <effect>
@@ -74,6 +74,17 @@
             <Font name="Telugu Sangam MN" size="23.0" />
          </font>
       </Text>
+      <Button fx:id="aboutUs" layoutX="540.0" layoutY="494.0" mnemonicParsing="false" onMouseClicked="#aboutUsClicked" prefHeight="50" prefWidth="200.0" style="-fx-background-color: #34a88b; -fx-focus-color: #34a88b;" text="About Us" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font>
+         <effect>
+            <Reflection fraction="0.18" />
+         </effect>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
     </children>
     <effect>
         <ColorAdjust />
