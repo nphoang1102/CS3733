@@ -5,6 +5,7 @@ import base.Main;
 import database.Application;
 import database.DataSet;
 import database.DatabaseManager;
+import database.UserAgent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -69,6 +70,7 @@ public class AgentAppScreenManager extends Screen{
         alcContent.setText(application.ABV);
         pHLevel.setText(application.PH);
         vintageYear.setText(application.VintageDate);
+
     }
 
 

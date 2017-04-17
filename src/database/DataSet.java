@@ -1,6 +1,7 @@
 package database;
 
 import base.EnumTableType;
+import base.LogManager;
 
 import java.util.HashMap;
 
@@ -19,14 +20,16 @@ public abstract class DataSet{
     }
 
     public boolean hasKey(String key){
-        if(getValueForKey(key)!=null){
-            return true;
-        }else{
-            return false;
-        }
+        return dataSet.containsKey(key);
     }
 
     public String getValueForKey(String key){
         return dataSet.get(key);
+    }
+    
+    public void printContents(){
+        for(int i = 0; i < dataSet.keySet().size(); i++){
+            LogManager.println(dataSet.keySet().toArray()[i]+"="+dataSet.values().toArray()[i]);
+        }
     }
 }
