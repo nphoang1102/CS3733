@@ -1,17 +1,21 @@
 package screen;
 
+
 /**
  * Created by ${Victor} on 4/2/2017.
  */
 
 import base.*;
+import com.mysql.jdbc.StringUtils;
 import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
 import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
 import sun.management.Agent;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class CreateAccountManager extends Screen{
@@ -20,30 +24,22 @@ public class CreateAccountManager extends Screen{
     }
 
     /* FXML objects */
-    @FXML
-    private Button createAccount;
-    @FXML
-    private TextField username, password;
-    @FXML
-    private Polygon backButton;
-    @FXML
-    private CheckBox tickAgent;
-    @FXML
-    private CheckBox tickManufacturer;
-    @FXML
-    private Slider securitySlider;
-    //@FXML
-    //private CheckBox tickPublicUser;
-    @FXML
-    private Text accountError;
-    @FXML
-    private ProgressBar progressBar;
+    @FXML private Button createAccount;
+    @FXML private TextField username;
+    @FXML private PasswordField password, passwordVerify;
+    @FXML private CheckBox tickAgent;
+    @FXML private CheckBox tickManufacturer;
+    @FXML private Text accountError;
+    @FXML private ProgressBar security;
 
     EnumUserType userType;
+
+    String oldPassword="";
 
     private void clearFields(){
         username.clear();
         password.clear();
+        passwordVerify.clear();
         accountError.setText(null);
         tickManufacturer.setIndeterminate(false);
         tickManufacturer.setSelected(false);
@@ -62,43 +58,52 @@ public class CreateAccountManager extends Screen{
     private void makeAccount(){
         String user = username.getText();
         String curPassword = password.getText();
-        clearFields();
+        String verPassword = passwordVerify.getText();
+        //clear any previous error messages
+        accountError.setText("");
+
         //query database to get all usernames
         //check if user is in the list
         if(!user.equals("")) {
-            if ((userType != null)&&(curPassword!=null)) { //placeholder for now
-                //tell the system who made an account
-                LogManager.println(user + " just made an account");
+            if (userType != null) { //placeholder for now
+                if(curPassword.equals(verPassword)) {
+                    //tell the system who made an account
+                    LogManager.println(user + " just made an account");
 
-                //record the account in the database
-                if (userType.equals(EnumUserType.AGENT)) {
-                    UserAgent tempUser = new UserAgent(user);
-                    //tell the system what type of user they are
-                    LogManager.println(user + " is a " + userType);
-                    //create new agent, no password
-                    DatabaseManager.addUser(tempUser, password.getText(), userType);
-                    Main.setUser(tempUser);
-                    LogManager.println(tempUser + "logged in");
-                    Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+                    //record the account in the database
+                    if (userType.equals(EnumUserType.AGENT)) {
+                        UserAgent tempUser = new UserAgent(user);
+                        //tell the system what type of user they are
+                        LogManager.println(user + " is a " + userType);
+                        //create new agent, no password
+                        DatabaseManager.addUser(tempUser, password.getText(), userType);
+                        Main.setUser(tempUser);
+                        LogManager.println(tempUser + "logged in");
+                        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
-                } else if (userType.equals(EnumUserType.MANUFACTURER)) {
-                    UserManufacturer tempUser = new UserManufacturer(user);
-                    //tell the system what typ of user they are
-                    LogManager.println(user + " is a " + userType);
-                    //create new manufacturer, no password
-                    DatabaseManager.addUser(tempUser, password.getText(), userType);
+                    } else if (userType.equals(EnumUserType.MANUFACTURER)) {
+                        UserManufacturer tempUser = new UserManufacturer(user);
+                        //tell the system what typ of user they are
+                        LogManager.println(user + " is a " + userType);
+                        //create new manufacturer, no password
+                        DatabaseManager.addUser(tempUser, password.getText(), userType);
 
-                    Main.setUser(tempUser);
-                    System.out.println(Main.getUsername());
+                        Main.setUser(tempUser);
+                        System.out.println(Main.getUsername());
 
-                    Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-                }/*else if(userType.equalsIgnoreCase("publicUser")){
+                        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+                    }/*else if(userType.equalsIgnoreCase("publicUser")){
                 User tempUser =  new User(username.getText());
                 //tell the system what typ of user they are
                 LogManager.println(user+" is a "+userType);
                 //create new manufacturer, no password
                 DatabaseManager.addUser(user,"",EnumUserType.MANUFACTURER);
                 Main.screenManager.setScreen(EnumScreenType.LOG_IN);*/
+                }else{//passwords don't match
+                    accountError.setText(user + ", make sure you enter the same password");
+                    password.clear();
+                    passwordVerify.clear();
+                }
             } else { //they didn't select a box
                 //tell the system they didn't select a box
                 LogManager.println(user + " didn't select a user type");
@@ -115,9 +120,7 @@ public class CreateAccountManager extends Screen{
         }*/
 
     }
-    private void checkPassword(){
-        LogManager.println(String.valueOf(securitySlider.getBlockIncrement()));
-    }
+
     @FXML
     private void enterHit(){
         makeAccount();
@@ -125,6 +128,11 @@ public class CreateAccountManager extends Screen{
     }
     @FXML
     private void enterPassword(){
+        makeAccount();
+        return;
+    }
+    @FXML
+    private void enterPasswordVerify(){
         makeAccount();
         return;
     }
@@ -142,6 +150,66 @@ public class CreateAccountManager extends Screen{
         tickAgent.setSelected(false);
         tickAgent.setIndeterminate(false);
         userType = EnumUserType.MANUFACTURER;
+    }
+
+    @FXML
+    private void updateSecurity(){
+        String curPassword = password.getText();
+        double securityLevel = 0.0;
+        //check the password actually changed
+        if(!curPassword.equals(oldPassword)) {
+
+            //LogManager.println(curPassword);
+            LinkedList<String> badPasswords = new LinkedList<String>(Arrays.asList(
+                    "password",
+                    "qwerty",
+                    this.username.getText()
+            ));
+
+            //check if the password is on the way to becoming 12345
+            if ("1234567890".contains(curPassword)) {
+                securityLevel -= .15;
+            }
+            //not a bad password
+            if (!badPasswords.contains(curPassword)) {
+                //give points for password length
+                securityLevel += curPassword.length() / 10.0;
+            } else {
+                //bad password
+                //award a few points for password length
+                securityLevel += curPassword.length() / 70.0;
+            }
+            if (curPassword.matches(".*\\d+.*")) {
+                //password contains a number
+                //award quite a few points
+                securityLevel += .1;
+            }
+            if (curPassword.matches("^.*[^a-zA-Z0-9 ].*$")) {
+                //password has a symbol
+                //award a lot of points
+                securityLevel += .15;
+            }
+
+            //keep level in bounds
+            if(securityLevel < 0){
+                securityLevel = 0;
+            }else if(securityLevel > 1){
+                securityLevel = 1;
+            }
+            security.setProgress(securityLevel);
+            if (securityLevel <= .25) {
+                //low security
+                //make bar red
+                security.setStyle("-fx-accent: #ff0000; -fx-focus-color: #34a88b;");
+            } else if (securityLevel <= .7) {
+                security.setStyle("-fx-accent: #FFF100; -fx-focus-color: #34a88b;");
+            } else if (securityLevel > .7) {
+                security.setStyle("-fx-accent:  #34a88b; -fx-focus-color: #34a88b;");
+            }
+            LogManager.println(String.valueOf(securityLevel));
+            //update old password
+            oldPassword = curPassword;
+        }
     }
 
     @Override
