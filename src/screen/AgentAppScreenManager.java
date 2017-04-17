@@ -1,5 +1,6 @@
 package screen;
 
+import base.LogManager;
 import base.Main;
 import database.Application;
 import database.DataSet;
@@ -109,7 +110,11 @@ public class AgentAppScreenManager extends Screen{
             //screenManager.popoutScreen(EnumScreenType.ERROR_SCREEN, "Review Application", agentID);
             return;
         }
-        //DatabaseManager.forwardApplication(app.ApplicationNo);
+        try{
+            Main.databaseManager.forwardApplication(app.ApplicationNo, agentID);
+        }catch(Exception e){
+            LogManager.println("there was an error forwarding the message");
+        }
     }
 
     public void sendBackApp(MouseEvent mouseEvent) {
