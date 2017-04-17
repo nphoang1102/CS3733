@@ -68,6 +68,7 @@ public class AgentAppScreenManager extends Screen{
         alcContent.setText(application.ABV);
         pHLevel.setText(application.PH);
         vintageYear.setText(application.VintageDate);
+
     }
 
 

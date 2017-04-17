@@ -92,7 +92,6 @@ public class CreateAccountManager extends Screen{
                     System.out.println(Main.getUsername());
 
                     Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-
                 }/*else if(userType.equalsIgnoreCase("publicUser")){
                 User tempUser =  new User(username.getText());
                 //tell the system what typ of user they are
@@ -134,8 +133,6 @@ public class CreateAccountManager extends Screen{
         //untick others
         tickManufacturer.setSelected(false);
         tickManufacturer.setIndeterminate(false);
-        /*tickPublicUser.setSelected(false);
-        tickPublicUser.setIndeterminate(false);*/
         userType = EnumUserType.AGENT;
 
     }
@@ -144,8 +141,6 @@ public class CreateAccountManager extends Screen{
         //untick others
         tickAgent.setSelected(false);
         tickAgent.setIndeterminate(false);
-        /*tickPublicUser.setSelected(false);
-        tickPublicUser.setIndeterminate(false);*/
         userType = EnumUserType.MANUFACTURER;
     }
 
@@ -153,14 +148,4 @@ public class CreateAccountManager extends Screen{
     public void onScreenFocused(DataSet data) {
         clearFields();
     }
-   /* @FXML
-    private void selectPublicUser(){
-        //untick others
-        tickAgent.setSelected(false);
-        tickAgent.setIndeterminate(false);
-        tickManufacturer.setSelected(false);
-        tickManufacturer.setIndeterminate(false);
-        userType = "publicUser";
-    }*/
-
 }

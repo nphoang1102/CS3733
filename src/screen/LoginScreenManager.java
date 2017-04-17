@@ -76,7 +76,7 @@ public class LoginScreenManager extends Screen {
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }
-
+                //set user as current user in main
                 Enum userType = curUser.getType();
                 Main.setUser(curUser);
                 if (userType.equals(EnumUserType.PUBLIC_USER)) {
@@ -133,16 +133,15 @@ public class LoginScreenManager extends Screen {
         error.visibleProperty().setValue(false);
         //check if user has a type
         if(Main.getUserType().equals(null)){
-            LogManager.println("You don't have a type");
             return;
         }else if(Main.getUserType().equalsIgnoreCase("MANUFACTURER")){
-            LogManager.println("You are a manufacturer");
             Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             return;
         }else if(Main.getUserType().equalsIgnoreCase("AGENT")){
-            LogManager.println("You are an agent");
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
             return;
+        }else if(Main.getUserType().equalsIgnoreCase("SUPERAGENT")){ // <-- update with actual super agent name
+           //TODO Main.screenManager.setScreen(EnumScreenType.SUPERAGENT_PAGE);
         }
     }
 
