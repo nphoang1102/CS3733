@@ -51,7 +51,7 @@ public class DatabaseManager {
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
-        databaseType = "derby";
+        databaseType = "mysql";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
 
