@@ -20,7 +20,10 @@ public class toTSV implements IDataDownload {
                 + "Brand name" + "\t"
                 + "Origin" + "\t"
                 + "Class" + "\t"
-                + "Type" + "\n";;
+                + "Type" + "\t"
+                + "Alcohol content" + "\t"
+                + "Vintage year" + "\t"
+                + "pH level";
         String outputPath = "/searchResult-tab.txt";
         for (ColaResult data : result){
             index++;
@@ -32,7 +35,10 @@ public class toTSV implements IDataDownload {
                     + data.getName() + "\t"
                     + data.getSource() + "\t"
                     + data.getAclass() + "\t"
-                    + data.getType() + "\n";
+                    + data.getType() + "\t"
+                    + data.getAlCon() + "\t"
+                    + data.getYear() + "\t"
+                    + data.getPh();
             output[index] = columns;
         }
         StringUtilities.saveData(outputPath, output);

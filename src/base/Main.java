@@ -54,6 +54,7 @@ public class Main extends Application{
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
+        screenManager.initializeTopBar();
         //databaseManager.CreateTables();
         //databaseManager.entry();
         /*

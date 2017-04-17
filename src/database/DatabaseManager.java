@@ -136,6 +136,7 @@ public class DatabaseManager {
                     " CompletedDate DATE,\n" +
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
+                    " Class VARCHAR(50) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
                     " Class VARCHAR(10) NOT NULL,\n" +
                     " AlcoholType VARCHAR(10) NOT NULL,\n" +
@@ -253,6 +254,75 @@ public class DatabaseManager {
         return null;
     }
 
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////HOANG WANTED THIS/////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> getFromDB(){
+
+        LinkedList<DataSet> result = new LinkedList<>();
+        String query = "SELECT * FROM Alcohol";
+
+        try {
+            ResultSet getFromDB = statement.executeQuery(query);
+            while (getFromDB.next()) {
+                Alcohol alcohol = new Alcohol();
+                alcohol.TTBID = getFromDB.getString("TTBID");
+                alcohol.PermitNo = getFromDB.getString("PermitNo");
+                alcohol.SerialNo = getFromDB.getString("SerialNo");
+                alcohol.CompletedDate = getFromDB.getString("CompletedDate");
+                alcohol.FancifulName = getFromDB.getString("FancifulName");
+                alcohol.BrandName = getFromDB.getString("BrandName");
+                alcohol.Class = getFromDB.getString("Class");
+                alcohol.Origin = getFromDB.getString("Origin");
+                alcohol.Type = getFromDB.getString("Type");
+                alcohol.AlcoholContent = getFromDB.getString("AlcoholContent");
+                alcohol.VintageYear = getFromDB.getString("VintageYear");
+                alcohol.PH = getFromDB.getString("PH");
+                result.add(alcohol);
+            }
+        }catch (SQLException e){
+            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
+            return new LinkedList<>();
+        }
+        return result;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////ADVANCED SEARCH///////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
+
+        LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
+        String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "' ";
+        String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
+        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "'";
+
+        try {
+            ResultSet getAdvanced = statement.executeQuery(query1 + "UNION " + query2 + "UNION " + query3 + ";");
+            while (getAdvanced.next()) {
+                Alcohol alcohol = new Alcohol();
+                alcohol.TTBID = getAdvanced.getString("TTBID");
+                alcohol.PermitNo = getAdvanced.getString("PermitNo");
+                alcohol.SerialNo = getAdvanced.getString("SerialNo");
+                alcohol.CompletedDate = getAdvanced.getString("CompletedDate");
+                alcohol.FancifulName = getAdvanced.getString("FancifulName");
+                alcohol.BrandName = getAdvanced.getString("BrandName");
+                alcohol.Class = getAdvanced.getString("Class");
+                alcohol.Origin = getAdvanced.getString("Origin");
+                alcohol.Type = getAdvanced.getString("Type");
+                alcohol.AlcoholContent = getAdvanced.getString("AlcoholContent");
+                alcohol.VintageYear = getAdvanced.getString("VintageYear");
+                alcohol.PH = getAdvanced.getString("PH");
+                advancedLinkedList.add(alcohol);
+            }
+        } catch (SQLException e) {
+            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
+            return new LinkedList<>();
+        }
+        return advancedLinkedList;
+    }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
@@ -271,6 +341,7 @@ public class DatabaseManager {
                 alcohol.CompletedDate = getAlcohol.getString("CompletedDate");
                 alcohol.FancifulName = getAlcohol.getString("FancifulName");
                 alcohol.BrandName = getAlcohol.getString("BrandName");
+                alcohol.Class = getAlcohol.getString("Class");
                 alcohol.Origin = getAlcohol.getString("Origin");
                 alcohol.Type = getAlcohol.getString("Type");
                 alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
@@ -279,7 +350,7 @@ public class DatabaseManager {
                 alcoholLinkedList.add(alcohol);
             }
         } catch (SQLException e) {
-            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
+            LogManager.println("No matches!", EnumWarningType.WARNING);
             return new LinkedList<>();
         }
 
