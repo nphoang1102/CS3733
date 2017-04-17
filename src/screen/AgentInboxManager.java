@@ -4,10 +4,7 @@ package screen;
  * Created by ${Victor} on 4/2/2017.
  */
 import base.*;
-import database.Application;
-import database.DataSet;
-import database.DatabaseManager;
-import database.PasswordStorage;
+import database.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -56,8 +53,9 @@ public class AgentInboxManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data){
+        UserAgent tempUser = (UserAgent) data;
+
         typeBox.setValue("Beer");
-        System.out.println("type of alc box: " + typeBox);
 
        // inboxInfo.add(testApp);
 
@@ -65,33 +63,46 @@ public class AgentInboxManager extends Screen{
         manufacturerName.setCellValueFactory(new PropertyValueFactory<>("ManufacturerUsername"));
         specificBrandName.setCellValueFactory(new PropertyValueFactory<>("Brand"));
 
-
-        //query database for UUID's that current Agent has in inbox
-        uuidCodes =  DatabaseManager.getApplicationsByAgent(Main.getUsername());
-        System.out.println(uuidCodes.size());
-
-        //wipes the list
+        //wipes the table
         inboxInfo.clear();
 
-        //fills the list
-        for(DataSet tempData: uuidCodes){
-            inboxInfo.add((Application) tempData);
 
-        }
+        //query database for UUID's that current Agent has in inbox
+        UserAgent thisUser = (UserAgent) Main.getUser();
+        if(thisUser.getSuperAgent().equals("false")) {
+            uuidCodes = DatabaseManager.getApplicationsByAgent(thisUser.getUsername());
 
-        this.inboxData.setItems(inboxInfo);
+            //fills the table
+            for (DataSet tempData : uuidCodes) {
+                inboxInfo.add((Application) tempData);
 
-        inboxData.setRowFactory( tv -> {
-            TableRow<Application> row = new TableRow<>();
-            row.setOnMouseClicked( event-> {
-                if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    Application tempResult = row.getItem();
-                    System.out.println(tempResult);
-                    screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application",tempResult);
-                }
+            }
+
+            this.inboxData.setItems(inboxInfo);
+
+
+            inboxData.setRowFactory(tv -> {
+                TableRow<Application> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        Application tempResult = row.getItem();
+                        System.out.println(tempResult);
+                        screenManager.popoutScreen(EnumScreenType.AGENT_APP_SCREEN, "Review Application", tempResult);
+                    }
+                });
+                return row;
             });
-            return row;
-        });
+        }else{
+            uuidCodes = DatabaseManager.getApplicationsByAgent(tempUser.getUsername());
+
+            //fills the table
+            for (DataSet tempData : uuidCodes) {
+                inboxInfo.add((Application) tempData);
+
+            }
+
+            this.inboxData.setItems(inboxInfo);
+        }
     }
 
     @FXML
@@ -107,7 +118,6 @@ public class AgentInboxManager extends Screen{
     @FXML
     public void pullNewBatch(){
         //check if the inbox is empty if its not dont pull new batch
-        System.out.println("typeBoxinfo" + typeBox.getValue());
         if(inboxInfo.size() <= 9){
             int numAppsNeeded = 10 - inboxInfo.size();
             String tempType = (String) typeBox.getValue();
