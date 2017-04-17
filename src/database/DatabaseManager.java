@@ -1,9 +1,6 @@
 package database;
 
-import base.EnumTableType;
-import base.EnumWarningType;
-import base.LogManager;
-import base.Main;
+import base.*;
 import screen.EnumUserType;
 /*import com.sun.org.apache.xpath.internal.operations.Or;
 import com.sun.xml.internal.bind.v2.TODO
@@ -138,7 +135,6 @@ public class DatabaseManager {
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Class VARCHAR(50) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
-                    " Class VARCHAR(10) NOT NULL,\n" +
                     " AlcoholType VARCHAR(10) NOT NULL,\n" +
                     " AlcoholContent VARCHAR(30),\n" +
                     " VintageYear VARCHAR(10),\n" +
@@ -146,8 +142,7 @@ public class DatabaseManager {
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Already exists.");
-            //            LogManager.printStackTrace(e.getStackTrace());
+            createTableError(e);
         }
         LogManager.print("Creating applications table... ", EnumWarningType.NOTE);
         try {
@@ -159,7 +154,7 @@ public class DatabaseManager {
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " AgentName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
-                    " RepID VARCHAR(30) PRIMARY KEY,\n" +
+                    " RepID VARCHAR(30),\n" +
                     " PlantRegistry VARCHAR(30) NOT NULL,\n" +
                     " Locality VARCHAR(30) NOT NULL,\n" +
                     " Brand VARCHAR(50) NOT NULL,\n" +
@@ -184,7 +179,7 @@ public class DatabaseManager {
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Already exists.");
+            createTableError(e);
         }
         LogManager.print("Creating agents table... ", EnumWarningType.NOTE);
         try {
@@ -198,7 +193,7 @@ public class DatabaseManager {
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Already exists.");
+            createTableError(e);
         }
         LogManager.print("Creating manufactureres table... ", EnumWarningType.NOTE);
         try {
@@ -215,9 +210,18 @@ public class DatabaseManager {
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Already exists.");
+            createTableError(e);
         }
 
+    }
+    private static void createTableError(Exception e){
+        if(e.getMessage().contains("already exists")){
+            LogManager.println("Already exists.");
+        }
+        else{
+            LogManager.println("ERROR: " + e.getMessage());
+            System.exit(0);
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -228,7 +232,7 @@ public class DatabaseManager {
         String value1 = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
             if (value.isEmpty() && type.equals("All")) {
-                return queryAlcohol("SELECT * FROM Alcohol;");
+                return queryAlcohol("SELECT * FROM Alcohol"+endQueryLine);
             } else {
                 switch (type) {
                     case "All":
@@ -315,8 +319,10 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
+        String ApplicationNo = generateTTBID();
+        String date = StringUtilities.getDate();
         try {
-            String ApplicationNo = generateTTBID();
+            LogManager.println("Submitting new application.", EnumWarningType.NOTE);
 //            String status = "PENDING";
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
@@ -343,13 +349,12 @@ public class DatabaseManager {
                     "PhoneNo, " +
                     "Email, " +
                     "AdditionalInfo, " +
-                    "DateOfSubmission," +
-                    "DateOfApproval," +
-                    "DateOfExpiration," +
+//                    "DateOfSubmission," +
+//                    "DateOfApproval," +
+//                    "DateOfExpiration," +
                     "ApprovedTTBID," +
                     "ReasonForRejection" +
-                    ") VALUES " +
-                    "('"
+                    ") VALUES ('"
                     + ApplicationNo + "', '"
                     + application.SerialNo + "', '"
                     + application.ApplicationType + "', '"
@@ -374,14 +379,24 @@ public class DatabaseManager {
                     + application.PhoneNo + "', '"
                     + application.Email + "', '"
                     + application.AdditionalInfo + "', '"
-                    + application.DateOfSubmission + "', '"
-                    + application.DateOfApproval + "', '"
-                    + application.DateOfExpiration + "', '"
+//                    + application.DateOfSubmission + "', '"
+//                    + application.DateOfApproval + "', '"
+//                    + application.DateOfExpiration + "', '"
                     + application.ApprovedTTBID + "', '"
                     + application.ReasonForRejection
                     + "')" + endQueryLine);
         } catch (SQLException e) {
-            e.printStackTrace();
+            LogManager.println("Failed to submit new application " + ApplicationNo + ": " + e.getMessage());
+
+        }
+        try {
+            statement.executeUpdate("UPDATE Applications\n" +
+                    "SET DateOfSubmission = " + date +"\n" +
+                    "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
+        }
+        catch (SQLException e){
+            LogManager.print("Could not set DateOfSubmission on newly submitted application " + ApplicationNo + ": ");
+            LogManager.println(e.getMessage());
         }
     }
 
