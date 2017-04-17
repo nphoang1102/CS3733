@@ -1,4 +1,4 @@
-package misc;
+package screen.cola_search;
 
 import database.BasicDataSet;
 import database.DataSet;
@@ -15,18 +15,30 @@ public class ColaResult {
 
     /* Class constructors */
     public ColaResult(String id, String permit, String serial, String date, String fname, String name, String source, String aclass, String type, String alCon, String year, String ph) {
-        this.id = new SimpleStringProperty(id);
-        this.permit = new SimpleStringProperty(permit);
-        this.serial = new SimpleStringProperty(serial);
-        this.date = new SimpleStringProperty(date);
-        this.fname = new SimpleStringProperty(fname);
-        this.name = new SimpleStringProperty(name);
-        this.source = new SimpleStringProperty(source);
-        this.aclass = new SimpleStringProperty(aclass);
-        this.type = new SimpleStringProperty(type);
-        this.alCon = new SimpleStringProperty(alCon);
-        this.year = new SimpleStringProperty(year);
-        this.ph = new SimpleStringProperty(ph);
+        if (id.equals("")) this.id = new SimpleStringProperty("N/A");
+        else this.id = new SimpleStringProperty(id);
+        if (permit.equals("")) this.permit = new SimpleStringProperty("N/A");
+        else this.permit = new SimpleStringProperty(permit);
+        if (serial.equals("")) this.serial = new SimpleStringProperty("N/A");
+        else this.serial = new SimpleStringProperty(serial);
+        if (date.equals("")) this.date = new SimpleStringProperty("N/A");
+        else this.date = new SimpleStringProperty(date);
+        if (fname.equals("")) this.fname = new SimpleStringProperty("N/A");
+        else this.fname = new SimpleStringProperty(fname);
+        if (name.equals("")) this.name = new SimpleStringProperty("N/A");
+        else this.name = new SimpleStringProperty(name);
+        if (source.equals("")) this.source = new SimpleStringProperty("N/A");
+        else this.source = new SimpleStringProperty(source);
+        if (aclass.equals("")) this.aclass = new SimpleStringProperty("N/A");
+        else this.aclass = new SimpleStringProperty(aclass);
+        if (type.equals("")) this.type = new SimpleStringProperty("N/A");
+        else this.type = new SimpleStringProperty(type);
+        if (alCon.equals("")) this.alCon = new SimpleStringProperty("N/A");
+        else this.alCon = new SimpleStringProperty(alCon);
+        if (year.equals("")) this.year = new SimpleStringProperty("N/A");
+        else this.year = new SimpleStringProperty(year);
+        if (ph.equals("")) this.ph = new SimpleStringProperty("N/A");
+        else this.ph = new SimpleStringProperty(ph);
     }
 
     /* Class setters and getters */
