@@ -104,8 +104,9 @@ public class AgentInboxManager extends Screen{
                 return row;
             });
             if(thisUser.getstatus().equals("APPROVED")){
-                pullNewBatch.setVisible(true);
+
             }
+            pullNewBatch.setVisible(true);
             EditAccount.setVisible(true);
             typeBox.setVisible(true);
         }else{
