@@ -94,7 +94,7 @@ public class TopBarManager extends Screen{
             if (!Main.getUserType().isEmpty()) {
                 logIn.setText("Log Out");
                 //check if user has a custom image defined
-                ProxyImage userImage = new ProxyImage(Main.getUsername() + ".jpg");
+                ProxyImage userImage = new ProxyImage("users/"+Main.getUsername() + ".jpg");
                 if (!userImage.exists()) {
                     System.out.println(userImage);
                     //This method sets the image to the users type first letter.
@@ -188,7 +188,7 @@ public class TopBarManager extends Screen{
     public void updateUserIcon(){
         if (!Main.getUserType().isEmpty()) {
             //check if user has a custom image defined
-            ProxyImage userImage = new ProxyImage(Main.getUsername() + ".jpg");
+            ProxyImage userImage = new ProxyImage("users/"+Main.getUsername() + ".jpg");
             if (!userImage.exists()) {
                 System.out.println(userImage);
                 //This method sets the image to the users type first letter.
