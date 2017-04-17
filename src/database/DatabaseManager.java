@@ -269,7 +269,7 @@ public class DatabaseManager {
         String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
         String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "' ";
         String combinedQuery;
-
+ 
         try {
             if(!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()){
                 combinedQuery = query1;
