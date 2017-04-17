@@ -1,11 +1,12 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
-import database.BasicDataSet;
-import database.DataSet;
-import database.UserManufacturer;
+import database.*;
 import database.images.ProxyImage;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
+import impl.org.controlsfx.autocompletion.SuggestionProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
@@ -17,58 +18,47 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import javax.imageio.ImageIO;
+import javax.xml.crypto.Data;
+import javax.xml.soap.Text;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.LinkedList;
+
+import javafx.util.Callback;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 
 /**
  * Created by Bailey Sostek on 4/7/17.
  */
 public class TopBarManager extends Screen{
 
-    @FXML
-    private Button pullNewBatch;
-
-    @FXML
-    Label username;
-
-    @FXML
-    Label userType;
-
-    @FXML
-    Label imageLetter;
-
-    @FXML
-    ChoiceBox searchTerm;
-
-    @FXML
-    Button logIn;
-
-    @FXML
-    Button action;
-
-    @FXML
-    Button backButton;
-
-    @FXML
-    ImageView userIcon;
-
-    @FXML
-    AnchorPane screenPane;
-
-    @FXML
-    TextField searchBar;
+    /* FXML objects */
+    @FXML private Label username, userType, imageLetter;
+    @FXML private ChoiceBox searchTerm;
+    @FXML private Button logIn, action, backButton, search;
+    @FXML private ImageView userIcon;
+    @FXML private AnchorPane screenPane;
+    @FXML private TextField searchBar;
 
     public TopBarManager() {
         super(EnumScreenType.TOP_BAR);
     }
 
     private String lastFoucs = "initialUserName";
+    private ArrayList<String> suggestField = new ArrayList<String>();
 
     @FXML
     public void initialize() {
@@ -165,10 +155,12 @@ public class TopBarManager extends Screen{
         DataSet data = new BasicDataSet();
         data.addField("Keywords", searchBar.getText());
         data.addField("AlcoholType", (searchTerm.getValue() + ""));
+        data.addField("isAdvance", "false");
         String toPrint = "User searches for " + searchBar.getText() + " under type " + searchTerm.getValue();
         LogManager.println(toPrint);
         this.searchBar.clear();
         Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
+        this.initSuggestiveSearch();
     }
 
     public String getSearchTerm(){
@@ -230,4 +222,18 @@ public class TopBarManager extends Screen{
         return data;
     }
 
+    public void initSuggestiveSearch() {
+        this.suggestField.clear();
+        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
+        for (DataSet tempSet : databaseResult) {
+            Alcohol data = (Alcohol) tempSet;
+            if (!this.suggestField.contains(data.BrandName)) {
+                this.suggestField.add(data.BrandName);
+            }
+        }
+        TextFields.bindAutoCompletion(
+                this.searchBar,
+                this.suggestField
+        );
+    }
 }
