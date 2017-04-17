@@ -254,73 +254,19 @@ public class DatabaseManager {
         return null;
     }
 
-    /////////////////////////////////////////////////////////////////////////////////
-    ///////////HOANG WANTED THIS/////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> getFromDB(){
-
-        LinkedList<DataSet> result = new LinkedList<>();
-        String query = "SELECT * FROM Alcohol";
-
-        try {
-            ResultSet getFromDB = statement.executeQuery(query);
-            while (getFromDB.next()) {
-                Alcohol alcohol = new Alcohol();
-                alcohol.TTBID = getFromDB.getString("TTBID");
-                alcohol.PermitNo = getFromDB.getString("PermitNo");
-                alcohol.SerialNo = getFromDB.getString("SerialNo");
-                alcohol.CompletedDate = getFromDB.getString("CompletedDate");
-                alcohol.FancifulName = getFromDB.getString("FancifulName");
-                alcohol.BrandName = getFromDB.getString("BrandName");
-                alcohol.Class = getFromDB.getString("Class");
-                alcohol.Origin = getFromDB.getString("Origin");
-                alcohol.Type = getFromDB.getString("Type");
-                alcohol.AlcoholContent = getFromDB.getString("AlcoholContent");
-                alcohol.VintageYear = getFromDB.getString("VintageYear");
-                alcohol.PH = getFromDB.getString("PH");
-                result.add(alcohol);
-            }
-        }catch (SQLException e){
-            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
-            return new LinkedList<>();
-        }
-        return result;
-    }
-
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADVANCED SEARCH///////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
-        LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
+//        LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
         String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "' ";
         String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
-        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "'";
+        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "' ";
+//        ResultSet getAdvanced = statement.executeQuery(query1 + "UNION " + query2 + "UNION " + query3 + ";");
 
-        try {
-            ResultSet getAdvanced = statement.executeQuery(query1 + "UNION " + query2 + "UNION " + query3 + ";");
-            while (getAdvanced.next()) {
-                Alcohol alcohol = new Alcohol();
-                alcohol.TTBID = getAdvanced.getString("TTBID");
-                alcohol.PermitNo = getAdvanced.getString("PermitNo");
-                alcohol.SerialNo = getAdvanced.getString("SerialNo");
-                alcohol.CompletedDate = getAdvanced.getString("CompletedDate");
-                alcohol.FancifulName = getAdvanced.getString("FancifulName");
-                alcohol.BrandName = getAdvanced.getString("BrandName");
-                alcohol.Class = getAdvanced.getString("Class");
-                alcohol.Origin = getAdvanced.getString("Origin");
-                alcohol.Type = getAdvanced.getString("Type");
-                alcohol.AlcoholContent = getAdvanced.getString("AlcoholContent");
-                alcohol.VintageYear = getAdvanced.getString("VintageYear");
-                alcohol.PH = getAdvanced.getString("PH");
-                advancedLinkedList.add(alcohol);
-            }
-        } catch (SQLException e) {
-            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
-            return new LinkedList<>();
-        }
-        return advancedLinkedList;
+        return queryAlcohol(query1 + "UNION " + query2 + "UNION " + query3 + endQueryLine);
     }
 
 
@@ -558,7 +504,7 @@ public class DatabaseManager {
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
-        LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
+//        LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
 
         try {
             LogManager.println("INSERTING THINGS NOW!!!");
@@ -600,7 +546,7 @@ public class DatabaseManager {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
-            LogManager.println("could not remove application");
+            LogManager.println("could not remove application", EnumWarningType.ERROR);
             e.printStackTrace();
         }
     }
