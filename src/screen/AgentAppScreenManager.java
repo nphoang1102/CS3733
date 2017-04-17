@@ -1,9 +1,11 @@
 package screen;
 
+import base.LogManager;
 import base.Main;
 import database.Application;
 import database.DataSet;
 import database.DatabaseManager;
+import database.UserAgent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
