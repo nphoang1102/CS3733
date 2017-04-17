@@ -12,6 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import sun.rmi.runtime.Log;
 
 /**
  * Created by Hoang Nguyen on 4/15/2017.
@@ -44,11 +45,11 @@ public class AdvanceColaSearchManager extends Screen {
 
     /* Initialize the choice boxes */
     public void searchByInitialize() {
-        ObservableList<String> searchByList = FXCollections.observableArrayList("","TTB ID", "Permit number", "Serial number", "Date approved", "Fancy name", "Brand name", "Origin", "Class", "Type");
+        ObservableList<String> searchByList = FXCollections.observableArrayList("","TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
         drop1.setItems(searchByList);
         drop2.setItems(searchByList);
         drop3.setItems(searchByList);
-        drop1.setValue("Brand name");
+        drop1.setValue("BrandName");
         drop2.setValue("");
         drop3.setValue("");
     }
@@ -94,25 +95,44 @@ public class AdvanceColaSearchManager extends Screen {
             searchFields.addField("searchTerm2", field2.getText());
             searchFields.addField("searchCat3", drop3.getValue() + "");
             searchFields.addField("searchTerm3", field3.getText());
-            LogManager.print("The user is searching for " + field1.getText() + " under " + drop1.getValue()
+            LogManager.print("Under AdvanceColaSearchManager.java: the user is searching for " + field1.getText() + " under " + drop1.getValue()
                     + ", " + field2.getText() + " under " + drop2.getValue()
                     + ", " + field3.getText() + " under " + drop3.getValue());
             Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
         }
+        else {
+            this.warning.setVisible(true);
+        }
     }
 
-    /* Check if entries are eligible for advance search */
-    public boolean isLegit() {
+    /* Check if entries are eligible for advance search, we will be using this in Intersect */
+    /*public boolean isLegit() {
         if ((!field1.getText().equals("")) && (!drop1.getValue().equals(""))) {
             if ( ((!drop2.getValue().equals("")) && (!field2.getText().equals("")))
                     || ((!drop3.getValue().equals("")) && (!field3.getText().equals(""))) ) {
                 return true;
             }
+
             else return true;
         }
         else {
             this.warning.setVisible(true);
             return false;
         }
+    }*/
+
+    /* Check if entries are eligible for advance search, this is for current Union */
+    public boolean isLegit() {
+//        Boolean value = true;
+        if ( (!drop1.getValue().equals("")) && (field1.getText().equals("")) ) {
+            return false;
+        }
+        if ( (!drop2.getValue().equals("")) && (field2.getText().equals("")) ) {
+            return false;
+        }
+        if ( (!drop3.getValue().equals("")) && (field3.getText().equals("")) ) {
+            return false;
+        }
+        return true;
     }
 }
