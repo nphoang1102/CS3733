@@ -246,10 +246,26 @@ public class DatabaseManager {
         LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
         String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "' ";
         String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
-        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "'";
+        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "' ";
+        String combinedQuery;
 
         try {
-            ResultSet getAdvanced = statement.executeQuery(query1 + "UNION " + query2 + "UNION " + query3 + ";");
+            if(!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()){
+                combinedQuery = query1;
+            }
+            else if(!val1.isEmpty() && !val2.isEmpty() && val3.isEmpty()){
+                combinedQuery = query1 + "UNION " + query2;
+            }
+            else if(!val1.isEmpty() && val2.isEmpty() && !val3.isEmpty()){
+                combinedQuery = query1 + "UNION " + query3;
+            }
+            else if(!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty()){
+                combinedQuery = query1 + "UNION " + query2 + "UNION " + query3;
+            }
+            else{
+                combinedQuery = "SELECT * FROM Alcohol";
+            }
+            ResultSet getAdvanced = statement.executeQuery(combinedQuery);
             while (getAdvanced.next()) {
                 Alcohol alcohol = new Alcohol();
                 alcohol.TTBID = getAdvanced.getString("TTBID");
@@ -267,7 +283,7 @@ public class DatabaseManager {
                 advancedLinkedList.add(alcohol);
             }
         } catch (SQLException e) {
-            LogManager.println("Empty result set! Is the alcohol table empty?", EnumWarningType.WARNING);
+            LogManager.println("No matches found!", EnumWarningType.WARNING);
             return new LinkedList<>();
         }
         return advancedLinkedList;
