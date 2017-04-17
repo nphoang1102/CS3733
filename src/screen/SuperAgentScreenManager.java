@@ -72,4 +72,14 @@ public class SuperAgentScreenManager {
             return row;
         });
     }
+
+    public void ReOrganizeTable(MouseEvent mouseEvent) {
+        String tempType = (String) statusType.getValue();
+/*        LinkedList<DataSet> results =  DatabaseManager.getAgentsByStatus(tempType);
+        if(results.size() > 0) {
+            for (DataSet tempData : results) {
+                agents.add(tempData);
+            }
+        }*/
+    }
 }
