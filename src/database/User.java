@@ -41,6 +41,4 @@ public abstract class User extends DataSet {
     public void setEmail(String inputEmail){
         email = inputEmail;
     }
-
-
 }

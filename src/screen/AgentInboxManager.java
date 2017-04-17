@@ -4,10 +4,7 @@ package screen;
  * Created by ${Victor} on 4/2/2017.
  */
 import base.*;
-import database.Application;
-import database.DataSet;
-import database.DatabaseManager;
-import database.PasswordStorage;
+import database.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
