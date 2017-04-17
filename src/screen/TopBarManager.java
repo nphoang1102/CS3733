@@ -53,6 +53,7 @@ public class TopBarManager extends Screen{
     @FXML private AnchorPane screenPane;
     @FXML private TextField searchBar;
 
+
     public TopBarManager() {
         super(EnumScreenType.TOP_BAR);
     }
@@ -160,7 +161,6 @@ public class TopBarManager extends Screen{
         LogManager.println(toPrint);
         this.searchBar.clear();
         Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
-        this.initSuggestiveSearch();
     }
 
     public String getSearchTerm(){
