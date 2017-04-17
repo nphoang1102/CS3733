@@ -1,12 +1,17 @@
 package screen.cola_search;
 
+import base.EnumWarningType;
+import base.LogManager;
 import database.DataSet;
+import database.images.ProxyImage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import screen.EnumScreenType;
 import screen.Screen;
+
+
 
 /**
  * Created by Hoang Nguyen on 4/7/2017.
@@ -21,6 +26,9 @@ public class ResultPopupManager extends Screen {
     private Label dis_brandName, dis_ID, dis_permit, dis_serial, dis_date, dis_fanName, dis_origin, dis_class, dis_type, dis_year, dis_alCon, dis_ph;
     @FXML
     private Pane window;
+    @FXML
+    private ImageView image;
+
 
     @Override
     public void onScreenFocused(DataSet result){
@@ -37,5 +45,11 @@ public class ResultPopupManager extends Screen {
         dis_alCon.setText("Alcohol content: "+ result.getValueForKey("AlcoholContent"));
         dis_year.setText("Vintage year: " + result.getValueForKey("VintageYear"));
         dis_ph.setText("pH level: " + result.getValueForKey("PH"));
+        ProxyImage userImage = new ProxyImage("alcohol/"+(dis_serial.getText().replaceAll("Serial No: ", ""))+".jpg");
+        if(userImage!=null) {
+            userImage.displayImage(image);
+        }else{
+            LogManager.println("Label not found: alcohol/"+(dis_serial.getText().replaceAll("Serial No: ", ""))+".jpg", EnumWarningType.WARNING);
+        }
     }
 }
