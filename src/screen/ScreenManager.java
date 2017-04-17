@@ -58,6 +58,11 @@ public class ScreenManager {
     }
 
     public void setScreen(EnumScreenType type, DataSet data){
+        if(Main.getUser()!=null){
+            if(type.equals(EnumScreenType.LOG_IN)){
+                return;
+            }
+        }
         DataSet topBarData = topBarScreen.generateTopBarData();
         if(!type.equals(EnumScreenType.TOP_BAR)){
             LogManager.println("Setting screen to:" + type.toString());
@@ -141,11 +146,16 @@ public class ScreenManager {
 
     public void back(){
         if(screenStates.size()>1){
+            DataSet topBarData = screenStates.getFirst().topBarData;
             screenStates.removeFirst();
             setScreen(screenStates.getFirst().type, screenStates.getFirst().data);
-            topBarScreen.onScreenFocused(screenStates.getFirst().data);
+            topBarScreen.onScreenFocused(topBarData);
             screenStates.removeFirst();
         }
+    }
+
+    public void clearScreenHistory(){
+        screenStates.clear();
     }
 
     public String getSearchTerm(){
