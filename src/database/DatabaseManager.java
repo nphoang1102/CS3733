@@ -21,6 +21,14 @@ public class DatabaseManager {
      * Created by Evan Goldstein on 4/1/17.
      */
     private static Statement statement;
+    private static Connection connection;
+    private String databaseType;
+    private String databaseName;
+    private String databaseServer;
+    private boolean derby = false;
+    private boolean mysql = false;
+    private static String endQueryLine;
+//    private boolean sqlite = false;
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EXCEPTIONS////////////////////////////////////////////////////////////
@@ -46,7 +54,25 @@ public class DatabaseManager {
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
-        LogManager.println("Attempting Database Connection.");
+        databaseType = "derby";
+        databaseName = "TTB";
+        databaseServer = "icarusnet.me";
+
+        if(databaseType.equals("derby")){
+            derby = true;
+            endQueryLine = "";
+        }
+        else if(databaseType.equals("mysql") || databaseType.equals("MySQL")){
+            mysql = true;
+            endQueryLine = ";";
+        }
+        /*else if(database.equals("sqlite") || database.equals("SQLite")){
+            sqlite = true
+        }*/
+        else{
+            LogManager.println("Unknown database type!", EnumWarningType.ERROR);
+            return;
+        }
        /* try {
             Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
         } catch (ClassNotFoundException e) {
@@ -54,21 +80,36 @@ public class DatabaseManager {
             e.printStackTrace();
             return;
         }*/
-        LogManager.println("    Java DB driver registered!");
-        Connection connection;
+//        LogManager.println("    Driver registered!");
+        LogManager.print("Attempting connection to " + databaseType + " database... ");
         try {
-            connection = DriverManager.getConnection("jdbc:mysql://icarusnet.me/TTB?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
-            //connection = DriverManager.getConnection("jdbc:derby:TTB;create=true");
 
+            if(derby){
+                connection = DriverManager.getConnection("jdbc:derby:"+databaseName+";create=true");
+            }
+            else if(mysql){
+                connection = DriverManager.getConnection("jdbc:mysql://"+databaseServer+"/"+databaseName+"?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
+            }
+            /*else if(sqlite){
+                connection = DriverManager.getConnection("jdbc:sqlite:TTB.db");
+            }*/
+            LogManager.println("Connection established!");
         } catch (SQLException e) {
-            LogManager.println("    Connection failed. Check output console.");
-            e.printStackTrace();
-            LogManager.printStackTrace(e.getStackTrace());
-            e.printStackTrace();
+            LogManager.println("");
+            LogManager.print("Database connection failed. ", EnumWarningType.ERROR);
+            if(derby){
+                LogManager.println("There may already be a connection to the database.");
+            }
+            else if(mysql){
+                LogManager.println("");
+            }
+            //e.printStackTrace();
+//            LogManager.printStackTrace(e.getStackTrace());
+//            e.printStackTrace();
 
             return;
         }
-        LogManager.println("Java DB connection established!");
+//        LogManager.println("Java DB connection established!");
 
         try {
             statement = connection.createStatement();
@@ -77,13 +118,16 @@ public class DatabaseManager {
             LogManager.println("statement failed");
             e.printStackTrace();
         }
+        createTables();
+//        entryTest();
     }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////CREATE TABLES/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void createTables() {
-
+        LogManager.println("Creating Tables: ", EnumWarningType.NOTE);
+        LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
                     " TTBID VARCHAR(30) PRIMARY KEY,\n" +
@@ -93,21 +137,24 @@ public class DatabaseManager {
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
-                    " Type VARCHAR(10) NOT NULL,\n" +
+                    " Class VARCHAR(10) NOT NULL,\n" +
+                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
                     " AlcoholContent VARCHAR(30),\n" +
                     " VintageYear VARCHAR(10),\n" +
                     " PH VARCHAR(10)\n" +
-                    ");\n");
+                    ")" + endQueryLine);
+            LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Table 'Alcohol' exists.", EnumWarningType.NOTE);
+            LogManager.println("Already exists.");
+            //            LogManager.printStackTrace(e.getStackTrace());
         }
-
+        LogManager.print("Creating applications table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
                     " ApplicationNo VARCHAR(20) PRIMARY KEY,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
-                    " ApplicationStatus ENUM('APPROVED', 'PENDING', 'REJECTED', 'SURRENDERED') NOT NULL,\n" +
+                    " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " AgentName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
@@ -133,38 +180,41 @@ public class DatabaseManager {
                     " DateOfExpiration DATE,\n" +
                     " ApprovedTTBID VARCHAR(14),\n" +
                     " ReasonForRejection VARCHAR(100)\n" +
-                    ");\n");
+                    ")" + endQueryLine);
+            LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Table 'Applications' exists.", EnumWarningType.NOTE);
+            LogManager.println("Already exists.");
         }
-
+        LogManager.print("Creating agents table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Agents(\n" +
                     " ID VARCHAR(30) PRIMARY KEY,\n" +
                     " Username VARCHAR(50) NOT NULL UNIQUE,\n" +
-                    " PasswordHash VARCHAR(30) NOT NULL,\n" +
-                    " Name VARCHAR(50) NOT NULL,\n" +
+                    " PasswordHash VARCHAR(75) NOT NULL,\n" +
+                    " FullName VARCHAR(50) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
                     " SuperAgent BOOLEAN NOT NULL\n" +
-                    ");\n");
+                    ")" + endQueryLine);
+            LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Table 'Agents' exists.", EnumWarningType.NOTE);
+            LogManager.println("Already exists.");
         }
-
+        LogManager.print("Creating manufactureres table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
                     " Username VARCHAR(30) PRIMARY KEY,\n" +
-                    " Password VARCHAR(30) NOT NULL,\n" +
+                    " PasswordHash VARCHAR(75) NOT NULL,\n" +
                     " Company VARCHAR(100) NOT NULL,\n" +
-                    " Name VARCHAR(50) NOT NULL,\n" +
+                    " FullName VARCHAR(50) NOT NULL,\n" +
                     " RepID VARCHAR(50) NOT NULL,\n" +
                     " Email VARCHAR(50) NOT NULL,\n" +
                     " PlantRegistry VARCHAR(50) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " Address2 VARCHAR(50) NOT NULL\n" +
-                    ");\n");
+                    ")" + endQueryLine);
+            LogManager.println("Done.");
         } catch (SQLException e) {
-            LogManager.println("Table 'Manufacturers' exists.", EnumWarningType.NOTE);
+            LogManager.println("Already exists.");
         }
 
     }
@@ -181,23 +231,23 @@ public class DatabaseManager {
             } else {
                 switch (type) {
                     case "All":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%';");
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%'" + endQueryLine);
                     case "Beer":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "');");
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     case "Wine":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "');");
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     default:
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "');");
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
-            return queryApplications("SELECT * FROM Applications WHERE " + column + " = '" + value + "';");
+            return queryApplications("SELECT * FROM Applications WHERE " + column + " = '" + value + "'" + endQueryLine);
         } else if (table.equals(EnumTableType.MANUFACTURER)) {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
             } else {
                 LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
-                return queryManufacturers("SELECT * FROM Manufacturers WHERE " + column + " = '" + value + "';");
+                return queryManufacturers("SELECT * FROM Manufacturers WHERE " + column + " = '" + value + "'" + endQueryLine);
             }
         }
         return null;
@@ -312,7 +362,7 @@ public class DatabaseManager {
                     + application.DateOfExpiration + "', '"
                     + application.ApprovedTTBID + "', '"
                     + application.ReasonForRejection
-                    + "');");
+                    + "')" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -332,12 +382,11 @@ public class DatabaseManager {
                 UserManufacturer manufacturer = new UserManufacturer(query);
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.username = username;
-                manufacturer.name = searchManufacturers.getString("name");
+                manufacturer.name = searchManufacturers.getString("FullName");
                 manufacturer.email = searchManufacturers.getString("email");
                 manufacturer.userType = EnumUserType.MANUFACTURER;
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company");
-                manufacturer.name = searchManufacturers.getString("Name");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
@@ -367,7 +416,7 @@ public class DatabaseManager {
                     "Email = '" + manufacturer.email + "', " +
                     "PlantRegistry = '" + manufacturer.PlantRegistry + "', " +
                     "PhoneNo = '" + manufacturer.PhoneNo + "' " +
-                    "WHERE Username = '" + manufacturer.username + "';");
+                    "WHERE Username = '" + manufacturer.username + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -379,12 +428,12 @@ public class DatabaseManager {
     public static void editApplication(Application application) {
         try {
             if (application.ApplicationStatus.equals("APPROVED")) {
-                statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "';");
-                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
+                statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "'" + endQueryLine);
+                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
                 approveApplication(application.ApplicationNo);
             } else {
-                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "';");
+                statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
             }
 
@@ -400,9 +449,9 @@ public class DatabaseManager {
     public static void approveApplication(String ApplicationNum) {
         String TTBID = generateTTBID();
         try {
-            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "';");
-            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "';");
-            statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "';");
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -465,7 +514,7 @@ public class DatabaseManager {
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
-                    PH + "');");
+                    PH + "') + endQueryLine");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -476,8 +525,8 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
         try {
-            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "';");
-            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "';");
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             LogManager.println("could not remove application");
@@ -514,7 +563,7 @@ public class DatabaseManager {
                     addToInbox.add((Application) applicationLinkedList.get(i));
 
                     try {
-                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "';");
+                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
                     }
@@ -599,7 +648,7 @@ public class DatabaseManager {
                     if (userType.equals(EnumUserType.SUPER_AGENT)) {
                         SuperAgent = "true";
                     }
-                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, Name, Email, SuperAgent) VALUES " +
+                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, FullName, Email, SuperAgent) VALUES " +
                             "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
@@ -608,7 +657,7 @@ public class DatabaseManager {
             if (userType.equals(EnumUserType.MANUFACTURER)) {
                 UserManufacturer manufacturer = (UserManufacturer) user;
                 try {
-                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, Password, Company, Name, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
+                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, PasswordHash, Company, FullName, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
                             "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')");
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
@@ -678,7 +727,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////TESTS/////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    /*public void entryTest() {
+    public void entryTest() {
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06110001000003', 'ID-I-15001', '060028', '2016-04-01', 'ROSADO', 'LO BRUJO', '52', '80', 'Beer')");
         } catch (SQLException e) {
@@ -721,6 +770,7 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer')");
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -790,22 +840,5 @@ public class DatabaseManager {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        try {
-            statement.executeUpdate("INSERT INTO Manufacturers (UUID, Username, Company) VALUES ('FakeUUID123', 'TheAlcoholic12', 'AlcoholicsAnonymous')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            statement.executeUpdate("INSERT INTO Manufacturers (UUID, Username, Company) VALUES ('UUID239', 'User123', 'RealCompany')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        try {
-            statement.executeUpdate("INSERT INTO Users (username, passwordHash, userType) VALUES ('user123', 'password123', 'Agent')");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
+    }
 }
