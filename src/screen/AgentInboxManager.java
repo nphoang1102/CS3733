@@ -27,11 +27,11 @@ import static base.Main.screenManager;
 public class AgentInboxManager extends Screen{
 
     @FXML
-    private Button pullNewBatch, EditAccount;
+    private Button pullNewBatch, EditAccount, clearInboxButton, setStatusButton;
     @FXML
     private TextArea results;
     @FXML
-    private ChoiceBox typeBox;
+    private ChoiceBox typeBox, agentStatus;
     @FXML
     private TableView inboxData;
     @FXML
@@ -40,6 +40,8 @@ public class AgentInboxManager extends Screen{
 
     private ObservableList<Application> inboxInfo = FXCollections.observableArrayList();
     private LinkedList<DataSet> uuidCodes = new LinkedList<>();
+    private UserAgent thisUser;
+    private UserAgent tempUser;
 
     //constructer for the screen
     public AgentInboxManager() {
@@ -53,7 +55,16 @@ public class AgentInboxManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data){
-        UserAgent tempUser = (UserAgent) data;
+        if(data instanceof UserAgent) {
+            tempUser = (UserAgent) data;
+        }
+        //set everything invisible and then make them reappear based on the account
+        pullNewBatch.setVisible(false);
+        EditAccount.setVisible(false);
+        clearInboxButton.setVisible(false);
+        setStatusButton.setVisible(false);
+        typeBox.setVisible(false);
+        agentStatus.setVisible(false);
 
         typeBox.setValue("Beer");
 
@@ -68,7 +79,7 @@ public class AgentInboxManager extends Screen{
 
 
         //query database for UUID's that current Agent has in inbox
-        UserAgent thisUser = (UserAgent) Main.getUser();
+        thisUser = (UserAgent) Main.getUser();
         if(thisUser.getSuperAgent().equals("false")) {
             uuidCodes = DatabaseManager.getApplicationsByAgent(thisUser.getUsername());
 
@@ -92,6 +103,11 @@ public class AgentInboxManager extends Screen{
                 });
                 return row;
             });
+            if(thisUser.getstatus().equals("APPROVED")){
+                pullNewBatch.setVisible(true);
+            }
+            EditAccount.setVisible(true);
+            typeBox.setVisible(true);
         }else{
             uuidCodes = DatabaseManager.getApplicationsByAgent(tempUser.getUsername());
 
@@ -102,7 +118,12 @@ public class AgentInboxManager extends Screen{
             }
 
             this.inboxData.setItems(inboxInfo);
+            clearInboxButton.setVisible(true);
+            setStatusButton.setVisible(true);
+            agentStatus.setVisible(true);
         }
+
+
     }
 
     @FXML
@@ -148,5 +169,16 @@ public class AgentInboxManager extends Screen{
         uuidCodes.remove(rString);
     }
 
+    public void setAgentStatus(MouseEvent mouseEvent) {
+        String statusType = (String) agentStatus.getValue();
+        if(statusType.equals("REMOVE")){
+            //DatabaseManager.createInbox(thisUser.getUsername());
+        }
+        //DatabaseManager.setStatus(statusType, thisUser.getUsername());
+    }
+
+    public void wipeInbox(MouseEvent mouseEvent) {
+        //DatabaseManager.clearInbox(thisUser.getUsername());
+    }
 }
 
