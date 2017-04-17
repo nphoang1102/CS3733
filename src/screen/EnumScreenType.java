@@ -19,7 +19,6 @@ public enum EnumScreenType {
     CREATE_ACCOUNT("CreateAccount.fxml"),
     COLA_ADVANCE_SEARCH("AdvanceColaSearch.fxml"),
     COLA_SEARCH_RESULT("ColaSearchResult.fxml"),
-    COLA_RESULT_POPUP("ColaResultPopup.fxml"),
     MANUFACTURER_SCREEN("ManufacturerInbox.fxml"),
     //    MANUFACTURER_VIEW_FORMS(""),
     MANUFACTURER_ADD_FORM("Application.fxml"),
