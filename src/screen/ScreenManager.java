@@ -154,6 +154,10 @@ public class ScreenManager {
     public static void updateUserIcon() {
         topBarScreen.updateUserIcon();
     }
+
+    public void initializeTopBar() {
+        topBarScreen.initSuggestiveSearch();
+    }
 }
 
 class State{
