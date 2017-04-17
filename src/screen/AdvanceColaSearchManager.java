@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
@@ -26,6 +27,7 @@ public class AdvanceColaSearchManager extends Screen {
     @FXML private Button clearButton, searchButton;
     @FXML private ChoiceBox drop1, drop2, drop3;
     @FXML private Pane contain;
+    @FXML private Label warning;
 
     /* Class constructor */
     public AdvanceColaSearchManager() {
@@ -37,6 +39,7 @@ public class AdvanceColaSearchManager extends Screen {
     public void onScreenFocused(DataSet data) {
         this.searchFieldInitialize();
         this.searchByInitialize();
+        this.warning.setVisible(false);
     }
 
     /* Initialize the choice boxes */
@@ -71,6 +74,7 @@ public class AdvanceColaSearchManager extends Screen {
             field3.clear();
         }
         else field3.setDisable(false);
+        this.warning.setVisible(false);
     }
 
     /* What to do when the clear button is clicked */
@@ -81,15 +85,34 @@ public class AdvanceColaSearchManager extends Screen {
 
     /* What to do when the search button is clicked */
     public void searchClicked() {
-//        LogManager.println("Search field 2 value is " + field2.getText().equals(""));
-        DataSet searchFields = new BasicDataSet();
-        searchFields.addField("isAdvance", "true");
-        searchFields.addField("searchCat1", drop1.getValue() + "");
-        searchFields.addField("searchTerm1", field1.getText());
-        searchFields.addField("searchCat2", drop2.getValue() + "");
-        searchFields.addField("searchTerm2", field2.getText());
-        searchFields.addField("searchCat3", drop3.getValue() + "");
-        searchFields.addField("searchTerm3", field3.getText());
-        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
+        if (this.isLegit()) {
+            DataSet searchFields = new BasicDataSet();
+            searchFields.addField("isAdvance", "true");
+            searchFields.addField("searchCat1", drop1.getValue() + "");
+            searchFields.addField("searchTerm1", field1.getText());
+            searchFields.addField("searchCat2", drop2.getValue() + "");
+            searchFields.addField("searchTerm2", field2.getText());
+            searchFields.addField("searchCat3", drop3.getValue() + "");
+            searchFields.addField("searchTerm3", field3.getText());
+            LogManager.print("The user is searching for " + field1.getText() + " under " + drop1.getValue()
+                    + ", " + field2.getText() + " under " + drop2.getValue()
+                    + ", " + field3.getText() + " under " + drop3.getValue());
+            Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
+        }
+    }
+
+    /* Check if entries are eligible for advance search */
+    public boolean isLegit() {
+        if ((!field1.getText().equals("")) && (!drop1.getValue().equals(""))) {
+            if ( ((!drop2.getValue().equals("")) && (!field2.getText().equals("")))
+                    || ((!drop3.getValue().equals("")) && (!field3.getText().equals(""))) ) {
+                return true;
+            }
+            else return true;
+        }
+        else {
+            this.warning.setVisible(true);
+            return false;
+        }
     }
 }
