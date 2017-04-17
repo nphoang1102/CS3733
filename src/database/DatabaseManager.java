@@ -286,7 +286,8 @@ public class DatabaseManager {
             else{
                 combinedQuery = "SELECT * FROM Alcohol";
             }
-            ResultSet getAdvanced = statement.executeQuery(combinedQuery);
+
+            /*ResultSet getAdvanced = statement.executeQuery(combinedQuery);
             while (getAdvanced.next()) {
                 Alcohol alcohol = new Alcohol();
                 alcohol.TTBID = getAdvanced.getString("TTBID");
@@ -302,12 +303,13 @@ public class DatabaseManager {
                 alcohol.VintageYear = getAdvanced.getString("VintageYear");
                 alcohol.PH = getAdvanced.getString("PH");
                 advancedLinkedList.add(alcohol);
-            }
-        } catch (SQLException e) {
+            }*/
+        } catch (Exception e) {
             LogManager.println("No matches found!", EnumWarningType.WARNING);
             return new LinkedList<>();
         }
-        return advancedLinkedList;
+//        return advancedLinkedList;
+        return queryAlcohol(combinedQuery);
     }
 
 
