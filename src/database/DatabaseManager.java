@@ -264,13 +264,50 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
-//        LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
+        LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
         String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "' ";
         String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
         String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "' ";
-//        ResultSet getAdvanced = statement.executeQuery(query1 + "UNION " + query2 + "UNION " + query3 + ";");
+        String combinedQuery;
 
-        return queryAlcohol(query1 + "UNION " + query2 + "UNION " + query3 + endQueryLine);
+        try {
+            if(!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()){
+                combinedQuery = query1;
+            }
+            else if(!val1.isEmpty() && !val2.isEmpty() && val3.isEmpty()){
+                combinedQuery = query1 + "UNION " + query2;
+            }
+            else if(!val1.isEmpty() && val2.isEmpty() && !val3.isEmpty()){
+                combinedQuery = query1 + "UNION " + query3;
+            }
+            else if(!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty()){
+                combinedQuery = query1 + "UNION " + query2 + "UNION " + query3;
+            }
+            else{
+                combinedQuery = "SELECT * FROM Alcohol";
+            }
+            ResultSet getAdvanced = statement.executeQuery(combinedQuery);
+            while (getAdvanced.next()) {
+                Alcohol alcohol = new Alcohol();
+                alcohol.TTBID = getAdvanced.getString("TTBID");
+                alcohol.PermitNo = getAdvanced.getString("PermitNo");
+                alcohol.SerialNo = getAdvanced.getString("SerialNo");
+                alcohol.CompletedDate = getAdvanced.getString("CompletedDate");
+                alcohol.FancifulName = getAdvanced.getString("FancifulName");
+                alcohol.BrandName = getAdvanced.getString("BrandName");
+                alcohol.Class = getAdvanced.getString("Class");
+                alcohol.Origin = getAdvanced.getString("Origin");
+                alcohol.Type = getAdvanced.getString("Type");
+                alcohol.AlcoholContent = getAdvanced.getString("AlcoholContent");
+                alcohol.VintageYear = getAdvanced.getString("VintageYear");
+                alcohol.PH = getAdvanced.getString("PH");
+                advancedLinkedList.add(alcohol);
+            }
+        } catch (SQLException e) {
+            LogManager.println("No matches found!", EnumWarningType.WARNING);
+            return new LinkedList<>();
+        }
+        return advancedLinkedList;
     }
 
 
@@ -419,6 +456,7 @@ public class DatabaseManager {
                 manufacturer.userType = EnumUserType.MANUFACTURER;
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company");
+                manufacturer.name = searchManufacturers.getString("Name");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
@@ -802,7 +840,6 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('06243001000024', 'BR-MA-BOS-1', '06048C', '2015/05/28', 'HONEY PORTER', 'SAMUEL ADAMS', '26', '906', 'Beer')");
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
