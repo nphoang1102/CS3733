@@ -40,7 +40,7 @@ public class SuperAgentScreenManager {
         //super(EnumScreenType.AGENT_INBOX);
     }
 
-    public void loadTable(MouseEvent mouseEvent) {
+    public void onScreenFocused(MouseEvent mouseEvent) {
         statusType.setValue("ACTIVE");
 
         agentUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
@@ -48,7 +48,7 @@ public class SuperAgentScreenManager {
         numApps.setCellValueFactory(new PropertyValueFactory<>("numAppsRev"));
 
         //contact database to fill agents by user type
-        //agents =  DatabaseManager.getAgentsByStatus(statusType.getValue());
+        agents =  DatabaseManager.queryDatabase(EnumTableType.AGENT, "Status", (String) statusType.getValue());
 
         //wipes the table
         tableInfo.clear();
@@ -73,7 +73,7 @@ public class SuperAgentScreenManager {
         });
     }
 
-    public void ReOrganizeTable(MouseEvent mouseEvent) {
+    public void loadTable(MouseEvent mouseEvent) {
         String tempType = (String) statusType.getValue();
 /*        LinkedList<DataSet> results =  DatabaseManager.getAgentsByStatus(tempType);
         if(results.size() > 0) {
