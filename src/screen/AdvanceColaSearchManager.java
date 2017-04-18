@@ -7,6 +7,7 @@ import database.Alcohol;
 import database.BasicDataSet;
 import database.DataSet;
 import database.DatabaseManager;
+import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,9 +16,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
+import javafx.util.Callback;
+import org.controlsfx.control.textfield.AutoCompletionBinding;
+import org.controlsfx.control.textfield.TextFields;
 import sun.rmi.runtime.Log;
 
+import javax.xml.soap.Text;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.LinkedList;
 
 /**
@@ -159,5 +165,12 @@ public class AdvanceColaSearchManager extends Screen {
             return false;
         }
         return true;
+    }
+
+    /* Check field 1 to initialize the suggestive search */
+    public void checkField1() {
+        if (drop1.getValue().equals("BrandName")) TextFields.bindAutoCompletion(this.field1, this.sugBrand);
+        else if (drop1.getValue().equals("FancifulName")) TextFields.bindAutoCompletion(this.field1, this.sugFan);
+        else if (drop1.getValue().equals("Type")) TextFields.bindAutoCompletion(this.field1, this.sugType);
     }
 }
