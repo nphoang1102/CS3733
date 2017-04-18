@@ -3,6 +3,7 @@ package database;
 import base.*;
 import screen.EnumUserType;
 import sun.awt.image.ImageWatched;
+import sun.rmi.runtime.Log;
 /*import com.sun.org.apache.xpath.internal.operations.Or;
 import com.sun.xml.internal.bind.v2.TODO
 import screen.EnumUserType;
@@ -269,12 +270,31 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
-        LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
+        if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
+            val1 = val1.toUpperCase();
+        }
+        if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
+            val2 = val2.toUpperCase();
+        }
+        if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
+            val3 = val3.toUpperCase();
+        }
+
         String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "' ";
         String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
         String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "' ";
         String combinedQuery;
- 
+
+        if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
+            val1 = val1.toUpperCase();
+        }
+        if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
+            val2 = val2.toUpperCase();
+        }
+        if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
+            val3 = val3.toUpperCase();
+        }
+
         try {
             if(!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()){
                 combinedQuery = query1;
