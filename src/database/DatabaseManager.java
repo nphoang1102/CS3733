@@ -468,7 +468,6 @@ public class DatabaseManager {
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
-                manufacturer.Agent = searchManufacturers.getString("Agent");
                 manufacturers.add(manufacturer); //One to beam up.
                 LogManager.print(manufacturers.size() + "items long.");
             }
@@ -784,6 +783,7 @@ public class DatabaseManager {
 //        String table = "Agents";
 //        boolean Super = false;
         try {
+            //if(userType.equals(EnumUserType.SUPER_AGENT)){table = "Agents"; Super = true;}
             if (userType.equals(EnumUserType.AGENT) || userType.equals(EnumUserType.SUPER_AGENT)) {
                 try {
                     UserAgent agent = (UserAgent) user;
