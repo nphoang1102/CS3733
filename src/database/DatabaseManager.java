@@ -127,7 +127,7 @@ public class DatabaseManager {
         LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
-                    " TTBID VARCHAR(30) PRIMARY KEY,\n" +
+                    " TTBID VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " CompletedDate DATE,\n" +
@@ -147,7 +147,7 @@ public class DatabaseManager {
         LogManager.print("Creating applications table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(20) PRIMARY KEY,\n" +
+                    " ApplicationNo VARCHAR(20) PRIMARY KEY UNIQUE,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
@@ -199,7 +199,7 @@ public class DatabaseManager {
         LogManager.print("Creating manufacturers table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
-                    " Username VARCHAR(30) PRIMARY KEY,\n" +
+                    " Username VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
                     " PasswordHash VARCHAR(75) NOT NULL,\n" +
                     " Company VARCHAR(100) NOT NULL,\n" +
                     " FullName VARCHAR(50) NOT NULL,\n" +
@@ -208,7 +208,8 @@ public class DatabaseManager {
                     " PlantRegistry VARCHAR(50) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " Address2 VARCHAR(50) NOT NULL,\n" +
-                    " Agent VARCHAR(30)\n" +
+                    " Agent VARCHAR(30),\n" +
+                    " AgentDate VARCHAR(20)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
@@ -469,6 +470,8 @@ public class DatabaseManager {
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
+                manufacturer.Agent = searchManufacturers.getString("Agent");
+                manufacturer.AgentDate = searchManufacturers.getString("AgentDate");
                 manufacturers.add(manufacturer); //One to beam up.
                 LogManager.print(manufacturers.size() + "items long.");
             }
@@ -802,8 +805,8 @@ public class DatabaseManager {
             if (userType.equals(EnumUserType.MANUFACTURER)) {
                 UserManufacturer manufacturer = (UserManufacturer) user;
                 try {
-                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, PasswordHash, Company, FullName, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
-                            "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')");
+                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, PasswordHash, Company, FullName, RepID, Email, PlantRegistry, PhoneNo, Address2, Agent, AgentDate) VALUES " +
+                            "('" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '', '', '', '', '', '', '', '', '')");
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
