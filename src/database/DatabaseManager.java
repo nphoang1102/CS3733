@@ -631,8 +631,7 @@ public class DatabaseManager {
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
-//        String AlcoholClass = approvedApplication.
-//        LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
+        String Class = "";
 
         try {
             LogManager.println("INSERTING THINGS NOW!!!");
@@ -644,11 +643,11 @@ public class DatabaseManager {
                     "FancifulName, " +
                     "BrandName, " +
                     "Origin, " +
-//                    "Class, " +
-                    "Type, " + //TODO - Is this wrong??
+                    "Type, " +
                     "AlcoholContent, " +
                     "VintageYear, " +
-                    "PH) VALUES ('" +
+                    "PH, " +
+                    "Class) VALUES ('" +
                     ApprovedTTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
@@ -656,11 +655,11 @@ public class DatabaseManager {
                     FancifulName + "', '" +
                     Brand + "', '" +
                     Locality + "', '" +
-//                    Class + "', '" +
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
-                    PH + "') + endQueryLine");
+                    PH + "', '" +
+                    Class + "')" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -669,7 +668,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
+    public static void rejectApplication(String ApplicationNo) {
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
