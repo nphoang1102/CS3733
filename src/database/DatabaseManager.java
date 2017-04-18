@@ -695,61 +695,62 @@ public class DatabaseManager {
     ///////////ADD APPLICATIONS TO AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
-        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';");
+        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "' AND Status = 'PENDING' AND AgentUsername = '';");
         LinkedList<Application> addToInbox = new LinkedList<>();
-/*        for (int i = 0; i < num; i++) {
-            try {
-                Application tempApp = (Application) applicationLinkedList.get(i);
-                if (tempApp.ApplicationStatus.equals("PENDING") && tempApp.AgentUsername.equals("")) {
-                    LogManager.println("Application added");
-                    addToInbox.add((Application) applicationLinkedList.get(i));
 
+        //counters
+        int i = 0;
+        int j = -1;
+        //checks if it is the first time through the linked list
+        boolean isFirst = true;
+        //makes sure that the inbox never exceeds 10 applications
+        while(i < num){
+            try{
+                //increaces the counter of linked list
+                j++;
+                //gets one of the applications from all applications
+                Application tempApp = (Application) applicationLinkedList.get(j);
+                //gets the manucaturer for the specific application
+                LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.MANUFACTURER, "Username", tempApp.ManufacturerUsername);
+                UserManufacturer tempMan = (UserManufacturer) tempMans.getFirst();
+                //check if that manufacturer has a specific agent on the day and adds it to the inbox
+                if (tempMan.Agent.equals(username)) {
+                    addToInbox.add((Application) applicationLinkedList.get(j));
                     try {
+                        //sets the applications agent as the agents username who was there
                         statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+                        //sets the manufacturers agent and day to the agent username and date passed in
+                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                        //increments the number of applications added to the inbox
+                        i++;
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
                     }
-                }
-            } catch (Exception e) { //If your hand touches metal,
-                //I swear by my pretty floral bonnet, I will end you.
-                break;
-            }
-
-        }*/
-        int i = 0;
-        boolean isFirst = true;
-        while(i < num){
-            try{
-                Application tempApp = (Application) applicationLinkedList.get(i);
-                if (tempApp.ApplicationStatus.equals("PENDING") && tempApp.AgentUsername.equals("")) {
-                    LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.MANUFACTURER, "Username", tempApp.ManufacturerUsername);
-                    UserManufacturer tempMan = (UserManufacturer) tempMans.getFirst();
-                    if (tempMan.Agent.equals(username)) {
+                //checks if the manufacturer doesnt have an agent
+                }else if(tempMan.Agent.equals("")){
+                    //adds the application to the inbox on the second pass
+                    if(!isFirst){
+                        //same as above
                         addToInbox.add((Application) applicationLinkedList.get(i));
                         try {
                             statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
                             statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                            i++;
                         } catch (SQLException e) {
                             LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
                         }
-                    }else if(tempMan.Agent.equals("")){
-                        if(!isFirst){
-                            addToInbox.add((Application) applicationLinkedList.get(i));
-                            try {
-                                statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
-                                statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
-                            } catch (SQLException e) {
-                                LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
-                            }
-                        }
-                    }else{}
+                    }
                 }
-            }catch (Exception e) { //If your hand touches metal,
-                //I swear by my pretty floral bonnet, I will end you.
+                //if the user has an agent it does not add it to the inbox
+                else{}
+            }catch (Exception e) {
+                //list of applications chagned
                 if(isFirst){
-                    isFirst = true;
-                    i = 0;
+                    //makes the while loop continue and start at the begining of the list
+                    isFirst = false;
+                    j = -1;
                 }else {
+                    //the list ran out of entries twice so break the loop cause nothings left
                     break;
                 }
             }
