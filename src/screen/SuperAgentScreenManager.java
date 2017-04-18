@@ -70,8 +70,8 @@ public class SuperAgentScreenManager extends Screen {
                 if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
                     UserAgent tempResult = row.getItem();
                     System.out.println(tempResult);
-                    if(tempResult.getSuperAgent().equals("false")) {
-                        if(tempResult.getstatus().equals("PEDING")){
+                    if(tempResult.getSuperAgent().equalsIgnoreCase("false")) {
+                        if(tempResult.getstatus().equals("PENDING")){
                             screenManager.popoutScreen(EnumScreenType.AGENT_PENDING, "Agent Application Page", tempResult);
                         }else {
                             screenManager.popoutScreen(EnumScreenType.AGENT_INBOX, "View Agent Page", tempResult);

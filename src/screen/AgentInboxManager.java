@@ -167,9 +167,6 @@ public class AgentInboxManager extends Screen{
         Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
     }
 
-    public void removeId(String rString){
-        uuidCodes.remove(rString);
-    }
 
     public void setAgentStatus(MouseEvent mouseEvent) {
         String statusType = (String) agentStatus.getValue();
