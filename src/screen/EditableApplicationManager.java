@@ -92,6 +92,9 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button cancel_button;
 
+    @FXML
+    private Button label_button;
+
     public Application data;
 
     String manufacturer = Main.getUsername();
@@ -257,6 +260,7 @@ public class EditableApplicationManager extends Screen {
         grapes_field.setDisable(true);
         product_source_box.setDisable(true);
         product_type_box.setDisable(true);
+        label_button.setDisable(true);
 
         app_type_box.setDisable(true);
         app_type_field.setDisable(true);
