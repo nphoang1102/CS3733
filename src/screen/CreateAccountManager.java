@@ -64,21 +64,17 @@ public class CreateAccountManager extends Screen{
 
         //query database to get all usernames
         //check if user is in the list
-        if(!user.equals("")) {
-            if (userType != null) { //placeholder for now
+        if(!user.equals("")&&!curPassword.equals("")) {
+            if (userType != null) {
                 if(curPassword.equals(verPassword)) {
-                    //tell the system who made an account
-                    LogManager.println(user + " just made an account");
-
                     //record the account in the database
                     if (userType.equals(EnumUserType.AGENT)) {
                         UserAgent tempUser = new UserAgent(user);
-                        //tell the system what type of user they are
-                        LogManager.println(user + " is a " + userType);
                         //create new agent, no password
                         DatabaseManager.addUser(tempUser, password.getText(), userType);
+                        //set agent to pending
+                        tempUser.setStatus("PENDING");
                         Main.setUser(tempUser);
-                        LogManager.println(tempUser + "logged in");
                         Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
                     } else if (userType.equals(EnumUserType.MANUFACTURER)) {
@@ -105,8 +101,6 @@ public class CreateAccountManager extends Screen{
                     passwordVerify.clear();
                 }
             } else { //they didn't select a box
-                //tell the system they didn't select a box
-                LogManager.println(user + " didn't select a user type");
                 //repopulate the field with their name
                 accountError.setText(user + ", select a box.");
             }
@@ -138,18 +132,27 @@ public class CreateAccountManager extends Screen{
     }
     @FXML
     private void selectAgent(){
-        //untick others
-        tickManufacturer.setSelected(false);
-        tickManufacturer.setIndeterminate(false);
-        userType = EnumUserType.AGENT;
-
+        //check if the agent box is currently selected
+        if(tickAgent.selectedProperty().getValue()) {
+            //untick others
+            tickManufacturer.setSelected(false);
+            tickManufacturer.setIndeterminate(false);
+            userType = EnumUserType.AGENT;
+        }else{
+            userType = null;
+        }
     }
     @FXML
     private void selectManufacturer(){
-        //untick others
-        tickAgent.setSelected(false);
-        tickAgent.setIndeterminate(false);
-        userType = EnumUserType.MANUFACTURER;
+        //check if manufacturer box is currently selected
+        if(tickManufacturer.selectedProperty().getValue()) {
+            //untick others
+            tickAgent.setSelected(false);
+            tickAgent.setIndeterminate(false);
+            userType = EnumUserType.MANUFACTURER;
+        }else{
+            userType = null;
+        }
     }
 
     @FXML
@@ -162,7 +165,7 @@ public class CreateAccountManager extends Screen{
         double securityLevel = 0.0;
         //check the password actually changed
         if(!curPassword.equals(oldPassword)) {
-            
+
             LinkedList<String> badPasswords = new LinkedList<String>(Arrays.asList(
                     "password",
                     "qwerty",
