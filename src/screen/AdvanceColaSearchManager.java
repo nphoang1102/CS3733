@@ -46,7 +46,8 @@ public class AdvanceColaSearchManager extends Screen {
     /* Initialize the choice boxes */
     public void searchByInitialize() {
         ObservableList<String> searchByList = FXCollections.observableArrayList("","TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
-        drop1.setItems(searchByList);
+        ObservableList<String> defaultSearchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+        drop1.setItems(defaultSearchByList);
         drop2.setItems(searchByList);
         drop3.setItems(searchByList);
         drop1.setValue("BrandName");
