@@ -59,8 +59,8 @@ public class ColaSearchResultManager extends Screen{
             this.isAdvance = true;
             this.adStrings[0] = data.getValueForKey("searchCat1");
             this.adStrings[1] = data.getValueForKey("searchTerm1");
-            this.adStrings[2] = data.getValueForKey("searchCat3");
-            this.adStrings[3] = data.getValueForKey("searchTerm3");
+            this.adStrings[2] = data.getValueForKey("searchCat2");
+            this.adStrings[3] = data.getValueForKey("searchTerm2");
             this.adStrings[4] = data.getValueForKey("searchCat3");
             this.adStrings[5] = data.getValueForKey("searchTerm3");
         }

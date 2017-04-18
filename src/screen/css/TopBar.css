@@ -4,12 +4,6 @@
 	-fx-text-fill:  #ffffff;
 }
 
-.choice-box . {
-	-fx-font-family: "Telugu Sangam MN";
-    -fx-font-size: 12px;
-	-fx-text-fill:  #ffffff;
-}
-
 .choice-box .context-menu {
 	-fx-background-color: #939393 ;
 	-fx-pref-tile-width: 117;
