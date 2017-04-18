@@ -24,7 +24,7 @@ public class DatabaseManager {
     private String databaseType;
     private String databaseName;
     private String databaseServer;
-    private boolean derby = false;
+    private boolean derby = false; //Plz no
     private boolean mysql = false;
     private static String endQueryLine;
 //    private boolean sqlite = false;
@@ -33,21 +33,16 @@ public class DatabaseManager {
     ///////////EXCEPTIONS////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public class UserNotFoundException extends Exception {
-//        String username;
-
         UserNotFoundException(String username) {
             super("User " + username + " not found");
         }
     }
 
     public class IncorrectPasswordException extends Exception {
-//        String username;
-
         IncorrectPasswordException(String username) {
-            super("Incorrect password for user " + username + "!");
+            super("Incorrect password for user " + username + "!"); //<HAL>I'm sorry Dave, but I'm afraid I can't do that.</HAL>
         }
     }
-
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
@@ -58,11 +53,11 @@ public class DatabaseManager {
         databaseServer = "icarusnet.me";
 
         if(databaseType.equals("derby")){
-            derby = true;
+            derby = true; //MAGIC!
             endQueryLine = "";
         }
         else if(databaseType.equals("mysql") || databaseType.equals("MySQL")){
-            mysql = true;
+            mysql = true; //MORE MAGIC!
             endQueryLine = ";";
         }
         /*else if(database.equals("sqlite") || database.equals("SQLite")){
@@ -93,11 +88,11 @@ public class DatabaseManager {
                 connection = DriverManager.getConnection("jdbc:sqlite:TTB.db");
             }*/
             LogManager.println("Connection established!");
-        } catch (SQLException e) {
+        } catch (SQLException e) { //BOOKER, CATCH!
             LogManager.println("");
             LogManager.print("Database connection failed. ", EnumWarningType.ERROR);
             if(derby){
-                LogManager.println("There may already be a connection to the database.");
+                LogManager.println("There may already be a connection to the database."); //Derby is monogamous.
             }
             else if(mysql){
                 LogManager.println("");
@@ -112,13 +107,15 @@ public class DatabaseManager {
 
         try {
             statement = connection.createStatement();
-        } catch (SQLException e) {
+        } catch (SQLException e) {//CATCH, BOOKER!
             LogManager.printStackTrace(e.getStackTrace());
-            LogManager.println("statement failed");
+            LogManager.println("statement failed"); // （　ﾟДﾟ）
             e.printStackTrace();
         }
+        //On the second day, god...
         createTables();
-//        entryTest();
+        //...created the tables
+//        entryTest(); //Even god tests his database.
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -143,8 +140,8 @@ public class DatabaseManager {
                     " PH VARCHAR(10)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
-        } catch (SQLException e) {
-            createTableError(e);
+        } catch (SQLException e) { //BOOKERCATCH!!!!
+            createTableError(e); //It was as if a million voices suddenly cried out in terror, and were suddenly silenced.
         }
         LogManager.print("Creating applications table... ", EnumWarningType.NOTE);
         try {
@@ -196,9 +193,9 @@ public class DatabaseManager {
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
-            createTableError(e);
+            createTableError(e); //(ノಠ ∩ಠ)ノ彡( \o°o)\
         }
-        LogManager.print("Creating manufactureres table... ", EnumWarningType.NOTE);
+        LogManager.print("Creating manufacturers table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
                     " Username VARCHAR(30) PRIMARY KEY,\n" +
@@ -209,13 +206,13 @@ public class DatabaseManager {
                     " Email VARCHAR(50) NOT NULL,\n" +
                     " PlantRegistry VARCHAR(50) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
-                    " Address2 VARCHAR(50) NOT NULL\n" +
+                    " Address2 VARCHAR(50) NOT NULL,\n" +
+                    " Agent VARCHAR(30)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
             createTableError(e);
         }
-
     }
     private static void createTableError(Exception e){
         if(e.getMessage().contains("already exists")){
@@ -223,7 +220,8 @@ public class DatabaseManager {
         }
         else{
             LogManager.println("ERROR: " + e.getMessage());
-            System.exit(0);
+
+            System.exit(0); //(╯°□°）╯︵ ┻━┻
         }
     }
 
@@ -237,7 +235,7 @@ public class DatabaseManager {
             if (value.isEmpty() && type.equals("All")) {
                 return queryAlcohol("SELECT * FROM Alcohol"+endQueryLine);
             } else {
-                switch (type) {
+                switch (type) { //funky fresh
                     case "All":
                         return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%'" + endQueryLine);
                     case "Beer":
@@ -261,6 +259,7 @@ public class DatabaseManager {
             LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
             return queryAgents("SELECT * FROM Agents WHERE " + column + " = '" + value + "'" + endQueryLine);
         }
+        //You asked for a hamburger. I...
         return null;
     }
 
@@ -271,7 +270,7 @@ public class DatabaseManager {
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
         if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
-            val1 = val1.toUpperCase();
+            val1 = val1.toUpperCase(); //lowercase is lame.
         }
         if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
             val2 = val2.toUpperCase();
@@ -279,11 +278,11 @@ public class DatabaseManager {
         if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
             val3 = val3.toUpperCase();
         }
-        
+
         String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " LIKE '" + val1 + "%' OR " + cat1 + " LIKE '%" + val1 + "' OR " + cat1 + " LIKE '%" + val1 + "%'";
         String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%'";
         String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%'";
-        String combinedQuery;
+        String combinedQuery; //4 Cuils
 
         if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
             val1 = val1.toUpperCase();
@@ -309,7 +308,7 @@ public class DatabaseManager {
                 combinedQuery = query1 + "UNION " + query2 + "UNION " + query3;
             }
             else{
-                combinedQuery = "SELECT * FROM Alcohol";
+                combinedQuery = "SELECT * FROM Alcohol"; //It's been a rough day.
             }
         } catch (Exception e) {
             LogManager.println("No matches found!", EnumWarningType.WARNING);
@@ -329,7 +328,7 @@ public class DatabaseManager {
         try {
             ResultSet getAlcohol = statement.executeQuery(queryStr);
             while (getAlcohol.next()) {
-                Alcohol alcohol = new Alcohol();
+                Alcohol alcohol = new Alcohol(); //Bottoms up!
                 alcohol.TTBID = getAlcohol.getString("TTBID");
                 alcohol.PermitNo = getAlcohol.getString("PermitNo");
                 alcohol.SerialNo = getAlcohol.getString("SerialNo");
@@ -345,18 +344,18 @@ public class DatabaseManager {
                 alcoholLinkedList.add(alcohol);
             }
         } catch (SQLException e) {
-            LogManager.println("No matches!", EnumWarningType.WARNING);
+            LogManager.println("No matches!", EnumWarningType.WARNING);//Bummer, dude.
             return new LinkedList<>();
         }
-
         return alcoholLinkedList;
+//        ヽ(´ー｀)ノ
     }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERATE TTBID////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     private static String generateTTBID() {
-        return Long.toString(Math.round(Math.random() * 10000000));
+        return Long.toString(Math.round(Math.random() * 10000000)); //(;o;)
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -364,7 +363,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-        String ApplicationNo = generateTTBID();
+        String ApplicationNo = generateTTBID(); //Welcome to the new age.
         String date = StringUtilities.getDate();
         try {
             LogManager.println("Submitting new application.", EnumWarningType.NOTE);
@@ -388,8 +387,8 @@ public class DatabaseManager {
                     "Address2, " +
                     "Formula, " +
                     "WineAppelation, " +
-                    "VintageDate," +
-                    "Grapes, " +
+                    "VintageDate," + //Even older than your mom.
+                    "Grapes, " + //I'm sorry. I'm sure your mom is a lovely person.
                     "PH," +
                     "PhoneNo, " +
                     "Email, " +
@@ -431,7 +430,7 @@ public class DatabaseManager {
                     + application.ReasonForRejection
                     + "')" + endQueryLine);
         } catch (SQLException e) {
-            LogManager.println("Failed to submit new application " + ApplicationNo + ": " + e.getMessage());
+            LogManager.println("Failed to submit new application " + ApplicationNo + ": " + e.getMessage()); //I cannot change the laws of physics, cap'n!
 
         }
         try {
@@ -440,6 +439,7 @@ public class DatabaseManager {
                     "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
         }
         catch (SQLException e){
+            //ಠ_ಠ
             LogManager.print("Could not set DateOfSubmission on newly submitted application " + ApplicationNo + ": ");
             LogManager.println(e.getMessage());
         }
@@ -463,12 +463,12 @@ public class DatabaseManager {
                 manufacturer.email = searchManufacturers.getString("email");
                 manufacturer.userType = EnumUserType.MANUFACTURER;
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
-                manufacturer.Company = searchManufacturers.getString("Company");
-                manufacturer.name = searchManufacturers.getString("Name");
+                manufacturer.Company = searchManufacturers.getString("Company"); //I have a cat.
+                manufacturer.name = searchManufacturers.getString("FullName");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
-                manufacturers.add(manufacturer);
+                manufacturers.add(manufacturer); //One to beam up.
                 LogManager.print(manufacturers.size() + "items long.");
             }
             searchManufacturers.close();
@@ -482,7 +482,7 @@ public class DatabaseManager {
     ///////////AGENT QUERIES/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     private static LinkedList<DataSet> queryAgents(String query) {
-        LinkedList<DataSet> agents = new LinkedList<>();
+        LinkedList<DataSet> agents = new LinkedList<>(); //That's no moon!
         try {
             ResultSet searchAgents = statement.executeQuery(query);
             LogManager.println("queryAgents() has run the query: " + query, EnumWarningType.NOTE);
@@ -491,11 +491,11 @@ public class DatabaseManager {
                 agent.ID = searchAgents.getString("ID");
                 agent.username = searchAgents.getString("Username");
                 agent.PasswordHash = searchAgents.getString("PasswordHash");
-                agent.name = searchAgents.getString("Name");
+                agent.name = searchAgents.getString("FullName");
                 agent.email = searchAgents.getString("Email");
                 agent.superAgent = searchAgents.getString("SuperAgent");
                 agent.status = searchAgents.getString("Status");
-                agents.add(agent);
+                agents.add(agent); //Welcome to the obsidian order.
             }
             searchAgents.close();
         } catch (SQLException e) {
@@ -507,12 +507,37 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SET STATUS////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void setAgentStatus(String username, String status){
-        try {
-            statement.executeUpdate("UPDATE Agents SET " +
-                    "Status = '" + status + "' " +
-                    "WHERE Username = '" + username + "'" + endQueryLine);
-        } catch (SQLException e) {
+    public static void setAgentStatus(String username, String status){ //We're competing with facebook.
+
+        status = status.toUpperCase();
+        if(status.equals("REMOVE")){
+            try{
+                statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                statement.executeUpdate("UPDATE Agents SET " +
+                        "Status = '" + status + "' " +
+                        "WHERE Username = '" + username + "'" + endQueryLine);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////Clear Table///////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public void clearInbox(String username){
+        try{
+            statement.executeUpdate("UPDATE Applications SET" +
+                            "AgentUsername = '' " +
+                            "WHERE AgentUsername = '" + username + "'" + endQueryLine);
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
@@ -528,7 +553,7 @@ public class DatabaseManager {
                 userm.username = searchManufacturers.getString("Username");
             }*/
             statement.executeUpdate("UPDATE Manufacturers SET " +
-                    "Name = '" + manufacturer.name + "', " +
+                    "FullName = '" + manufacturer.name + "', " + //WHOOOOO ARE YOU? OOH OHH, OOH OOH...
                     "RepID = '" + manufacturer.RepID + "', " +
                     "Email = '" + manufacturer.email + "', " +
                     "PlantRegistry = '" + manufacturer.PlantRegistry + "', " +
@@ -553,8 +578,6 @@ public class DatabaseManager {
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
             }
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -573,7 +596,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNum);
-        assert approvedApplicationLinkedList != null;
+        assert approvedApplicationLinkedList != null; //THERE. ARE. FOUR! LIGHTS!
         Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
         String ApplicationNo = approvedApplication.ApplicationNo;
         String SerialNo = approvedApplication.SerialNo;
@@ -586,14 +609,14 @@ public class DatabaseManager {
         String PlantRegistry = approvedApplication.PlantRegistry;
         String Locality = approvedApplication.Locality;
         String Brand = approvedApplication.Brand;
-        String FancifulName = approvedApplication.FancifulName;
+        String FancifulName = approvedApplication.FancifulName; //Fancy feast is delicious.
         String AlcoholType = approvedApplication.AlcoholType;
         String ABV = approvedApplication.ABV;
-        String Address = approvedApplication.Address;
-        String Address2 = approvedApplication.Address2;
+        String Address = approvedApplication.Address;//Is this the real life?
+        String Address2 = approvedApplication.Address2;//Is this just fantasy?
         String Formula = approvedApplication.Formula;
-        String WineAppelation = approvedApplication.WineAppelation;
-        String VintageDate = approvedApplication.VintageDate;
+        String WineAppelation = approvedApplication.WineAppelation;//Caught in a landslide
+        String VintageDate = approvedApplication.VintageDate;//NO ESCAPE FROM REALITY...
         String Grapes = approvedApplication.Grapes;
         String PH = approvedApplication.PH;
         String PhoneNo = approvedApplication.PhoneNo;
@@ -604,6 +627,7 @@ public class DatabaseManager {
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
+//        String AlcoholClass = approvedApplication.
 //        LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
 
         try {
@@ -616,8 +640,8 @@ public class DatabaseManager {
                     "FancifulName, " +
                     "BrandName, " +
                     "Origin, " +
-                    "Class, " +
-                    "Type, " +
+//                    "Class, " +
+                    "Type, " + //TODO - Is this wrong??
                     "AlcoholContent, " +
                     "VintageYear, " +
                     "PH) VALUES ('" +
@@ -628,6 +652,7 @@ public class DatabaseManager {
                     FancifulName + "', '" +
                     Brand + "', '" +
                     Locality + "', '" +
+//                    Class + "', '" +
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
@@ -646,7 +671,7 @@ public class DatabaseManager {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
-            LogManager.println("could not remove application", EnumWarningType.ERROR);
+            LogManager.println("could not remove application", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
             e.printStackTrace();
         }
     }
@@ -685,12 +710,13 @@ public class DatabaseManager {
                         LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
                     }
                 }
-            } catch (Exception e) {
+            } catch (Exception e) { //If your hand touches metal,
+                //I swear by my pretty floral bonnet, I will end you.
                 break;
             }
 
         }
-        return addToInbox;
+        return addToInbox; //YOU'VE GOT MAIL!!!!
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -744,7 +770,7 @@ public class DatabaseManager {
             }
         } catch (SQLException e) {
             LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
-            return new LinkedList<>();
+            return new LinkedList<>(); //I married me a powerful, ugly creature!
         }
 
         return applicationLinkedList;
@@ -766,8 +792,8 @@ public class DatabaseManager {
                         SuperAgent = "true";
                     }
                     String status = "pending";
-                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, Name, Email, SuperAgent, status) VALUES " +
-                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + status + "')");
+                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, FullName, Email, SuperAgent, Status) VALUES " +
+                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "', '" + status + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }
@@ -797,24 +823,29 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"), user.getString("ID"), "false", "pending");
+                UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"), "false", "pending");
                 LogManager.println("User " + username + " is an agent");
                 tryPassword(username, password, user.getString("PasswordHash"));
-                return agent;
+                return agent; //You can have this back now.
             } else {
                 user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
                 LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                 assert manufacturerLinkedList != null;
                 if (!manufacturerLinkedList.isEmpty()) {
-                    LogManager.println("YARP! WE FOUND " + username + "!");
-                    UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0);
+                    LogManager.println("YARP! WE FOUND " + username + "!"); //Where to next?
+                    /*
+                      ( •_•)
+                      ( •_•)>⌐■-■
+                      (⌐■_■)
+                    */
+                    UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0); //PUB.
                     LogManager.println("User " + manufacturer.username + " is a manufacturer");
                     try {
-                        tryPassword(username, password, user.getString("PasswordHash"));
+                        tryPassword(username, password, user.getString("PasswordHash")); // *Typing furiously*
                     } catch (Exception e) {
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                     }
-                    return manufacturer;
+                    return manufacturer; // I'M IN.
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
                     throw new UserNotFoundException(username);
@@ -894,7 +925,7 @@ public class DatabaseManager {
         }
 
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer')");
+            statement.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES ('12104001000339', 'BR-MA-BOS-1', '12039U', '2012/04/23', 'OLD KENTUCKY STYLE', 'SAMUEL ADAMS', '24', '906', 'Beer')"); //Why are you looking down here? There's nothing to see here.
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -960,3 +991,8 @@ public class DatabaseManager {
         }
     }
 }
+//You're still here?
+//It's over.
+//Go home.
+
+//...Go.
