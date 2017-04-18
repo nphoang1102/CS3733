@@ -11,6 +11,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.net.ftp.FTPClient;
 
+import javax.swing.text.html.ImageView;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -99,6 +100,9 @@ public class EditableApplicationManager extends Screen {
 
     @FXML
     private Button label_button;
+
+    @FXML
+    private ImageView image;
 
     public Application data;
 

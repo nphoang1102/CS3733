@@ -44,7 +44,7 @@
             <Font name="Telugu Sangam MN" size="28.0" />
          </font>
       </Label>
-      <Label contentDisplay="CENTER" layoutX="747.0" layoutY="169.0" prefHeight="20.0" prefWidth="185.0" text="Image Name" textAlignment="CENTER" />
+      <Label fx:id="image_name" contentDisplay="CENTER" layoutX="747.0" layoutY="169.0" prefHeight="20.0" prefWidth="185.0" text="Image Name" textAlignment="CENTER" />
     </children>
    <effect>
       <InnerShadow choke="0.47" color="#939393" height="255.0" radius="127.0" width="255.0" />
