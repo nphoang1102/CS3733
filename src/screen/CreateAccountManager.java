@@ -154,31 +154,34 @@ public class CreateAccountManager extends Screen{
 
     @FXML
     private void updateSecurity(){
+        //show the progress bar
+        security.setVisible(true);
+        //record current password
         String curPassword = password.getText();
+        //reset security level
         double securityLevel = 0.0;
         //check the password actually changed
         if(!curPassword.equals(oldPassword)) {
-
-            //LogManager.println(curPassword);
+            
             LinkedList<String> badPasswords = new LinkedList<String>(Arrays.asList(
                     "password",
                     "qwerty",
                     this.username.getText()
             ));
 
+
             //check if the password is on the way to becoming 12345
             if ("1234567890".contains(curPassword)) {
                 securityLevel -= .15;
             }
             //not a bad password
-            if (!badPasswords.contains(curPassword)) {
-                //give points for password length
-                securityLevel += curPassword.length() / 10.0;
-            } else {
-                //bad password
-                //award a few points for password length
-                securityLevel += curPassword.length() / 70.0;
+            for(String s: badPasswords){
+                if(s.contains(curPassword)){
+                    securityLevel -= .15;
+                }
             }
+            securityLevel += curPassword.length() / 10.0;
+
             if (curPassword.matches(".*\\d+.*")) {
                 //password contains a number
                 //award quite a few points
@@ -214,6 +217,7 @@ public class CreateAccountManager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet data) {
+        security.setVisible(false);
         clearFields();
     }
 }
