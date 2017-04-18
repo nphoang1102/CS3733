@@ -699,7 +699,7 @@ public class DatabaseManager {
     ///////////ADD APPLICATIONS TO AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
-        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "' AND Status = 'PENDING' AND AgentUsername = '';");
+        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "' AND ApplicationStatus = 'PENDING' AND AgentUsername = '';");
         LinkedList<Application> addToInbox = new LinkedList<>();
 
         //counters
@@ -717,6 +717,12 @@ public class DatabaseManager {
                 //gets the manucaturer for the specific application
                 LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.MANUFACTURER, "Username", tempApp.ManufacturerUsername);
                 UserManufacturer tempMan = (UserManufacturer) tempMans.getFirst();
+                //gets the current date
+                String curDate = StringUtilities.getDate();
+                LogManager.println(curDate);
+                if(!tempMan.AgentDate.equals(curDate)){
+                    tempMan.Agent = "";
+                }
                 //check if that manufacturer has a specific agent on the day and adds it to the inbox
                 if (tempMan.Agent.equals(username)) {
                     addToInbox.add((Application) applicationLinkedList.get(j));

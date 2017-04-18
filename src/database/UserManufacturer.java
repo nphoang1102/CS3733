@@ -1,5 +1,6 @@
 package database;
 
+import base.StringUtilities;
 import screen.EnumUserType;
 
 /**
