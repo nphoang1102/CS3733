@@ -2,6 +2,8 @@ package database;
 
 import base.*;
 import screen.EnumUserType;
+import sun.awt.image.ImageWatched;
+import sun.rmi.runtime.Log;
 /*import com.sun.org.apache.xpath.internal.operations.Or;
 import com.sun.xml.internal.bind.v2.TODO
 import screen.EnumUserType;
@@ -189,7 +191,8 @@ public class DatabaseManager {
                     " PasswordHash VARCHAR(75) NOT NULL,\n" +
                     " FullName VARCHAR(50) NOT NULL,\n" +
                     " Email VARCHAR(30) NOT NULL,\n" +
-                    " SuperAgent BOOLEAN NOT NULL\n" +
+                    " SuperAgent BOOLEAN NOT NULL,\n" +
+                    " Status VARCHAR(30)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
@@ -254,6 +257,9 @@ public class DatabaseManager {
                 LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
                 return queryManufacturers("SELECT * FROM Manufacturers WHERE " + column + " = '" + value + "'" + endQueryLine);
             }
+        } else if (table.equals(EnumTableType.AGENT)) {
+            LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
+            return queryAgents("SELECT * FROM Agents WHERE " + column + " = '" + value + "'" + endQueryLine);
         }
         return null;
     }
@@ -264,12 +270,31 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
-        LinkedList<DataSet> advancedLinkedList = new LinkedList<>();
+        if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
+            val1 = val1.toUpperCase();
+        }
+        if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
+            val2 = val2.toUpperCase();
+        }
+        if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
+            val3 = val3.toUpperCase();
+        }
+
         String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "' ";
         String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
         String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "' ";
         String combinedQuery;
- 
+
+        if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
+            val1 = val1.toUpperCase();
+        }
+        if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
+            val2 = val2.toUpperCase();
+        }
+        if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
+            val3 = val3.toUpperCase();
+        }
+
         try {
             if(!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()){
                 combinedQuery = query1;
@@ -286,29 +311,10 @@ public class DatabaseManager {
             else{
                 combinedQuery = "SELECT * FROM Alcohol";
             }
-
-            /*ResultSet getAdvanced = statement.executeQuery(combinedQuery);
-            while (getAdvanced.next()) {
-                Alcohol alcohol = new Alcohol();
-                alcohol.TTBID = getAdvanced.getString("TTBID");
-                alcohol.PermitNo = getAdvanced.getString("PermitNo");
-                alcohol.SerialNo = getAdvanced.getString("SerialNo");
-                alcohol.CompletedDate = getAdvanced.getString("CompletedDate");
-                alcohol.FancifulName = getAdvanced.getString("FancifulName");
-                alcohol.BrandName = getAdvanced.getString("BrandName");
-                alcohol.Class = getAdvanced.getString("Class");
-                alcohol.Origin = getAdvanced.getString("Origin");
-                alcohol.Type = getAdvanced.getString("Type");
-                alcohol.AlcoholContent = getAdvanced.getString("AlcoholContent");
-                alcohol.VintageYear = getAdvanced.getString("VintageYear");
-                alcohol.PH = getAdvanced.getString("PH");
-                advancedLinkedList.add(alcohol);
-            }*/
         } catch (Exception e) {
             LogManager.println("No matches found!", EnumWarningType.WARNING);
             return new LinkedList<>();
         }
-//        return advancedLinkedList;
         return queryAlcohol(combinedQuery);
     }
 
@@ -470,6 +476,45 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         return manufacturers;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////AGENT QUERIES/////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    private static LinkedList<DataSet> queryAgents(String query) {
+        LinkedList<DataSet> agents = new LinkedList<>();
+        try {
+            ResultSet searchAgents = statement.executeQuery(query);
+            LogManager.println("queryAgents() has run the query: " + query, EnumWarningType.NOTE);
+            while (searchAgents.next()) {
+                UserAgent agent = new UserAgent(query);
+                agent.ID = searchAgents.getString("ID");
+                agent.username = searchAgents.getString("Username");
+                agent.PasswordHash = searchAgents.getString("PasswordHash");
+                agent.name = searchAgents.getString("Name");
+                agent.email = searchAgents.getString("Email");
+                agent.superAgent = searchAgents.getString("SuperAgent");
+                agent.status = searchAgents.getString("Status");
+                agents.add(agent);
+            }
+            searchAgents.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return agents;
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SET STATUS////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void setAgentStatus(String username, String status){
+        try {
+            statement.executeUpdate("UPDATE Agents SET " +
+                    "Status = '" + status + "' " +
+                    "WHERE Username = '" + username + "'" + endQueryLine);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -742,6 +787,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GET USER BY USERNAME//////////////////////////////////////////////////
