@@ -38,12 +38,21 @@ public class SuperAgentScreenManager extends Screen {
 
     public SuperAgentScreenManager(){
         super(EnumScreenType.SUPER_AGENT);
+
+    }
+    @FXML
+    public void initialize() {
+       statusType.setValue("active");
     }
 
     @Override
     public void onScreenFocused(DataSet data) {
-        statusType.setValue("ACTIVE");
 
+        if(data.hasKey("agentStatus")){
+            statusType.setValue(data.getValueForKey("agentStatus"));
+        }else{
+            statusType.setValue("active");
+        }
         agentUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
         agentName.setCellValueFactory(new PropertyValueFactory<>("name"));
         numApps.setCellValueFactory(new PropertyValueFactory<>("numAppsRev"));
@@ -71,7 +80,7 @@ public class SuperAgentScreenManager extends Screen {
                     UserAgent tempResult = row.getItem();
                     System.out.println(tempResult);
                     if(tempResult.getSuperAgent().equalsIgnoreCase("false")) {
-                        if(tempResult.getstatus().equals("PENDING")){
+                        if(tempResult.getstatus().equals("pending")){
                             screenManager.popoutScreen(EnumScreenType.AGENT_PENDING, "Agent Application Page", tempResult);
                         }else {
                             screenManager.popoutScreen(EnumScreenType.AGENT_INBOX, "View Agent Page", tempResult);
@@ -91,7 +100,11 @@ public class SuperAgentScreenManager extends Screen {
                 agents.add(tempData);
             }
         }
-        screenManager.setScreen(EnumScreenType.SUPER_AGENT);
+        DataSet data = new BasicDataSet();
+        data.addField("agentStatus", (statusType.getValue() + ""));
+        String toPrint =  " under type " + statusType.getValue();
+        LogManager.println(toPrint);
+        Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT, data);
     }
 
 
