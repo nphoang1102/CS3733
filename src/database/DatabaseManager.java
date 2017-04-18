@@ -109,7 +109,7 @@ public class DatabaseManager {
             statement = connection.createStatement();
         } catch (SQLException e) {//CATCH, BOOKER!
             LogManager.printStackTrace(e.getStackTrace());
-            LogManager.println("statement failed");
+            LogManager.println("statement failed"); // （　ﾟДﾟ）
             e.printStackTrace();
         }
         //On the second day, god...
@@ -193,7 +193,7 @@ public class DatabaseManager {
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
-            createTableError(e);
+            createTableError(e); //(ノಠ ∩ಠ)ノ彡( \o°o)\
         }
         LogManager.print("Creating manufactureres table... ", EnumWarningType.NOTE);
         try {
@@ -346,8 +346,8 @@ public class DatabaseManager {
             LogManager.println("No matches!", EnumWarningType.WARNING);//Bummer, dude.
             return new LinkedList<>();
         }
-
         return alcoholLinkedList;
+//        ヽ(´ー｀)ノ
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -438,6 +438,7 @@ public class DatabaseManager {
                     "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
         }
         catch (SQLException e){
+            //ಠ_ಠ
             LogManager.print("Could not set DateOfSubmission on newly submitted application " + ApplicationNo + ": ");
             LogManager.println(e.getMessage());
         }
