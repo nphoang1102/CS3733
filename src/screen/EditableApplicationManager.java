@@ -232,6 +232,7 @@ public class EditableApplicationManager extends Screen {
         return;
     }
 
+    @FXML
     public void addLabel(){
 
     }
