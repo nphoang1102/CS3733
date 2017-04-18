@@ -167,16 +167,12 @@ public class CreateAccountManager extends Screen{
         if(!curPassword.equals(oldPassword)) {
 
             LinkedList<String> badPasswords = new LinkedList<String>(Arrays.asList(
+                    "1234567890",
                     "password",
                     "qwerty",
                     this.username.getText()
             ));
 
-
-            //check if the password is on the way to becoming 12345
-            if ("1234567890".contains(curPassword)) {
-                securityLevel -= .15;
-            }
             //not a bad password
             for(String s: badPasswords){
                 if(s.contains(curPassword)){

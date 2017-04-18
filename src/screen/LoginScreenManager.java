@@ -11,6 +11,7 @@ import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import sun.rmi.runtime.Log;
 
 import static base.Main.screenManager;
 
@@ -83,8 +84,12 @@ public class LoginScreenManager extends Screen {
                 }else if (userType.equals(EnumUserType.AGENT)) {
                     //check if they're a super agent
                     UserAgent u =(UserAgent)curUser;
+
+                    u.setSuperAgent("true");
+                    LogManager.println(u.getSuperAgent());
                     if(u.getSuperAgent().equals("true")){
                         Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
+                        return;
                     }
                     //if not go to agent screen
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
