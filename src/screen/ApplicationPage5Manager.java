@@ -44,6 +44,9 @@ public class ApplicationPage5Manager extends Screen{
     @FXML
     private Button cancel_button1;
 
+    @FXML
+    private Label image_name;
+
     Stage primaryStage = new Stage();
 
     private Application app;
@@ -51,6 +54,7 @@ public class ApplicationPage5Manager extends Screen{
     @Override
     public void onScreenFocused(DataSet dataSet) {
         this.app = (Application) dataSet;
+        image_name.setVisible(false);
 
         serial_number_field.setText(app.SerialNo);
         add_info_field.setText(app.AdditionalInfo);
