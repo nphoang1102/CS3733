@@ -30,14 +30,16 @@ public class AgentPendingManager extends Screen{
     public void onScreenFocused(DataSet data) {
         thisUser = (UserAgent) data;
 
-        agentName.setText("bub");
+        agentName.setText("Bub");
         agentEmail.setText(thisUser.getEmail());
         agentUsername.setText(thisUser.getUsername());
         if(thisUser.getSuperAgent().equals("true")){
             isSuper.setText("Super Agent");
+            acceptButton.setText("Make Super Agent");
         }else{
-            isSuper.setText("Agent");
+            isSuper.setText("Make Agent");
         }
+
     }
 
     public void acceptAgnet(MouseEvent mouseEvent) {
