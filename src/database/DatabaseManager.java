@@ -269,7 +269,7 @@ public class DatabaseManager {
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
         if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
-            val1 = val1.toUpperCase(); //lowercase is lame
+            val1 = val1.toUpperCase(); //lowercase is lame.
         }
         if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
             val2 = val2.toUpperCase();
@@ -506,11 +506,36 @@ public class DatabaseManager {
     ///////////SET STATUS////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status){ //We're competing with facebook.
-        try {
-            statement.executeUpdate("UPDATE Agents SET " +
-                    "Status = '" + status + "' " +
-                    "WHERE Username = '" + username + "'" + endQueryLine);
-        } catch (SQLException e) {
+
+        status = status.toUpperCase();
+        if(status.equals("REMOVE")){
+            try{
+                statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                statement.executeUpdate("UPDATE Agents SET " +
+                        "Status = '" + status + "' " +
+                        "WHERE Username = '" + username + "'" + endQueryLine);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////Clear Table///////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public void clearInbox(String username){
+        try{
+            statement.executeUpdate("UPDATE Applications SET" +
+                            "AgentUsername = '' " +
+                            "WHERE AgentUsername = '" + username + "'" + endQueryLine);
+        }catch (SQLException e){
             e.printStackTrace();
         }
     }
