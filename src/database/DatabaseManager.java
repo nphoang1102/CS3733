@@ -440,7 +440,7 @@ public class DatabaseManager {
         }
         catch (SQLException e){
             //ಠ_ಠ
-            LogManager.print("Could not set DateOfSubmission on newly submitted application " + ApplicationNo + ": ");
+            LogManager.print("Could not set DateOfSubmission '" + date + "' on newly submitted application " + ApplicationNo + ": ");
             LogManager.println(e.getMessage());
         }
     }

@@ -72,6 +72,7 @@ public class ApplicationPage5Manager extends Screen{
 
         app.ApplicationStatus = "PENDING";
         app.DateOfSubmission = StringUtilities.getDate();
+        LogManager.println(app.DateOfSubmission);
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = Main.getUsername();
         app.AgentUsername = "";
