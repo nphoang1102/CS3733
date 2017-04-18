@@ -695,7 +695,7 @@ public class DatabaseManager {
     public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
         LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';");
         LinkedList<Application> addToInbox = new LinkedList<>();
-        for (int i = 0; i < num; i++) {
+/*        for (int i = 0; i < num; i++) {
             try {
                 Application tempApp = (Application) applicationLinkedList.get(i);
                 if (tempApp.ApplicationStatus.equals("PENDING") && tempApp.AgentUsername.equals("")) {
@@ -713,7 +713,46 @@ public class DatabaseManager {
                 break;
             }
 
+        }*/
+        int i = 0;
+        boolean isFirst = true;
+        while(i < num){
+            try{
+                Application tempApp = (Application) applicationLinkedList.get(i);
+                if (tempApp.ApplicationStatus.equals("PENDING") && tempApp.AgentUsername.equals("")) {
+                    LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.MANUFACTURER, "Username", tempApp.ManufacturerUsername);
+                    UserManufacturer tempMan = (UserManufacturer) tempMans.getFirst();
+                    if (tempMan.Agent.equals(username)) {
+                        addToInbox.add((Application) applicationLinkedList.get(i));
+                        try {
+                            statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+                            statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                        } catch (SQLException e) {
+                            LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
+                        }
+                    }else if(tempMan.Agent.equals("")){
+                        if(!isFirst){
+                            addToInbox.add((Application) applicationLinkedList.get(i));
+                            try {
+                                statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+                                statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                            } catch (SQLException e) {
+                                LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
+                            }
+                        }
+                    }else{}
+                }
+            }catch (Exception e) { //If your hand touches metal,
+                //I swear by my pretty floral bonnet, I will end you.
+                if(isFirst){
+                    isFirst = true;
+                    i = 0;
+                }else {
+                    break;
+                }
+            }
         }
+
         return addToInbox; //YOU'VE GOT MAIL!!!!
     }
 
