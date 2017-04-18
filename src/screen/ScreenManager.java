@@ -62,6 +62,9 @@ public class ScreenManager {
             if(type.equals(EnumScreenType.LOG_IN)){
                 return;
             }
+            if(type.equals(EnumScreenType.CREATE_ACCOUNT)){
+                return;
+            }
         }
         DataSet topBarData = topBarScreen.generateTopBarData();
         if(!type.equals(EnumScreenType.TOP_BAR)){
