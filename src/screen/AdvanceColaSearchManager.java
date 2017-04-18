@@ -1,9 +1,12 @@
 package screen;
 
+import base.EnumTableType;
 import base.LogManager;
 import base.Main;
+import database.Alcohol;
 import database.BasicDataSet;
 import database.DataSet;
+import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,6 +17,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import sun.rmi.runtime.Log;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+
 /**
  * Created by Hoang Nguyen on 4/15/2017.
  */
@@ -22,6 +28,9 @@ public class AdvanceColaSearchManager extends Screen {
     private String category1 = "";
     private String category2 = "";
     private String category3 = "";
+    private ArrayList<String> sugBrand = new ArrayList<String>();
+    private ArrayList<String> sugFan = new ArrayList<String>();
+    private ArrayList<String> sugType = new ArrayList<String>();
 
     /* Declaring the FXML objects */
     @FXML private TextField field1, field2, field3;
@@ -41,6 +50,21 @@ public class AdvanceColaSearchManager extends Screen {
         this.searchFieldInitialize();
         this.searchByInitialize();
         this.warning.setVisible(false);
+        this.initSuggest();
+    }
+
+    /* Initialize the suggestive search for brand name, fanciful name and type */
+    public void initSuggest() {
+        this.sugBrand.clear();
+        this.sugFan.clear();
+        this.sugType.clear();
+        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
+        for (DataSet tempSet : databaseResult) {
+            Alcohol data = (Alcohol) tempSet;
+            if (!this.sugBrand.contains(data.BrandName)) this.sugBrand.add(data.BrandName);
+            if (!this.sugFan.contains(data.FancifulName)) this.sugFan.add(data.FancifulName);
+            if (!this.sugType.contains(data.Type)) this.sugType.add(data.Type);
+        }
     }
 
     /* Initialize the choice boxes */
