@@ -195,7 +195,7 @@ public class DatabaseManager {
         } catch (SQLException e) {
             createTableError(e); //(ノಠ ∩ಠ)ノ彡( \o°o)\
         }
-        LogManager.print("Creating manufactureres table... ", EnumWarningType.NOTE);
+        LogManager.print("Creating manufacturers table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
                     " Username VARCHAR(30) PRIMARY KEY,\n" +
@@ -206,7 +206,8 @@ public class DatabaseManager {
                     " Email VARCHAR(50) NOT NULL,\n" +
                     " PlantRegistry VARCHAR(50) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
-                    " Address2 VARCHAR(50) NOT NULL\n" +
+                    " Address2 VARCHAR(50) NOT NULL,\n" +
+                    " Agent VARCHAR(30)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
@@ -467,6 +468,7 @@ public class DatabaseManager {
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
+                manufacturer.Agent = searchManufacturers.getString("Agent");
                 manufacturers.add(manufacturer); //One to beam up.
                 LogManager.print(manufacturers.size() + "items long.");
             }
@@ -782,7 +784,6 @@ public class DatabaseManager {
 //        String table = "Agents";
 //        boolean Super = false;
         try {
-            //if(userType.equals(EnumUserType.SUPER_AGENT)){table = "Agents"; Super = true;}
             if (userType.equals(EnumUserType.AGENT) || userType.equals(EnumUserType.SUPER_AGENT)) {
                 try {
                     UserAgent agent = (UserAgent) user;
