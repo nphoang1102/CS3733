@@ -67,6 +67,7 @@ public class AgentInboxManager extends Screen{
         agentStatus.setVisible(false);
 
         typeBox.setValue("Beer");
+        agentStatus.setValue("Activate");
 
        // inboxInfo.add(testApp);
 
@@ -173,9 +174,16 @@ public class AgentInboxManager extends Screen{
     public void setAgentStatus(MouseEvent mouseEvent) {
         String statusType = (String) agentStatus.getValue();
         if(statusType.equals("REMOVE")){
-            //DatabaseManager.createInbox(thisUser.getUsername());
+            //DatabaseManager.clearInbox(thisUser.getUsername());
         }
-        //DatabaseManager.setStatus(statusType, thisUser.getUsername());
+        if (statusType.equals("Activate")) {
+            statusType = "ACTIVE";
+        }else if(statusType.equals("Suspend")){
+            statusType = "SUSPENDED";
+        }else{
+            statusType = "REMOVE";
+        }
+        DatabaseManager.setAgentStatus(thisUser.getUsername(), statusType);
     }
 
     public void wipeInbox(MouseEvent mouseEvent) {
