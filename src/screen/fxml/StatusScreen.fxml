@@ -19,28 +19,40 @@
          </effect></Rectangle>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="115.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="/assets/bailey 3.png" />
+            <Image url="/assets/Bailey.png" />
          </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="345.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Hoang.png" />
+         </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="575.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Evan.png" />
+         </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="815.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Daniel.png" />
+         </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="1045.0" layoutY="129.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Manuel.png" />
+         </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
@@ -54,6 +66,9 @@
          </effect>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="460.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Turner.png" />
+         </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
@@ -64,6 +79,9 @@
          </effect>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="930.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Victor.png" />
+         </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
