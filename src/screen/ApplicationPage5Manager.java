@@ -13,6 +13,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.commons.net.ftp.FTPClient;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Created by ${mrfortmeyer} on 4/18/2017.
@@ -38,11 +44,17 @@ public class ApplicationPage5Manager extends Screen{
     @FXML
     private Button cancel_button1;
 
+    @FXML
+    private Label image_name;
+
+    Stage primaryStage = new Stage();
+
     private Application app;
 
     @Override
     public void onScreenFocused(DataSet dataSet) {
         this.app = (Application) dataSet;
+        image_name.setVisible(false);
 
         serial_number_field.setText(app.SerialNo);
         add_info_field.setText(app.AdditionalInfo);
@@ -60,6 +72,7 @@ public class ApplicationPage5Manager extends Screen{
 
         app.ApplicationStatus = "PENDING";
         app.DateOfSubmission = StringUtilities.getDate();
+        LogManager.println(app.DateOfSubmission);
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = Main.getUsername();
         app.AgentUsername = "";
@@ -72,4 +85,35 @@ public class ApplicationPage5Manager extends Screen{
         Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
     }
 
+    @FXML
+    public void addLabel(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
+
+
+        if(!filename.endsWith(".jpg")){
+            return;
+        }
+
+        LogManager.println("File:"+filename);
+
+        FTPClient client = new FTPClient();
+        FileInputStream fis = null;
+        try {
+            client.connect("72.93.244.26");
+            client.login("cadbo", "seafoamgreen");
+
+            fis = new FileInputStream(filename);
+            client.storeFile("TTB/alcohol/"+app.ApplicationNo+".jpg", fis);
+            client.logout();
+            fis.close();
+            LogManager.println("Uploading image as:"+"TTB/alcohol/"+app.ApplicationNo+".jpg");
+
+            ScreenManager.updateUserIcon();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
