@@ -464,7 +464,7 @@ public class DatabaseManager {
                 manufacturer.userType = EnumUserType.MANUFACTURER;
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company"); //I have a cat.
-                manufacturer.name = searchManufacturers.getString("Name");
+                manufacturer.name = searchManufacturers.getString("FullName");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
@@ -492,7 +492,7 @@ public class DatabaseManager {
                 agent.ID = searchAgents.getString("ID");
                 agent.username = searchAgents.getString("Username");
                 agent.PasswordHash = searchAgents.getString("PasswordHash");
-                agent.name = searchAgents.getString("Name");
+                agent.name = searchAgents.getString("FullName");
                 agent.email = searchAgents.getString("Email");
                 agent.superAgent = searchAgents.getString("SuperAgent");
                 agent.status = searchAgents.getString("Status");
@@ -554,7 +554,7 @@ public class DatabaseManager {
                 userm.username = searchManufacturers.getString("Username");
             }*/
             statement.executeUpdate("UPDATE Manufacturers SET " +
-                    "Name = '" + manufacturer.name + "', " + //WHOOOOO ARE YOU? OOH OHH, OOH OOH...
+                    "FullName = '" + manufacturer.name + "', " + //WHOOOOO ARE YOU? OOH OHH, OOH OOH...
                     "RepID = '" + manufacturer.RepID + "', " +
                     "Email = '" + manufacturer.email + "', " +
                     "PlantRegistry = '" + manufacturer.PlantRegistry + "', " +
@@ -823,7 +823,7 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"), user.getString("ID"), "false", "pending");
+                UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"), "false", "pending");
                 LogManager.println("User " + username + " is an agent");
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent; //You can have this back now.
