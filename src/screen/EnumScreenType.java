@@ -28,7 +28,9 @@ public enum EnumScreenType {
     EDIT_ACCOUNT("UserSettings.fxml"),
     COLA_RESULT_POPUP("ColaResultPopup.fxml"),
     EDIT_APPLICATION_LIST("EditMenu.fxml"),
-    STATUS_SCREEN("StatusScreen.fxml")
+    STATUS_SCREEN("StatusScreen.fxml"),
+    SUPER_AGENT("SuperAgentScreen.fxml"),
+    AGENT_PENDING("AgentPending.fxml")
     ;
 
     private String scene;

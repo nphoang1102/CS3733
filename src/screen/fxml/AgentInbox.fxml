@@ -58,7 +58,15 @@
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
       </Button>
-      <ChoiceBox fx:id="agentStatus" layoutX="707.0" layoutY="140.0" prefWidth="122.0" style="-fx-background-color: #939393;" />
+      <ChoiceBox fx:id="agentStatus" layoutX="707.0" layoutY="140.0" prefWidth="122.0" style="-fx-background-color: #939393;" >
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="Activate" />
+                  <String fx:value="Suspend" />
+                  <String fx:value="remove" />
+              </FXCollections>
+          </items>
+      </ChoiceBox>
   </children>
   <effect>
     <ColorAdjust />
