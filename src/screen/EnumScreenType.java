@@ -28,6 +28,11 @@ public enum EnumScreenType {
     EDIT_ACCOUNT("UserSettings.fxml"),
     COLA_RESULT_POPUP("ColaResultPopup.fxml"),
     EDIT_APPLICATION_LIST("EditMenu.fxml"),
+    APPLICATION_PAGE_1("ApplicationPage1.fxml"),
+    APPLICATION_PAGE_2("ApplicationPage2.fxml"),
+    APPLICATION_PAGE_3("ApplicationPage3.fxml"),
+    APPLICATION_PAGE_WINE("ApplicationPageWine.fxml"),
+    APPLICATION_PAGE_5("ApplicationPage5.fxml"),
     STATUS_SCREEN("StatusScreen.fxml"),
     SUPER_AGENT("SuperAgentScreen.fxml"),
     AGENT_PENDING("AgentPending.fxml")
