@@ -508,12 +508,23 @@ public class DatabaseManager {
     ///////////SET STATUS////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status){
-        try {
-            statement.executeUpdate("UPDATE Agents SET " +
-                    "Status = '" + status + "' " +
-                    "WHERE Username = '" + username + "'" + endQueryLine);
-        } catch (SQLException e) {
-            e.printStackTrace();
+
+        status = status.toUpperCase();
+        if(status.equals("REMOVE")){
+            try{
+                statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            try {
+                statement.executeUpdate("UPDATE Agents SET " +
+                        "Status = '" + status + "' " +
+                        "WHERE Username = '" + username + "'" + endQueryLine);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
