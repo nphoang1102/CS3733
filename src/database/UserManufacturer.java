@@ -11,6 +11,7 @@ public class UserManufacturer extends User {
     public String RepID;
     public String PlantRegistry;
     public String PhoneNo;
+    public String Agent;
 
     public UserManufacturer(String Username){
         Address2= "";
