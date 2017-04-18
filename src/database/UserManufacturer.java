@@ -23,5 +23,6 @@ public class UserManufacturer extends User {
         PlantRegistry= "";
         PhoneNo = "";
         super.userType = EnumUserType.MANUFACTURER;
+        Agent = "";
     }
 }
