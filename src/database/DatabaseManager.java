@@ -279,10 +279,10 @@ public class DatabaseManager {
         if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
             val3 = val3.toUpperCase();
         }
-
-        String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "' ";
-        String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "' ";
-        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "' ";
+        
+        String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " LIKE '" + val1 + "%' OR " + cat1 + " LIKE '%" + val1 + "' OR " + cat1 + " LIKE '%" + val1 + "%'";
+        String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%'";
+        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%'";
         String combinedQuery;
 
         if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
