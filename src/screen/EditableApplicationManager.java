@@ -92,7 +92,7 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button cancel_button;
 
-    public DataSet data;
+    public Application data;
 
     String manufacturer = Main.getUsername();
 
@@ -101,93 +101,64 @@ public class EditableApplicationManager extends Screen {
     }
 
     public void onScreenFocused(DataSet dataSet){
-        //Load all field text
-        if(dataSet instanceof Application) {
-            Application application = (Application) dataSet;
-            repid_field.setText(application.RepID);
-            // brewNo exists as PlantRegistry in Data Set
-            plant_number_field.setText(application.PlantRegistry);
-            brand_name_field.setText(application.Brand);
-            applicant_name_field.setText(application.AgentName);
-            address_field.setText(application.Address);
-            address_field_2.setText(application.Address2);
-            phone_num_field.setText(application.PhoneNo);
-            email_field.setText(application.Email);
-            date_submitted_field.setText(application.DateOfSubmission);
-            add_info_field.setText(application.AdditionalInfo);
-            //What is TTBID in Dataset?
-            // ttbId.setText(application.SerialNo);
-            fanciful_field.setText(application.FancifulName);
-            formula_field.setText(application.Formula);
-            grapes_field.setText(application.Grapes);
-            appellation_field.setText(application.WineAppelation);
-            // alcoholContent exists as ABV in Data Set
-            abv_field.setText(application.ABV);
-            ph_field.setText(application.PH);
-            vintage_field.setText(application.VintageDate);
-            RejectionField.setText(((Application) dataSet).ReasonForRejection);
-
-            app_type_box.setValue(application.ApplicationType);
-            product_source_box.setValue(application.Locality);
-            product_type_box.setValue(application.AlcoholType);
-        } else {
-            LogManager.println("Error: DataSet dataSet passed to EditableApplicationManager was not Application");
-        }
+        this.data = (Application) dataSet;
+        setBoxes((Application) dataSet);
 
         if(((Application) dataSet).ApplicationStatus.equals("APPROVED")) {
-            // Disabled
-            email_field.setDisable(true);
-            app_type_box.setDisable(true);
-            date_submitted_field.setDisable(true);
-            applicant_name_field.setDisable(true);
-            plant_number_field.setDisable(true);
-            serial_number_field.setDisable(true);
-            phone_num_field.setDisable(true);
-            fanciful_field.setDisable(true);
-            //vintage_field.setDisable(true); //NOT DISABLED
-            //ph_field.setDisable(true); //NOT DISABLED
-            //abv_field.setDisable(true); //NOT DISABLED
-            formula_field.setDisable(true);
-            brand_name_field.setDisable(true);
-            repid_field.setDisable(true);
-            //add_info_field.setDisable(true);
-            address_field.setDisable(true);
-            address_field_2.setDisable(true);
+            disableAll();
 
-            RejectionField.setVisible(false);
-            RejectionLabel.setVisible(false);
+            if(((Application) dataSet).revisionNo == 1){
+                LogManager.println("Edit Number 1");
+            } else if(((Application) dataSet).revisionNo == 2){
+                LogManager.println("Edit Number 2");
+            } else if(((Application) dataSet).revisionNo == 3){
+                LogManager.println("Edit Number 3");
+            } else if(((Application) dataSet).revisionNo == 4){
+                LogManager.println("Edit Number 4");
+                grapes_field.setDisable(false);
+                grapes_field.setEditable(true);
+                grapes_field.setStyle("-fx-background-color: #34a88b;" + "-fx-text-inner-color: #ffffff");
+
+                appellation_field.setDisable(false);
+                appellation_field.setEditable(true);
+                appellation_field.setStyle("-fx-background-color: #34a88b;" + "-fx-text-inner-color: #ffffff");
+            } else if(((Application) dataSet).revisionNo == 5){
+                LogManager.println("Edit Number 5");
+                vintage_field.setDisable(false);
+                vintage_field.setEditable(true);
+                vintage_field.setStyle("-fx-background-color: #34a88b;" + "-fx-text-inner-color: #ffffff");
+            } else if(((Application) dataSet).revisionNo == 6){
+                LogManager.println("Edit Number 6");
+            } else if(((Application) dataSet).revisionNo == 7){
+                LogManager.println("Edit Number 7");
+                ph_field.setDisable(false);
+                ph_field.setEditable(true);
+                ph_field.setStyle("-fx-background-color: #34a88b;" + "-fx-text-inner-color: #ffffff");
+            } else if(((Application) dataSet).revisionNo == 8){
+                LogManager.println("Edit Number 8");
+            } else if(((Application) dataSet).revisionNo == 9){
+                LogManager.println("Edit Number 9");
+            } else if(((Application) dataSet).revisionNo == 10){
+                LogManager.println("Edit Number 10");
+                add_info_field.setDisable(false);
+                add_info_field.setEditable(true);
+                add_info_field.setStyle("-fx-background-color: #34a88b;");
+            } else if(((Application) dataSet).revisionNo == 11){
+                LogManager.println("Edit Number 11");
+                abv_field.setDisable(false);
+                abv_field.setEditable(true);
+                abv_field.setStyle("-fx-background-color: #34a88b;" + "-fx-text-inner-color: #ffffff");
+            } else if(((Application) dataSet).revisionNo == 12){
+                LogManager.println("Edit Number 12");
+                abv_field.setDisable(false);
+                abv_field.setEditable(true);
+                abv_field.setStyle("-fx-background-color: #34a88b;" + "-fx-text-inner-color: #ffffff");
+            }
 
             //setVisibility of additional elements
-        } if(((Application) dataSet).ApplicationStatus.equals("PENDING")) {
-            // Disabled
-            email_field.setDisable(true);
-            app_type_box.setDisable(true);
-            date_submitted_field.setDisable(true);
-            applicant_name_field.setDisable(true);
-            plant_number_field.setDisable(true);
-            serial_number_field.setDisable(true);
-            phone_num_field.setDisable(true);
-            fanciful_field.setDisable(true);
-            vintage_field.setDisable(true); //NOT DISABLED
-            ph_field.setDisable(true); //NOT DISABLED
-            abv_field.setDisable(true); //NOT DISABLED
-            formula_field.setDisable(true);
-            brand_name_field.setDisable(true);
-            repid_field.setDisable(true);
-            add_info_field.setDisable(true);
-            address_field.setDisable(true);
-            address_field_2.setDisable(true);
-            add_info_field.setDisable(true);
-            appellation_field.setDisable(true);
-            grapes_field.setDisable(true);
-
-            app_type_field.setDisable(true);
-
-            RejectionField.setVisible(false);
-            RejectionLabel.setVisible(false);
+        } else if(((Application) dataSet).ApplicationStatus.equals("PENDING")) {
+            disableAll();
             submit_button.setVisible(false);
-
-            //setVisibility of additional elements
         }
     }
 
@@ -239,11 +210,16 @@ public class EditableApplicationManager extends Screen {
         app.ABV = abv;
         app.VintageDate = vintageYear;
         app.PH = ph;
-        app.ApplicationStatus = "PENDING";
-        app.ApplicationNo = StringUtilities.getTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
         app.AgentUsername = "";
+        app.ApplicationNo = data.ApplicationNo;
+
+        if(data.ApplicationStatus.equals("REJECTED")){
+            app.ApplicationStatus = "PENDING";
+        } else {
+            app.ApplicationStatus = data.ApplicationStatus;
+        }
 
         database.DatabaseManager.editApplication(app);
         LogManager.println("Submitting Application");
@@ -256,6 +232,69 @@ public class EditableApplicationManager extends Screen {
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
         return;
+    }
+
+    public void disableAll(){
+        email_field.setDisable(true);
+        app_type_box.setDisable(true);
+        date_submitted_field.setDisable(true);
+        applicant_name_field.setDisable(true);
+        plant_number_field.setDisable(true);
+        serial_number_field.setDisable(true);
+        phone_num_field.setDisable(true);
+        fanciful_field.setDisable(true);
+        vintage_field.setDisable(true); //NOT DISABLED
+        ph_field.setDisable(true); //NOT DISABLED
+        abv_field.setDisable(true); //NOT DISABLED
+        formula_field.setDisable(true);
+        brand_name_field.setDisable(true);
+        repid_field.setDisable(true);
+        add_info_field.setDisable(true);
+        address_field.setDisable(true);
+        address_field_2.setDisable(true);
+        add_info_field.setDisable(true);
+        appellation_field.setDisable(true);
+        grapes_field.setDisable(true);
+        product_source_box.setDisable(true);
+        product_type_box.setDisable(true);
+
+        app_type_box.setDisable(true);
+        app_type_field.setDisable(true);
+
+        RejectionField.setVisible(false);
+        RejectionLabel.setVisible(false);
+    }
+
+    public void setBoxes(Application dataSet){
+        if(dataSet instanceof Application) {
+            LogManager.println("This application is: " + ((Application) dataSet).ApplicationStatus);
+
+            Application application = (Application) dataSet;
+            repid_field.setText(application.RepID);
+            plant_number_field.setText(application.PlantRegistry);
+            brand_name_field.setText(application.Brand);
+            applicant_name_field.setText(application.AgentName);
+            address_field.setText(application.Address);
+            address_field_2.setText(application.Address2);
+            phone_num_field.setText(application.PhoneNo);
+            email_field.setText(application.Email);
+            date_submitted_field.setText(application.DateOfSubmission);
+            add_info_field.setText(application.AdditionalInfo);
+            fanciful_field.setText(application.FancifulName);
+            formula_field.setText(application.Formula);
+            grapes_field.setText(application.Grapes);
+            appellation_field.setText(application.WineAppelation);
+            abv_field.setText(application.ABV);
+            ph_field.setText(application.PH);
+            vintage_field.setText(application.VintageDate);
+            RejectionField.setText(((Application) dataSet).ReasonForRejection);
+
+            app_type_box.setValue(application.ApplicationType);
+            product_source_box.setValue(application.Locality);
+            product_type_box.setValue(application.AlcoholType);
+        } else {
+            LogManager.println("Error: DataSet dataSet passed to EditableApplicationManager was not Application");
+        }
     }
 
     public Screen getScreen(){

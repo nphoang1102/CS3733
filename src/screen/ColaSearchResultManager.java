@@ -10,22 +10,12 @@ import database.DataSet;
 import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import misc.ColaResult;
-import misc.ResultPopupManager;
+import screen.cola_search.*;
 
-import javax.xml.transform.Result;
-import java.io.IOException;
 import java.util.LinkedList;
 
 /**
@@ -34,8 +24,10 @@ import java.util.LinkedList;
 public class ColaSearchResultManager extends Screen{
     /* Class attributes */
     private DataSet mapOrigin = new BasicDataSet();
+    private String[] adStrings = new String[6];
     private String keywords = "";
     private String searchType = "";
+    private boolean isAdvance = false;
     private LinkedList<DataSet> databaseResult = new LinkedList();
     private ObservableList<ColaResult> resultTable = FXCollections.observableArrayList();
     private DataSet tempSet = new BasicDataSet();
@@ -51,16 +43,27 @@ public class ColaSearchResultManager extends Screen{
     @FXML
     private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
     @FXML
-    private Button saveToCsv;
+    private Button saveToCsv, advanceSearch;
     @FXML
     private Pane colaSearchPanel;
 
     /* Class methods */
     @Override
     public void onScreenFocused(DataSet data){
-        /* Retrieve search information from TopBarManager */
-        this.keywords = data.getValueForKey("Keywords");
-        this.searchType = data.getValueForKey("AlcoholType");
+        /* Check for advance or general search */
+        if (data.getValueForKey("isAdvance").equals("false")) {
+            this.keywords = data.getValueForKey("Keywords");
+            this.searchType = data.getValueForKey("AlcoholType");
+        }
+        else {
+            this.isAdvance = true;
+            this.adStrings[0] = data.getValueForKey("searchCat1");
+            this.adStrings[1] = data.getValueForKey("searchTerm1");
+            this.adStrings[2] = data.getValueForKey("searchCat2");
+            this.adStrings[3] = data.getValueForKey("searchTerm2");
+            this.adStrings[4] = data.getValueForKey("searchCat3");
+            this.adStrings[5] = data.getValueForKey("searchTerm3");
+        }
 
         /* Get the TableView stuff and result setup */
         this.initializeTable();
@@ -108,13 +111,22 @@ public class ColaSearchResultManager extends Screen{
         data.addField("AlcoholContent", rowData.getAlCon());
         data.addField("VintageYear", rowData.getYear());
         data.addField("PH", rowData.getPh());
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 300, data);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
     }
 
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
-        this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
-        /* Please remove this line whenever during actual implementation */
+        if (this.isAdvance) {
+            this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
+                    this.adStrings[1],
+                    this.adStrings[2],
+                    this.adStrings[3],
+                    this.adStrings[4],
+                    this.adStrings[5]);
+        }
+        else {
+            this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
+        }
         this.resultTable.clear();
         this.setMapOrigin();
         for (DataSet tempSet: this.databaseResult) {
@@ -137,34 +149,31 @@ public class ColaSearchResultManager extends Screen{
         }
         this.searchResult.setEditable(false);
         this.searchResult.getItems().setAll(resultTable);
+        this.isAdvance = false;
     }
 
     /* Print search result into a CSV file on button click */
-    public void onButtonClicked() {
-        String columnHeaders = "TTB ID" + ","
-                + "Permit number" + ","
-                + "Serial number" + ","
-                + "Date approved" + ","
-                + "Fancy name" + ","
-                + "Brand name" + ","
-                + "Origin" + ","
-                + "Class" + ","
-                + "Type";
-        String columns = "";
-        String outputPath = "/searchResult.csv";
-        for (ColaResult data : this.resultTable){
-            columns += data.getId() + ","
-                    + data.getPermit() + ","
-                    + data.getSerial() + ","
-                    + data.getDate() + ","
-                    + data.getFname() + ","
-                    + data.getName() + ","
-                    + data.getSource() + ","
-                    + data.getAclass() + ","
-                    + data.getType() + "\n";
-        }
-        StringUtilities.saveData(outputPath, new String[] {columnHeaders, columns});
-        LogManager.println("Search result saved to ./searchResult.csv");
+    public void toCSV() {
+        IDataDownload downloadCSV = new toCSV();
+        downloadCSV.downloadData(this.resultTable);
+    }
+
+    /* Print search result into a tab-delimited text file */
+    public void toTab() {
+        IDataDownload downloadTab = new toTSV();
+        downloadTab.downloadData(this.resultTable);
+    }
+
+    /* Print search result into a character-delimited text file */
+    public void toChar() {
+        IDataDownload downloadChar = new toChSV();
+        downloadChar.downloadData(this.resultTable);
+    }
+
+    /* Navigate to advance search screen on mouse click */
+    public void toAdvanceSearch() {
+        LogManager.println("Navigate to advance search screen from cola-search result screen");
+        Main.screenManager.setScreen(EnumScreenType.COLA_ADVANCE_SEARCH);
     }
 
     /* Initialize the origin mapping for end-user */

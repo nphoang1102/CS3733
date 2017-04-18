@@ -217,7 +217,6 @@ public class NewApplicationManager extends Screen {
         app.VintageDate = vintageYear;
         app.PH = ph;
         app.ApplicationStatus = "PENDING";
-        app.ApplicationNo = DatabaseManager.generateTTBID();
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;
         app.AgentUsername = "";

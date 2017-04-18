@@ -137,8 +137,11 @@ public class ManufacturerInboxManager extends Screen{
             row.setOnMouseClicked(event -> {
                 if ((event.getClickCount() == 2) && (! row.isEmpty())) {
                     ManufacturerInboxResult rowData = row.getItem();
-                    //LogManager.println();
-                    Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "Edit Application", 1025, 700, rowData.app);
+                    if(rowData.app.ApplicationStatus.equals("APPROVED")){
+                        Main.screenManager.popoutScreen(EnumScreenType.EDIT_APPLICATION_LIST, "Edit Application", 850, 720, rowData.app);
+                    } else {
+                        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "Edit Application", 1025, 700, rowData.app);
+                    }
                 }
             });
             return row;

@@ -35,6 +35,8 @@ public class LoginScreenManager extends Screen {
     @FXML
     private Button newUser;
     @FXML
+    private Button aboutUs;
+    @FXML
     private Button editAccountButton;
     @FXML
     private Text error;
@@ -58,23 +60,23 @@ public class LoginScreenManager extends Screen {
             } else {
                 User curUser = null;
                 try {
-                    curUser = Main.databaseManager.login(userName, "");
+                    curUser = Main.databaseManager.login(userName, password.getText());
                 } catch (DatabaseManager.UserNotFoundException e) {
                     error.visibleProperty().setValue(true);
                     error.setText("Username does not exist");
                     e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
-                    //error.visibleProperty().setValue(true);
-                    //error.setText("Incorrect password");
+                    error.visibleProperty().setValue(true);
+                    error.setText("Incorrect username or password");
                     e.printStackTrace();
-                    //return;
+                    return;
                 } catch (PasswordStorage.InvalidHashException e) {
                     e.printStackTrace();
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }
-
+                //set user as current user in main
                 Enum userType = curUser.getType();
                 Main.setUser(curUser);
                 if (userType.equals(EnumUserType.PUBLIC_USER)) {
@@ -82,14 +84,8 @@ public class LoginScreenManager extends Screen {
                 }
                 // Currently not implemented since manufacturerScreen is not made
                 else if (userType.equals(EnumUserType.MANUFACTURER)) {
-                    //build a manufacturer and store it globally
-                    //User currentUser = new User(EnumUserType.MANUFACTURER, userName, "");
-                    //Main.setUser(currentUser);
                     Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
                 } else if (userType.equals(EnumUserType.AGENT)) {
-                    //build an agent and store it globally
-                    //User currentUser = new User(EnumUserType.AGENT, userName, "");
-                    //Main.setUser(currentUser);
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
                 }
             }
@@ -99,6 +95,11 @@ public class LoginScreenManager extends Screen {
             //error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE'S ALREADY SOMEONE SIGNED IN, LOGOUT FIRST");
             error.setText("Sorry, there's already someone signed in");
         }
+    }
+
+    @FXML
+    void aboutUsClicked(){
+        Main.screenManager.setScreen(EnumScreenType.STATUS_SCREEN);
     }
 
 
@@ -128,7 +129,20 @@ public class LoginScreenManager extends Screen {
     @Override
     public void onScreenFocused(DataSet data) {
         usernameField.clear();
+        password.clear();
         error.visibleProperty().setValue(false);
+        //check if user has a type
+        if(Main.getUserType().equals(null)){
+            return;
+        }else if(Main.getUserType().equalsIgnoreCase("MANUFACTURER")){
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+            return;
+        }else if(Main.getUserType().equalsIgnoreCase("AGENT")){
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+            return;
+        }else if(Main.getUserType().equalsIgnoreCase("SUPERAGENT")){ // <-- update with actual super agent name
+           //TODO Main.screenManager.setScreen(EnumScreenType.SUPERAGENT_PAGE);
+        }
     }
 
     public void centerError(){

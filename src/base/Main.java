@@ -54,6 +54,7 @@ public class Main extends Application{
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
+        screenManager.initializeTopBar();
         //databaseManager.CreateTables();
         //databaseManager.entry();
         /*
@@ -124,4 +125,8 @@ public class Main extends Application{
     public static void setUser (User u){
         user = u;
     }
+
+   /* public static String getUserStatus(){
+        return user.st
+    }*/
 }

@@ -22,7 +22,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-        <ScrollPane layoutX="200.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="880.0" style="-fx-background-color: #;">
+        <ScrollPane layoutX="200.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="500.0" prefWidth="880.0" style="-fx-background-color: #939393;">
          <content>
             <TableView fx:id="Table" prefHeight="578.0" prefWidth="878.0" stylesheets="@../css/ColaSearchResult.css">
               <columns>
