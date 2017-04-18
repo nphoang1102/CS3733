@@ -78,7 +78,12 @@ public class ApplicationPage2Manager extends Screen{
         app_type_label.setVisible(false);
         app_type_label.setMaxWidth(Double.MAX_VALUE);
 
-        UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", Main.getUsername()).get(0);
+        brand_name_field.setText(app.Brand);
+        fanciful_field.setText(app.FancifulName);
+        formula_field.setText(app.Formula);
+        product_type_box.setValue(app.AlcoholType);
+        product_source_box.setValue(app.Locality);
+        app_type_box.setValue(app.ApplicationType);
     }
 
     @FXML

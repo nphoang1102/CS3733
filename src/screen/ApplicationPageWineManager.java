@@ -52,6 +52,11 @@ public class ApplicationPageWineManager extends Screen{
     @Override
     public void onScreenFocused(DataSet dataSet) {
         this.app = (Application) dataSet;
+
+        appellation_field.setText(app.WineAppelation);
+        vintage_field.setText(app.VintageDate);
+        ph_field.setText(app.PH);
+        grapes_field.setText(app.Grapes);
     }
 
     @FXML

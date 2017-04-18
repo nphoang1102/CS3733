@@ -1,7 +1,9 @@
 package screen;
 
 import base.EnumTableType;
+import base.LogManager;
 import base.Main;
+import base.StringUtilities;
 import database.Application;
 import database.DataSet;
 import database.DatabaseManager;
@@ -48,6 +50,7 @@ public class ApplicationPage1Manager extends Screen{
 
     @Override
     public void onScreenFocused(DataSet dataSet) {
+        LogManager.println(Main.getUsername());
         UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", Main.getUsername()).get(0);
 
         applicant_name_field.setText(man.name);
@@ -71,8 +74,27 @@ public class ApplicationPage1Manager extends Screen{
         app.AgentName = applicant_name_field.getText();
         app.PlantRegistry = plant_number_field.getText();
 
+        app.Brand = "";
+        app.FancifulName = "";
+        app.Formula = "";
+        app.AlcoholType = "";
+        app.Locality = "";
+        app.ApplicationType = "";
+
+        app.SerialNo = "";
+        app.Address = "";
+        app.Address2 = "";
+        app.ABV = "";
+
+        app.WineAppelation = "";
+        app.VintageDate = "";
+        app.PH = "";
+        app.Grapes = "";
+
+        app.SerialNo = "";
+        app.AdditionalInfo = "";
+
         Main.screenManager.closeCurrentPopOut();
         Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_2, "Page 2", 1020, 487, app);
     }
-
 }

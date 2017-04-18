@@ -57,6 +57,6 @@
         <TextField fx:id="app_type_field" layoutX="775.0" layoutY="238.0" />
       <Label fx:id="RejectionLabel" layoutX="776.0" layoutY="357.0" text="Reason For Rejection:" />
       <Label fx:id="RejectionField" alignment="TOP_CENTER" layoutX="758.0" layoutY="385.0" prefHeight="137.0" prefWidth="149.0" text="Rejection Reason" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="label_button" layoutX="775.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #939393;" text="Add Label Image" textFill="WHITE" />
+      <Button fx:id="label_button" layoutX="775.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#addLabel" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #939393;" text="Add Label Image" textFill="WHITE" />
     </children>
 </AnchorPane>

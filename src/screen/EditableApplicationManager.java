@@ -232,6 +232,10 @@ public class EditableApplicationManager extends Screen {
         return;
     }
 
+    public void addLabel(){
+
+    }
+
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
         return;

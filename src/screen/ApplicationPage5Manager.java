@@ -43,6 +43,9 @@ public class ApplicationPage5Manager extends Screen{
     @Override
     public void onScreenFocused(DataSet dataSet) {
         this.app = (Application) dataSet;
+
+        serial_number_field.setText(app.SerialNo);
+        add_info_field.setText(app.AdditionalInfo);
     }
 
     @FXML
