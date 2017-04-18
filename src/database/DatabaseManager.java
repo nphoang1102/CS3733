@@ -490,7 +490,7 @@ public class DatabaseManager {
     public static void setAgentStatus(String username, String status){
         try {
             statement.executeUpdate("UPDATE Agents SET " +
-                    "Status = '" + status + "', " +
+                    "Status = '" + status + "' " +
                     "WHERE Username = '" + username + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
