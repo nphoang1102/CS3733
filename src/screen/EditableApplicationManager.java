@@ -5,9 +5,14 @@ import base.Main;
 import base.StringUtilities;
 import database.Application;
 import database.DataSet;
-import database.DatabaseManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.commons.net.ftp.FTPClient;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Created by $(mrfortmeyer) on 4/4/2017.
@@ -92,9 +97,14 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button cancel_button;
 
+    @FXML
+    private Button label_button;
+
     public Application data;
 
     String manufacturer = Main.getUsername();
+
+    Stage primaryStage = new Stage();
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
@@ -229,6 +239,38 @@ public class EditableApplicationManager extends Screen {
         return;
     }
 
+    @FXML
+    public void addLabel(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
+
+
+        if(!filename.endsWith(".jpg")){
+            return;
+        }
+
+        LogManager.println("File:"+filename);
+
+        FTPClient client = new FTPClient();
+        FileInputStream fis = null;
+        try {
+            client.connect("72.93.244.26");
+            client.login("cadbo", "seafoamgreen");
+
+            fis = new FileInputStream(filename);
+            client.storeFile("TTB/alcohol/"+data.ApplicationNo+".jpg", fis);
+            client.logout();
+            fis.close();
+            LogManager.println("Uploading image as:"+"TTB/alcohol/"+data.ApplicationNo+".jpg");
+
+            ScreenManager.updateUserIcon();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
         return;
@@ -257,6 +299,7 @@ public class EditableApplicationManager extends Screen {
         grapes_field.setDisable(true);
         product_source_box.setDisable(true);
         product_type_box.setDisable(true);
+        label_button.setDisable(true);
 
         app_type_box.setDisable(true);
         app_type_field.setDisable(true);
