@@ -74,6 +74,9 @@
          </effect>
       </ImageView>
       <ImageView fitHeight="150.0" fitWidth="130.0" layoutX="700.0" layoutY="317.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="/assets/Matt.png" />
+         </image>
          <effect>
             <DropShadow color="#323232" height="40.0" offsetY="5.0" radius="19.5" width="40.0" />
          </effect>
