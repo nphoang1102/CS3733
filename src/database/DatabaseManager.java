@@ -109,7 +109,7 @@ public class DatabaseManager {
             statement = connection.createStatement();
         } catch (SQLException e) {//CATCH, BOOKER!
             LogManager.printStackTrace(e.getStackTrace());
-            LogManager.println("statement failed");
+            LogManager.println("statement failed"); // （　ﾟДﾟ）
             e.printStackTrace();
         }
         //On the second day, god...
@@ -193,9 +193,9 @@ public class DatabaseManager {
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
-            createTableError(e);
+            createTableError(e); //(ノಠ ∩ಠ)ノ彡( \o°o)\
         }
-        LogManager.print("Creating manufactureres table... ", EnumWarningType.NOTE);
+        LogManager.print("Creating manufacturers table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
                     " Username VARCHAR(30) PRIMARY KEY,\n" +
@@ -206,7 +206,8 @@ public class DatabaseManager {
                     " Email VARCHAR(50) NOT NULL,\n" +
                     " PlantRegistry VARCHAR(50) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
-                    " Address2 VARCHAR(50) NOT NULL\n" +
+                    " Address2 VARCHAR(50) NOT NULL,\n" +
+                    " Agent VARCHAR(30)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
@@ -346,8 +347,8 @@ public class DatabaseManager {
             LogManager.println("No matches!", EnumWarningType.WARNING);//Bummer, dude.
             return new LinkedList<>();
         }
-
         return alcoholLinkedList;
+//        ヽ(´ー｀)ノ
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -438,6 +439,7 @@ public class DatabaseManager {
                     "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
         }
         catch (SQLException e){
+            //ಠ_ಠ
             LogManager.print("Could not set DateOfSubmission on newly submitted application " + ApplicationNo + ": ");
             LogManager.println(e.getMessage());
         }
@@ -462,7 +464,7 @@ public class DatabaseManager {
                 manufacturer.userType = EnumUserType.MANUFACTURER;
                 manufacturer.Address2 = searchManufacturers.getString("Address2");
                 manufacturer.Company = searchManufacturers.getString("Company"); //I have a cat.
-                manufacturer.name = searchManufacturers.getString("Name");
+                manufacturer.name = searchManufacturers.getString("FullName");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
@@ -489,7 +491,7 @@ public class DatabaseManager {
                 agent.ID = searchAgents.getString("ID");
                 agent.username = searchAgents.getString("Username");
                 agent.PasswordHash = searchAgents.getString("PasswordHash");
-                agent.name = searchAgents.getString("Name");
+                agent.name = searchAgents.getString("FullName");
                 agent.email = searchAgents.getString("Email");
                 agent.superAgent = searchAgents.getString("SuperAgent");
                 agent.status = searchAgents.getString("Status");
@@ -551,7 +553,7 @@ public class DatabaseManager {
                 userm.username = searchManufacturers.getString("Username");
             }*/
             statement.executeUpdate("UPDATE Manufacturers SET " +
-                    "Name = '" + manufacturer.name + "', " + //WHOOOOO ARE YOU? OOH OHH, OOH OOH...
+                    "FullName = '" + manufacturer.name + "', " + //WHOOOOO ARE YOU? OOH OHH, OOH OOH...
                     "RepID = '" + manufacturer.RepID + "', " +
                     "Email = '" + manufacturer.email + "', " +
                     "PlantRegistry = '" + manufacturer.PlantRegistry + "', " +
@@ -829,8 +831,8 @@ public class DatabaseManager {
                         SuperAgent = "true";
                     }
                     String status = "pending";
-                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, Name, Email, SuperAgent, Status) VALUES " +
-                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "', " + status + "')");
+                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, FullName, Email, SuperAgent, Status) VALUES " +
+                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "', '" + status + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 }
@@ -860,7 +862,7 @@ public class DatabaseManager {
         try {
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
             if (user.next()) {
-                UserAgent agent = new UserAgent(user.getString("name"), username, user.getString("email"), user.getString("ID"), "false", "pending");
+                UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"), "false", "pending");
                 LogManager.println("User " + username + " is an agent");
                 tryPassword(username, password, user.getString("PasswordHash"));
                 return agent; //You can have this back now.
