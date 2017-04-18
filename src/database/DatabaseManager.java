@@ -48,7 +48,7 @@ public class DatabaseManager {
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
-        databaseType = "mysql";
+        databaseType = "derby";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
 
@@ -93,6 +93,7 @@ public class DatabaseManager {
             LogManager.print("Database connection failed. ", EnumWarningType.ERROR);
             if(derby){
                 LogManager.println("There may already be a connection to the database."); //Derby is monogamous.
+                System.exit(0);
             }
             else if(mysql){
                 LogManager.println("");
@@ -121,7 +122,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////CREATE TABLES/////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void createTables() {
+    private static void createTables() {
         LogManager.println("Creating Tables: ", EnumWarningType.NOTE);
         LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
@@ -363,7 +364,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-        String ApplicationNo = generateTTBID(); //Welcome to the new age.
+        application.ApplicationNo = generateTTBID(); //Welcome to the new age.
         String date = StringUtilities.getDate();
         try {
             LogManager.println("Submitting new application.", EnumWarningType.NOTE);
@@ -399,7 +400,7 @@ public class DatabaseManager {
                     "ApprovedTTBID," +
                     "ReasonForRejection" +
                     ") VALUES ('"
-                    + ApplicationNo + "', '"
+                    + application.ApplicationNo + "', '"
                     + application.SerialNo + "', '"
                     + application.ApplicationType + "', '"
                     + application.ApplicationStatus + "', '"
@@ -430,17 +431,17 @@ public class DatabaseManager {
                     + application.ReasonForRejection
                     + "')" + endQueryLine);
         } catch (SQLException e) {
-            LogManager.println("Failed to submit new application " + ApplicationNo + ": " + e.getMessage()); //I cannot change the laws of physics, cap'n!
+            LogManager.println("Failed to submit new application " + application.ApplicationNo + ": " + e.getMessage()); //I cannot change the laws of physics, cap'n!
 
         }
         try {
             statement.executeUpdate("UPDATE Applications\n" +
-                    "SET DateOfSubmission = " + date +"\n" +
+                    "SET DateOfSubmission = '" + date + "'\n" +
                     "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
         }
         catch (SQLException e){
             //ಠ_ಠ
-            LogManager.print("Could not set DateOfSubmission on newly submitted application " + ApplicationNo + ": ");
+            LogManager.print("Could not set DateOfSubmission on newly submitted application " + application.ApplicationNo + ": ");
             LogManager.println(e.getMessage());
         }
     }
