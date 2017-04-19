@@ -130,7 +130,7 @@ public class DatabaseManager {
                     " TTBID VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
-                    " CompletedDate DATE,\n" +
+                    " CompletedDate VARCHAR(20),\n" +
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Class VARCHAR(50) NOT NULL,\n" +
@@ -626,7 +626,7 @@ public class DatabaseManager {
         String Email = approvedApplication.Email;
         String AdditionalInfo = approvedApplication.AdditionalInfo;
         String DateOfSubmission = approvedApplication.DateOfSubmission;
-        String DateOfApproval = approvedApplication.DateOfApproval;
+        String CompletedDate = approvedApplication.DateOfApproval;
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
@@ -641,24 +641,24 @@ public class DatabaseManager {
                     "CompletedDate, " +
                     "FancifulName, " +
                     "BrandName, " +
+                    "Class, " +
                     "Origin, " +
                     "Type, " +
                     "AlcoholContent, " +
                     "VintageYear, " +
-                    "PH, " +
-                    "Class) VALUES ('" +
+                    "PH) VALUES ('" +
                     ApprovedTTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
-                    DateOfApproval + "', '" +
+                    CompletedDate + "', '" +
                     FancifulName + "', '" +
                     Brand + "', '" +
+                    PH + "', '" +
                     Locality + "', '" +
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
-                    PH + "', '" +
-                    Class + "')" + endQueryLine);
+                    PH + "')" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -682,7 +682,12 @@ public class DatabaseManager {
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername){
-//        Change the Agent username on the the specific application to the new username passed
+        try {
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = " + AgentUsername + " WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+        }catch (SQLException e) {
+            LogManager.println("agent does not exist", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
+            e.printStackTrace();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
