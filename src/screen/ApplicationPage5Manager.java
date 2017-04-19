@@ -100,7 +100,6 @@ public class ApplicationPage5Manager extends Screen{
         Main.screenManager.closeCurrentPopOut();
         Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
 
-
     }
 
     @FXML
