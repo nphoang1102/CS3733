@@ -47,9 +47,9 @@
         <Label layoutX="325.0" layoutY="545.0" text="Name of Applicant" />
         <TextField fx:id="applicant_name_field" layoutX="325.0" layoutY="565.0" prefHeight="25.0" prefWidth="183.0" />
         <Button fx:id="submit_button" layoutX="550.0" layoutY="540.0" mnemonicParsing="false" onMouseClicked="#submit" prefHeight="50.0" prefWidth="175.0" style="-fx-background-color: #939393;" text="Submit" textFill="WHITE">
-         <font>
-            <Font size="18.0" />
-         </font></Button>
+            <font>
+                <Font size="18.0" />
+            </font></Button>
         <Label fx:id="ph_label" layoutX="775.0" layoutY="55.0" prefHeight="17.0" prefWidth="98.0" text="If Wine: PH Level" />
         <Label fx:id="vintage_label" layoutX="775.0" layoutY="110.0" prefHeight="17.0" prefWidth="120.0" text="If Wine: Vintage Year" />
         <Label fx:id="abv_label" layoutX="775.0" layoutY="165.0" prefHeight="17.0" prefWidth="89.0" text="Alcohol Content" />
@@ -58,9 +58,9 @@
         <TextField fx:id="abv_field" layoutX="775.0" layoutY="185.0" />
         <Label fx:id="app_type_label" layoutX="775.0" layoutY="218.0" prefHeight="17.0" prefWidth="89.0" text="AppInfo" />
         <TextField fx:id="app_type_field" layoutX="775.0" layoutY="238.0" />
-      <Label fx:id="RejectionLabel" layoutX="776.0" layoutY="357.0" text="Reason For Rejection:" />
-      <Label fx:id="RejectionField" alignment="TOP_CENTER" layoutX="759.0" layoutY="374.0" prefHeight="40.0" prefWidth="149.0" text="Rejection Reason" textAlignment="CENTER" wrapText="true" />
-      <Button fx:id="label_button" layoutX="775.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#addLabel" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #939393;" text="Add Label Image" textFill="WHITE" />
-      <ImageView fx:id="image" fitHeight="174.0" fitWidth="200.0" layoutX="750.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="RejectionLabel" layoutX="776.0" layoutY="357.0" text="Reason For Rejection:" />
+        <Label fx:id="RejectionField" alignment="TOP_CENTER" layoutX="759.0" layoutY="374.0" prefHeight="40.0" prefWidth="149.0" text="Rejection Reason" textAlignment="CENTER" wrapText="true" />
+        <Button fx:id="label_button" layoutX="775.0" layoutY="305.0" mnemonicParsing="false" onMouseClicked="#addLabel" prefHeight="25.0" prefWidth="149.0" style="-fx-background-color: #939393;" text="Add Label Image" textFill="WHITE" />
+        <ImageView fx:id="image" fitHeight="174.0" fitWidth="200.0" layoutX="750.0" layoutY="423.0" pickOnBounds="true" preserveRatio="true" />
     </children>
 </AnchorPane>
