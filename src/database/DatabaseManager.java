@@ -900,7 +900,7 @@ public class DatabaseManager {
             if (user.next()) {
 
                 //Create the Agent object from database information
-                UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"), "false", "pending");
+                UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"),"false", "pending");
 
                 LogManager.println("Found!"); // YARP!
 
