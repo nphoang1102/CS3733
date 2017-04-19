@@ -582,7 +582,7 @@ public class DatabaseManager {
                 statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "'" + endQueryLine);
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
-                approveApplication(application.ApplicationNo);
+                reapproveApplication(application.ApplicationNo, application.ApprovedTTBID);
             } else {
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
@@ -595,8 +595,18 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void approveApplication(String ApplicationNum) {
+    public static void reapproveApplication(String ApplicationNum, String TTBID) {
+        //String TTBID = generateTTBID();
+        approveApplication(ApplicationNum, TTBID);
+    }
+
+    public static void approveNewApplication(String ApplicationNum) {
         String TTBID = generateTTBID();
+        approveApplication(ApplicationNum, TTBID);
+    }
+
+    public static void approveApplication(String ApplicationNum, String TTBID) {
+
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
@@ -619,7 +629,7 @@ public class DatabaseManager {
         String Locality = approvedApplication.Locality;
         String Brand = approvedApplication.Brand;
         String FancifulName = approvedApplication.FancifulName; //Fancy feast is delicious.
-        String AlcoholType = approvedApplication.AlcoholType;
+        String AlcoholType = approvedApplication.AlcoholType; // WHAT ARE THEY SELLING??
         String ABV = approvedApplication.ABV;
         String Address = approvedApplication.Address;//Is this the real life?
         String Address2 = approvedApplication.Address2;//Is this just fantasy?
@@ -627,7 +637,7 @@ public class DatabaseManager {
         String WineAppelation = approvedApplication.WineAppelation;//Caught in a landslide
         String VintageDate = approvedApplication.VintageDate;//NO ESCAPE FROM REALITY...
         String Grapes = approvedApplication.Grapes;
-        String PH = approvedApplication.PH;
+        String PH = approvedApplication.PH; //THEY'RE SELLING CHOCOLATE!!!
         String PhoneNo = approvedApplication.PhoneNo;
         String Email = approvedApplication.Email;
         String AdditionalInfo = approvedApplication.AdditionalInfo;
@@ -688,10 +698,10 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public void forwardApplication(String ApplicationNo, String AgentUsername){
+    public void forwardApplication(String ApplicationNo, String AgentUsername) {
         try {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = " + AgentUsername + " WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             LogManager.println("agent does not exist", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
             e.printStackTrace();
         }
@@ -715,26 +725,23 @@ public class DatabaseManager {
         //counters
         int i = 0;
         int j = -1;
-        //checks if it is the first time through the linked list
-        boolean isFirst = true;
-        //makes sure that the inbox never exceeds 10 applications
-        while(i < num){
-            try{
+
+        boolean isFirst = true;//checks if it is the first time through the linked list
+
+        while (i < num) { //makes sure that the inbox never exceeds 10 applications
+            try {
                 //increaces the counter of linked list
                 j++;
-                //gets one of the applications from all applications
-                Application tempApp = (Application) applicationLinkedList.get(j);
-                //gets the manucaturer for the specific application
-                LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.MANUFACTURER, "Username", tempApp.ManufacturerUsername);
-                UserManufacturer tempMan = (UserManufacturer) tempMans.getFirst();
-                //gets the current date
+                Application tempApp = (Application) applicationLinkedList.get(j); //gets one of the applications from all applications
+                LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.MANUFACTURER, "Username", tempApp.ManufacturerUsername);//gets the manufacturer for the specific application
+                UserManufacturer tempMan = (UserManufacturer) tempMans.getFirst(); //gets the current date
                 String curDate = StringUtilities.getDate();
                 LogManager.println(curDate);
-                if(!tempMan.AgentDate.equals(curDate)){
+                if (!tempMan.AgentDate.equals(curDate)) {
                     tempMan.Agent = "";
                 }
                 //check if that manufacturer has a specific agent on the day and adds it to the inbox
-                if (tempMan.Agent.equals(username)) {
+                if (tempMan.Agent.equals(username) || (tempMan.Agent.equals("") && !isFirst)) {
                     addToInbox.add((Application) applicationLinkedList.get(j));
                     try {
                         //sets the applications agent as the agents username who was there
@@ -746,8 +753,9 @@ public class DatabaseManager {
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
                     }
-                //checks if the manufacturer doesnt have an agent
-                }else if(tempMan.Agent.equals("")){
+                    //checks if the manufacturer doesnt have an agent
+                }
+                /*else if(tempMan.Agent.equals("")){
                     //adds the application to the inbox on the second pass
                     if(!isFirst){
                         //same as above
@@ -760,17 +768,17 @@ public class DatabaseManager {
                             LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
                         }
                     }
-                }
+                }*/
                 //if the user has an agent it does not add it to the inbox
-                else{}
-            }catch (Exception e) {
-                //list of applications chagned
-                if(isFirst){
+            } catch (Exception e) {
+                //list of applications changed
+                if (isFirst) {
                     //makes the while loop continue and start at the begining of the list
                     isFirst = false;
                     j = -1;
-                }else {
+                } else {//If your hand touches metal...
                     //the list ran out of entries twice so break the loop cause nothings left
+                    //...I swear by my pretty floral bonnet, I will end you.
                     break;
                 }
             }
@@ -900,7 +908,7 @@ public class DatabaseManager {
                 LogManager.println("not found.");
                 LogManager.println("Searching for a manufacturer called " + username + "... ", EnumWarningType.NOTE);
 
-                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "'"+ endQueryLine);
+                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "'" + endQueryLine);
                 LinkedList<DataSet> manufacturerLinkedList = new LinkedList<>();
                 if (user.next()) {
                     manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
