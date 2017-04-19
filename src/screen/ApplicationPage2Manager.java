@@ -1,11 +1,9 @@
 package screen;
 
 import base.EnumTableType;
+import base.LogManager;
 import base.Main;
-import database.Application;
-import database.DataSet;
-import database.DatabaseManager;
-import database.UserManufacturer;
+import database.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +16,7 @@ import javafx.scene.control.TextField;
  * Created by ${mrfortmeyer} on 4/18/2017.
  */
 
-public class ApplicationPage2Manager extends Screen{
+public class ApplicationPage2Manager extends Screen {
     public ApplicationPage2Manager() {
         super(EnumScreenType.LOG_IN);
     }
@@ -54,6 +52,7 @@ public class ApplicationPage2Manager extends Screen{
     private TextField app_type_field;
 
     private Application app;
+    private Boolean allFilled;
 
     @Override
     public void onScreenFocused(DataSet dataSet) {
@@ -87,13 +86,21 @@ public class ApplicationPage2Manager extends Screen{
     }
 
     @FXML
-    void clearFields() {
+    void goBack() {
+        app.Brand = brand_name_field.getText();
+        app.FancifulName = fanciful_field.getText();
+        app.Formula = formula_field.getText();
+        app.AlcoholType = product_type_box.getValue();
+        app.Locality = product_source_box.getValue();
+        app.ApplicationType = app_type_box.getValue();
 
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_1, "Page 1", 1020, 487, app);
     }
 
     @FXML
     public void onTypeSelected() {
-        switch(app_type_box.getValue()) {
+        switch (app_type_box.getValue()) {
             case "Certificate of Label Approval":
                 app_type_field.setVisible(false);
                 app_type_label.setVisible(false);
@@ -118,6 +125,7 @@ public class ApplicationPage2Manager extends Screen{
 
     @FXML
     void submit() {
+        allFilled = true;
         app.Brand = brand_name_field.getText();
         app.FancifulName = fanciful_field.getText();
         app.Formula = formula_field.getText();
@@ -125,8 +133,30 @@ public class ApplicationPage2Manager extends Screen{
         app.Locality = product_source_box.getValue();
         app.ApplicationType = app_type_box.getValue();
 
-        Main.screenManager.closeCurrentPopOut();
-        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_3, "Page 3", 1020, 487, app);
+        if (app.Brand == null || app.Brand.equals("")) {
+            allFilled = false;
+            brand_name_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if (app.Formula == null || app.Formula.equals("")) {
+            allFilled = false;
+            formula_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if (app.AlcoholType == null) {
+            allFilled = false;
+            product_type_box.setStyle("-fx-border-color: #ff0800;");
+            LogManager.println("Alcohol type can't be null!");
+        }
+        if (app.Locality == null) {
+            allFilled = false;
+            product_source_box.setStyle("-fx-border-color: #ff0800;");
+        }
+        if (app.ApplicationType == null) {
+            allFilled = false;
+            app_type_box.setStyle("-fx-border-color: #ff0800;");
+        }
+        if (allFilled) {
+            Main.screenManager.closeCurrentPopOut();
+            Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_3, "Page 3", 1020, 487, app);
+        }
     }
-
 }
