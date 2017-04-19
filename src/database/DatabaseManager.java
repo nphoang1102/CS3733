@@ -135,7 +135,7 @@ public class DatabaseManager {
         LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
-                    " TTBID VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
+                    " TTBID VARCHAR(30) UNIQUE PRIMARY KEY,\n" + //TODO UNIQUE WTF
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " CompletedDate VARCHAR(20),\n" +
@@ -230,6 +230,7 @@ public class DatabaseManager {
             LogManager.println("Already exists.");
         } else {
             LogManager.println("ERROR: " + e.getMessage());
+//            e.printStackTrace();
 
             System.exit(0); //(╯°□°）╯︵ ┻━┻
         }
@@ -884,13 +885,13 @@ public class DatabaseManager {
 
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET USER BY USERNAME//////////////////////////////////////////////////
+    ///////////LOG IN////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public User login(String username, String password) throws UserNotFoundException, IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
         ResultSet user;
         try {
             LogManager.print("Searching for an agent called " + username + "... ", EnumWarningType.NOTE);
-//            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
+            //user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
 
             user = statement.executeQuery("SELECT * FROM AGENTS WHERE USERNAME = '" + username + "'" + endQueryLine);
 
@@ -948,6 +949,7 @@ public class DatabaseManager {
     private void tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
         try {
             if (!PasswordStorage.verifyPassword(password, correctHash)) {
+                LogManager.println("Incorrect password entered for " + username);
                 throw new IncorrectPasswordException(username);
             }
         } catch (PasswordStorage.CannotPerformOperationException e) {
