@@ -667,9 +667,10 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void rejectApplication(String ApplicationNo) {
+    public static void rejectApplication(String ApplicationNo, String reasonForRejection) {
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET ReasonForRejection = '"+ reasonForRejection + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
