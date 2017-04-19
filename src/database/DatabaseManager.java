@@ -382,8 +382,9 @@ public class DatabaseManager {
                     "ApplicationType," +
                     "ApplicationStatus," +
                     "ManufacturerUsername, " +
-                    "AgentName, " +
+                    "RepName, " +
                     "AgentUsername, " +
+                    "AgentName, " +
                     "RepID, " +
                     "PlantRegistry, " +
                     "Locality, " +
@@ -412,8 +413,9 @@ public class DatabaseManager {
                     + application.ApplicationType + "', '"
                     + application.ApplicationStatus + "', '"
                     + application.ManufacturerUsername + "', '"
-                    + application.AgentName + "', '"
+                    + application.RepName + "', '"
                     + application.AgentUsername + "', '"
+                    + application.AgentName + "', '"
                     + application.RepID + "', '"
                     + application.PlantRegistry + "', '"
                     + application.Locality + "', '"
@@ -624,8 +626,9 @@ public class DatabaseManager {
         String ApplicationType = approvedApplication.ApplicationType;
         String ApplicationStatus = approvedApplication.ApplicationStatus;
         String ManufacturerUsername = approvedApplication.ManufacturerUsername;
-        String AgentName = approvedApplication.AgentName;
+        String RepName = approvedApplication.RepName;
         String AgentUsername = approvedApplication.AgentUsername;
+        String AgentName = approvedApplication.AgentName;
         String RepID = approvedApplication.RepID;
         String PlantRegistry = approvedApplication.PlantRegistry;
         String Locality = approvedApplication.Locality;
@@ -661,7 +664,7 @@ public class DatabaseManager {
                     "BrandName, " +
                     "Class, " +
                     "Origin, " +
-                    "Type, " + //TODO WHAT IS IT
+                    "Type, " +
                     "AlcoholContent, " +
                     "VintageYear, " +
                     "PH) VALUES ('" +
@@ -902,16 +905,16 @@ public class DatabaseManager {
                 //Create the Agent object from database information
                 UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"),"false", "pending");
 
-                LogManager.println("Found!"); // YARP!
+                LogManager.println("Found!");
 
                 tryPassword(username, password, user.getString("PasswordHash"));
 
-                return agent; //You can have this back now.
+                return agent;
             } else {
                 LogManager.println("not found.");
                 LogManager.println("Searching for a manufacturer called " + username + "... ", EnumWarningType.NOTE);
 
-                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "'" + endQueryLine);
+                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE Username = '" + username + "'" + endQueryLine);
                 LinkedList<DataSet> manufacturerLinkedList = new LinkedList<>();
                 if (user.next()) {
                     manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
@@ -919,22 +922,14 @@ public class DatabaseManager {
 
                 if (!manufacturerLinkedList.isEmpty()) {
                     LogManager.println("Found!");
-                    /*
-                      Where to next?
 
-                      ( •_•)
-                      ( •_•)>⌐■-■
-                      (⌐■_■)
-
-                      Pub.
-                    */
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
                     try {
-                        tryPassword(username, password, user.getString("PasswordHash")); // *Typing furiously* ...
+                        tryPassword(username, password, user.getString("PasswordHash"));
                     } catch (Exception e) {
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                     }
-                    return manufacturer; // ...I'M IN.
+                    return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
                     throw new UserNotFoundException(username);
