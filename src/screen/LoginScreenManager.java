@@ -77,6 +77,7 @@ public class LoginScreenManager extends Screen {
                 }
                 //set user as current user in main
                 Enum userType = curUser.getType();
+
                 Main.setUser(curUser);
                 if (userType.equals(EnumUserType.PUBLIC_USER)) {
                     Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
