@@ -162,8 +162,9 @@ public class DatabaseManager {
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
-                    " AgentName VARCHAR(30),\n" +
+                    " RepName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
+                    " AgentName VARCHAR(30),\n" +
                     " RepID VARCHAR(30),\n" +
                     " PlantRegistry VARCHAR(30) NOT NULL,\n" +
                     " Locality VARCHAR(30) NOT NULL,\n" +
