@@ -42,6 +42,7 @@ public class ApplicationPage3Manager extends Screen{
     private Button cancel_button1;
 
     private Application app;
+    private Boolean allFilled;
 
     @Override
     public void onScreenFocused(DataSet dataSet) {
@@ -54,23 +55,45 @@ public class ApplicationPage3Manager extends Screen{
     }
 
     @FXML
-    void clearFields() {
-
-    }
-
-    @FXML
-    void submit() {
+    void goBack() {
         app.SerialNo = serial_number_field.getText();
         app.Address = address_field.getText();
         app.Address2 = address_field_2.getText();
         app.ABV = abv_field.getText();
 
         Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_2, "Page 2", 1020, 487, app);
+    }
 
-        if(app.AlcoholType.equals("Wine")) {
-            Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_WINE, "Wine Info", 1020, 487, app);
-        } else{
-            Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_5, "Page 5", 1020, 487, app);
+    @FXML
+    void submit() {
+        allFilled = true;
+        app.SerialNo = serial_number_field.getText();
+        app.Address = address_field.getText();
+        app.Address2 = address_field_2.getText();
+        app.ABV = abv_field.getText();
+
+        if(app.SerialNo == null || app.SerialNo.equals("")){
+            allFilled = false;
+            serial_number_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.Address == null || app.Address.equals("")){
+            allFilled = false;
+            address_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.ABV == null ||app.ABV.equals("")){
+            allFilled = false;
+            abv_field.setStyle("-fx-border-color: #ff0800;");
+        }
+
+        if(allFilled) {
+            Main.screenManager.closeCurrentPopOut();
+
+            if (app.AlcoholType.equals("Wine")) {
+                Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_WINE, "Wine Info", 1020, 487, app);
+            } else {
+                Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_5, "Page 5", 1020, 487, app);
+            }
         }
     }
 

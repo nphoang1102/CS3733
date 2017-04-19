@@ -4,6 +4,7 @@ import base.EnumTableType;
 import base.LogManager;
 import base.Main;
 import base.StringUtilities;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import database.Application;
 import database.DataSet;
 import database.DatabaseManager;
@@ -51,6 +52,7 @@ public class ApplicationPage5Manager extends Screen{
     String filePath = "";
 
     private Application app;
+    private Boolean allFilled;
 
     @Override
     public void onScreenFocused(DataSet dataSet) {
@@ -62,44 +64,60 @@ public class ApplicationPage5Manager extends Screen{
     }
 
     @FXML
-    void clearFields() {
+    void goBack() {
+        app.SerialNo = serial_number_field.getText();
+        app.AdditionalInfo = add_info_field.getText();
 
+        if(app.AlcoholType.equals("Wine")) {
+            Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_WINE, "Wine Info", 1020, 487, app);
+        } else{
+            Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_3, "Page 3", 1020, 487, app);
+        }
     }
 
     @FXML
     void submit() {
+        allFilled = true;
         app.SerialNo = serial_number_field.getText();
         app.AdditionalInfo = add_info_field.getText();
 
-        app.ApplicationStatus = "PENDING";
-        app.DateOfSubmission = StringUtilities.getDate();
-        app.DateOfExpiration = StringUtilities.getExpirationDate();
-        app.ManufacturerUsername = Main.getUsername();
-        app.AgentUsername = "";
-
-        database.DatabaseManager.submitApplication(app);
-
-        LogManager.println("Submitting Application");
-
-        FTPClient client = new FTPClient();
-        FileInputStream fis = null;
-        try {
-            client.connect("72.93.244.26");
-            client.login("cadbo", "seafoamgreen");
-
-            fis = new FileInputStream(filePath);
-            client.storeFile("TTB/alcohol/"+app.ApprovedTTBID+".jpg", fis);
-            client.logout();
-            fis.close();
-            LogManager.println("Uploading image as:"+"TTB/alcohol/"+app.ApprovedTTBID+".jpg");
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(app.SerialNo == null || app.SerialNo.equals("")){
+            allFilled = false;
+            serial_number_field.setStyle("-fx-border-color: #ff0800;");
         }
 
-        Main.screenManager.closeCurrentPopOut();
-        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        if(allFilled) {
+            app.ApplicationStatus = "PENDING";
+            app.DateOfSubmission = StringUtilities.getDate();
+            LogManager.println(app.DateOfSubmission);
+            app.DateOfExpiration = StringUtilities.getExpirationDate();
+            app.ManufacturerUsername = Main.getUsername();
+            app.AgentUsername = "";
 
+            database.DatabaseManager.submitApplication(app);
+
+            LogManager.println("Submitting Application");
+
+
+            FTPClient client = new FTPClient();
+            FileInputStream fis = null;
+            try {
+                client.connect("72.93.244.26");
+                client.login("cadbo", "seafoamgreen");
+
+                fis = new FileInputStream(filePath);
+                client.storeFile("TTB/alcohol/" + app.ApprovedTTBID + ".jpg", fis);
+                client.logout();
+                fis.close();
+                LogManager.println("Uploading image as:" + "TTB/alcohol/" + app.ApprovedTTBID + ".jpg");
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            Main.screenManager.closeCurrentPopOut();
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        }
     }
 
     @FXML

@@ -25,11 +25,11 @@ public class AgentAppScreenManager extends Screen{
     Label repId, brewNo, productSrc, productType, brandName, applicantName, appNameAndAdd, alternateAdd, phoneNum, emailAdd, appDate, ttbId, fancyName, formula, wineVarietal, wineAppellation, appType, alcContent, pHLevel, vintageYear;
 
     @FXML
-    TextArea rejectReason, newAgentID, sendBackReason;
+    TextArea rejectReason, newAgentID;
 
     //all the Buttons on the screen
     @FXML
-    Button acceptButton, rejectButton, sendBackButtong, forwardButton;
+    Button acceptButton, rejectButton, forwardButton;
 
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
@@ -81,11 +81,10 @@ public class AgentAppScreenManager extends Screen{
     public void acceptApp(MouseEvent mouseEvent) {
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
-            DatabaseManager.approveApplication(app.ApplicationNo);
+            DatabaseManager.approveNewApplication(app.ApplicationNo);
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
-
     }
 
 
@@ -99,7 +98,7 @@ public class AgentAppScreenManager extends Screen{
             if(!rejectReason.getText().isEmpty()){
                 app.ReasonForRejection = rejectReason.getText();
             }
-            DatabaseManager.rejectApplication(app.ApplicationNo);
+            DatabaseManager.rejectApplication(app.ApplicationNo, app.ReasonForRejection);
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
@@ -117,10 +116,10 @@ public class AgentAppScreenManager extends Screen{
         }catch(Exception e){
             LogManager.println("there was an error forwarding the message");
         }
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
-    public void sendBackApp(MouseEvent mouseEvent) {
 
-    }
 
 }
