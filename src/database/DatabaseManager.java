@@ -814,8 +814,9 @@ public class DatabaseManager {
                 application.ApplicationType = getApplications.getString("ApplicationType");
                 application.ApplicationStatus = getApplications.getString("ApplicationStatus");
                 application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
-                application.AgentName = getApplications.getString("AgentName");
+                application.RepName = getApplications.getString("RepName");
                 application.AgentUsername = getApplications.getString("AgentUsername");
+                application.AgentName = getApplications.getString("AgentName");
                 application.RepID = getApplications.getString("RepID");
                 application.PlantRegistry = getApplications.getString("PlantRegistry");
                 application.Locality = getApplications.getString("Locality");
