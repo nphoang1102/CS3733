@@ -69,7 +69,8 @@ public class ManufacturerInboxManager extends Screen{
 
     public void newApplication(){
         LogManager.println("Creating a new application");
-        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_1, "New Application", 1025, 700, new BasicDataSet());
+        Application app = new Application();
+        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_1, "New Application", 1020, 487, app);
         return;
     }
 

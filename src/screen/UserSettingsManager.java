@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -50,40 +51,64 @@ public class UserSettingsManager extends Screen {
     private TextField newUsername, firstName, lastName, company, email, breweryPermitNumber, phoneNumber, representativeIdNumber, plantRegistryBasicPermitNumber;
     @FXML
     private Button saveChangesButton, editProfilePic;
+    @FXML
+    private CheckBox tickSuperAgent;
 
     @FXML
     private void saveChanges() {
         //talk to database to save all the changes
+        updateUser(Main.user.getType());
         String username = Main.getUsername();
-        //UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", username).get(0);
 
-        UserManufacturer man = (UserManufacturer) Main.getUser();
 
-        LogManager.println(man.name);
-        LogManager.println(man.PhoneNo);
-        LogManager.println(man.RepID);
-        LogManager.println(man.PlantRegistry);
-        LogManager.println(man.email);
 
-        man.name = firstName.getText()+" "+lastName.getText();
-        man.PhoneNo = phoneNumber.getText();
-        man.RepID = representativeIdNumber.getText();
-        man.PlantRegistry = plantRegistryBasicPermitNumber.getText();
-        man.email = email.getText();
 
-        LogManager.println(man.name);
-        LogManager.println(man.PhoneNo);
-        LogManager.println(man.RepID);
-        LogManager.println(man.PlantRegistry);
-        LogManager.println(man.email);
 
-        DatabaseManager.updateManufacturer(man);
-
-        //set screen to manufacturer
-        Main.screenManager.back();
+        //set screen to correct home page
+        goHome(Main.user.getType());
     }
 
+    private void updateUser(EnumUserType type){
+        if(type.equals(EnumUserType.MANUFACTURER)){
+            UserManufacturer man = (UserManufacturer) Main.getUser();
 
+            LogManager.println(man.name);
+            LogManager.println(man.PhoneNo);
+            LogManager.println(man.RepID);
+            LogManager.println(man.PlantRegistry);
+            LogManager.println(man.email);
+
+            man.name = firstName.getText()+" "+lastName.getText();
+            man.PhoneNo = phoneNumber.getText();
+            man.RepID = representativeIdNumber.getText();
+            man.PlantRegistry = plantRegistryBasicPermitNumber.getText();
+            man.email = email.getText();
+
+            LogManager.println(man.name);
+            LogManager.println(man.PhoneNo);
+            LogManager.println(man.RepID);
+            LogManager.println(man.PlantRegistry);
+            LogManager.println(man.email);
+
+            DatabaseManager.updateManufacturer(man);
+        }else if(type.equals(EnumUserType.AGENT)){
+            UserAgent agent = (UserAgent) Main.getUser();
+            agent.email = email.getText();
+            agent.name = (firstName.getText() + lastName.getText());
+            agent.setSuperAgent(String.valueOf(tickSuperAgent.selectedProperty().getValue()));
+
+        }
+    }
+
+    private void goHome(EnumUserType type){
+        if(type.equals(EnumUserType.MANUFACTURER)){
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        }else if(type.equals(EnumUserType.AGENT)){
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        }else if(type.equals(EnumUserType.SUPER_AGENT)){
+            Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
+        }
+    }
 
     @FXML
     private void EditProfilePic(){
@@ -134,13 +159,17 @@ public class UserSettingsManager extends Screen {
                 phoneNumber.visibleProperty().setValue(true);
                 representativeIdNumber.visibleProperty().setValue(true);
                 plantRegistryBasicPermitNumber.visibleProperty().setValue(true);
+                tickSuperAgent.setVisible(false);
             }
             if(Main.getUserType().equalsIgnoreCase("agent")){
                 //if we have an agent, hide manufacturer fields
-                email.visibleProperty().setValue(false);
                 phoneNumber.visibleProperty().setValue(false);
                 representativeIdNumber.visibleProperty().setValue(false);
                 plantRegistryBasicPermitNumber.visibleProperty().setValue(false);
+                breweryPermitNumber.visibleProperty().setValue(false);
+                company.setVisible(false);
+                email.setLayoutX(breweryPermitNumber.getLayoutX());
+                email.setLayoutY(breweryPermitNumber.getLayoutY());
             }
         }
 
@@ -152,6 +181,16 @@ public class UserSettingsManager extends Screen {
             phoneNumber.setText(man.PhoneNo);
             representativeIdNumber.setText(man.RepID);
             plantRegistryBasicPermitNumber.setText(man.PlantRegistry);
+        }
+    }
+
+    @FXML
+    private void selectSuperAgent(){
+        //check if manufacturer box is currently selected
+        if(tickSuperAgent.selectedProperty().getValue()) {
+            Main.getUser().setType(EnumUserType.SUPER_AGENT);
+        }else{
+            Main.getUser().setType(null);
         }
     }
 }

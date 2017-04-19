@@ -48,8 +48,14 @@ public class ApplicationPage1Manager extends Screen{
     @FXML
     private Label app_type_label;
 
+    private Application app;
+
+    private Boolean allFilled;
+
     @Override
     public void onScreenFocused(DataSet dataSet) {
+        this.app = (Application) dataSet;
+
         LogManager.println(Main.getUsername());
         UserManufacturer man = (UserManufacturer) DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", Main.getUsername()).get(0);
 
@@ -61,40 +67,42 @@ public class ApplicationPage1Manager extends Screen{
     }
 
     @FXML
-    void clearFields() {
-
+    void goBack() {
     }
 
     @FXML
     void submit() {
-        Application app = new Application();
+        allFilled = true;
         app.RepID = repid_field.getText();
         app.PhoneNo = phone_num_field.getText();
         app.Email = email_field.getText();
         app.AgentName = applicant_name_field.getText();
         app.PlantRegistry = plant_number_field.getText();
 
-        app.Brand = "";
-        app.FancifulName = "";
-        app.Formula = "";
-        app.AlcoholType = "";
-        app.Locality = "";
-        app.ApplicationType = "";
+        if(app.RepID == null || app.RepID.equals("")){
+            allFilled = false;
+            repid_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.PhoneNo == null || app.PhoneNo.equals("")){
+            allFilled = false;
+            phone_num_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.Email == null || app.Email.equals("")){
+            allFilled = false;
+            email_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.AgentName == null || app.AgentName.equals("")){
+            allFilled = false;
+            applicant_name_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.PlantRegistry == null || app.PlantRegistry.equals("")){
+            allFilled = false;
+            plant_number_field.setStyle("-fx-border-color: #ff0800;");
+        }
 
-        app.SerialNo = "";
-        app.Address = "";
-        app.Address2 = "";
-        app.ABV = "";
-
-        app.WineAppelation = "";
-        app.VintageDate = "";
-        app.PH = "";
-        app.Grapes = "";
-
-        app.SerialNo = "";
-        app.AdditionalInfo = "";
-
-        Main.screenManager.closeCurrentPopOut();
-        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_2, "Page 2", 1020, 487, app);
+        if(allFilled) {
+            Main.screenManager.closeCurrentPopOut();
+            Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_2, "Page 2", 1020, 487, app);
+        }
     }
 }
