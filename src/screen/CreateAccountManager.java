@@ -70,31 +70,26 @@ public class CreateAccountManager extends Screen{
                     //record the account in the database
                     if (userType.equals(EnumUserType.AGENT)) {
                         UserAgent tempUser = new UserAgent(user);
-                        //create new agent, no password
-                        DatabaseManager.addUser(tempUser, password.getText(), userType);
+                        //create new agent, with password
+                        //DatabaseManager.addUser(tempUser, password.getText(), userType);
                         //set agent to pending
-                        tempUser.setStatus("PENDING");
-                        Main.setUser(tempUser);
-                        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+                        tempUser.setStatus("pending");
+                        tempUser.PasswordHash = password.getText();
 
+                        //Main.setUser(tempUser);
+
+                        //send a new agent to the edit account screen
+                        //Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", tempUser);
+                        Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", 800, 400,tempUser);
                     } else if (userType.equals(EnumUserType.MANUFACTURER)) {
                         UserManufacturer tempUser = new UserManufacturer(user);
-                        //tell the system what typ of user they are
-                        LogManager.println(user + " is a " + userType);
                         //create new manufacturer, no password
                         DatabaseManager.addUser(tempUser, password.getText(), userType);
 
                         Main.setUser(tempUser);
-                        System.out.println(Main.getUsername());
 
                         Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-                    }/*else if(userType.equalsIgnoreCase("publicUser")){
-                User tempUser =  new User(username.getText());
-                //tell the system what typ of user they are
-                LogManager.println(user+" is a "+userType);
-                //create new manufacturer, no password
-                DatabaseManager.addUser(user,"",EnumUserType.MANUFACTURER);
-                Main.screenManager.setScreen(EnumScreenType.LOG_IN);*/
+                    }
                 }else{//passwords don't match
                     accountError.setText(user + ", make sure you enter the same password");
                     password.clear();
@@ -208,7 +203,6 @@ public class CreateAccountManager extends Screen{
             } else if (securityLevel > .7) {
                 security.setStyle("-fx-accent:  #34a88b; -fx-focus-color: #34a88b;");
             }
-            LogManager.println(String.valueOf(securityLevel));
             //update old password
             oldPassword = curPassword;
         }

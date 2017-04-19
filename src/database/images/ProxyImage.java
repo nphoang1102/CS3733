@@ -20,6 +20,9 @@ public class ProxyImage implements ImageInterface {
 
     @Override
     public boolean exists() {
-        return new ImageOnServer(url).exists();
+        if(new ImageOnServer(url)!=null){
+            return new ImageOnServer(url).exists();
+        }
+        return false;
     }
 }

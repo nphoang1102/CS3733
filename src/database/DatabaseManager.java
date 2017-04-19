@@ -112,6 +112,8 @@ public class DatabaseManager {
                 }
                 tries++;
             }
+          
+          
         }
 
         try {
@@ -160,8 +162,9 @@ public class DatabaseManager {
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
-                    " AgentName VARCHAR(30),\n" +
+                    " RepName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
+                    " AgentName VARCHAR(30),\n" +
                     " RepID VARCHAR(30),\n" +
                     " PlantRegistry VARCHAR(30) NOT NULL,\n" +
                     " Locality VARCHAR(30) NOT NULL,\n" +
@@ -370,7 +373,8 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-        application.ApplicationNo = generateTTBID(); //Welcome to the new age.
+        application.ApprovedTTBID = generateTTBID(); //Welcome to the new age.
+        application.ApplicationNo = application.ApprovedTTBID;
         String date = StringUtilities.getDate();
         try {
             LogManager.println("Submitting new application.", EnumWarningType.NOTE);
@@ -381,8 +385,9 @@ public class DatabaseManager {
                     "ApplicationType," +
                     "ApplicationStatus," +
                     "ManufacturerUsername, " +
-                    "AgentName, " +
+                    "RepName, " +
                     "AgentUsername, " +
+                    "AgentName, " +
                     "RepID, " +
                     "PlantRegistry, " +
                     "Locality, " +
@@ -411,8 +416,9 @@ public class DatabaseManager {
                     + application.ApplicationType + "', '"
                     + application.ApplicationStatus + "', '"
                     + application.ManufacturerUsername + "', '"
-                    + application.AgentName + "', '"
+                    + application.RepName + "', '"
                     + application.AgentUsername + "', '"
+                    + application.AgentName + "', '"
                     + application.RepID + "', '"
                     + application.PlantRegistry + "', '"
                     + application.Locality + "', '"
@@ -583,7 +589,7 @@ public class DatabaseManager {
                 statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "'" + endQueryLine);
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
-                reapproveApplication(application.ApplicationNo, application.ApprovedTTBID);
+                approveApplication(application.ApplicationNo);
             } else {
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
@@ -596,22 +602,22 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void reapproveApplication(String ApplicationNum, String TTBID) {
+    /*public static void reapproveApplication(String ApplicationNum, String TTBID) {
         //String TTBID = generateTTBID();
         approveApplication(ApplicationNum, TTBID);
     }
-
     public static void approveNewApplication(String ApplicationNum) {
-        String TTBID = generateTTBID();
-        approveApplication(ApplicationNum, TTBID);
-    }
+        //String TTBID = generateTTBID();
 
-    public static void approveApplication(String ApplicationNum, String TTBID) {
+        approveApplication(ApplicationNum, TTBID);
+    }*/
+
+    public static void approveApplication(String ApplicationNum) {
 
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
-            statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
+            //statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -623,8 +629,9 @@ public class DatabaseManager {
         String ApplicationType = approvedApplication.ApplicationType;
         String ApplicationStatus = approvedApplication.ApplicationStatus;
         String ManufacturerUsername = approvedApplication.ManufacturerUsername;
-        String AgentName = approvedApplication.AgentName;
+        String RepName = approvedApplication.RepName;
         String AgentUsername = approvedApplication.AgentUsername;
+        String AgentName = approvedApplication.AgentName;
         String RepID = approvedApplication.RepID;
         String PlantRegistry = approvedApplication.PlantRegistry;
         String Locality = approvedApplication.Locality;
@@ -643,9 +650,9 @@ public class DatabaseManager {
         String Email = approvedApplication.Email;
         String AdditionalInfo = approvedApplication.AdditionalInfo;
         String DateOfSubmission = approvedApplication.DateOfSubmission;
-        String CompletedDate = approvedApplication.DateOfApproval;
+        String CompletedDate = StringUtilities.getDate();
         String DateOfExpiration = approvedApplication.DateOfExpiration;
-        String ApprovedTTBID = approvedApplication.ApprovedTTBID;
+        String TTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
         String Class = "";
 
@@ -660,16 +667,16 @@ public class DatabaseManager {
                     "BrandName, " +
                     "Class, " +
                     "Origin, " +
-                    "Type, " + //TODO WHAT IS IT
+                    "Type, " +
                     "AlcoholContent, " +
                     "VintageYear, " +
                     "PH) VALUES ('" +
-                    ApprovedTTBID + "', '" +
+                    TTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
                     CompletedDate + "', '" +
-                    FancifulName + "', '" +
-                    Brand + "', '" +
+                    FancifulName.toUpperCase() + "', '" +
+                    Brand.toUpperCase() + "', '" +
                     PH + "', '" +
                     Locality + "', '" +
                     AlcoholType + "', '" +
@@ -685,9 +692,10 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void rejectApplication(String ApplicationNo) {
+    public static void rejectApplication(String ApplicationNo, String reasonForRejection) {
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET ReasonForRejection = '"+ reasonForRejection + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
@@ -701,8 +709,8 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername) {
         try {
-            statement.executeUpdate("UPDATE Applications SET AgentUsername = " + AgentUsername + " WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
-        } catch (SQLException e) {
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + AgentUsername + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+        }catch (SQLException e) {
             LogManager.println("agent does not exist", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
             e.printStackTrace();
         }
@@ -803,8 +811,9 @@ public class DatabaseManager {
                 application.ApplicationType = getApplications.getString("ApplicationType");
                 application.ApplicationStatus = getApplications.getString("ApplicationStatus");
                 application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
-                application.AgentName = getApplications.getString("AgentName");
+                application.RepName = getApplications.getString("RepName");
                 application.AgentUsername = getApplications.getString("AgentUsername");
+                application.AgentName = getApplications.getString("AgentName");
                 application.RepID = getApplications.getString("RepID");
                 application.PlantRegistry = getApplications.getString("PlantRegistry");
                 application.Locality = getApplications.getString("Locality");
@@ -893,23 +902,23 @@ public class DatabaseManager {
             LogManager.print("Searching for an agent called " + username + "... ", EnumWarningType.NOTE);
             //user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
 
-            user = statement.executeQuery("SELECT * FROM AGENTS WHERE USERNAME = '" + username + "'" + endQueryLine);
+            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "'" + endQueryLine);
 
             if (user.next()) {
 
                 //Create the Agent object from database information
-                UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"), "false", "pending");
+                UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"),user.getString("SuperAgent"), user.getString("Status"));
 
-                LogManager.println("Found!"); // YARP!
+                LogManager.println("Found!");
 
                 tryPassword(username, password, user.getString("PasswordHash"));
 
-                return agent; //You can have this back now.
+                return agent;
             } else {
                 LogManager.println("not found.");
                 LogManager.println("Searching for a manufacturer called " + username + "... ", EnumWarningType.NOTE);
 
-                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "'" + endQueryLine);
+                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE Username = '" + username + "'" + endQueryLine);
                 LinkedList<DataSet> manufacturerLinkedList = new LinkedList<>();
                 if (user.next()) {
                     manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
@@ -917,22 +926,14 @@ public class DatabaseManager {
 
                 if (!manufacturerLinkedList.isEmpty()) {
                     LogManager.println("Found!");
-                    /*
-                      Where to next?
 
-                      ( •_•)
-                      ( •_•)>⌐■-■
-                      (⌐■_■)
-
-                      Pub.
-                    */
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
                     try {
-                        tryPassword(username, password, user.getString("PasswordHash")); // *Typing furiously* ...
+                        tryPassword(username, password, user.getString("PasswordHash"));
                     } catch (Exception e) {
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                     }
-                    return manufacturer; // ...I'M IN.
+                    return manufacturer;
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
                     throw new UserNotFoundException(username);

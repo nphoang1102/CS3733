@@ -52,7 +52,7 @@ public class AgentPendingManager extends Screen{
     public void rejectAgent(MouseEvent mouseEvent) {
         DatabaseManager.setAgentStatus(thisUser.getUsername(), "REMOVE");
         Main.screenManager.closeCurrentPopOut();
-        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
     }
 
 
