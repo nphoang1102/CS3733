@@ -372,7 +372,8 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-        application.ApplicationNo = generateTTBID(); //Welcome to the new age.
+        application.ApprovedTTBID = generateTTBID(); //Welcome to the new age.
+        application.ApplicationNo = application.ApprovedTTBID;
         String date = StringUtilities.getDate();
         try {
             LogManager.println("Submitting new application.", EnumWarningType.NOTE);
@@ -587,7 +588,7 @@ public class DatabaseManager {
                 statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "'" + endQueryLine);
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
-                reapproveApplication(application.ApplicationNo, application.ApprovedTTBID);
+                approveApplication(application.ApplicationNo);
             } else {
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
@@ -600,22 +601,22 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void reapproveApplication(String ApplicationNum, String TTBID) {
+    /*public static void reapproveApplication(String ApplicationNum, String TTBID) {
         //String TTBID = generateTTBID();
         approveApplication(ApplicationNum, TTBID);
     }
 
     public static void approveNewApplication(String ApplicationNum) {
-        String TTBID = generateTTBID();
+        //String TTBID = generateTTBID();
         approveApplication(ApplicationNum, TTBID);
-    }
+    }*/
 
-    public static void approveApplication(String ApplicationNum, String TTBID) {
+    public static void approveApplication(String ApplicationNum) {
 
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
-            statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
+            //statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -650,7 +651,7 @@ public class DatabaseManager {
         String DateOfSubmission = approvedApplication.DateOfSubmission;
         String CompletedDate = approvedApplication.DateOfApproval;
         String DateOfExpiration = approvedApplication.DateOfExpiration;
-        String ApprovedTTBID = approvedApplication.ApprovedTTBID;
+        String TTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
         String Class = "";
 
@@ -669,7 +670,7 @@ public class DatabaseManager {
                     "AlcoholContent, " +
                     "VintageYear, " +
                     "PH) VALUES ('" +
-                    ApprovedTTBID + "', '" +
+                    TTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
                     CompletedDate + "', '" +

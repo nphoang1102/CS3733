@@ -45,11 +45,11 @@ public class ResultPopupManager extends Screen {
         dis_alCon.setText("Alcohol content: "+ result.getValueForKey("AlcoholContent"));
         dis_year.setText("Vintage year: " + result.getValueForKey("VintageYear"));
         dis_ph.setText("pH level: " + result.getValueForKey("PH"));
-        ProxyImage userImage = new ProxyImage("alcohol/"+(dis_serial.getText().replaceAll("Serial No: ", ""))+".jpg");
+        ProxyImage userImage = new ProxyImage("alcohol/"+(dis_ID.getText().replaceAll("TTB ID: ", ""))+".jpg");
         if(userImage!=null) {
             userImage.displayImage(image);
         }else{
-            LogManager.println("Label not found: alcohol/"+(dis_serial.getText().replaceAll("Serial No: ", ""))+".jpg", EnumWarningType.WARNING);
+            LogManager.println("Label not found: alcohol/"+(dis_ID.getText().replaceAll("TTB ID: ", ""))+".jpg", EnumWarningType.WARNING);
         }
     }
 }
