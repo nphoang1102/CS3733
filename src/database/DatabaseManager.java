@@ -50,7 +50,7 @@ public class DatabaseManager {
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
-        databaseType = "mysql";
+        databaseType = "derby";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
 
@@ -135,7 +135,7 @@ public class DatabaseManager {
         LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
-                    " TTBID VARCHAR(30) UNIQUE PRIMARY KEY,\n" + //TODO UNIQUE WTF
+                    " TTBID VARCHAR(30) PRIMARY KEY,\n" + //TODO UNIQUE WTF
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " CompletedDate VARCHAR(20),\n" +
@@ -155,7 +155,7 @@ public class DatabaseManager {
         LogManager.print("Creating applications table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(20) PRIMARY KEY UNIQUE,\n" +
+                    " ApplicationNo VARCHAR(20) PRIMARY KEY,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
