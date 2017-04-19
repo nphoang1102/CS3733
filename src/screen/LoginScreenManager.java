@@ -82,6 +82,7 @@ public class LoginScreenManager extends Screen {
                     Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
                 }else if (userType.equals(EnumUserType.MANUFACTURER)) {
                     UserManufacturer tempManufacturer = (UserManufacturer) curUser;
+                    Main.setUser(tempManufacturer);
                     Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
                 }else if (userType.equals(EnumUserType.AGENT)) {
                     //check if they're a super agent
