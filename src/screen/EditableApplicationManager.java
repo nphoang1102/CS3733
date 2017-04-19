@@ -228,6 +228,7 @@ public class EditableApplicationManager extends Screen {
         app.ManufacturerUsername = manufacturer;
         app.AgentUsername = "";
         app.ApplicationNo = data.ApplicationNo;
+        app.ApprovedTTBID = data.ApprovedTTBID;
 
         if(data.ApplicationStatus.equals("REJECTED")){
             app.ApplicationStatus = "PENDING";
