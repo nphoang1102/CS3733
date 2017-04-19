@@ -1,5 +1,6 @@
 package database;
 
+import base.Main;
 import screen.EnumUserType;
 
 /**
@@ -36,6 +37,7 @@ public class UserAgent extends User{
     }
     public String getSuperAgent(){
         return this.superAgent;
+
     }
     public void setSuperAgent(String s){
         if(s.equalsIgnoreCase("true")){
