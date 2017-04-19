@@ -22,7 +22,7 @@
            <FXCollections fx:factory="observableArrayList">
                <String fx:value="pending" />
                <String fx:value="active" />
-               <String fx:value="suspend" />
+               <String fx:value="SUSPENDED" />
            </FXCollections>
        </items>
       </ChoiceBox>
