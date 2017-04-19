@@ -81,7 +81,7 @@ public class AgentAppScreenManager extends Screen{
     public void acceptApp(MouseEvent mouseEvent) {
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
-            DatabaseManager.approveApplication(app.ApplicationNo);
+            DatabaseManager.approveApplication(app.ApplicationNo, "123"); //TODO: get actual TTBID
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }

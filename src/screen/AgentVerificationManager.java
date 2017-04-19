@@ -30,6 +30,9 @@ public class AgentVerificationManager extends Screen{
 
     @FXML
     private void submit(){
+        //hide any previous errors
+        verifyError.setVisible(false);
+        //record name and email (type is set separately)
         name = fullNameField.getText();
         email = fullNameField.getText();
         //check to see all fields are filled in
@@ -46,6 +49,14 @@ public class AgentVerificationManager extends Screen{
             }else if(type.equals("true")){
                 Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
             }
+        }else if (name.equals("")||email.equals("")){
+            //if a box wasn't selected
+            verifyError.setVisible(true);
+            verifyError.setText("Please fill out both fields");
+        }else if (type.equals("")){
+            //if a box was selected, but a field was left blank
+            verifyError.setVisible(true);
+            verifyError.setText("Please select a box");
         }
     }
 
