@@ -24,7 +24,7 @@ public class SuperAgentScreenManager extends Screen {
     private TableView agentTable;
 
     @FXML
-    private TableColumn<UserAgent, String> agentUsername, agentName, numApps;
+    private TableColumn<UserAgent, String> agentUsername, agentName;
 
     @FXML
     private ChoiceBox statusType;
@@ -51,6 +51,8 @@ public class SuperAgentScreenManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet data) {
+        LogManager.println(Main.getUsername());
+
         UserAgent thisAgent = (UserAgent) Main.getUser();
         //if(thisAgent.getstatus().equals("approved")) {
             if (data.hasKey("agentStatus")) {
@@ -60,7 +62,6 @@ public class SuperAgentScreenManager extends Screen {
             }
             agentUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
             agentName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            numApps.setCellValueFactory(new PropertyValueFactory<>("numAppsRev"));
 
             //contact database to fill agents by user type
             agents = DatabaseManager.queryDatabase(EnumTableType.AGENT, "Status", (String) statusType.getValue());

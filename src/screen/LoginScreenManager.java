@@ -93,18 +93,23 @@ public class LoginScreenManager extends Screen {
                 }else if (userType.equals(EnumUserType.AGENT)) {
                     //check if they're a super agent
                     UserAgent tempAgent =(UserAgent)curUser;
-                    Main.setUser(tempAgent);
+
 
                    /* if(userName.equals("victor123")){
                         u.setSuperAgent("true");
                     }*/
                     if(tempAgent.getSuperAgent().equals("true")){
+                        tempAgent.setUserType(EnumUserType.SUPER_AGENT);
+                        Main.setUser(tempAgent);
                         Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
                         return;
                     }
                     //if not go to agent screen
+                    Main.setUser(tempAgent);
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
                 }else if(userType.equals(EnumUserType.SUPER_AGENT)){
+                    UserAgent tempAgent =(UserAgent)curUser;
+                    Main.setUser(tempAgent);
                     Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
                 }
             }
