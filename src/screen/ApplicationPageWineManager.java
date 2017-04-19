@@ -48,6 +48,7 @@ public class ApplicationPageWineManager extends Screen{
     private Button cancel_button1;
 
     private Application app;
+    private Boolean allFilled;
 
     @Override
     public void onScreenFocused(DataSet dataSet) {
@@ -60,19 +61,45 @@ public class ApplicationPageWineManager extends Screen{
     }
 
     @FXML
-    void clearFields() {
-
-    }
-
-    @FXML
-    void submit() {
+    void goBack() {
         app.WineAppelation = appellation_field.getText();
         app.VintageDate = vintage_field.getText();
         app.PH = ph_field.getText();
         app.Grapes = grapes_field.getText();
 
         Main.screenManager.closeCurrentPopOut();
-        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_5, "Page 5", 1020, 487, app);
+        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_3, "Page 3", 1020, 487, app);
+    }
+
+    @FXML
+    void submit() {
+        allFilled = true;
+        app.WineAppelation = appellation_field.getText();
+        app.VintageDate = vintage_field.getText();
+        app.PH = ph_field.getText();
+        app.Grapes = grapes_field.getText();
+
+        if(app.WineAppelation == null || app.WineAppelation.equals("")){
+            allFilled = false;
+            appellation_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.VintageDate == null || app.VintageDate.equals("")){
+            allFilled = false;
+            vintage_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.PH == null || app.PH.equals("")){
+            allFilled = false;
+            ph_field.setStyle("-fx-border-color: #ff0800;");
+        }
+        if(app.Grapes == null || app.Grapes.equals("")){
+            allFilled = false;
+            grapes_field.setStyle("-fx-border-color: #ff0800;");
+        }
+
+        if(allFilled) {
+            Main.screenManager.closeCurrentPopOut();
+            Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_5, "Page 5", 1020, 487, app);
+        }
     }
 
 }

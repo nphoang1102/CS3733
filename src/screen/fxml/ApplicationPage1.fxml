@@ -27,7 +27,7 @@
          <effect>
             <Reflection fraction="0.18" />
          </effect></Button>
-        <Button fx:id="cancel_button" layoutX="550.0" layoutY="352.0" mnemonicParsing="false" onMouseClicked="#clearFields" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #939393;" text="Clear" textFill="WHITE">
+        <Button fx:id="cancel_button" layoutX="550.0" layoutY="352.0" mnemonicParsing="false" onMouseClicked="#goBack" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #939393;" text="Back" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
