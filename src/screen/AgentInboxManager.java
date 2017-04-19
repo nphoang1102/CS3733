@@ -167,27 +167,26 @@ public class AgentInboxManager extends Screen{
         Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
     }
 
-    public void removeId(String rString){
-        uuidCodes.remove(rString);
-    }
 
     public void setAgentStatus(MouseEvent mouseEvent) {
         String statusType = (String) agentStatus.getValue();
         if(statusType.equals("REMOVE")){
-            //DatabaseManager.clearInbox(thisUser.getUsername());
+            Main.databaseManager.clearInbox(thisUser.getUsername());
         }
         if (statusType.equals("Activate")) {
-            statusType = "ACTIVE";
+            statusType = "active";
         }else if(statusType.equals("Suspend")){
-            statusType = "SUSPENDED";
+            statusType = "suspended";
         }else{
             statusType = "REMOVE";
         }
-        DatabaseManager.setAgentStatus(thisUser.getUsername(), statusType);
+        DatabaseManager.setAgentStatus(tempUser.getUsername(), statusType);
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
     }
 
     public void wipeInbox(MouseEvent mouseEvent) {
-        //DatabaseManager.clearInbox(thisUser.getUsername());
+        Main.databaseManager.clearInbox(thisUser.getUsername());
     }
 }
 
