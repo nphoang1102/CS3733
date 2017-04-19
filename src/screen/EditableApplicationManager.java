@@ -5,6 +5,7 @@ import base.Main;
 import base.StringUtilities;
 import database.Application;
 import database.DataSet;
+import database.images.ProxyImage;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
@@ -174,6 +175,8 @@ public class EditableApplicationManager extends Screen {
             disableAll();
             submit_button.setVisible(false);
         }
+        ProxyImage pImage = new ProxyImage(("alcohol/"+((Application) dataSet).ApprovedTTBID)+".jpg");
+        pImage.displayImage(image);
     }
 
     public void submit(){
