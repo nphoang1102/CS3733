@@ -81,7 +81,7 @@ public class CreateAccountManager extends Screen{
                         //send a new agent to the edit account screen
                         LogManager.println("trying to open popup screen");
                         //Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", tempUser);
-                        Main.screenManager.setScreen(EnumScreenType.AGENT_VERIFY);
+                        Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", 800, 400,tempUser);
                     } else if (userType.equals(EnumUserType.MANUFACTURER)) {
                         UserManufacturer tempUser = new UserManufacturer(user);
                         //create new manufacturer, no password
