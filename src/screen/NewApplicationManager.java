@@ -112,6 +112,9 @@ public class NewApplicationManager extends Screen {
     private Label vintage_label;
 
     @FXML
+    private Button label_button;
+
+    @FXML
     public void initialize() {
 
     }
@@ -186,7 +189,6 @@ public class NewApplicationManager extends Screen {
         String appType = app_type_box.getValue();
         String addInfo = add_info_field.getText();
         String applicantName = applicant_name_field.getText();
-        String dateSubmitted = date_submitted_field.getText();
         String ph = ph_field.getText();
         String vintageYear = vintage_field.getText();
         String abv = abv_field.getText();
@@ -211,11 +213,12 @@ public class NewApplicationManager extends Screen {
         app.Email = email;
         app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.DateOfSubmission = StringUtilities.getDate();
         app.AgentName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;
         app.PH = ph;
+
+        app.DateOfSubmission = StringUtilities.getDate();
         app.ApplicationStatus = "PENDING";
         app.DateOfExpiration = StringUtilities.getExpirationDate();
         app.ManufacturerUsername = manufacturer;

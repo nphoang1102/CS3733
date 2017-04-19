@@ -8,25 +8,24 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#ReOrganizeTable" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.SuperAgentScreenManager">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.SuperAgentScreenManager">
    <children>
-      <TableView fx:id="agentTable" layoutY="220.0" prefHeight="500.0" prefWidth="1280.0">
+      <TableView fx:id="agentTable" layoutY="220.0" prefHeight="500.0" prefWidth="1280.0" stylesheets="@../css/ColaSearchResult.css">
         <columns>
-          <TableColumn fx:id="agentUsername" prefWidth="540.0" text="Agent Username" />
-          <TableColumn fx:id="agentName" prefWidth="540.0" text="Agent Name" />
-            <TableColumn fx:id="numApps" prefWidth="200.0" text="Number of Applicaions reviewed" />
+          <TableColumn fx:id="agentUsername" prefWidth="640.0" style="&#10;" text="Agent Username" />
+          <TableColumn fx:id="agentName" prefWidth="640.0" style="&#10;" text="Agent Name" />
         </columns>
       </TableView>
       <ChoiceBox fx:id="statusType" layoutX="211.0" layoutY="128.0" prefWidth="150.0" style="-fx-background-color: #939393&#10;">
        <items>
            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="PENDING" />
-               <String fx:value="ACTIVE" />
-               <String fx:value="SUSPENDED" />
+               <String fx:value="pending" />
+               <String fx:value="active" />
+               <String fx:value="suspended" />
            </FXCollections>
        </items>
       </ChoiceBox>
-      <Label layoutX="105.0" layoutY="125.0" text="Agent Status:">
+      <Label fx:id="agentStatus" layoutX="105.0" layoutY="125.0" text="Agent Status:">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
@@ -36,5 +35,10 @@
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
       </Button>
+      <Label fx:id="isPending" layoutX="699.0" layoutY="90.0" text="YOU ARE PENDING APPROVAL">
+         <font>
+            <Font name="Telugu Sangam MN" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

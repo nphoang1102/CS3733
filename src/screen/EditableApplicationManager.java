@@ -5,9 +5,17 @@ import base.Main;
 import base.StringUtilities;
 import database.Application;
 import database.DataSet;
-import database.DatabaseManager;
+import database.images.ProxyImage;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import org.apache.commons.net.ftp.FTPClient;
+import sun.rmi.runtime.Log;
+
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Created by $(mrfortmeyer) on 4/4/2017.
@@ -92,9 +100,23 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private Button cancel_button;
 
+    @FXML
+    private Button label_button;
+
+    @FXML
+    private ImageView image;
+
+    @FXML
+    private Label agent_label;
+
+    @FXML
+    private TextField agent_field;
+
     public Application data;
 
     String manufacturer = Main.getUsername();
+
+    Stage primaryStage = new Stage();
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
@@ -106,13 +128,20 @@ public class EditableApplicationManager extends Screen {
 
         if(((Application) dataSet).ApplicationStatus.equals("APPROVED")) {
             disableAll();
+            agent_field.setText(((Application) dataSet).AgentName);
 
             if(((Application) dataSet).revisionNo == 1){
                 LogManager.println("Edit Number 1");
+                label_button.setDisable(false);
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 2){
                 LogManager.println("Edit Number 2");
+                label_button.setDisable(false);
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 3){
                 LogManager.println("Edit Number 3");
+                label_button.setDisable(false);
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 4){
                 LogManager.println("Edit Number 4");
                 grapes_field.setDisable(false);
@@ -129,6 +158,8 @@ public class EditableApplicationManager extends Screen {
                 vintage_field.setStyle("-fx-background-color: #34a88b;" + "-fx-text-inner-color: #ffffff");
             } else if(((Application) dataSet).revisionNo == 6){
                 LogManager.println("Edit Number 6");
+                label_button.setDisable(false);
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 7){
                 LogManager.println("Edit Number 7");
                 ph_field.setDisable(false);
@@ -158,8 +189,15 @@ public class EditableApplicationManager extends Screen {
             //setVisibility of additional elements
         } else if(((Application) dataSet).ApplicationStatus.equals("PENDING")) {
             disableAll();
+            agent_field.setVisible(false);
+            agent_label.setVisible(false);
             submit_button.setVisible(false);
+        } else{
+            agent_field.setVisible(false);
+            agent_label.setVisible(false);
         }
+        ProxyImage pImage = new ProxyImage(("alcohol/"+((Application) dataSet).ApprovedTTBID)+".jpg");
+        pImage.displayImage(image);
     }
 
     public void submit(){
@@ -180,7 +218,6 @@ public class EditableApplicationManager extends Screen {
         String appType = app_type_box.getValue();
         String addInfo = add_info_field.getText();
         String applicantName = applicant_name_field.getText();
-        String dateSubmitted = date_submitted_field.getText();
         String ph = ph_field.getText();
         String vintageYear = vintage_field.getText();
         String abv = abv_field.getText();
@@ -205,8 +242,8 @@ public class EditableApplicationManager extends Screen {
         app.Email = email;
         app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.DateOfSubmission = dateSubmitted;
-        app.AgentName = applicantName;
+        app.DateOfSubmission = StringUtilities.getDate();
+        app.RepName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;
         app.PH = ph;
@@ -214,6 +251,7 @@ public class EditableApplicationManager extends Screen {
         app.ManufacturerUsername = manufacturer;
         app.AgentUsername = "";
         app.ApplicationNo = data.ApplicationNo;
+        app.ApprovedTTBID = data.ApprovedTTBID;
 
         if(data.ApplicationStatus.equals("REJECTED")){
             app.ApplicationStatus = "PENDING";
@@ -229,6 +267,38 @@ public class EditableApplicationManager extends Screen {
         return;
     }
 
+    @FXML
+    public void addLabel(){
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
+
+
+        if(!filename.endsWith(".jpg")){
+            return;
+        }
+
+        LogManager.println("File:"+filename);
+
+        FTPClient client = new FTPClient();
+        FileInputStream fis = null;
+        try {
+            client.connect("72.93.244.26");
+            client.login("cadbo", "seafoamgreen");
+
+            fis = new FileInputStream(filename);
+            client.storeFile("TTB/alcohol/"+data.ApplicationNo+".jpg", fis);
+            client.logout();
+            fis.close();
+            LogManager.println("Uploading image as:"+"TTB/alcohol/"+data.ApplicationNo+".jpg");
+
+            ScreenManager.updateUserIcon();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void goBack() {
         LogManager.println("Back button pressed from ManufacturerInboxScreen");
         return;
@@ -237,7 +307,6 @@ public class EditableApplicationManager extends Screen {
     public void disableAll(){
         email_field.setDisable(true);
         app_type_box.setDisable(true);
-        date_submitted_field.setDisable(true);
         applicant_name_field.setDisable(true);
         plant_number_field.setDisable(true);
         serial_number_field.setDisable(true);
@@ -257,12 +326,16 @@ public class EditableApplicationManager extends Screen {
         grapes_field.setDisable(true);
         product_source_box.setDisable(true);
         product_type_box.setDisable(true);
+        label_button.setDisable(true);
+        agent_field.setDisable(true);
 
         app_type_box.setDisable(true);
         app_type_field.setDisable(true);
 
         RejectionField.setVisible(false);
         RejectionLabel.setVisible(false);
+
+        label_button.setDisable(true);
     }
 
     public void setBoxes(Application dataSet){
@@ -273,12 +346,12 @@ public class EditableApplicationManager extends Screen {
             repid_field.setText(application.RepID);
             plant_number_field.setText(application.PlantRegistry);
             brand_name_field.setText(application.Brand);
-            applicant_name_field.setText(application.AgentName);
+            applicant_name_field.setText(application.RepName);
+            LogManager.println("Rep Name " + application.RepName);
             address_field.setText(application.Address);
             address_field_2.setText(application.Address2);
             phone_num_field.setText(application.PhoneNo);
             email_field.setText(application.Email);
-            date_submitted_field.setText(application.DateOfSubmission);
             add_info_field.setText(application.AdditionalInfo);
             fanciful_field.setText(application.FancifulName);
             formula_field.setText(application.Formula);

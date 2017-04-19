@@ -67,6 +67,7 @@ public class AgentInboxManager extends Screen{
         agentStatus.setVisible(false);
 
         typeBox.setValue("Beer");
+        agentStatus.setValue("Activate");
 
        // inboxInfo.add(testApp);
 
@@ -103,12 +104,11 @@ public class AgentInboxManager extends Screen{
                 });
                 return row;
             });
-            if(thisUser.getstatus().equals("APPROVED")){
-
+            if(thisUser.getstatus().equals("active")){
+                pullNewBatch.setVisible(true);
+                EditAccount.setVisible(true);
+                typeBox.setVisible(true);
             }
-            pullNewBatch.setVisible(true);
-            EditAccount.setVisible(true);
-            typeBox.setVisible(true);
         }else{
             uuidCodes = DatabaseManager.getApplicationsByAgent(tempUser.getUsername());
 
@@ -166,20 +166,26 @@ public class AgentInboxManager extends Screen{
         Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
     }
 
-    public void removeId(String rString){
-        uuidCodes.remove(rString);
-    }
 
     public void setAgentStatus(MouseEvent mouseEvent) {
         String statusType = (String) agentStatus.getValue();
         if(statusType.equals("REMOVE")){
-            //DatabaseManager.createInbox(thisUser.getUsername());
+            Main.databaseManager.clearInbox(thisUser.getUsername());
         }
-        //DatabaseManager.setStatus(statusType, thisUser.getUsername());
+        if (statusType.equals("Activate")) {
+            statusType = "active";
+        }else if(statusType.equals("Suspend")){
+            statusType = "suspended";
+        }else{
+            statusType = "REMOVE";
+        }
+        DatabaseManager.setAgentStatus(tempUser.getUsername(), statusType);
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
     }
 
     public void wipeInbox(MouseEvent mouseEvent) {
-        //DatabaseManager.clearInbox(thisUser.getUsername());
+        Main.databaseManager.clearInbox(thisUser.getUsername());
     }
 }
 

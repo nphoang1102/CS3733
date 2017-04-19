@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="325.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AgentPendingManager">
+   <children>
+      <Label layoutX="42.0" layoutY="41.0" text="Agent Name: ">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="agentName" layoutX="195.0" layoutY="41.0" text="agentName">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="68.0" text="Agent Username:">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="agentUsername" layoutX="195.0" layoutY="68.0" text="agentUsername">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="42.0" layoutY="96.0" text="Email:">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="agentEmail" layoutX="195.0" layoutY="96.0" text="agentEmail">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="121.0" text="Type of Position:">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Label fx:id="isSuper" layoutX="195.0" layoutY="121.0" text="isSuper">
+         <font>
+            <Font name="Telugu Sangam MN" size="12.0" />
+         </font>
+      </Label>
+      <Button fx:id="acceptButton" layoutX="41.0" layoutY="173.0" mnemonicParsing="false" onMouseClicked="#acceptAgnet" style="-fx-background-color: #939393;" text="Accept" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="15.0" />
+         </font>
+      </Button>
+      <Button fx:id="rejectButton" layoutX="195.0" layoutY="173.0" mnemonicParsing="false" onMouseClicked="#rejectAgent" style="-fx-background-color: #939393;" text="Deny" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
