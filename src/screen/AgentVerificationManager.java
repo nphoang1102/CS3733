@@ -1,7 +1,9 @@
 package screen;
 
+import base.LogManager;
 import base.Main;
 import database.DataSet;
+import database.DatabaseManager;
 import database.UserAgent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -27,6 +29,8 @@ public class AgentVerificationManager extends Screen{
     String name = "";//fullNameField.getText();
     String email ="";// emailField.getText();
     String type = "";
+    DataSet tempUser;
+    EnumUserType userType;
 
     @FXML
     private void submit(){
@@ -36,19 +40,29 @@ public class AgentVerificationManager extends Screen{
         name = fullNameField.getText();
         email = fullNameField.getText();
         //check to see all fields are filled in
-        if(!name.equals("")&&!email.equals("")&&!type.equals("")){
-            //set current agent's data to the selected fields
-            UserAgent tempAgent = (UserAgent) Main.getUser();
+        if(!name.equals("")&&!email.equals("")&&!type.equals("")&&!userType.equals(null)){
+            //cast the user passed in as a userAgent
+            UserAgent tempAgent = (UserAgent) tempUser;
+            //add them to database
+            DatabaseManager.addUser(tempAgent, tempAgent.PasswordHash, userType);
+            //set current user in main as this agent
             tempAgent.setSuperAgent(type);
+            tempAgent.setUserType(userType);
+            Main.setUser(tempAgent);
             tempAgent.name = name;
             tempAgent.email = email;
+
             //set screen to agent home page if they don't want to be a super agent
             //set screen to super agent page if they do want to be a super agent
+            Main.screenManager.closeCurrentPopOut();
             if(type.equals("false")){
+                Main.user.setType(EnumUserType.AGENT);
                 Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
             }else if(type.equals("true")){
+                Main.user.setType(EnumUserType.SUPER_AGENT);
                 Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
             }
+
         }else if (name.equals("")||email.equals("")){
             //if a box wasn't selected
             verifyError.setVisible(true);
@@ -68,9 +82,10 @@ public class AgentVerificationManager extends Screen{
             tickAgent.setSelected(false);
             tickAgent.setIndeterminate(false);
             type = "true";
-            Main.user.setType(EnumUserType.SUPER_AGENT);
+            userType=(EnumUserType.SUPER_AGENT);
         }else{
             type = "";
+            userType = null;
         }
     }
 
@@ -82,14 +97,16 @@ public class AgentVerificationManager extends Screen{
             tickSuperAgent.setSelected(false);
             tickSuperAgent.setIndeterminate(false);
             type = "false";
-            Main.user.setType(EnumUserType.AGENT);
+            userType=(EnumUserType.AGENT);
         }else{
             type = "";
+            userType = null;
         }
     }
 
     @Override
     public void onScreenFocused(DataSet data) {
+        this.tempUser = data;
         verifyError.setVisible(false);
     }
 }
