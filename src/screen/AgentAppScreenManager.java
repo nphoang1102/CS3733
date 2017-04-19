@@ -99,7 +99,7 @@ public class AgentAppScreenManager extends Screen{
             if(!rejectReason.getText().isEmpty()){
                 app.ReasonForRejection = rejectReason.getText();
             }
-            DatabaseManager.rejectApplication(app.ApplicationNo);
+            DatabaseManager.rejectApplication(app.ApplicationNo, app.ReasonForRejection);
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
