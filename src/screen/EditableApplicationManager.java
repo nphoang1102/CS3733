@@ -133,15 +133,15 @@ public class EditableApplicationManager extends Screen {
             if(((Application) dataSet).revisionNo == 1){
                 LogManager.println("Edit Number 1");
                 label_button.setDisable(false);
-                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #dbdbdb;");
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 2){
                 LogManager.println("Edit Number 2");
                 label_button.setDisable(false);
-                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #dbdbdb;");
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 3){
                 LogManager.println("Edit Number 3");
                 label_button.setDisable(false);
-                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #dbdbdb;");
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 4){
                 LogManager.println("Edit Number 4");
                 grapes_field.setDisable(false);
@@ -159,7 +159,7 @@ public class EditableApplicationManager extends Screen {
             } else if(((Application) dataSet).revisionNo == 6){
                 LogManager.println("Edit Number 6");
                 label_button.setDisable(false);
-                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #dbdbdb;");
+                label_button.setStyle("-fx-border-color: #34a88b;" + "-fx-background-color: #939393;");
             } else if(((Application) dataSet).revisionNo == 7){
                 LogManager.println("Edit Number 7");
                 ph_field.setDisable(false);
