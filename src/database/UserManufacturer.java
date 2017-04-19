@@ -1,5 +1,6 @@
 package database;
 
+import base.StringUtilities;
 import screen.EnumUserType;
 
 /**
@@ -12,6 +13,7 @@ public class UserManufacturer extends User {
     public String PlantRegistry;
     public String PhoneNo;
     public String Agent;
+    public String AgentDate;
 
     public UserManufacturer(String Username){
         Address2= "";
@@ -24,5 +26,6 @@ public class UserManufacturer extends User {
         PhoneNo = "";
         super.userType = EnumUserType.MANUFACTURER;
         Agent = "";
+        AgentDate = "";
     }
 }
