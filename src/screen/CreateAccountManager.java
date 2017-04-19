@@ -70,18 +70,17 @@ public class CreateAccountManager extends Screen{
                     //record the account in the database
                     if (userType.equals(EnumUserType.AGENT)) {
                         UserAgent tempUser = new UserAgent(user);
-                        //create new agent, no password
-                        DatabaseManager.addUser(tempUser, password.getText(), userType);
+                        //create new agent, with password
+                        //DatabaseManager.addUser(tempUser, password.getText(), userType);
                         //set agent to pending
                         tempUser.setStatus("pending");
+                        tempUser.PasswordHash = password.getText();
 
-                        Main.setUser(tempUser);
+                        //Main.setUser(tempUser);
 
-                        //Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
                         //send a new agent to the edit account screen
-                        LogManager.println("trying to open popup screen");
                         //Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", tempUser);
-                        Main.screenManager.setScreen(EnumScreenType.AGENT_VERIFY);
+                        Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", 800, 400,tempUser);
                     } else if (userType.equals(EnumUserType.MANUFACTURER)) {
                         UserManufacturer tempUser = new UserManufacturer(user);
                         //create new manufacturer, no password

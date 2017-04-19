@@ -11,8 +11,9 @@ public class Application extends DataSet {
     public String ApplicationType;
     public String ApplicationStatus;
     public String ManufacturerUsername;
-    public String AgentName;
+    public String RepName;
     public String AgentUsername;
+    public String AgentName;
     public String RepID;
     public String PlantRegistry;
     public String Locality;
