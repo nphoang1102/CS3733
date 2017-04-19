@@ -85,7 +85,6 @@ public class AgentAppScreenManager extends Screen{
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
-
     }
 
 

@@ -68,6 +68,7 @@ public class AgentVerificationManager extends Screen{
             tickAgent.setSelected(false);
             tickAgent.setIndeterminate(false);
             type = "true";
+            Main.user.setType(EnumUserType.SUPER_AGENT);
         }else{
             type = "";
         }
@@ -81,6 +82,7 @@ public class AgentVerificationManager extends Screen{
             tickSuperAgent.setSelected(false);
             tickSuperAgent.setIndeterminate(false);
             type = "false";
+            Main.user.setType(EnumUserType.AGENT);
         }else{
             type = "";
         }
