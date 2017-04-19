@@ -117,6 +117,7 @@ public class AgentAppScreenManager extends Screen{
         }catch(Exception e){
             LogManager.println("there was an error forwarding the message");
         }
+        Main.screenManager.closeCurrentPopOut();
     }
 
     public void sendBackApp(MouseEvent mouseEvent) {
