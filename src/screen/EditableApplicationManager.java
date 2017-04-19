@@ -11,6 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.net.ftp.FTPClient;
+import sun.rmi.runtime.Log;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -104,6 +105,12 @@ public class EditableApplicationManager extends Screen {
     @FXML
     private ImageView image;
 
+    @FXML
+    private Label agent_label;
+
+    @FXML
+    private TextField agent_field;
+
     public Application data;
 
     String manufacturer = Main.getUsername();
@@ -120,6 +127,7 @@ public class EditableApplicationManager extends Screen {
 
         if(((Application) dataSet).ApplicationStatus.equals("APPROVED")) {
             disableAll();
+            agent_field.setText(((Application) dataSet).AgentName);
 
             if(((Application) dataSet).revisionNo == 1){
                 LogManager.println("Edit Number 1");
@@ -172,7 +180,12 @@ public class EditableApplicationManager extends Screen {
             //setVisibility of additional elements
         } else if(((Application) dataSet).ApplicationStatus.equals("PENDING")) {
             disableAll();
+            agent_field.setVisible(false);
+            agent_label.setVisible(false);
             submit_button.setVisible(false);
+        } else{
+            agent_field.setVisible(false);
+            agent_label.setVisible(false);
         }
     }
 
@@ -219,7 +232,7 @@ public class EditableApplicationManager extends Screen {
         app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
         app.DateOfSubmission = StringUtilities.getDate();
-        app.AgentName = applicantName;
+        app.RepName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;
         app.PH = ph;
@@ -303,6 +316,7 @@ public class EditableApplicationManager extends Screen {
         product_source_box.setDisable(true);
         product_type_box.setDisable(true);
         label_button.setDisable(true);
+        agent_field.setDisable(true);
 
         app_type_box.setDisable(true);
         app_type_field.setDisable(true);
@@ -319,7 +333,8 @@ public class EditableApplicationManager extends Screen {
             repid_field.setText(application.RepID);
             plant_number_field.setText(application.PlantRegistry);
             brand_name_field.setText(application.Brand);
-            applicant_name_field.setText(application.AgentName);
+            applicant_name_field.setText(application.RepName);
+            LogManager.println("Rep Name " + application.RepName);
             address_field.setText(application.Address);
             address_field_2.setText(application.Address2);
             phone_num_field.setText(application.PhoneNo);
