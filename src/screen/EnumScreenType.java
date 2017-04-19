@@ -35,7 +35,8 @@ public enum EnumScreenType {
     APPLICATION_PAGE_5("ApplicationPage5.fxml"),
     STATUS_SCREEN("StatusScreen.fxml"),
     SUPER_AGENT("SuperAgentScreen.fxml"),
-    AGENT_PENDING("AgentPending.fxml")
+    AGENT_PENDING("AgentPending.fxml"),
+    AGENT_VERIFY("AgentVerification.fxml")
     ;
 
     private String scene;

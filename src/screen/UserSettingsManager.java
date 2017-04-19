@@ -170,6 +170,9 @@ public class UserSettingsManager extends Screen {
                 company.setVisible(false);
                 email.setLayoutX(breweryPermitNumber.getLayoutX());
                 email.setLayoutY(breweryPermitNumber.getLayoutY());
+
+                //if an agent has already been approved hide the super agent box
+                tickSuperAgent.setVisible(false);
             }
         }
 

@@ -194,7 +194,6 @@ public class EditableApplicationManager extends Screen {
         String appType = app_type_box.getValue();
         String addInfo = add_info_field.getText();
         String applicantName = applicant_name_field.getText();
-        String dateSubmitted = date_submitted_field.getText();
         String ph = ph_field.getText();
         String vintageYear = vintage_field.getText();
         String abv = abv_field.getText();
@@ -219,7 +218,7 @@ public class EditableApplicationManager extends Screen {
         app.Email = email;
         app.ApplicationType = appType;
         app.AdditionalInfo = addInfo;
-        app.DateOfSubmission = dateSubmitted;
+        app.DateOfSubmission = StringUtilities.getDate();
         app.AgentName = applicantName;
         app.ABV = abv;
         app.VintageDate = vintageYear;
@@ -284,7 +283,6 @@ public class EditableApplicationManager extends Screen {
     public void disableAll(){
         email_field.setDisable(true);
         app_type_box.setDisable(true);
-        date_submitted_field.setDisable(true);
         applicant_name_field.setDisable(true);
         plant_number_field.setDisable(true);
         serial_number_field.setDisable(true);
@@ -326,7 +324,6 @@ public class EditableApplicationManager extends Screen {
             address_field_2.setText(application.Address2);
             phone_num_field.setText(application.PhoneNo);
             email_field.setText(application.Email);
-            date_submitted_field.setText(application.DateOfSubmission);
             add_info_field.setText(application.AdditionalInfo);
             fanciful_field.setText(application.FancifulName);
             formula_field.setText(application.Formula);
