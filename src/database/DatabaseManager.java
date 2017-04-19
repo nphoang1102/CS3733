@@ -683,7 +683,12 @@ public class DatabaseManager {
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername){
-//        Change the Agent username on the the specific application to the new username passed
+        try {
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = " + AgentUsername + " WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+        }catch (SQLException e) {
+            LogManager.println("agent does not exist", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
+            e.printStackTrace();
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
