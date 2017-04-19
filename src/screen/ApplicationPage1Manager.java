@@ -76,7 +76,7 @@ public class ApplicationPage1Manager extends Screen{
         app.RepID = repid_field.getText();
         app.PhoneNo = phone_num_field.getText();
         app.Email = email_field.getText();
-        app.AgentName = applicant_name_field.getText();
+        app.RepName = applicant_name_field.getText();
         app.PlantRegistry = plant_number_field.getText();
 
         if(app.RepID == null || app.RepID.equals("")){
@@ -91,7 +91,7 @@ public class ApplicationPage1Manager extends Screen{
             allFilled = false;
             email_field.setStyle("-fx-border-color: #ff0800;");
         }
-        if(app.AgentName == null || app.AgentName.equals("")){
+        if(app.RepName == null || app.RepName.equals("")){
             allFilled = false;
             applicant_name_field.setStyle("-fx-border-color: #ff0800;");
         }
