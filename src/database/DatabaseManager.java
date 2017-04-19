@@ -641,24 +641,24 @@ public class DatabaseManager {
                     "CompletedDate, " +
                     "FancifulName, " +
                     "BrandName, " +
+                    "Class, " +
                     "Origin, " +
                     "Type, " +
                     "AlcoholContent, " +
                     "VintageYear, " +
-                    "PH, " +
-                    "Class) VALUES ('" +
+                    "PH) VALUES ('" +
                     ApprovedTTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
-                    DateOfApproval + "', '" +
+                    "" + "', '" +
                     FancifulName + "', '" +
                     Brand + "', '" +
+                    PH + "', '" +
                     Locality + "', '" +
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
-                    PH + "', '" +
-                    Class + "')" + endQueryLine);
+                    PH + "')" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
