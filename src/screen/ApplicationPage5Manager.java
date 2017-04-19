@@ -88,10 +88,10 @@ public class ApplicationPage5Manager extends Screen{
             client.login("cadbo", "seafoamgreen");
 
             fis = new FileInputStream(filePath);
-            client.storeFile("TTB/alcohol/"+app.ApplicationNo+".jpg", fis);
+            client.storeFile("TTB/alcohol/"+app.ApprovedTTBID+".jpg", fis);
             client.logout();
             fis.close();
-            LogManager.println("Uploading image as:"+"TTB/alcohol/"+app.ApplicationNo+".jpg");
+            LogManager.println("Uploading image as:"+"TTB/alcohol/"+app.ApprovedTTBID+".jpg");
 
         } catch (IOException e) {
             e.printStackTrace();

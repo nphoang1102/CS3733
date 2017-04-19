@@ -175,7 +175,7 @@ public class EditableApplicationManager extends Screen {
             disableAll();
             submit_button.setVisible(false);
         }
-        ProxyImage pImage = new ProxyImage(("alcohol/"+((Application) dataSet).ApplicationNo)+".jpg");
+        ProxyImage pImage = new ProxyImage(("alcohol/"+((Application) dataSet).ApprovedTTBID)+".jpg");
         pImage.displayImage(image);
     }
 
