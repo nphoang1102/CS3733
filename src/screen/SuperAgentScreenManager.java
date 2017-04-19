@@ -51,6 +51,8 @@ public class SuperAgentScreenManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet data) {
+        LogManager.println(Main.getUsername());
+
         UserAgent thisAgent = (UserAgent) Main.getUser();
         //if(thisAgent.getstatus().equals("approved")) {
             if (data.hasKey("agentStatus")) {

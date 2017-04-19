@@ -71,6 +71,7 @@ public class TopBarManager extends Screen{
     @Override
     public void onScreenFocused(DataSet data) {
         username.setText(Main.getUsername());
+        LogManager.println(Main.getUsername());
         userType.setText(Main.getUserType());
         System.out.println("Called");
         if(data.hasKey("searchField")){
