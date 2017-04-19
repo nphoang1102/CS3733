@@ -1,6 +1,7 @@
 package database;
 
 import base.*;
+import com.mysql.jdbc.ResultSetImpl;
 import screen.EnumUserType;
 import sun.awt.image.ImageWatched;
 import sun.rmi.runtime.Log;
@@ -14,6 +15,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.*;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
 public class DatabaseManager {
     /**
@@ -52,18 +54,17 @@ public class DatabaseManager {
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
 
-        if(databaseType.equals("derby")){
+        if (databaseType.equals("derby")) {
             derby = true; //MAGIC!
             endQueryLine = "";
-        }
-        else if(databaseType.equals("mysql") || databaseType.equals("MySQL")){
+        } else if (databaseType.equals("mysql") || databaseType.equals("MySQL")) {
             mysql = true; //MORE MAGIC!
             endQueryLine = ";";
         }
         /*else if(database.equals("sqlite") || database.equals("SQLite")){
             sqlite = true
         }*/
-        else{
+        else {
             LogManager.println("Unknown database type!", EnumWarningType.ERROR);
             return;
         }
@@ -76,35 +77,42 @@ public class DatabaseManager {
         }*/
 //        LogManager.println("    Driver registered!");
         LogManager.print("Attempting connection to " + databaseType + " database... ");
-        try {
-
-            if(derby){
-                connection = DriverManager.getConnection("jdbc:derby:"+databaseName+";create=true");
-            }
-            else if(mysql){
-                connection = DriverManager.getConnection("jdbc:mysql://"+databaseServer+"/"+databaseName+"?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
-            }
+        boolean noDB = true;
+        int MAXTRIES = 10;
+        int tries = 0;
+        while (noDB) {
+            try {
+                if (derby) {
+                    connection = DriverManager.getConnection("jdbc:derby:" + databaseName + ";create=true");
+                } else if (mysql) {
+                    connection = DriverManager.getConnection("jdbc:mysql://" + databaseServer + "/" + databaseName + "?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
+                }
             /*else if(sqlite){
                 connection = DriverManager.getConnection("jdbc:sqlite:TTB.db");
             }*/
-            LogManager.println("Connection established!");
-        } catch (SQLException e) { //BOOKER, CATCH!
-            LogManager.println("");
-            LogManager.print("Database connection failed. ", EnumWarningType.ERROR);
-            if(derby){
-                LogManager.println("There may already be a connection to the database."); //Derby is monogamous.
-                System.exit(0);
-            }
-            else if(mysql){
+                LogManager.println("Connection established!");
+                noDB = false;
+            } catch (SQLException e) { //BOOKER, CATCH!
                 LogManager.println("");
+                LogManager.print("Database connection failed. ", EnumWarningType.ERROR);
+                if (derby) {
+                    LogManager.println("There may already be a connection to the database."); //Derby is monogamous.
+                } else if (mysql) {
+                    LogManager.println("");
+                }
+                if (tries == MAXTRIES) {
+                    LogManager.println("Giving up.", EnumWarningType.ERROR);
+                    System.exit(0);
+                }
+                LogManager.println("Retrying...", EnumWarningType.NOTE);
+                try {
+                    TimeUnit.SECONDS.sleep(5);
+                } catch (InterruptedException e1) {
+//                    e1.printStackTrace();
+                }
+                tries++;
             }
-            //e.printStackTrace();
-//            LogManager.printStackTrace(e.getStackTrace());
-//            e.printStackTrace();
-
-            return;
         }
-//        LogManager.println("Java DB connection established!");
 
         try {
             statement = connection.createStatement();
@@ -215,11 +223,11 @@ public class DatabaseManager {
             createTableError(e);
         }
     }
-    private static void createTableError(Exception e){
-        if(e.getMessage().contains("already exists")){
+
+    private static void createTableError(Exception e) {
+        if (e.getMessage().contains("already exists")) {
             LogManager.println("Already exists.");
-        }
-        else{
+        } else {
             LogManager.println("ERROR: " + e.getMessage());
 
             System.exit(0); //(╯°□°）╯︵ ┻━┻
@@ -234,7 +242,7 @@ public class DatabaseManager {
         String value1 = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
             if (value.isEmpty() && type.equals("All")) {
-                return queryAlcohol("SELECT * FROM Alcohol"+endQueryLine);
+                return queryAlcohol("SELECT * FROM Alcohol" + endQueryLine);
             } else {
                 switch (type) { //funky fresh
                     case "All":
@@ -270,13 +278,13 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
-        if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
+        if (cat1.equals("BrandName") || cat1.equals("FancifulName")) {
             val1 = val1.toUpperCase(); //lowercase is lame.
         }
-        if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
+        if (cat2.equals("BrandName") || cat2.equals("FancifulName")) {
             val2 = val2.toUpperCase();
         }
-        if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
+        if (cat3.equals("BrandName") || cat2.equals("FancifulName")) {
             val3 = val3.toUpperCase();
         }
 
@@ -285,30 +293,26 @@ public class DatabaseManager {
         String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%'";
         String combinedQuery; //4 Cuils
 
-        if(cat1.equals("BrandName") || cat1.equals("FancifulName")){
+        if (cat1.equals("BrandName") || cat1.equals("FancifulName")) {
             val1 = val1.toUpperCase();
         }
-        if(cat2.equals("BrandName") || cat2.equals("FancifulName")){
+        if (cat2.equals("BrandName") || cat2.equals("FancifulName")) {
             val2 = val2.toUpperCase();
         }
-        if(cat3.equals("BrandName") || cat2.equals("FancifulName")){
+        if (cat3.equals("BrandName") || cat2.equals("FancifulName")) {
             val3 = val3.toUpperCase();
         }
 
         try {
-            if(!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()){
+            if (!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()) {
                 combinedQuery = query1;
-            }
-            else if(!val1.isEmpty() && !val2.isEmpty() && val3.isEmpty()){
+            } else if (!val1.isEmpty() && !val2.isEmpty() && val3.isEmpty()) {
                 combinedQuery = query1 + "UNION " + query2;
-            }
-            else if(!val1.isEmpty() && val2.isEmpty() && !val3.isEmpty()){
+            } else if (!val1.isEmpty() && val2.isEmpty() && !val3.isEmpty()) {
                 combinedQuery = query1 + "UNION " + query3;
-            }
-            else if(!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty()){
+            } else if (!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty()) {
                 combinedQuery = query1 + "UNION " + query2 + "UNION " + query3;
-            }
-            else{
+            } else {
                 combinedQuery = "SELECT * FROM Alcohol"; //It's been a rough day.
             }
         } catch (Exception e) {
@@ -438,8 +442,7 @@ public class DatabaseManager {
             statement.executeUpdate("UPDATE Applications\n" +
                     "SET DateOfSubmission = '" + date + "'\n" +
                     "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             //ಠ_ಠ
             LogManager.print("Could not set DateOfSubmission on newly submitted application " + application.ApplicationNo + ": ");
             LogManager.println(e.getMessage());
@@ -508,17 +511,16 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////SET STATUS////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void setAgentStatus(String username, String status){ //We're competing with facebook.
+    public static void setAgentStatus(String username, String status) { //We're competing with facebook.
 
         status = status.toUpperCase();
-        if(status.equals("REMOVE")){
-            try{
+        if (status.equals("REMOVE")) {
+            try {
                 statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             try {
                 statement.executeUpdate("UPDATE Agents SET " +
                         "Status = '" + status + "' " +
@@ -533,12 +535,12 @@ public class DatabaseManager {
     ///////////Clear Table///////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
 
-    public void clearInbox(String username){
-        try{
+    public void clearInbox(String username) {
+        try {
             statement.executeUpdate("UPDATE Applications SET" +
-                            "AgentUsername = '' " +
-                            "WHERE AgentUsername = '" + username + "'" + endQueryLine);
-        }catch (SQLException e){
+                    "AgentUsername = '' " +
+                    "WHERE AgentUsername = '" + username + "'" + endQueryLine);
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -553,6 +555,7 @@ public class DatabaseManager {
             /*while(searchManufacturers.next()) {
                 userm.username = searchManufacturers.getString("Username");
             }*/
+            LogManager.print("Updating information for manufacturer" + manufacturer.username + "... ", EnumWarningType.NOTE);
             statement.executeUpdate("UPDATE Manufacturers SET " +
                     "FullName = '" + manufacturer.name + "', " + //WHOOOOO ARE YOU? OOH OHH, OOH OOH...
                     "RepID = '" + manufacturer.RepID + "', " +
@@ -560,8 +563,10 @@ public class DatabaseManager {
                     "PlantRegistry = '" + manufacturer.PlantRegistry + "', " +
                     "PhoneNo = '" + manufacturer.PhoneNo + "' " +
                     "WHERE Username = '" + manufacturer.username + "'" + endQueryLine);
+            LogManager.println("Success!");
         } catch (SQLException e) {
-            e.printStackTrace();
+            LogManager.print("Failed. ");
+            LogManager.println(e.getMessage());
         }
     }
 
@@ -662,6 +667,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
     }
+
     //HACK
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
@@ -680,7 +686,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public void forwardApplication(String ApplicationNo, String AgentUsername){
+    public void forwardApplication(String ApplicationNo, String AgentUsername) {
 //        Change the Agent username on the the specific application to the new username passed
     }
 
@@ -822,31 +828,49 @@ public class DatabaseManager {
     public User login(String username, String password) throws UserNotFoundException, IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
         ResultSet user;
         try {
-            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
+            LogManager.print("Searching for an agent called " + username + "... ", EnumWarningType.NOTE);
+//            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
+
+            user = statement.executeQuery("SELECT * FROM AGENTS WHERE USERNAME = '" + username + "'" + endQueryLine);
+
             if (user.next()) {
+
+                //Create the Agent object from database information
                 UserAgent agent = new UserAgent(user.getString("FullName"), username, user.getString("Email"), user.getString("ID"), "false", "pending");
-                LogManager.println("User " + username + " is an agent");
+
+                LogManager.println("Found!"); // YARP!
+
                 tryPassword(username, password, user.getString("PasswordHash"));
+
                 return agent; //You can have this back now.
             } else {
-                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "';");
-                LinkedList<DataSet> manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
-                assert manufacturerLinkedList != null;
+                LogManager.println("not found.");
+                LogManager.println("Searching for a manufacturer called " + username + "... ", EnumWarningType.NOTE);
+
+                user = statement.executeQuery("SELECT * FROM Manufacturers WHERE username = '" + username + "'"+ endQueryLine);
+                LinkedList<DataSet> manufacturerLinkedList = new LinkedList<>();
+                if (user.next()) {
+                    manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
+                }
+
                 if (!manufacturerLinkedList.isEmpty()) {
-                    LogManager.println("YARP! WE FOUND " + username + "!"); //Where to next?
+                    LogManager.println("Found!");
                     /*
+                      Where to next?
+
                       ( •_•)
                       ( •_•)>⌐■-■
                       (⌐■_■)
+
+                      Pub.
                     */
-                    UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.get(0); //PUB.
-                    LogManager.println("User " + manufacturer.username + " is a manufacturer");
+                    UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
                     try {
-                        tryPassword(username, password, user.getString("PasswordHash")); // *Typing furiously*
+                        tryPassword(username, password, user.getString("PasswordHash")); // *Typing furiously* ...
                     } catch (Exception e) {
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                     }
-                    return manufacturer; // I'M IN.
+                    return manufacturer; // ...I'M IN.
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
                     throw new UserNotFoundException(username);
