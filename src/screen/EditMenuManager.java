@@ -115,12 +115,17 @@ public class EditMenuManager extends Screen{
             LogManager.println(text);
             String[] splitString = text.split(". ");
             LogManager.println("Going to edit: " + splitString[0]);
+            Integer revNo = Integer.parseInt(splitString[0]);
 
-            data.revisionNo = Integer.parseInt(splitString[0]);
+            if(!data.AlcoholType.equals("Wine") && ((revNo == 4) || (revNo == 5) || (revNo == 7))){
+                LogManager.println("That's for wine only!");
+                return;
+            }
+
+            data.revisionNo = revNo;
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, data.FancifulName, 1025, 700, data);
         }
-
         return;
     }
 }
