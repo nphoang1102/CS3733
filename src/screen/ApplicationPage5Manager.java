@@ -48,6 +48,7 @@ public class ApplicationPage5Manager extends Screen{
     private Label image_name;
 
     Stage primaryStage = new Stage();
+    String filePath = "";
 
     private Application app;
 
@@ -80,8 +81,26 @@ public class ApplicationPage5Manager extends Screen{
 
         LogManager.println("Submitting Application");
 
+        FTPClient client = new FTPClient();
+        FileInputStream fis = null;
+        try {
+            client.connect("72.93.244.26");
+            client.login("cadbo", "seafoamgreen");
+
+            fis = new FileInputStream(filePath);
+            client.storeFile("TTB/alcohol/"+app.ApplicationNo+".jpg", fis);
+            client.logout();
+            fis.close();
+            LogManager.println("Uploading image as:"+"TTB/alcohol/"+app.ApplicationNo+".jpg");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         Main.screenManager.closeCurrentPopOut();
         Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+
+
     }
 
     @FXML
@@ -96,23 +115,9 @@ public class ApplicationPage5Manager extends Screen{
         }
 
         LogManager.println("File:"+filename);
+        filePath = filename;
+        image_name.setText(filename.split("/")[filename.split("/").length-1]);
+        image_name.setVisible(true);
 
-        FTPClient client = new FTPClient();
-        FileInputStream fis = null;
-        try {
-            client.connect("72.93.244.26");
-            client.login("cadbo", "seafoamgreen");
-
-            fis = new FileInputStream(filename);
-            client.storeFile("TTB/alcohol/"+app.ApplicationNo+".jpg", fis);
-            client.logout();
-            fis.close();
-            LogManager.println("Uploading image as:"+"TTB/alcohol/"+app.ApplicationNo+".jpg");
-
-            ScreenManager.updateUserIcon();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }

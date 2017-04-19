@@ -105,6 +105,7 @@ public class EditableApplicationManager extends Screen {
     String manufacturer = Main.getUsername();
 
     Stage primaryStage = new Stage();
+    String filePath = "";
 
     public EditableApplicationManager() {
         super(EnumScreenType.MANUFACTURER_EDIT);
@@ -251,6 +252,7 @@ public class EditableApplicationManager extends Screen {
         }
 
         LogManager.println("File:"+filename);
+        filePath = filename;
 
         FTPClient client = new FTPClient();
         FileInputStream fis = null;
