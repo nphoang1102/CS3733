@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.util.LinkedList;
 
+import static base.Main.main;
 import static base.Main.screenManager;
 
 
@@ -31,6 +32,9 @@ public class SuperAgentScreenManager extends Screen {
     @FXML
     private Button goButton;
 
+    @FXML
+    private Label agentStatus, isPending;
+
     private ObservableList<UserAgent> tableInfo = FXCollections.observableArrayList();
     private LinkedList<DataSet> agents = new LinkedList<>();
 
@@ -47,49 +51,57 @@ public class SuperAgentScreenManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet data) {
-
-        if(data.hasKey("agentStatus")){
-            statusType.setValue(data.getValueForKey("agentStatus"));
-        }else{
-            statusType.setValue("active");
-        }
-        agentUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
-        agentName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        numApps.setCellValueFactory(new PropertyValueFactory<>("numAppsRev"));
-
-        //contact database to fill agents by user type
-        agents =  DatabaseManager.queryDatabase(EnumTableType.AGENT, "Status", (String) statusType.getValue());
-
-        //wipes the table
-        tableInfo.clear();
-
-        //fills the table
-        for(DataSet tempData: agents){
-            UserAgent tempAgent = (UserAgent) tempData;
-            if(tempAgent.getSuperAgent().equals("false")) {
-                tableInfo.add(tempAgent);
+        UserAgent thisAgent = (UserAgent) Main.getUser();
+        //if(thisAgent.getstatus().equals("approved")) {
+            if (data.hasKey("agentStatus")) {
+                statusType.setValue(data.getValueForKey("agentStatus"));
+            } else {
+                statusType.setValue("active");
             }
-        }
+            agentUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
+            agentName.setCellValueFactory(new PropertyValueFactory<>("name"));
+            numApps.setCellValueFactory(new PropertyValueFactory<>("numAppsRev"));
 
-        this.agentTable.setItems(tableInfo);
+            //contact database to fill agents by user type
+            agents = DatabaseManager.queryDatabase(EnumTableType.AGENT, "Status", (String) statusType.getValue());
 
-        agentTable.setRowFactory( tv -> {
-            TableRow<UserAgent> row = new TableRow<>();
-            row.setOnMouseClicked( event-> {
-                if(event.getClickCount() == 2 && (! row.isEmpty()) ) {
-                    UserAgent tempResult = row.getItem();
-                    System.out.println(tempResult);
-                    if(tempResult.getSuperAgent().equalsIgnoreCase("false")) {
-                        if(tempResult.getstatus().equals("pending")){
-                            screenManager.popoutScreen(EnumScreenType.AGENT_PENDING,  "Agent Application Page", 325, 250,  tempResult);
-                        }else {
-                            screenManager.popoutScreen(EnumScreenType.AGENT_INBOX, "View Agent Page", tempResult);
+            //wipes the table
+            tableInfo.clear();
+
+            //fills the table
+            for (DataSet tempData : agents) {
+                UserAgent tempAgent = (UserAgent) tempData;
+                if (tempAgent.getSuperAgent().equals("false")) {
+                    tableInfo.add(tempAgent);
+                }
+            }
+
+            this.agentTable.setItems(tableInfo);
+
+            agentTable.setRowFactory(tv -> {
+                TableRow<UserAgent> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (!row.isEmpty())) {
+                        UserAgent tempResult = row.getItem();
+                        System.out.println(tempResult);
+                        if (tempResult.getSuperAgent().equalsIgnoreCase("false")) {
+                            if (tempResult.getstatus().equals("pending")) {
+                                screenManager.popoutScreen(EnumScreenType.AGENT_PENDING, "Agent Application Page", 325, 250, tempResult);
+                            } else {
+                                screenManager.popoutScreen(EnumScreenType.AGENT_INBOX, "View Agent Page", tempResult);
+                            }
                         }
                     }
-                }
+                });
+                return row;
             });
-            return row;
-        });
+/*            isPending.setVisible(false);
+        //}else{
+            agentTable.setVisible(false);
+            statusType.setVisible(false);
+            goButton.setVisible(false);
+            agentStatus.setVisible(false);
+        //}*/
     }
 
     public void loadTable(MouseEvent mouseEvent) {

@@ -14,7 +14,7 @@
         <columns>
           <TableColumn fx:id="agentUsername" prefWidth="540.0" style="&#10;" text="Agent Username" />
           <TableColumn fx:id="agentName" prefWidth="540.0" style="&#10;" text="Agent Name" />
-            <TableColumn fx:id="numApps" prefWidth="200.0" style="&#10;" text="Number of Applicaions reviewed" />
+            <TableColumn fx:id="numApps" prefWidth="200.0" text="Number of Applicaions reviewed" />
         </columns>
       </TableView>
       <ChoiceBox fx:id="statusType" layoutX="211.0" layoutY="128.0" prefWidth="150.0" style="-fx-background-color: #939393&#10;">
@@ -22,11 +22,11 @@
            <FXCollections fx:factory="observableArrayList">
                <String fx:value="pending" />
                <String fx:value="active" />
-               <String fx:value="suspended" />
+               <String fx:value="SUSPENDED" />
            </FXCollections>
        </items>
       </ChoiceBox>
-      <Label layoutX="105.0" layoutY="125.0" text="Agent Status:">
+      <Label fx:id="agentStatus" layoutX="105.0" layoutY="125.0" text="Agent Status:">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
@@ -36,5 +36,10 @@
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
       </Button>
+      <Label fx:id="isPending" layoutX="699.0" layoutY="90.0" text="YOU ARE PENDING APPROVAL">
+         <font>
+            <Font name="Telugu Sangam MN" size="30.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
