@@ -605,9 +605,9 @@ public class DatabaseManager {
         //String TTBID = generateTTBID();
         approveApplication(ApplicationNum, TTBID);
     }
-
     public static void approveNewApplication(String ApplicationNum) {
         //String TTBID = generateTTBID();
+
         approveApplication(ApplicationNum, TTBID);
     }*/
 
@@ -649,7 +649,7 @@ public class DatabaseManager {
         String Email = approvedApplication.Email;
         String AdditionalInfo = approvedApplication.AdditionalInfo;
         String DateOfSubmission = approvedApplication.DateOfSubmission;
-        String CompletedDate = approvedApplication.DateOfApproval;
+        String CompletedDate = StringUtilities.getDate();
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String TTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
@@ -810,8 +810,9 @@ public class DatabaseManager {
                 application.ApplicationType = getApplications.getString("ApplicationType");
                 application.ApplicationStatus = getApplications.getString("ApplicationStatus");
                 application.ManufacturerUsername = getApplications.getString("ManufacturerUsername");
-                application.AgentName = getApplications.getString("AgentName");
+                application.RepName = getApplications.getString("RepName");
                 application.AgentUsername = getApplications.getString("AgentUsername");
+                application.AgentName = getApplications.getString("AgentName");
                 application.RepID = getApplications.getString("RepID");
                 application.PlantRegistry = getApplications.getString("PlantRegistry");
                 application.Locality = getApplications.getString("Locality");
