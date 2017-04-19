@@ -20,9 +20,9 @@
       <ChoiceBox fx:id="statusType" layoutX="211.0" layoutY="128.0" prefWidth="150.0" style="-fx-background-color: #939393&#10;">
        <items>
            <FXCollections fx:factory="observableArrayList">
-               <String fx:value="PENDING" />
-               <String fx:value="ACTIVE" />
-               <String fx:value="SUSPENDED" />
+               <String fx:value="pending" />
+               <String fx:value="active" />
+               <String fx:value="suspend" />
            </FXCollections>
        </items>
       </ChoiceBox>

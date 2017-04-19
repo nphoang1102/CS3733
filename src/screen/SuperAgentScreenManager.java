@@ -52,7 +52,7 @@ public class SuperAgentScreenManager extends Screen {
     @Override
     public void onScreenFocused(DataSet data) {
         UserAgent thisAgent = (UserAgent) Main.getUser();
-        if(thisAgent.getstatus().equals("approved")) {
+        //if(thisAgent.getstatus().equals("approved")) {
             if (data.hasKey("agentStatus")) {
                 statusType.setValue(data.getValueForKey("agentStatus"));
             } else {
@@ -95,13 +95,13 @@ public class SuperAgentScreenManager extends Screen {
                 });
                 return row;
             });
-            isPending.setVisible(false);
-        }else{
+/*            isPending.setVisible(false);
+        //}else{
             agentTable.setVisible(false);
             statusType.setVisible(false);
             goButton.setVisible(false);
             agentStatus.setVisible(false);
-        }
+        //}*/
     }
 
     public void loadTable(MouseEvent mouseEvent) {
