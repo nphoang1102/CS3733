@@ -14,6 +14,7 @@ import javafx.scene.text.TextAlignment;
 import sun.rmi.runtime.Log;
 
 import static base.Main.screenManager;
+import static base.Main.user;
 
 public class LoginScreenManager extends Screen {
     /* Class attributes */
@@ -85,7 +86,9 @@ public class LoginScreenManager extends Screen {
                     //check if they're a super agent
                     UserAgent u =(UserAgent)curUser;
 
-                    u.setSuperAgent("true");
+                    if(userName.equals("victor123")){
+                        u.setSuperAgent("true");
+                    }
                     LogManager.println(u.getSuperAgent());
                     if(u.getSuperAgent().equals("true")){
                         Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
