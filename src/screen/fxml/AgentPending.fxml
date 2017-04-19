@@ -47,12 +47,12 @@
             <Font name="Telugu Sangam MN" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="acceptButton" layoutX="55.0" layoutY="173.0" mnemonicParsing="false" onMouseClicked="#acceptAgnet" style="-fx-background-color: #939393;" text="Accept" textFill="WHITE">
+      <Button fx:id="acceptButton" layoutX="41.0" layoutY="173.0" mnemonicParsing="false" onMouseClicked="#acceptAgnet" style="-fx-background-color: #939393;" text="Accept" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
       </Button>
-      <Button fx:id="rejectButton" layoutX="195.0" layoutY="173.0" mnemonicParsing="false" onMouseClicked="#rejectAgent" style="-fx-background-color: #939393;" text="Reject" textFill="WHITE">
+      <Button fx:id="rejectButton" layoutX="195.0" layoutY="173.0" mnemonicParsing="false" onMouseClicked="#rejectAgent" style="-fx-background-color: #939393;" text="Deny" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>

@@ -38,7 +38,8 @@ public class AgentPendingManager extends Screen{
             isSuper.setText("Super Agent");
             acceptButton.setText("Make Super Agent");
         }else{
-            isSuper.setText("Make Agent");
+            isSuper.setText("Agent");
+            acceptButton.setText("Make Agent");
         }
 
     }

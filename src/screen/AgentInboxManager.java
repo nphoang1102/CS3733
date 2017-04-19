@@ -171,16 +171,18 @@ public class AgentInboxManager extends Screen{
     public void setAgentStatus(MouseEvent mouseEvent) {
         String statusType = (String) agentStatus.getValue();
         if(statusType.equals("REMOVE")){
-            //DatabaseManager.clearInbox(thisUser.getUsername());
+            Main.databaseManager.clearInbox(thisUser.getUsername());
         }
         if (statusType.equals("Activate")) {
             statusType = "active";
         }else if(statusType.equals("Suspend")){
-            statusType = "suspend";
+            statusType = "suspended";
         }else{
-            statusType = "remove";
+            statusType = "REMOVE";
         }
         DatabaseManager.setAgentStatus(tempUser.getUsername(), statusType);
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
     }
 
     public void wipeInbox(MouseEvent mouseEvent) {
