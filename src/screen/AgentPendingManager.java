@@ -1,5 +1,6 @@
 package screen;
 
+import base.Main;
 import database.DataSet;
 import database.DatabaseManager;
 import database.User;
@@ -43,11 +44,14 @@ public class AgentPendingManager extends Screen{
     }
 
     public void acceptAgnet(MouseEvent mouseEvent) {
-        DatabaseManager.setAgentStatus(thisUser.getUsername(), "APPROVED");
-    }
+        DatabaseManager.setAgentStatus(thisUser.getUsername(), "active");
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);    }
 
     public void rejectAgent(MouseEvent mouseEvent) {
         DatabaseManager.setAgentStatus(thisUser.getUsername(), "REMOVE");
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
 
