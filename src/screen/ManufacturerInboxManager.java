@@ -140,7 +140,9 @@ public class ManufacturerInboxManager extends Screen{
                     ManufacturerInboxResult rowData = row.getItem();
                     if(rowData.app.ApplicationStatus.equals("APPROVED")){
                         Main.screenManager.popoutScreen(EnumScreenType.EDIT_APPLICATION_LIST, "Edit Application", 850, 720, rowData.app);
-                    } else {
+                    } /*else if(rowData.app.ApplicationStatus.equals("REJECTED")){
+                        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_1, "Edit Application", 1020, 487, rowData.app);
+                    }*/ else {
                         Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_EDIT, "Edit Application", 1025, 700, rowData.app);
                     }
                 }

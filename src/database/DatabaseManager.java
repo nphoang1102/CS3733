@@ -895,7 +895,7 @@ public class DatabaseManager {
             LogManager.print("Searching for an agent called " + username + "... ", EnumWarningType.NOTE);
 //            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
 
-            user = statement.executeQuery("SELECT * FROM AGENTS WHERE USERNAME = '" + username + "'" + endQueryLine);
+            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "'" + endQueryLine);
 
             if (user.next()) {
 
