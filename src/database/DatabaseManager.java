@@ -651,8 +651,8 @@ public class DatabaseManager {
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
                     CompletedDate + "', '" +
-                    FancifulName + "', '" +
-                    Brand + "', '" +
+                    FancifulName.toUpperCase() + "', '" +
+                    Brand.toUpperCase() + "', '" +
                     PH + "', '" +
                     Locality + "', '" +
                     AlcoholType + "', '" +
