@@ -127,7 +127,7 @@ public class DatabaseManager {
         LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
-                    " TTBID VARCHAR(30) PRIMARY KEY,\n" +
+                    " TTBID VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " CompletedDate DATE,\n" +
@@ -147,7 +147,7 @@ public class DatabaseManager {
         LogManager.print("Creating applications table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(20) PRIMARY KEY,\n" +
+                    " ApplicationNo VARCHAR(20) PRIMARY KEY UNIQUE,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
@@ -199,7 +199,7 @@ public class DatabaseManager {
         LogManager.print("Creating manufacturers table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
-                    " Username VARCHAR(30) PRIMARY KEY,\n" +
+                    " Username VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
                     " PasswordHash VARCHAR(75) NOT NULL,\n" +
                     " Company VARCHAR(100) NOT NULL,\n" +
                     " FullName VARCHAR(50) NOT NULL,\n" +
@@ -208,7 +208,8 @@ public class DatabaseManager {
                     " PlantRegistry VARCHAR(50) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " Address2 VARCHAR(50) NOT NULL,\n" +
-                    " Agent VARCHAR(30)\n" +
+                    " Agent VARCHAR(30),\n" +
+                    " AgentDate VARCHAR(20)\n" +
                     ")" + endQueryLine);
             LogManager.println("Done.");
         } catch (SQLException e) {
@@ -469,6 +470,8 @@ public class DatabaseManager {
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
+                manufacturer.Agent = searchManufacturers.getString("Agent");
+                manufacturer.AgentDate = searchManufacturers.getString("AgentDate");
                 manufacturers.add(manufacturer); //One to beam up.
                 LogManager.print(manufacturers.size() + "items long.");
             }
@@ -510,7 +513,6 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status){ //We're competing with facebook.
 
-        status = status.toUpperCase();
         if(status.equals("REMOVE")){
             try{
                 statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
@@ -628,8 +630,7 @@ public class DatabaseManager {
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
-//        String AlcoholClass = approvedApplication.
-//        LogManager.println("LOOOOOOK HEEEEEEERREEEEEE: " + ApplicationNo + " " + ABV);
+        String Class = "";
 
         try {
             LogManager.println("INSERTING THINGS NOW!!!");
@@ -641,11 +642,11 @@ public class DatabaseManager {
                     "FancifulName, " +
                     "BrandName, " +
                     "Origin, " +
-//                    "Class, " +
-                    "Type, " + //TODO - Is this wrong??
+                    "Type, " +
                     "AlcoholContent, " +
                     "VintageYear, " +
-                    "PH) VALUES ('" +
+                    "PH, " +
+                    "Class) VALUES ('" +
                     ApprovedTTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
@@ -653,11 +654,11 @@ public class DatabaseManager {
                     FancifulName + "', '" +
                     Brand + "', '" +
                     Locality + "', '" +
-//                    Class + "', '" +
                     AlcoholType + "', '" +
                     ABV + "', '" +
                     VintageDate + "', '" +
-                    PH + "') + endQueryLine");
+                    PH + "', '" +
+                    Class + "')" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -666,7 +667,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void rejectApplication(String ApplicationNo) {//GET REKKKDDDDD!
+    public static void rejectApplication(String ApplicationNo) {
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
@@ -696,27 +697,73 @@ public class DatabaseManager {
     ///////////ADD APPLICATIONS TO AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<Application> addApplicationToInbox(String type, String username, int num) {
-        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "';");
+        LinkedList<DataSet> applicationLinkedList = queryApplications("SELECT * FROM Applications WHERE AlcoholType = '" + type + "' AND ApplicationStatus = 'PENDING' AND AgentUsername = '';");
         LinkedList<Application> addToInbox = new LinkedList<>();
-        for (int i = 0; i < num; i++) {
-            try {
-                Application tempApp = (Application) applicationLinkedList.get(i);
-                if (tempApp.ApplicationStatus.equals("PENDING") && tempApp.AgentUsername.equals("")) {
-                    LogManager.println("Application added");
-                    addToInbox.add((Application) applicationLinkedList.get(i));
 
+        //counters
+        int i = 0;
+        int j = -1;
+        //checks if it is the first time through the linked list
+        boolean isFirst = true;
+        //makes sure that the inbox never exceeds 10 applications
+        while(i < num){
+            try{
+                //increaces the counter of linked list
+                j++;
+                //gets one of the applications from all applications
+                Application tempApp = (Application) applicationLinkedList.get(j);
+                //gets the manucaturer for the specific application
+                LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.MANUFACTURER, "Username", tempApp.ManufacturerUsername);
+                UserManufacturer tempMan = (UserManufacturer) tempMans.getFirst();
+                //gets the current date
+                String curDate = StringUtilities.getDate();
+                LogManager.println(curDate);
+                if(!tempMan.AgentDate.equals(curDate)){
+                    tempMan.Agent = "";
+                }
+                //check if that manufacturer has a specific agent on the day and adds it to the inbox
+                if (tempMan.Agent.equals(username)) {
+                    addToInbox.add((Application) applicationLinkedList.get(j));
                     try {
+                        //sets the applications agent as the agents username who was there
                         statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+                        //sets the manufacturers agent and day to the agent username and date passed in
+                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                        //increments the number of applications added to the inbox
+                        i++;
                     } catch (SQLException e) {
                         LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
                     }
+                //checks if the manufacturer doesnt have an agent
+                }else if(tempMan.Agent.equals("")){
+                    //adds the application to the inbox on the second pass
+                    if(!isFirst){
+                        //same as above
+                        addToInbox.add((Application) applicationLinkedList.get(i));
+                        try {
+                            statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+                            statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                            i++;
+                        } catch (SQLException e) {
+                            LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
+                        }
+                    }
                 }
-            } catch (Exception e) { //If your hand touches metal,
-                //I swear by my pretty floral bonnet, I will end you.
-                break;
+                //if the user has an agent it does not add it to the inbox
+                else{}
+            }catch (Exception e) {
+                //list of applications chagned
+                if(isFirst){
+                    //makes the while loop continue and start at the begining of the list
+                    isFirst = false;
+                    j = -1;
+                }else {
+                    //the list ran out of entries twice so break the loop cause nothings left
+                    break;
+                }
             }
-
         }
+
         return addToInbox; //YOU'VE GOT MAIL!!!!
     }
 
@@ -802,8 +849,8 @@ public class DatabaseManager {
             if (userType.equals(EnumUserType.MANUFACTURER)) {
                 UserManufacturer manufacturer = (UserManufacturer) user;
                 try {
-                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, PasswordHash, Company, FullName, RepID, Email, PlantRegistry, PhoneNo, Address2) VALUES " +
-                            "( '" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "', '" + "" + "')");
+                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, PasswordHash, Company, FullName, RepID, Email, PlantRegistry, PhoneNo, Address2, Agent, AgentDate) VALUES " +
+                            "('" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '', '', '', '', '', '', '', '', '')");
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
