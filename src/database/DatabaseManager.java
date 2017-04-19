@@ -130,7 +130,7 @@ public class DatabaseManager {
                     " TTBID VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
-                    " CompletedDate DATE,\n" +
+                    " CompletedDate VARCHAR(20),\n" +
                     " FancifulName VARCHAR(100),\n" +
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Class VARCHAR(50) NOT NULL,\n" +
@@ -626,7 +626,7 @@ public class DatabaseManager {
         String Email = approvedApplication.Email;
         String AdditionalInfo = approvedApplication.AdditionalInfo;
         String DateOfSubmission = approvedApplication.DateOfSubmission;
-        String DateOfApproval = approvedApplication.DateOfApproval;
+        String CompletedDate = approvedApplication.DateOfApproval;
         String DateOfExpiration = approvedApplication.DateOfExpiration;
         String ApprovedTTBID = approvedApplication.ApprovedTTBID;
         String ReasonForRejection = approvedApplication.ReasonForRejection;
@@ -650,7 +650,7 @@ public class DatabaseManager {
                     ApprovedTTBID + "', '" +
                     PlantRegistry + "', '" +
                     SerialNo + "', '" +
-                    "" + "', '" +
+                    CompletedDate + "', '" +
                     FancifulName + "', '" +
                     Brand + "', '" +
                     PH + "', '" +
