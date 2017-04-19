@@ -522,7 +522,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status) { //We're competing with facebook.
 
-        status = status.toUpperCase();
+
         if (status.equals("REMOVE")) {
             try {
                 statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");

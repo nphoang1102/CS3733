@@ -104,12 +104,11 @@ public class AgentInboxManager extends Screen{
                 });
                 return row;
             });
-            if(thisUser.getstatus().equals("APPROVED")){
-
+            if(thisUser.getstatus().equals("active")){
+                pullNewBatch.setVisible(true);
+                EditAccount.setVisible(true);
+                typeBox.setVisible(true);
             }
-            pullNewBatch.setVisible(true);
-            EditAccount.setVisible(true);
-            typeBox.setVisible(true);
         }else{
             uuidCodes = DatabaseManager.getApplicationsByAgent(tempUser.getUsername());
 
