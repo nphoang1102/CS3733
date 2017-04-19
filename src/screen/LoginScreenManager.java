@@ -45,10 +45,12 @@ public class LoginScreenManager extends Screen {
     //fxml methods
     @FXML
     void loginClicked() {
+
         //clear any previous error messages
         error.visibleProperty().setValue(false);
         if (Main.getUsername().equals("")) {
             this.userName = usernameField.getText();
+            String curPass = password.getText();
             this.usernameField.clear();
             this.password.clear();
 
@@ -60,13 +62,17 @@ public class LoginScreenManager extends Screen {
             } else {
                 User curUser = null;
                 try {
-                    curUser = Main.databaseManager.login(userName, password.getText());
+                    curUser = Main.databaseManager.login(userName, curPass);
                 } catch (DatabaseManager.UserNotFoundException e) {
                     error.visibleProperty().setValue(true);
                     error.setText("Username does not exist");
                     e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
+
+                    LogManager.println(curUser.PasswordHash+"<-- password hash");
+                    LogManager.println(curPass+"<-- password.getText");
+
                     error.visibleProperty().setValue(true);
                     error.setText("Incorrect username or password");
                     e.printStackTrace();

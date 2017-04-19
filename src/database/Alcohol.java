@@ -18,4 +18,5 @@ public class Alcohol extends DataSet{
     public String AlcoholContent;
     public String VintageYear;
     public String PH;
+    public String ApplicationNo;
 }
