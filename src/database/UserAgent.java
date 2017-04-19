@@ -37,11 +37,11 @@ public class UserAgent extends User{
     }
     public String getSuperAgent(){
         return this.superAgent;
-
     }
     public void setSuperAgent(String s){
         if(s.equalsIgnoreCase("true")){
             this.superAgent = s;
+            this.setUserType(EnumUserType.SUPER_AGENT);
         }else if(s.equalsIgnoreCase ("false")){
             this.superAgent = s;
         }else{
