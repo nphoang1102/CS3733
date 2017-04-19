@@ -43,7 +43,6 @@ public class ImageOnServer implements ImageInterface{
             client.disconnect();
         } catch (Exception e) {
             LogManager.println("Image not found on FTP server:"+"/home/cadbo/TTB/"+url, EnumWarningType.ERROR);
-            e.printStackTrace();
         }
 
     }
