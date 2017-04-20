@@ -24,7 +24,7 @@ public class SuperAgentScreenManager extends Screen {
     private TableView agentTable;
 
     @FXML
-    private TableColumn<UserAgent, String> agentUsername, agentName, numApps;
+    private TableColumn<UserAgent, String> agentUsername, agentName;
 
     @FXML
     private ChoiceBox statusType;
@@ -51,8 +51,10 @@ public class SuperAgentScreenManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet data) {
+        LogManager.println(Main.getUsername());
+
         UserAgent thisAgent = (UserAgent) Main.getUser();
-        //if(thisAgent.getstatus().equals("approved")) {
+
             if (data.hasKey("agentStatus")) {
                 statusType.setValue(data.getValueForKey("agentStatus"));
             } else {
@@ -60,7 +62,6 @@ public class SuperAgentScreenManager extends Screen {
             }
             agentUsername.setCellValueFactory(new PropertyValueFactory<>("username"));
             agentName.setCellValueFactory(new PropertyValueFactory<>("name"));
-            numApps.setCellValueFactory(new PropertyValueFactory<>("numAppsRev"));
 
             //contact database to fill agents by user type
             agents = DatabaseManager.queryDatabase(EnumTableType.AGENT, "Status", (String) statusType.getValue());
@@ -71,9 +72,9 @@ public class SuperAgentScreenManager extends Screen {
             //fills the table
             for (DataSet tempData : agents) {
                 UserAgent tempAgent = (UserAgent) tempData;
-                if (tempAgent.getSuperAgent().equals("false")) {
+
                     tableInfo.add(tempAgent);
-                }
+
             }
 
             this.agentTable.setItems(tableInfo);
@@ -84,24 +85,25 @@ public class SuperAgentScreenManager extends Screen {
                     if (event.getClickCount() == 2 && (!row.isEmpty())) {
                         UserAgent tempResult = row.getItem();
                         System.out.println(tempResult);
-                        if (tempResult.getSuperAgent().equalsIgnoreCase("false")) {
+
                             if (tempResult.getstatus().equals("pending")) {
                                 screenManager.popoutScreen(EnumScreenType.AGENT_PENDING, "Agent Application Page", 325, 250, tempResult);
                             } else {
                                 screenManager.popoutScreen(EnumScreenType.AGENT_INBOX, "View Agent Page", tempResult);
                             }
-                        }
+
                     }
                 });
                 return row;
             });
-/*            isPending.setVisible(false);
-        //}else{
+        if(thisAgent.getstatus().equals("active")) {
+            isPending.setVisible(false);
+        }else{
             agentTable.setVisible(false);
             statusType.setVisible(false);
             goButton.setVisible(false);
             agentStatus.setVisible(false);
-        //}*/
+        }
     }
 
     public void loadTable(MouseEvent mouseEvent) {

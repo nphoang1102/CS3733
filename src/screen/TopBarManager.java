@@ -85,6 +85,9 @@ public class TopBarManager extends Screen{
         }
         if(!lastFoucs.equals(Main.getUsername())) {
             action.setVisible(true);
+            if(Main.getUserType().equals(EnumUserType.SUPER_AGENT.getTextualName())){
+                action.setText("Inbox");
+            }
             if(Main.getUserType().equals(EnumUserType.AGENT.getTextualName())){
                 action.setText("Inbox");
             }
@@ -150,6 +153,9 @@ public class TopBarManager extends Screen{
 
     @FXML
     public void action(){
+        if(Main.getUserType().equals(EnumUserType.SUPER_AGENT.getTextualName())){
+            Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
+        }
         if(Main.getUserType().equals(EnumUserType.AGENT.getTextualName())){
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }

@@ -45,10 +45,12 @@ public class LoginScreenManager extends Screen {
     //fxml methods
     @FXML
     void loginClicked() {
+
         //clear any previous error messages
         error.visibleProperty().setValue(false);
         if (Main.getUsername().equals("")) {
             this.userName = usernameField.getText();
+            String curPass = password.getText();
             this.usernameField.clear();
             this.password.clear();
 
@@ -60,13 +62,17 @@ public class LoginScreenManager extends Screen {
             } else {
                 User curUser = null;
                 try {
-                    curUser = Main.databaseManager.login(userName, password.getText());
+                    curUser = Main.databaseManager.login(userName, curPass);
                 } catch (DatabaseManager.UserNotFoundException e) {
                     error.visibleProperty().setValue(true);
                     error.setText("Username does not exist");
                     e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
+
+                    LogManager.println(curUser.PasswordHash+"<-- password hash");
+                    LogManager.println(curPass+"<-- password.getText");
+
                     error.visibleProperty().setValue(true);
                     error.setText("Incorrect username or password");
                     e.printStackTrace();
@@ -82,22 +88,28 @@ public class LoginScreenManager extends Screen {
                     Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
                 }else if (userType.equals(EnumUserType.MANUFACTURER)) {
                     UserManufacturer tempManufacturer = (UserManufacturer) curUser;
+                    Main.setUser(tempManufacturer);
                     Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
                 }else if (userType.equals(EnumUserType.AGENT)) {
                     //check if they're a super agent
                     UserAgent tempAgent =(UserAgent)curUser;
-                    Main.setUser(tempAgent);
+
 
                    /* if(userName.equals("victor123")){
                         u.setSuperAgent("true");
                     }*/
                     if(tempAgent.getSuperAgent().equals("true")){
+                        tempAgent.setUserType(EnumUserType.SUPER_AGENT);
+                        Main.setUser(tempAgent);
                         Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
                         return;
                     }
                     //if not go to agent screen
+                    Main.setUser(tempAgent);
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
                 }else if(userType.equals(EnumUserType.SUPER_AGENT)){
+                    UserAgent tempAgent =(UserAgent)curUser;
+                    Main.setUser(tempAgent);
                     Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
                 }
             }

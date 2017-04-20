@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 
+import javax.swing.text.html.ImageView;
 import java.util.LinkedList;
 
 /**
@@ -27,6 +28,8 @@ public class AgentAppScreenManager extends Screen{
     @FXML
     TextArea rejectReason, newAgentID;
 
+    @FXML
+    javafx.scene.image.ImageView theLabel;
     //all the Buttons on the screen
     @FXML
     Button acceptButton, rejectButton, forwardButton;
@@ -71,6 +74,7 @@ public class AgentAppScreenManager extends Screen{
         pHLevel.setText(application.PH);
         vintageYear.setText(application.VintageDate);
 
+
     }
 
 
@@ -81,11 +85,10 @@ public class AgentAppScreenManager extends Screen{
     public void acceptApp(MouseEvent mouseEvent) {
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
-            DatabaseManager.approveNewApplication(app.ApplicationNo);
+            DatabaseManager.approveApplication(app.ApplicationNo);
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
         }
-
     }
 
 
