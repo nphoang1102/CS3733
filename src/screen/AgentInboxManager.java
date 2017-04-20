@@ -65,6 +65,8 @@ public class AgentInboxManager extends Screen{
         setStatusButton.setVisible(false);
         typeBox.setVisible(false);
         agentStatus.setVisible(false);
+        inboxData.setVisible(false);
+
 
         typeBox.setValue("Beer");
         agentStatus.setValue("Activate");
@@ -104,12 +106,12 @@ public class AgentInboxManager extends Screen{
                 });
                 return row;
             });
-            if(thisUser.getstatus().equals("APPROVED")){
-
+            if(thisUser.getstatus().equals("active")){
+                pullNewBatch.setVisible(true);
+                EditAccount.setVisible(true);
+                typeBox.setVisible(true);
+                inboxData.setVisible(true);
             }
-            pullNewBatch.setVisible(true);
-            EditAccount.setVisible(true);
-            typeBox.setVisible(true);
         }else{
             uuidCodes = DatabaseManager.getApplicationsByAgent(tempUser.getUsername());
 
@@ -123,6 +125,7 @@ public class AgentInboxManager extends Screen{
             clearInboxButton.setVisible(true);
             setStatusButton.setVisible(true);
             agentStatus.setVisible(true);
+            inboxData.setVisible(true);
         }
 
 

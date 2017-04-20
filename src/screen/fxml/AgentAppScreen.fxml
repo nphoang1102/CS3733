@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -53,11 +54,11 @@
         <Font name="System Bold" size="15.0" />
       </font></Label>
     <Label fx:id="appNameAndAdd" alignment="TOP_LEFT" layoutX="80.0" layoutY="520.0" prefHeight="179.0" prefWidth="253.0" text="applNameAndAdd" />
-    <Label layoutX="760.0" layoutY="70.0" text="Alternate Mailing Address">
+    <Label layoutX="754.0" layoutY="239.0" text="Alternate Mailing Address">
       <font>
         <Font name="System Bold" size="15.0" />
       </font></Label>
-    <Label fx:id="alternateAdd" alignment="TOP_LEFT" layoutX="760.0" layoutY="90.0" prefHeight="140.0" prefWidth="300.0" text="alternateAdd" />
+    <Label fx:id="alternateAdd" alignment="TOP_LEFT" layoutX="754.0" layoutY="259.0" prefHeight="17.0" prefWidth="97.0" text="alternateAdd" />
     <Label layoutX="418.0" layoutY="210.0" prefHeight="21.0" prefWidth="119.0" text="Phone Number">
       <font>
         <Font name="System Bold" size="15.0" />
@@ -160,5 +161,6 @@
       </font>
     </Label>
     <Label fx:id="vintageYear" layoutX="590.0" layoutY="580.0" text="vintageYear" />
+      <ImageView fx:id="theLabel" fitHeight="150.0" fitWidth="200.0" layoutX="751.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
   </children>
 </AnchorPane>

@@ -162,7 +162,7 @@ public class DatabaseManager {
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
                     " CT VARCHAR(15) NOT NULL,\n" +
-                    " "OR" VARCHAR(15) NOT NULL,\n" +
+                    " OR VARCHAR(15) NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " RepName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
@@ -524,7 +524,6 @@ public class DatabaseManager {
     ///////////SET STATUS////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status) { //We're competing with facebook.
-
         if (status.equals("REMOVE")) {
             try {
                 statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
