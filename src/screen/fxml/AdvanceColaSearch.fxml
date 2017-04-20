@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="contain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#onCheck" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.AdvanceColaSearchManager">
+<Pane fx:id="contain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#onCheck" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.cola_search.AdvanceColaSearchManager">
    <children>
       <TextField fx:id="field1" layoutX="250.0" layoutY="150.0" onAction="#searchClicked" onMouseClicked="#checkField1" prefHeight="33.0" prefWidth="930.0" promptText="Choose your search field and enter what you want to search for" style="-fx-focus-color: #34a88b;" />
       <TextField fx:id="field2" layoutX="250.0" layoutY="233.0" onAction="#searchClicked" prefHeight="33.0" prefWidth="930.0" promptText="Additional field 1, will enable when search field selected" style="-fx-focus-color: #34a88b;" />

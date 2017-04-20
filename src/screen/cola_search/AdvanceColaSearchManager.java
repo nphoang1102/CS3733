@@ -1,4 +1,4 @@
-package screen;
+package screen.cola_search;
 
 import base.EnumTableType;
 import base.LogManager;
@@ -19,6 +19,8 @@ import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
+import screen.EnumScreenType;
+import screen.Screen;
 import sun.rmi.runtime.Log;
 
 import javax.xml.soap.Text;

@@ -1,4 +1,4 @@
-package screen;
+package screen.cola_search;
 
 import base.EnumTableType;
 import base.LogManager;
@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import screen.EnumScreenType;
+import screen.Screen;
 import screen.cola_search.*;
 
 import java.util.LinkedList;
@@ -21,7 +23,7 @@ import java.util.LinkedList;
 /**
  * Created by Hoang Nguyen on 4/4/2017.
  */
-public class ColaSearchResultManager extends Screen{
+public class ColaSearchResultManager extends Screen {
     /* Class attributes */
     private DataSet mapOrigin = new BasicDataSet();
     private String[] adStrings = new String[6];
