@@ -6,7 +6,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="400.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"  fx:controller="screen.NotificationManager">
+<Pane fx:id="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="150.0" prefWidth="400.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.NotificationManager">
    <children>
       <Label fx:id="message" layoutX="129.0" layoutY="20.0" text="Action complete!" textFill="#34a88b">
          <font>

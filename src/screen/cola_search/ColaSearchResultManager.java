@@ -173,6 +173,7 @@ public class ColaSearchResultManager extends Screen {
     public void toChar() {
         IDataDownload downloadChar = new toChSV();
         downloadChar.downloadData(this.resultTable);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_CHARACTER_SELECTION, "Character configuration", 450, 250, new BasicDataSet());
     }
 
     /* Navigate to advance search screen on mouse click */
