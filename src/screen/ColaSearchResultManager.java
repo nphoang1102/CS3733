@@ -156,6 +156,9 @@ public class ColaSearchResultManager extends Screen{
     public void toCSV() {
         IDataDownload downloadCSV = new toCSV();
         downloadCSV.downloadData(this.resultTable);
+        DataSet message = new BasicDataSet();
+        message.addField("Message", "Search result saved to /searchResult.csv");
+        Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
     }
 
     /* Print search result into a tab-delimited text file */
