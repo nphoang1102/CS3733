@@ -24,7 +24,7 @@ public class toTSV implements IDataDownload {
                 + "Alcohol content" + "\t"
                 + "Vintage year" + "\t"
                 + "pH level";
-        String outputPath = "/searchResult-tab.txt";
+        String outputPath = "/searchResult-tab.tsv";
         for (ColaResult data : result){
             index++;
             String columns = data.getId() + "\t"
@@ -42,6 +42,6 @@ public class toTSV implements IDataDownload {
             output[index] = columns;
         }
         StringUtilities.saveData(outputPath, output);
-        LogManager.println("Search result saved to /searchResult-tab.txt");
+        LogManager.println("Search result saved to /searchResult-tab.tsv");
     }
 }
