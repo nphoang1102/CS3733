@@ -37,7 +37,7 @@ public class ResultPopupManager extends Screen {
         dis_serial.setText("Serial No: " + result.getValueForKey("SerialNo"));
         dis_date.setText("Permit completed date: " +result.getValueForKey("CompletedDate"));
         dis_fanName.setText("Fanciful name: " +result.getValueForKey("FancifulName"));
-        dis_brandName.setText(result.getValueForKey("BrandName"));
+        dis_brandName.setText(result.getValueForKey("BrandName") + "");
         dis_brandName.layoutXProperty().bind(window.widthProperty().subtract(dis_brandName.widthProperty()).divide(2));
         dis_origin.setText("Origin: " +result.getValueForKey("Origin"));
         dis_class.setText("Class: " +result.getValueForKey("Class"));

@@ -9,35 +9,35 @@ import javafx.collections.ObservableList;
  */
 public class toTSV implements IDataDownload {
     @Override
-    public void downloadData(ObservableList<ColaResult> result) {
+    public void downloadData(ObservableList<ColaResult> result, String delimiter) {
         int index = 0;
         String[] output = new String[result.size() + 1];
-        output[0] = "TTB ID" + "\t"
-                + "Permit number" + "\t"
-                + "Serial number" + "\t"
-                + "Date approved" + "\t"
-                + "Fancy name" + "\t"
-                + "Brand name" + "\t"
-                + "Origin" + "\t"
-                + "Class" + "\t"
-                + "Type" + "\t"
-                + "Alcohol content" + "\t"
-                + "Vintage year" + "\t"
+        output[0] = "TTB ID" + delimiter
+                + "Permit number" + delimiter
+                + "Serial number" + delimiter
+                + "Date approved" + delimiter
+                + "Fancy name" + delimiter
+                + "Brand name" + delimiter
+                + "Origin" + delimiter
+                + "Class" + delimiter
+                + "Type" + delimiter
+                + "Alcohol content" + delimiter
+                + "Vintage year" + delimiter
                 + "pH level";
         String outputPath = "/searchResult-tab.tsv";
         for (ColaResult data : result){
             index++;
-            String columns = data.getId() + "\t"
-                    + data.getPermit() + "\t"
-                    + data.getSerial() + "\t"
-                    + data.getDate() + "\t"
-                    + data.getFname() + "\t"
-                    + data.getName() + "\t"
-                    + data.getSource() + "\t"
-                    + data.getAclass() + "\t"
-                    + data.getType() + "\t"
-                    + data.getAlCon() + "\t"
-                    + data.getYear() + "\t"
+            String columns = data.getId() + delimiter
+                    + data.getPermit() + delimiter
+                    + data.getSerial() + delimiter
+                    + data.getDate() + delimiter
+                    + data.getFname() + delimiter
+                    + data.getName() + delimiter
+                    + data.getSource() + delimiter
+                    + data.getAclass() + delimiter
+                    + data.getType() + delimiter
+                    + data.getAlCon() + delimiter
+                    + data.getYear() + delimiter
                     + data.getPh();
             output[index] = columns;
         }

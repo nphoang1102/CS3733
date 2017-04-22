@@ -24,7 +24,7 @@ public class NotificationManager extends Screen {
     /* Initialize */
     @Override
     public void onScreenFocused(DataSet data) {
-        this.message.setText(data.getValueForKey("Message"));
+        this.message.setText(data.getValueForKey("Message") + "");
         this.message.layoutXProperty().bind(this.container.widthProperty().subtract(this.message.widthProperty()).divide(2));
 
     }
