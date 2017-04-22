@@ -6,10 +6,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.cola_search.ColaCharSelectorManager">
    <children>
-      <TextField fx:id="deChar" layoutX="25.0" layoutY="30.0" onMouseClicked="#onCheck" prefHeight="45.0" prefWidth="400.0" promptText="Please input the delimiter character">
+      <TextField fx:id="deChar" layoutX="25.0" layoutY="30.0" onAction="#onClick" onMouseClicked="#onCheck" prefHeight="45.0" prefWidth="400.0" promptText="Please input the delimiter character">
          <font>
             <Font name="Telugu Sangam MN Bold" size="15.0" />
          </font>
