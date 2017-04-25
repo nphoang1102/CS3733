@@ -74,7 +74,7 @@ public class TopBarManager extends Screen{
         userType.setText(Main.getUserType());
         System.out.println("Called");
         if(data.hasKey("searchField")){
-            searchBar.setText(data.getValueForKey("searchField"));
+            searchBar.setText(data.getValueForKey("searchField") + "");
         }else{
             searchBar.clear();
         }

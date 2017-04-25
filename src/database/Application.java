@@ -46,4 +46,9 @@ public class Application extends DataSet {
     public String getManufacturerUsername(){
         return this.ManufacturerUsername;
     }
+
+    public String getApprovedTTBID(){ return this.ApprovedTTBID;}
+    public String getAgentUsername(){ return this.AgentUsername;}
+    public String getAgentName(){ return  this.AgentName;}
+    public String getDateOfSubmission() { return this.DateOfSubmission;}
 }
