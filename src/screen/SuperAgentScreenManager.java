@@ -89,7 +89,7 @@ public class SuperAgentScreenManager extends Screen {
                             if (tempResult.getstatus().equals("pending")) {
                                 screenManager.popoutScreen(EnumScreenType.AGENT_PENDING, "Agent Application Page", 325, 250, tempResult);
                             } else {
-                                screenManager.popoutScreen(EnumScreenType.AGENT_INBOX, "View Agent Page", tempResult);
+                                screenManager.setScreen(EnumScreenType.AGENT_INBOX, tempResult);
                             }
 
                     }
