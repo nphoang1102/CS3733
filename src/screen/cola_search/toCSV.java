@@ -9,35 +9,35 @@ import javafx.collections.ObservableList;
  */
 public class toCSV implements IDataDownload {
     @Override
-    public void downloadData(ObservableList<ColaResult> result) {
+    public void downloadData(ObservableList<ColaResult> result, String delimiter) {
         int index = 0;
         String[] output = new String[result.size() + 1];
-        output[0] = "TTB ID" + ","
-                + "Permit number" + ","
-                + "Serial number" + ","
-                + "Date approved" + ","
-                + "Fancy name" + ","
-                + "Brand name" + ","
-                + "Origin" + ","
-                + "Class" + ","
-                + "Type" + ","
-                + "Alcohol content" + ","
-                + "Vintage year" + ","
+        output[0] = "TTB ID" + delimiter
+                + "Permit number" + delimiter
+                + "Serial number" + delimiter
+                + "Date approved" + delimiter
+                + "Fancy name" + delimiter
+                + "Brand name" + delimiter
+                + "Origin" + delimiter
+                + "Class" + delimiter
+                + "Type" + delimiter
+                + "Alcohol content" + delimiter
+                + "Vintage year" + delimiter
                 + "pH level";
         String outputPath = "/searchResult.csv";
         for (ColaResult data : result){
             index++;
-            String columns = data.getId() + ","
-                    + data.getPermit() + ","
-                    + data.getSerial() + ","
-                    + data.getDate() + ","
-                    + data.getFname() + ","
-                    + data.getName() + ","
-                    + data.getSource() + ","
-                    + data.getAclass() + ","
-                    + data.getType() + ","
-                    + data.getAlCon() + ","
-                    + data.getYear() + ","
+            String columns = data.getId() + delimiter
+                    + data.getPermit() + delimiter
+                    + data.getSerial() + delimiter
+                    + data.getDate() + delimiter
+                    + data.getFname() + delimiter
+                    + data.getName() + delimiter
+                    + data.getSource() + delimiter
+                    + data.getAclass() + delimiter
+                    + data.getType() + delimiter
+                    + data.getAlCon() + delimiter
+                    + data.getYear() + delimiter
                     + data.getPh();
             output[index] = columns;
         }
