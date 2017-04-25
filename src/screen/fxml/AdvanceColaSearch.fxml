@@ -7,17 +7,17 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="contain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#onCheck" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.cola_search.AdvanceColaSearchManager">
+<Pane fx:id="contain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.cola_search.AdvanceColaSearchManager">
    <children>
       <TextField fx:id="field1" layoutX="290.0" layoutY="100.0" prefHeight="41.0" prefWidth="850.0" promptText="Choose your search field and enter what you want to search for" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font></TextField>
-      <TextField fx:id="field2" layoutX="290.0" layoutY="183.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 2, please remove if not used" style="-fx-focus-color: #34a88b;">
+      <TextField fx:id="field2" layoutX="290.0" layoutY="183.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 1, please remove if not used" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font></TextField>
-      <TextField fx:id="field3" layoutX="290.0" layoutY="266.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 3, please remove if not used" style="-fx-focus-color: #34a88b;">
+      <TextField fx:id="field3" layoutX="290.0" layoutY="266.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 2, please remove if not used" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font></TextField>
@@ -29,7 +29,7 @@
             <Font name="Telugu Sangam MN Bold" size="18.0" />
          </font>
       </Label>
-      <TextField fx:id="field4" layoutX="290.0" layoutY="349.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 4, please remove if not used" style="-fx-focus-color: #34a88b;">
+      <TextField fx:id="field4" layoutX="290.0" layoutY="349.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 3, please remove if not used" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
@@ -64,17 +64,17 @@
             <Font name="Tahoma Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="plus1" layoutX="1163.0" layoutY="191.0" onMouseClicked="#add1" text="+" textFill="#34a88b">
+      <Label fx:id="plus2" layoutX="1163.0" layoutY="191.0" onMouseClicked="#add2" text="+" textFill="#34a88b">
          <font>
             <Font name="Tahoma Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="plus3" layoutX="1163.0" layoutY="357.0" onMouseClicked="#add3" text="+" textFill="#34a88b">
+      <Label fx:id="plus3" layoutX="1163.0" layoutY="274.0" onMouseClicked="#add3" text="+" textFill="#34a88b">
          <font>
             <Font name="Tahoma Bold" size="20.0" />
          </font>
       </Label>
-      <Label fx:id="plus2" layoutX="1163.0" layoutY="274.0" onMouseClicked="#add2" text="+" textFill="#34a88b">
+      <Label fx:id="plus1" layoutX="1163.0" layoutY="108.0" onMouseClicked="#add1" text="+" textFill="#34a88b">
          <font>
             <Font name="Tahoma Bold" size="20.0" />
          </font>

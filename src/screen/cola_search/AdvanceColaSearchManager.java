@@ -36,6 +36,7 @@ public class AdvanceColaSearchManager extends Screen {
     private ArrayList<String> sugBrand = new ArrayList<String>();
     private ArrayList<String> sugFan = new ArrayList<String>();
     private ArrayList<String> sugType = new ArrayList<String>();
+    private int searchFields = 1;
 
     /* Declaring the FXML objects */
     @FXML private TextField field1, field2, field3, field4;
@@ -88,25 +89,51 @@ public class AdvanceColaSearchManager extends Screen {
     /* Initialize the search fields */
     public void searchFieldInitialize() {
         field1.clear();
-        field2.clear();
-        field2.setDisable(true);
-        field3.clear();
-        field3.setDisable(true);
+        setAddField1(false);
+        setAddField2(false);
+        setAddField3(false);
+
     }
 
-    /* Check for the choice box selection to enable/disable search fields */
-    public void onCheck() {
-        if (drop2.getValue().equals("")) {
-            field2.setDisable(true);
-            field2.clear();
+    /* Set visibility for first additional search field */
+    public void setAddField1(boolean visibility) {
+        this.field2.setVisible(visibility);
+        this.drop2.setVisible(visibility);
+        this.plus2.setVisible(visibility);
+        this.ex1.setVisible(visibility);
+        if (visibility) {
+            this.field2.clear();
+            this.plus1.setVisible(false);
         }
-        else field2.setDisable(false);
-        if (drop3.getValue().equals("")) {
-            field3.setDisable(true);
-            field3.clear();
+    }
+
+    /* Set visibility for second additional search field */
+    public void setAddField2(boolean visibility) {
+        this.field3.setVisible(visibility);
+        this.drop3.setVisible(visibility);
+        this.plus3.setVisible(visibility);
+        this.ex2.setVisible(visibility);
+        if (visibility) {
+            this.field3.clear();
+            this.plus1.setVisible(false);
+            this.plus2.setVisible(false);
+            this.ex1.setVisible(false);
         }
-        else field3.setDisable(false);
-        this.warning.setVisible(false);
+    }
+
+    /* Set visibility for third additional search field */
+    public void setAddField3(boolean visibility) {
+        this.field4.setVisible(visibility);
+        this.drop4.setVisible(visibility);
+        this.ex3.setVisible(visibility);
+        if (visibility) {
+            this.field4.clear();
+            this.plus1.setVisible(false);
+            this.plus2.setVisible(false);
+            this.plus3.setVisible(false);
+            this.ex1.setVisible(false);
+            this.ex2.setVisible(false);
+        }
     }
 
     /* What to do when the clear button is clicked */
@@ -115,8 +142,8 @@ public class AdvanceColaSearchManager extends Screen {
         searchFieldInitialize();
     }
 
-    /* What to do when the search button is clicked */
-    public void searchClicked() {
+    /* Combination search (Union) */
+    public void combiSearch() {
         if (this.isLegit()) {
             DataSet searchFields = new BasicDataSet();
             searchFields.addField("isAdvance", "true");
@@ -135,6 +162,14 @@ public class AdvanceColaSearchManager extends Screen {
             this.warning.setVisible(true);
         }
     }
+
+    /* Search for exact match cases (Intersect) */
+    public void exactSearch() {
+        /* Put this here so no errors for now */
+        this.combiSearch();
+    }
+
+
 
     /* Check if entries are eligible for advance search, we will be using this in Intersect */
     /*public boolean isLegit() {
@@ -166,4 +201,44 @@ public class AdvanceColaSearchManager extends Screen {
         }
         return true;
     }
+
+
+    /* Add additional fields starts here */
+    public void add1() {
+        this.setAddField1(true);
+        this.searchFields = 2;
+    }
+
+    public void add2() {
+        this.setAddField2(true);
+        this.searchFields = 3;
+    }
+
+    public void add3() {
+        this.setAddField3(true);
+        this.searchFields = 4;
+    }
+    /* Add additional fields ends here */
+
+    /* Remove additional fields starts here */
+    public void rem1() {
+        this.setAddField1(false);
+        this.plus1.setVisible(true);
+        this.searchFields = 1;
+    }
+
+    public void rem2() {
+        this.setAddField2(false);
+        this.plus2.setVisible(true);
+        this.ex1.setVisible(true);
+        this.searchFields = 2;
+    }
+
+    public void rem3() {
+        this.setAddField3(false);
+        this.plus3.setVisible(true);
+        this.ex2.setVisible(true);
+        this.searchFields = 3;
+    }
+    /* Remove additional fields ends here */
 }
