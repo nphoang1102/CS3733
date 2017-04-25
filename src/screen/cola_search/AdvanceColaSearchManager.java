@@ -11,10 +11,7 @@ import impl.org.controlsfx.autocompletion.AutoCompletionTextFieldBinding;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import org.controlsfx.control.textfield.AutoCompletionBinding;
@@ -46,6 +43,7 @@ public class AdvanceColaSearchManager extends Screen {
     @FXML private ChoiceBox drop1, drop2, drop3;
     @FXML private Pane contain;
     @FXML private Label warning;
+    @FXML private CheckBox and1, or1, and2, or2;
 
     /* Class constructor */
     public AdvanceColaSearchManager() {
@@ -174,5 +172,29 @@ public class AdvanceColaSearchManager extends Screen {
         if (drop1.getValue().equals("BrandName")) TextFields.bindAutoCompletion(this.field1, this.sugBrand);
         else if (drop1.getValue().equals("FancifulName")) TextFields.bindAutoCompletion(this.field1, this.sugFan);
         else if (drop1.getValue().equals("Type")) TextFields.bindAutoCompletion(this.field1, this.sugType);
+    }
+
+    /* Check for choice box 1 */
+    public void checkChoice1() {
+        if (and1.selectedProperty().getValue()) {
+            or1.setSelected(false);
+            or1.setIndeterminate(false);
+        }
+        else if (or1.selectedProperty().getValue()) {
+            and1.setSelected(false);
+            and1.setIndeterminate(false);
+        }
+    }
+
+    /* Check for choice box 2 */
+    public void checkChoice2() {
+        if (and2.selectedProperty().getValue()) {
+            or2.setSelected(false);
+            or2.setIndeterminate(false);
+        }
+        else if (or2.selectedProperty().getValue()) {
+            and2.setSelected(false);
+            and2.setIndeterminate(false);
+        }
     }
 }
