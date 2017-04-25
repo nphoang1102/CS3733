@@ -17,6 +17,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.apache.commons.net.ftp.FTPClient;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -53,6 +55,8 @@ public class UserSettingsManager extends Screen {
     private Button saveChangesButton, editProfilePic;
     @FXML
     private CheckBox tickSuperAgent;
+    @FXML
+    private Pane screen_pane;
 
     @FXML
     private void saveChanges() {
@@ -124,6 +128,13 @@ public class UserSettingsManager extends Screen {
             return;
         }
 
+        //System.out.println("file:" + filename);
+        Image profilePic = new Image("file:" + filename, 100.0, 100.0, false, false);
+        ImageView profilePicView = new ImageView(profilePic);
+        profilePicView.setX(editProfilePic.getLayoutX() + (editProfilePic.getWidth() / 2.0) );
+        profilePicView.setY(editProfilePic.getLayoutY() + editProfilePic.getHeight());
+        screen_pane.getChildren().add(profilePicView);
+
         LogManager.println("File:"+filename);
 
         FTPClient client = new FTPClient();
@@ -133,6 +144,7 @@ public class UserSettingsManager extends Screen {
             client.login("cadbo", "seafoamgreen");
 
             fis = new FileInputStream(filename);
+
             client.storeFile("TTB/users/"+Main.getUsername()+".jpg", fis);
             client.logout();
             fis.close();
