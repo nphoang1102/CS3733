@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  * Created by Bailey Sostek on 4/2/17.
@@ -57,6 +59,24 @@ public class StringUtilities {
             LogManager.println("Error, File:"+Main.PATH+path+" cannot be saved.");
             e.printStackTrace();
         }
+    }
+
+    public static String[] loadData(String path){
+        LinkedList<String> data = new LinkedList<String>();
+        try {
+            File file = new File(path);
+            Scanner in = new Scanner(file);
+            do{
+                data.add(in.nextLine());
+            }while(in.hasNext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[] outData = new String[data.size()];
+        for(int i=0; i<outData.length; i++){
+            outData[i] = data.get(i);
+        }
+        return outData;
     }
 
     public static String getTTBID(){

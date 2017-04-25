@@ -284,8 +284,8 @@ public class EditableApplicationManager extends Screen {
         FTPClient client = new FTPClient();
         FileInputStream fis = null;
         try {
-            client.connect("72.93.244.26");
-            client.login("cadbo", "seafoamgreen");
+            client.connect(Main.getConfigData("FTPIP")+"");
+            client.login(Main.getConfigData("FTPUsername")+"", Main.getConfigData("FTPPassword")+"");
             client.setFileType(FTP.BINARY_FILE_TYPE);
 
             fis = new FileInputStream(filename);

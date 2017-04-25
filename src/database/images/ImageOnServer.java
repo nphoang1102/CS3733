@@ -32,8 +32,8 @@ public class ImageOnServer implements ImageInterface{
         BufferedImage bufferedImage;
         try {
             FTPClient client = new FTPClient();
-            client.connect("72.93.244.26");
-            client.login("cadbo", "seafoamgreen");
+            client.connect(Main.getConfigData("FTPIP")+"");
+            client.login(Main.getConfigData("FTPUsername")+"", Main.getConfigData("FTPPassword")+"");
             client.setFileType(FTPClient.BINARY_FILE_TYPE);
             bufferedImage = ImageIO.read(client.retrieveFileStream("/home/cadbo/TTB/"+url));
             image = SwingFXUtils.toFXImage(bufferedImage, null);
