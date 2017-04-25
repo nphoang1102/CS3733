@@ -44,7 +44,7 @@ public class AdvanceColaSearchManager extends Screen {
     @FXML private ChoiceBox drop1, drop2, drop3, drop4;
     @FXML private Pane contain;
     @FXML private Label warning, ex1, ex2, ex3, plus1, plus2, plus3;
-    @FXML private CheckBox and1, or1, and2, or2;
+    @FXML private CheckBox checkOr, checkAnd;
 
     /* Class constructor */
     public AdvanceColaSearchManager() {
@@ -163,12 +163,21 @@ public class AdvanceColaSearchManager extends Screen {
         }
     }
 
-    /* Search for exact match cases (Intersect) */
-    public void exactSearch() {
-        /* Put this here so no errors for now */
-        this.combiSearch();
+    /* And search clicked */
+    public void clickAnd() {
+        if(this.checkAnd.selectedProperty().getValue()) {
+            this.checkOr.setSelected(false);
+            this.checkOr.setSelected(false);
+        }
     }
 
+    /* Or search clicked */
+    public void clickOr() {
+        if(this.checkOr.selectedProperty().getValue()) {
+            this.checkAnd.setSelected(false);
+            this.checkAnd.setSelected(false);
+        }
+    }
 
 
     /* Check if entries are eligible for advance search, we will be using this in Intersect */
