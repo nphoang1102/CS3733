@@ -120,7 +120,7 @@ public class UserSettingsManager extends Screen {
         String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
 
 
-        if(!filename.endsWith(".jpg")){
+        if(!filename.endsWith(".png")){
             return;
         }
 
@@ -131,12 +131,13 @@ public class UserSettingsManager extends Screen {
         try {
             client.connect("72.93.244.26");
             client.login("cadbo", "seafoamgreen");
+            client.setFileType(FTPClient.BINARY_FILE_TYPE);
 
             fis = new FileInputStream(filename);
-            client.storeFile("TTB/users/"+Main.getUsername()+".jpg", fis);
+            client.storeFile("TTB/users/"+Main.getUsername()+".png", fis);
             client.logout();
             fis.close();
-            LogManager.println("Uploading image as:"+"TTB/users/"+Main.getUsername()+".jpg");
+            LogManager.println("Uploading image as:"+"TTB/users/"+Main.getUsername()+".png");
 
             ScreenManager.updateUserIcon();
 

@@ -10,13 +10,9 @@ import javafx.scene.image.ImageView;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPSClient;
 
 /**
  * Created by Bailey Sostek on 4/11/17.
@@ -38,6 +34,7 @@ public class ImageOnServer implements ImageInterface{
             FTPClient client = new FTPClient();
             client.connect("72.93.244.26");
             client.login("cadbo", "seafoamgreen");
+            client.setFileType(FTPClient.BINARY_FILE_TYPE);
             bufferedImage = ImageIO.read(client.retrieveFileStream("/home/cadbo/TTB/"+url));
             image = SwingFXUtils.toFXImage(bufferedImage, null);
             client.disconnect();
