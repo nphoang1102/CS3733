@@ -83,8 +83,8 @@ public class TopBarManager extends Screen{
         if(data.hasKey("searchTerm")){
             searchTerm.setValue(data.getValueForKey("searchTerm"));
         }
-        updateUserIcon();
         if(!lastFoucs.equals(Main.getUsername())) {
+            updateUserIcon();
             action.setVisible(true);
             if(Main.getUserType().equals(EnumUserType.SUPER_AGENT.getTextualName())){
                 action.setText("Inbox");
