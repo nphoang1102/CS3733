@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -10,53 +9,75 @@
 
 <Pane fx:id="contain" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseMoved="#onCheck" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.cola_search.AdvanceColaSearchManager">
    <children>
-      <TextField fx:id="field1" layoutX="400.0" layoutY="150.0" onAction="#searchClicked" onMouseClicked="#checkField1" prefHeight="41.0" prefWidth="780.0" promptText="Choose your search field and enter what you want to search for" style="-fx-focus-color: #34a88b;">
+      <TextField fx:id="field1" layoutX="290.0" layoutY="100.0" prefHeight="41.0" prefWidth="850.0" promptText="Choose your search field and enter what you want to search for" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font></TextField>
-      <TextField fx:id="field2" layoutX="400.0" layoutY="233.0" onAction="#searchClicked" prefHeight="41.0" prefWidth="780.0" promptText="Additional field 1, will enable when search field selected" style="-fx-focus-color: #34a88b;">
+      <TextField fx:id="field2" layoutX="290.0" layoutY="183.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 2, please remove if not used" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font></TextField>
-      <TextField fx:id="field3" layoutX="400.0" layoutY="316.0" onAction="#searchClicked" prefHeight="41.0" prefWidth="780.0" promptText="Additional field 2, will enable when search field selected" style="-fx-focus-color: #34a88b;">
+      <TextField fx:id="field3" layoutX="290.0" layoutY="266.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 3, please remove if not used" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font></TextField>
-      <Button fx:id="clearButton" layoutX="100.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#clearClicked" prefHeight="50.0" prefWidth="390.0" style="-fx-background-color: #939393;" text="Clear all fields" textFill="WHITE">
-         <font>
-            <Font name="Telugu Sangam MN" size="18.0" />
-         </font></Button>
-      <Button fx:id="searchButton" layoutX="790.0" layoutY="500.0" mnemonicParsing="false" onMouseClicked="#searchClicked" prefHeight="50.0" prefWidth="390.0" style="-fx-background-color: #939393;" text="Search" textFill="WHITE">
-         <font>
-            <Font name="Telugu Sangam MN Bold" size="18.0" />
-         </font></Button>
-      <ChoiceBox fx:id="drop1" layoutX="250.0" layoutY="150.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
-      <ChoiceBox fx:id="drop2" layoutX="250.0" layoutY="233.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
-      <ChoiceBox fx:id="drop3" layoutX="250.0" layoutY="316.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
-      <Label fx:id="warning" layoutX="100.0" layoutY="408.0" text="*Some of the entries are invalid. Please check your entries and try again" textFill="#34a88b">
+      <ChoiceBox fx:id="drop1" layoutX="140.0" layoutY="100.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
+      <ChoiceBox fx:id="drop2" layoutX="140.0" layoutY="183.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
+      <ChoiceBox fx:id="drop3" layoutX="140.0" layoutY="266.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
+      <Label fx:id="warning" layoutX="100.0" layoutY="441.0" text="*Some of the entries are invalid. Please check your entries and try again" textFill="#34a88b">
          <font>
             <Font name="Telugu Sangam MN Bold" size="18.0" />
          </font>
       </Label>
-      <CheckBox fx:id="and1" layoutX="100.0" layoutY="238.0" mnemonicParsing="false" onMouseClicked="#checkChoice1" text="And">
+      <TextField fx:id="field4" layoutX="290.0" layoutY="349.0" prefHeight="41.0" prefWidth="850.0" promptText="Additional field 4, please remove if not used" style="-fx-focus-color: #34a88b;">
          <font>
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
-      </CheckBox>
-      <CheckBox fx:id="or1" layoutX="180.0" layoutY="238.0" mnemonicParsing="false" onMouseClicked="#checkChoice1" text="Or">
+      </TextField>
+      <ChoiceBox fx:id="drop4" layoutX="140.0" layoutY="349.0" prefHeight="41.0" prefWidth="150.0" style="-fx-background-color: #939393;" />
+      <Button fx:id="combiButton" layoutX="850.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#combiSearch" prefHeight="50.0" prefWidth="330.0" style="-fx-background-color: #939393;" text="Combination search" textFill="WHITE">
          <font>
-            <Font name="Telugu Sangam MN" size="15.0" />
+            <Font name="Telugu Sangam MN Bold" size="18.0" />
          </font>
-      </CheckBox>
-      <CheckBox fx:id="and2" layoutX="100.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#checkChoice2" text="And">
+      </Button>
+      <Button fx:id="exactButton" layoutX="475.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#exactSearch" prefHeight="50.0" prefWidth="330.0" style="-fx-background-color: #939393;" text="Search for exact matches" textFill="WHITE">
          <font>
-            <Font name="Telugu Sangam MN" size="15.0" />
+            <Font name="Telugu Sangam MN Bold" size="18.0" />
          </font>
-      </CheckBox>
-      <CheckBox fx:id="or2" layoutX="180.0" layoutY="321.0" mnemonicParsing="false" onMouseClicked="#checkChoice2" text="Or">
+      </Button>
+      <Button fx:id="clearButton" layoutX="100.0" layoutY="533.0" mnemonicParsing="false" onMouseClicked="#clearClicked" prefHeight="50.0" prefWidth="330.0" style="-fx-background-color: #939393;" text="Clear all fields" textFill="WHITE">
          <font>
-            <Font name="Telugu Sangam MN" size="15.0" />
+            <Font name="Telugu Sangam MN" size="18.0" />
+         </font></Button>
+      <Label fx:id="ex1" layoutX="100.0" layoutY="191.0" onMouseClicked="#rem1" text="x" textFill="#7f0000">
+         <font>
+            <Font name="Tahoma Bold" size="20.0" />
          </font>
-      </CheckBox>
+      </Label>
+      <Label fx:id="ex2" layoutX="100.0" layoutY="274.0" onMouseClicked="#rem2" text="x" textFill="#7f0000">
+         <font>
+            <Font name="Tahoma Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="ex3" layoutX="100.0" layoutY="357.0" onMouseClicked="#rem3" text="x" textFill="#7f0000">
+         <font>
+            <Font name="Tahoma Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="plus1" layoutX="1163.0" layoutY="191.0" onMouseClicked="#add1" text="+" textFill="#34a88b">
+         <font>
+            <Font name="Tahoma Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="plus3" layoutX="1163.0" layoutY="357.0" onMouseClicked="#add3" text="+" textFill="#34a88b">
+         <font>
+            <Font name="Tahoma Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="plus2" layoutX="1163.0" layoutY="274.0" onMouseClicked="#add2" text="+" textFill="#34a88b">
+         <font>
+            <Font name="Tahoma Bold" size="20.0" />
+         </font>
+      </Label>
    </children>
 </Pane>

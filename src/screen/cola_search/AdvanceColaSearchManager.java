@@ -38,11 +38,11 @@ public class AdvanceColaSearchManager extends Screen {
     private ArrayList<String> sugType = new ArrayList<String>();
 
     /* Declaring the FXML objects */
-    @FXML private TextField field1, field2, field3;
-    @FXML private Button clearButton, searchButton;
-    @FXML private ChoiceBox drop1, drop2, drop3;
+    @FXML private TextField field1, field2, field3, field4;
+    @FXML private Button clearButton, exactButton, combiButton;
+    @FXML private ChoiceBox drop1, drop2, drop3, drop4;
     @FXML private Pane contain;
-    @FXML private Label warning;
+    @FXML private Label warning, ex1, ex2, ex3, plus1, plus2, plus3;
     @FXML private CheckBox and1, or1, and2, or2;
 
     /* Class constructor */
@@ -165,36 +165,5 @@ public class AdvanceColaSearchManager extends Screen {
             return false;
         }
         return true;
-    }
-
-    /* Check field 1 to initialize the suggestive search */
-    public void checkField1() {
-        if (drop1.getValue().equals("BrandName")) TextFields.bindAutoCompletion(this.field1, this.sugBrand);
-        else if (drop1.getValue().equals("FancifulName")) TextFields.bindAutoCompletion(this.field1, this.sugFan);
-        else if (drop1.getValue().equals("Type")) TextFields.bindAutoCompletion(this.field1, this.sugType);
-    }
-
-    /* Check for choice box 1 */
-    public void checkChoice1() {
-        if (and1.selectedProperty().getValue()) {
-            or1.setSelected(false);
-            or1.setIndeterminate(false);
-        }
-        else if (or1.selectedProperty().getValue()) {
-            and1.setSelected(false);
-            and1.setIndeterminate(false);
-        }
-    }
-
-    /* Check for choice box 2 */
-    public void checkChoice2() {
-        if (and2.selectedProperty().getValue()) {
-            or2.setSelected(false);
-            or2.setIndeterminate(false);
-        }
-        else if (or2.selectedProperty().getValue()) {
-            and2.setSelected(false);
-            and2.setIndeterminate(false);
-        }
     }
 }
