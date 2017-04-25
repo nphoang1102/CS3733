@@ -14,6 +14,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.commons.net.ftp.FTPClient;
@@ -51,6 +54,8 @@ public class ApplicationPage5Manager extends Screen{
     Stage primaryStage = new Stage();
     String filePath = "";
 
+    private ImageView imagePreviewView;
+    private Image imagePreview;
     private Application app;
     private Boolean allFilled;
 
@@ -133,6 +138,19 @@ public class ApplicationPage5Manager extends Screen{
 
         LogManager.println("File:"+filename);
         filePath = filename;
+        imagePreview = new Image("File:"+filename, 100.0, 100.0, true, false);
+        if(imagePreviewView == null) {
+            imagePreviewView = new ImageView();
+            imagePreviewView.setImage(imagePreview);
+            imagePreviewView.setLayoutX(image_name.getLayoutX());
+            imagePreviewView.setLayoutY(image_name.getLayoutY() + 20.0);
+            ((AnchorPane) image_name.getParent()).getChildren().add(imagePreviewView);
+        } else {
+            int index = ((AnchorPane) image_name.getParent()).getChildren().indexOf(imagePreviewView);
+            ((ImageView)(((AnchorPane) image_name.getParent()).getChildren().get(index))).setImage(imagePreview);
+        }
+
+
         image_name.setText(filename.split("/")[filename.split("/").length-1]);
         image_name.setVisible(true);
 
