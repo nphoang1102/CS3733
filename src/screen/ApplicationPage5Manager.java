@@ -68,6 +68,8 @@ public class ApplicationPage5Manager extends Screen{
         app.SerialNo = serial_number_field.getText();
         app.AdditionalInfo = add_info_field.getText();
 
+        Main.screenManager.closeCurrentPopOut();
+
         if(app.AlcoholType.equals("Wine")) {
             Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_WINE, "Wine Info", 1020, 487, app);
         } else{
@@ -84,6 +86,8 @@ public class ApplicationPage5Manager extends Screen{
         if(app.SerialNo == null || app.SerialNo.equals("")){
             allFilled = false;
             serial_number_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            serial_number_field.setStyle(null);
         }
 
         if(allFilled) {
