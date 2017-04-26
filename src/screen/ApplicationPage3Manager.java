@@ -76,14 +76,22 @@ public class ApplicationPage3Manager extends Screen{
         if(app.SerialNo == null || app.SerialNo.equals("")){
             allFilled = false;
             serial_number_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            serial_number_field.setStyle(null);
         }
+
         if(app.Address == null || app.Address.equals("")){
             allFilled = false;
             address_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            address_field.setStyle(null);
         }
+
         if(app.ABV == null ||app.ABV.equals("")){
             allFilled = false;
             abv_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            abv_field.setStyle(null);
         }
 
         if(allFilled) {

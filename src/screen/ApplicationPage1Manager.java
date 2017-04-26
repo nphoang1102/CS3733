@@ -82,22 +82,36 @@ public class ApplicationPage1Manager extends Screen{
         if(app.RepID == null || app.RepID.equals("")){
             allFilled = false;
             repid_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            repid_field.setStyle(null);
         }
+
         if(app.PhoneNo == null || app.PhoneNo.equals("")){
             allFilled = false;
             phone_num_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            phone_num_field.setStyle(null);
         }
+
         if(app.Email == null || app.Email.equals("")){
             allFilled = false;
             email_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+           email_field.setStyle(null);
         }
+
         if(app.RepName == null || app.RepName.equals("")){
             allFilled = false;
             applicant_name_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            applicant_name_field.setStyle(null);
         }
+
         if(app.PlantRegistry == null || app.PlantRegistry.equals("")){
             allFilled = false;
             plant_number_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            plant_number_field.setStyle(null);
         }
 
         if(allFilled) {
