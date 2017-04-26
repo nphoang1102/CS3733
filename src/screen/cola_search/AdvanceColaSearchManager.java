@@ -33,14 +33,13 @@ public class AdvanceColaSearchManager extends Screen {
     private String category1 = "";
     private String category2 = "";
     private String category3 = "";
-    private ArrayList<String> sugBrand = new ArrayList<String>();
-    private ArrayList<String> sugFan = new ArrayList<String>();
-    private ArrayList<String> sugType = new ArrayList<String>();
+    private String category4 = "";
+    private String searchType = "";
     private int searchFields = 1;
 
     /* Declaring the FXML objects */
     @FXML private TextField field1, field2, field3, field4;
-    @FXML private Button clearButton, exactButton, combiButton;
+    @FXML private Button searchButton, clearButton;
     @FXML private ChoiceBox drop1, drop2, drop3, drop4;
     @FXML private Pane contain;
     @FXML private Label warning, ex1, ex2, ex3, plus1, plus2, plus3;
@@ -57,38 +56,27 @@ public class AdvanceColaSearchManager extends Screen {
         this.searchFieldInitialize();
         this.searchByInitialize();
         this.warning.setVisible(false);
-        this.initSuggest();
-    }
-
-    /* Initialize the suggestive search for brand name, fanciful name and type */
-    public void initSuggest() {
-        this.sugBrand.clear();
-        this.sugFan.clear();
-        this.sugType.clear();
-        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
-        for (DataSet tempSet : databaseResult) {
-            Alcohol data = (Alcohol) tempSet;
-            if (!this.sugBrand.contains(data.BrandName)) this.sugBrand.add(data.BrandName);
-            if (!this.sugFan.contains(data.FancifulName)) this.sugFan.add(data.FancifulName);
-            if (!this.sugType.contains(data.Type)) this.sugType.add(data.Type);
-        }
+        this.checkOr.setSelected(false);
+        this.checkAnd.setSelected(false);
     }
 
     /* Initialize the choice boxes */
     public void searchByInitialize() {
-        ObservableList<String> searchByList = FXCollections.observableArrayList("","TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
-        ObservableList<String> defaultSearchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
-        drop1.setItems(defaultSearchByList);
+        ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+        drop1.setItems(searchByList);
         drop2.setItems(searchByList);
         drop3.setItems(searchByList);
+        drop4.setItems(searchByList);
         drop1.setValue("BrandName");
         drop2.setValue("");
         drop3.setValue("");
+        drop4.setValue("");
     }
 
     /* Initialize the search fields */
     public void searchFieldInitialize() {
         field1.clear();
+        this.plus1.setVisible(true);
         setAddField1(false);
         setAddField2(false);
         setAddField3(false);
@@ -102,6 +90,9 @@ public class AdvanceColaSearchManager extends Screen {
         this.plus2.setVisible(visibility);
         this.ex1.setVisible(visibility);
         if (visibility) {
+            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+            this.drop2.setItems(searchByList);
+            this.drop2.setValue("");
             this.field2.clear();
             this.plus1.setVisible(false);
         }
@@ -114,6 +105,9 @@ public class AdvanceColaSearchManager extends Screen {
         this.plus3.setVisible(visibility);
         this.ex2.setVisible(visibility);
         if (visibility) {
+            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+            this.drop3.setItems(searchByList);
+            this.drop3.setValue("");
             this.field3.clear();
             this.plus1.setVisible(false);
             this.plus2.setVisible(false);
@@ -127,6 +121,9 @@ public class AdvanceColaSearchManager extends Screen {
         this.drop4.setVisible(visibility);
         this.ex3.setVisible(visibility);
         if (visibility) {
+            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+            this.drop4.setItems(searchByList);
+            this.drop4.setValue("");
             this.field4.clear();
             this.plus1.setVisible(false);
             this.plus2.setVisible(false);
@@ -138,12 +135,32 @@ public class AdvanceColaSearchManager extends Screen {
 
     /* What to do when the clear button is clicked */
     public void clearClicked() {
-        searchByInitialize();
-        searchFieldInitialize();
+        this.onScreenFocused(new BasicDataSet());
+    }
+
+    /* Check if the entry is legit or not */
+    public boolean isLegit() {
+        if ( (!drop1.getValue().equals("")) && (field1.getText().equals("")) ) return false;
+        switch (this.searchFields) {
+            case 2:
+                if ( (drop2.getValue().equals("")) || (field2.getText().equals("")) ) return false;
+                break;
+            case 3:
+                if ( (drop2.getValue().equals("")) || (field2.getText().equals("")) ) return false;
+                if ( (drop3.getValue().equals("")) || (field3.getText().equals("")) ) return false;
+                break;
+            case 4:
+                if ( (drop2.getValue().equals("")) || (field2.getText().equals("")) ) return false;
+                if ( (drop3.getValue().equals("")) || (field3.getText().equals("")) ) return false;
+                if ( (drop4.getValue().equals("")) || (field4.getText().equals("")) ) return false;
+                break;
+        }
+        if (this.searchType.equals("")) return false;
+        return true;
     }
 
     /* Combination search (Union) */
-    public void combiSearch() {
+    public void clickSearch() {
         if (this.isLegit()) {
             DataSet searchFields = new BasicDataSet();
             searchFields.addField("isAdvance", "true");
@@ -167,50 +184,24 @@ public class AdvanceColaSearchManager extends Screen {
     public void clickAnd() {
         if(this.checkAnd.selectedProperty().getValue()) {
             this.checkOr.setSelected(false);
-            this.checkOr.setSelected(false);
+            this.searchType = "and";
         }
+        else this.searchType = "";
     }
 
     /* Or search clicked */
     public void clickOr() {
         if(this.checkOr.selectedProperty().getValue()) {
             this.checkAnd.setSelected(false);
-            this.checkAnd.setSelected(false);
+            this.searchType = "or";
         }
+        else this.searchType = "";
     }
 
-
-    /* Check if entries are eligible for advance search, we will be using this in Intersect */
-    /*public boolean isLegit() {
-        if ((!field1.getText().equals("")) && (!drop1.getValue().equals(""))) {
-            if ( ((!drop2.getValue().equals("")) && (!field2.getText().equals("")))
-                    || ((!drop3.getValue().equals("")) && (!field3.getText().equals(""))) ) {
-                return true;
-            }
-
-            else return true;
-        }
-        else {
-            this.warning.setVisible(true);
-            return false;
-        }
-    }*/
-
-    /* Check if entries are eligible for advance search, this is for current Union */
-    public boolean isLegit() {
-//        Boolean value = true;
-        if ( (!drop1.getValue().equals("")) && (field1.getText().equals("")) ) {
-            return false;
-        }
-        if ( (!drop2.getValue().equals("")) && (field2.getText().equals("")) ) {
-            return false;
-        }
-        if ( (!drop3.getValue().equals("")) && (field3.getText().equals("")) ) {
-            return false;
-        }
-        return true;
+    /* Check for warning and stuffs */
+    public void onCheck() {
+        this.warning.setVisible(false);
     }
-
 
     /* Add additional fields starts here */
     public void add1() {
