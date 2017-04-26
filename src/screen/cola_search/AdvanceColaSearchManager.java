@@ -3,6 +3,7 @@ package screen.cola_search;
 import base.EnumTableType;
 import base.LogManager;
 import base.Main;
+import com.sun.xml.internal.fastinfoset.util.StringArray;
 import database.Alcohol;
 import database.BasicDataSet;
 import database.DataSet;
@@ -156,6 +157,16 @@ public class AdvanceColaSearchManager extends Screen {
                 break;
         }
         if (this.searchType.equals("")) return false;
+        if (this.searchType.equals("and")) {
+            String[] categories = new String[4];
+            categories[0] = this.drop1.getValue()+"";
+            categories[1] = this.drop2.getValue()+"";
+            categories[2] = this.drop3.getValue()+"";
+            categories[3] = this.drop4.getValue()+"";
+            for (int i = 1; i < 4; i++) {
+                if ((categories[i].equals(categories[i-1])) && (!categories[i].equals(""))) return false;
+            }
+        }
         return true;
     }
 
