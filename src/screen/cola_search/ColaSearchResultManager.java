@@ -1,4 +1,4 @@
-package screen;
+package screen.cola_search;
 
 import base.EnumTableType;
 import base.LogManager;
@@ -14,6 +14,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import screen.EnumScreenType;
+import screen.Screen;
 import screen.cola_search.*;
 
 import java.util.LinkedList;
@@ -21,7 +23,7 @@ import java.util.LinkedList;
 /**
  * Created by Hoang Nguyen on 4/4/2017.
  */
-public class ColaSearchResultManager extends Screen{
+public class ColaSearchResultManager extends Screen {
     /* Class attributes */
     private DataSet mapOrigin = new BasicDataSet();
     private String[] adStrings = new String[6];
@@ -52,17 +54,17 @@ public class ColaSearchResultManager extends Screen{
     public void onScreenFocused(DataSet data){
         /* Check for advance or general search */
         if (data.getValueForKey("isAdvance").equals("false")) {
-            this.keywords = data.getValueForKey("Keywords");
-            this.searchType = data.getValueForKey("AlcoholType");
+            this.keywords = data.getValueForKey("Keywords")+ "";
+            this.searchType = data.getValueForKey("AlcoholType")+ "";
         }
         else {
             this.isAdvance = true;
-            this.adStrings[0] = data.getValueForKey("searchCat1");
-            this.adStrings[1] = data.getValueForKey("searchTerm1");
-            this.adStrings[2] = data.getValueForKey("searchCat2");
-            this.adStrings[3] = data.getValueForKey("searchTerm2");
-            this.adStrings[4] = data.getValueForKey("searchCat3");
-            this.adStrings[5] = data.getValueForKey("searchTerm3");
+            this.adStrings[0] = data.getValueForKey("searchCat1") + "";
+            this.adStrings[1] = data.getValueForKey("searchTerm1")+ "";
+            this.adStrings[2] = data.getValueForKey("searchCat2")+ "";
+            this.adStrings[3] = data.getValueForKey("searchTerm2")+ "";
+            this.adStrings[4] = data.getValueForKey("searchCat3")+ "";
+            this.adStrings[5] = data.getValueForKey("searchTerm3")+ "";
         }
 
         /* Get the TableView stuff and result setup */
@@ -133,7 +135,7 @@ public class ColaSearchResultManager extends Screen{
             Alcohol data = (Alcohol) tempSet;
             String mapSource = "";
             if (this.mapOrigin.getValueForKey(data.Origin) == null) mapSource = data.Origin;
-            else mapSource = this.mapOrigin.getValueForKey(data.Origin);
+            else mapSource = this.mapOrigin.getValueForKey(data.Origin)+ "";
             this.resultTable.add(new ColaResult(data.TTBID,
                     data.PermitNo,
                     data.SerialNo,
@@ -155,19 +157,28 @@ public class ColaSearchResultManager extends Screen{
     /* Print search result into a CSV file on button click */
     public void toCSV() {
         IDataDownload downloadCSV = new toCSV();
-        downloadCSV.downloadData(this.resultTable);
+        downloadCSV.downloadData(this.resultTable, ",");
+        DataSet message = new BasicDataSet();
+        message.addField("Message", "Search result saved to /searchResult.csv");
+        Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
     }
 
     /* Print search result into a tab-delimited text file */
     public void toTab() {
         IDataDownload downloadTab = new toTSV();
-        downloadTab.downloadData(this.resultTable);
+        downloadTab.downloadData(this.resultTable, "\t");
+        DataSet message = new BasicDataSet();
+        message.addField("Message", "Search result saved to /searchResult-tab.tsv");
+        Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
     }
 
     /* Print search result into a character-delimited text file */
     public void toChar() {
-        IDataDownload downloadChar = new toChSV();
-        downloadChar.downloadData(this.resultTable);
+//        IDataDownload downloadChar = new toChSV();
+//        downloadChar.downloadData(this.resultTable);
+        DataSet data = new BasicDataSet();
+        data.addField("ResultTable",this.resultTable);
+        Main.screenManager.popoutScreen(EnumScreenType.COLA_CHARACTER_SELECTION, "Character configuration", 450, 250, data);
     }
 
     /* Navigate to advance search screen on mouse click */

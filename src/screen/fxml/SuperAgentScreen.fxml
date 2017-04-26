@@ -35,10 +35,15 @@
             <Font name="Telugu Sangam MN" size="15.0" />
          </font>
       </Button>
-      <Label fx:id="isPending" layoutX="699.0" layoutY="90.0" text="YOU ARE PENDING APPROVAL">
+      <Label fx:id="isPending" layoutX="543.0" layoutY="110.0" text="YOU ARE PENDING APPROVAL">
          <font>
             <Font name="Telugu Sangam MN" size="30.0" />
          </font>
       </Label>
+      <Button fx:id="appScreenButton" layoutX="994.0" layoutY="120.0" mnemonicParsing="false" onMouseClicked="#launchAppScreen" prefHeight="25.0" prefWidth="240.0" style="-fx-background-color: #939393;" text="Applications Screen" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
