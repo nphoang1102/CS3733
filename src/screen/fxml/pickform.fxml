@@ -5,12 +5,12 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="screen_pane" maxHeight="720.0" maxWidth="1280.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.PickFormManager">
    <children>
       <Line endX="300.0" endY="400.0" startX="300.0" />
-      <Button layoutX="121.0" layoutY="175.0" mnemonicParsing="false" text="Browse" />
+      <Button fx:id="browse_button" onAction="#onBrowse" layoutX="121.0" layoutY="175.0" mnemonicParsing="false" text="Browse" />
       <Label layoutX="40.0" layoutY="125.0" text="Select Manual .pdf from your computer" />
       <Label layoutX="380.0" layoutY="125.0" text="Use new application form" />
-      <Button layoutX="420.0" layoutY="175.0" mnemonicParsing="false" text="Continue" />
+      <Button fx:id="continue_button" onAction="#onContinue" layoutX="420.0" layoutY="175.0" mnemonicParsing="false" text="Continue" />
    </children>
 </AnchorPane>
