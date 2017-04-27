@@ -50,7 +50,7 @@ public class DatabaseManager {
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
-        databaseType = "derby";
+        databaseType = "MySQL";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
 
@@ -162,7 +162,7 @@ public class DatabaseManager {
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
                     " CT VARCHAR(15) NOT NULL,\n" +
-                    " OR VARCHAR(15) NOT NULL,\n" +
+                    " O_R VARCHAR(15) NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " RepName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
@@ -756,7 +756,9 @@ public class DatabaseManager {
                         //sets the applications agent as the agents username who was there
                         statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
                         //sets the manufacturers agent and day to the agent username and date passed in
-                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Manufacturers SET AgentDate = '" + curDate + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
+
                         //increments the number of applications added to the inbox
                         i++;
                     } catch (SQLException e) {
