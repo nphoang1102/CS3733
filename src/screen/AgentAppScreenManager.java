@@ -74,6 +74,17 @@ public class AgentAppScreenManager extends Screen{
         pHLevel.setText(application.PH);
         vintageYear.setText(application.VintageDate);
 
+        String temp = Main.getUserType();
+        System.out.println(temp);
+
+        if(temp.equals("Super User")){
+            acceptButton.setVisible(false);
+            rejectButton.setVisible(false);
+            forwardButton.setVisible(false);
+            rejectReason.setVisible(false);
+            newAgentID.setVisible(false);
+        }
+
 
     }
 

@@ -92,7 +92,7 @@
                 <Font name="Telugu Sangam MN" size="15.0" />
               </font>
             </TextArea>
-                  <Button fx:id="forwardButtong" layoutX="21.0" layoutY="578.0" mnemonicParsing="false" onMouseClicked="#forwardApp" prefHeight="41.0" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Forward">
+                  <Button fx:id="forwardButton" layoutX="21.0" layoutY="578.0" mnemonicParsing="false" onMouseClicked="#forwardApp" prefHeight="41.0" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Forward">
                      <font>
                         <Font name="Telugu Sangam MN" size="15.0" />
                      </font>

@@ -107,13 +107,7 @@ public class SuperAgentScreenManager extends Screen {
     }
 
     public void loadTable(MouseEvent mouseEvent) {
-        String tempType = (String) statusType.getValue();
-        LinkedList<DataSet> results =  DatabaseManager.queryDatabase(EnumTableType.AGENT,"Status",tempType);
-        if(results.size() > 0) {
-            for (DataSet tempData : results) {
-                agents.add(tempData);
-            }
-        }
+
         DataSet data = new BasicDataSet();
         data.addField("agentStatus", (statusType.getValue() + ""));
         String toPrint =  " under type " + statusType.getValue();
