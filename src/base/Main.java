@@ -69,6 +69,8 @@ public class Main extends Application{
                     "FTPIP=",
                     "FTPUsername=",
                     "FTPPassword=",
+                    "ResponceEmailAddress=",
+                    "ResponceEmailPassword="
             });
 
         }
