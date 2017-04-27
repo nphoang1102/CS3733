@@ -190,8 +190,10 @@ public class UserSettingsManager extends Screen {
 
         if(Main.getUser() instanceof  UserManufacturer) {
             UserManufacturer man = (UserManufacturer) Main.getUser();
-            firstName.setText(man.name.split(" ")[0]);
-            lastName.setText(man.name.split(" ")[1]);
+            if(!man.name.equals("") && man.name != null) {
+                firstName.setText(man.name.split(" ")[0]);
+                lastName.setText(man.name.split(" ")[1]);
+            }
             email.setText(man.email);
             phoneNumber.setText(man.PhoneNo);
             representativeIdNumber.setText(man.RepID);

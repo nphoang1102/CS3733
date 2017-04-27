@@ -35,6 +35,7 @@ public class PickFormManager extends Screen {
     public void onContinue() {
         LogManager.println("Creating a new application via new form");
         Application app = new Application();
+        Main.screenManager.closeCurrentPopOut();
         Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_1, "New Application", 1020, 487, app);
     }
 

@@ -338,6 +338,10 @@ public class EditableApplicationManager extends Screen {
         label_button.setDisable(true);
     }
 
+    public void surrenderApp(){
+        LogManager.println("Surrendering Application");
+    }
+
     public void setBoxes(Application dataSet){
         if(dataSet instanceof Application) {
             LogManager.println("This application is: " + ((Application) dataSet).ApplicationStatus);
