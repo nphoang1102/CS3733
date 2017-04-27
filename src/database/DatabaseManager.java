@@ -50,9 +50,9 @@ public class DatabaseManager {
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
-        databaseType = "mysql";
-        databaseName = "TTB";
-        databaseServer = "icarusnet.me";
+        databaseType = Main.getConfigData("DatabaseType")+"";
+        databaseName = Main.getConfigData("DatabaseName")+"";
+        databaseServer = Main.getConfigData("DatabaseServer")+"";
 
         if (databaseType.equals("derby")) {
             derby = true; //MAGIC!

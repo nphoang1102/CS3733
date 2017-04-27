@@ -31,10 +31,7 @@ import java.util.LinkedList;
  */
 public class AdvanceColaSearchManager extends Screen {
     /* Class attributes */
-    private String category1 = "";
-    private String category2 = "";
-    private String category3 = "";
-    private String category4 = "";
+    private String[] searchEntries = new String[9];
     private String searchType = "";
     private int searchFields = 1;
 
@@ -173,17 +170,23 @@ public class AdvanceColaSearchManager extends Screen {
     /* Combination search (Union) */
     public void clickSearch() {
         if (this.isLegit()) {
+            this.searchEntries[0] = this.drop1.getValue() + "";
+            this.searchEntries[1] = this.field1.getText();
+            this.searchEntries[2] = this.drop2.getValue() + "";
+            this.searchEntries[3] = this.field2.getText();
+            this.searchEntries[4] = this.drop3.getValue() + "";
+            this.searchEntries[5] = this.field3.getText();
+            this.searchEntries[6] = this.drop4.getValue() + "";
+            this.searchEntries[7] = this.field4.getText();
+            this.searchEntries[8] = this.searchType + "";
             DataSet searchFields = new BasicDataSet();
+            searchFields.addField("advance", this.searchEntries);
             searchFields.addField("isAdvance", "true");
-            searchFields.addField("searchCat1", drop1.getValue() + "");
-            searchFields.addField("searchTerm1", field1.getText());
-            searchFields.addField("searchCat2", drop2.getValue() + "");
-            searchFields.addField("searchTerm2", field2.getText());
-            searchFields.addField("searchCat3", drop3.getValue() + "");
-            searchFields.addField("searchTerm3", field3.getText());
-            LogManager.print("Under AdvanceColaSearchManager.java: the user is searching for " + field1.getText() + " under " + drop1.getValue()
-                    + ", " + field2.getText() + " under " + drop2.getValue()
-                    + ", " + field3.getText() + " under " + drop3.getValue());
+            LogManager.print("Under AdvanceColaSearchManager.java: the user is searching for " + this.searchEntries[1] + " under " + this.searchEntries[0]
+                    + ", " + this.searchEntries[3] + " under " + this.searchEntries[2]
+                    + ", " + this.searchEntries[5] + " under " + this.searchEntries[4]
+                    + ", " + this.searchEntries[7] + " under " + this.searchEntries[6]
+                    + ", with the search logic of " + this.searchEntries[8]);
             Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
         }
         else {
