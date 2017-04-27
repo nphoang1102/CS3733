@@ -1,19 +1,23 @@
 package screen;
 
+import Email.EmailManager;
+import base.EnumTableType;
+import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
-import database.Application;
-import database.DataSet;
-import database.DatabaseManager;
-import database.UserAgent;
+import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.text.html.ImageView;
 import java.util.LinkedList;
+import java.util.Properties;
 
 /**
  * Created by ${Jack} on 4/2/2017.
@@ -37,6 +41,7 @@ public class AgentAppScreenManager extends Screen{
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
     }
+
 
     @FXML
     public void initialize(){
@@ -102,6 +107,36 @@ public class AgentAppScreenManager extends Screen{
             DatabaseManager.approveApplication(app.ApplicationNo);
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+
+            String manufacturerUsername = app.getManufacturerUsername();
+            LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
+
+            if(manufacturerDataSet.size()<=0){
+                LogManager.println("Manufacturer:"+manufacturerUsername+" does not exist!", EnumWarningType.WARNING);
+                return;
+            }
+
+            // Recipient's email ID needs to be mentioned.
+            String to = "";//change accordingly
+
+            UserManufacturer manufacturer = null;
+            if(manufacturerDataSet.getFirst()!=null){
+                manufacturer = (UserManufacturer)manufacturerDataSet.getFirst();
+                //Check for email
+                if(!manufacturer.getEmail().isEmpty()){
+                    to = manufacturer.getEmail();
+                }else{
+                    LogManager.println("Manufacturer:"+manufacturerUsername+" does not have an email address.", EnumWarningType.WARNING);
+                    return;
+                }
+            }
+
+            //Send an email
+            EmailManager.sendEmail(to, "Your Application has been Accepted.", new String[]{
+                    "Your "+app.ApplicationType+" submitted on "+app.DateOfSubmission+" has been "+app.ApplicationStatus+"!",
+                    "This application will expire on "+app.DateOfExpiration+".",
+                    "If you want to bitch to someone about about this application, contact:"+app.AgentName+"."
+            });
         }
     }
 
@@ -116,6 +151,33 @@ public class AgentAppScreenManager extends Screen{
         if(!rejectReason.getText().isEmpty()){
             reason = rejectReason.getText();
         }
+
+        String manufacturerUsername = app.getManufacturerUsername();
+        LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
+
+        if(manufacturerDataSet.size()<=0){
+            LogManager.println("Manufacturer:"+manufacturerUsername+" does not exist!", EnumWarningType.WARNING);
+            return;
+        }
+
+        // Recipient's email ID needs to be mentioned.
+        String to = "";//change accordingly
+
+        UserManufacturer manufacturer = null;
+        if(manufacturerDataSet.getFirst()!=null){
+            manufacturer = (UserManufacturer)manufacturerDataSet.getFirst();
+            //Check for email
+            if(!manufacturer.getEmail().isEmpty()){
+                to = manufacturer.getEmail();
+            }else{
+                LogManager.println("Manufacturer:"+manufacturerUsername+" does not have an email address.", EnumWarningType.WARNING);
+                return;
+            }
+        }
+
+
+        //Send an email
+        EmailManager.sendEmail(to, "Your Application has been Rejected.", new String[]{app.ReasonForRejection});
 
         updateDatabase(status, reason);
     }
