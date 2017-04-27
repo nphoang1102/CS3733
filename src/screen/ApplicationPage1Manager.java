@@ -46,6 +46,9 @@ public class ApplicationPage1Manager extends Screen{
     private Button cancel_button;
 
     @FXML
+    private Button FillButton;
+
+    @FXML
     private Label app_type_label;
 
     private Application app;
@@ -68,6 +71,19 @@ public class ApplicationPage1Manager extends Screen{
 
     @FXML
     void goBack() {
+    }
+
+    @FXML
+    void fillApp() {
+        app.Brand = "Sample Beer";
+        app.FancifulName = "Sample Fanciful Name";
+        app.Formula = "All that good stuff";
+        app.AlcoholType = "Beer";
+        app.Locality = "Domestic";
+        app.ApplicationType = "Certificate of Label Approval";
+        app.SerialNo = "HFI693F-DD564J";
+        app.Address = "2843 Street Ln.";
+        app.ABV = "6";
     }
 
     @FXML
