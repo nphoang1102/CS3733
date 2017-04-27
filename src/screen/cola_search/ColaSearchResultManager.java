@@ -40,14 +40,10 @@ public class ColaSearchResultManager extends Screen {
     }
 
     /* FXML objects */
-    @FXML
-    private TableView<ColaResult> searchResult;
-    @FXML
-    private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
-    @FXML
-    private Button saveToCsv, advanceSearch;
-    @FXML
-    private Pane colaSearchPanel;
+    @FXML private TableView<ColaResult> searchResult;
+    @FXML private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
+    @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
+    @FXML private Pane colaSearchPanel;
 
     /* Class methods */
     @Override
@@ -118,9 +114,9 @@ public class ColaSearchResultManager extends Screen {
                     this.adStrings[1],
                     this.adStrings[2],
                     this.adStrings[3],
-//                    this.adStrings[4],
-//                    this.adStrings[5],
-//                    this.adStrings[6],
+                    this.adStrings[4],
+                    this.adStrings[5],
+                    this.adStrings[6],
                     this.adStrings[7],
                     this.adStrings[8]);
         }
@@ -183,6 +179,30 @@ public class ColaSearchResultManager extends Screen {
     public void toAdvanceSearch() {
         LogManager.println("Navigate to advance search screen from cola-search result screen");
         Main.screenManager.setScreen(EnumScreenType.COLA_ADVANCE_SEARCH);
+    }
+
+    /* Go to the previous page of the result */
+    public void goBack() {
+        this.resultTable.clear();
+        this.resultTable.add(new ColaResult("111",
+                "12",
+                "12",
+                "Today",
+                "Beer",
+                "Kim Un Un",
+                "01",
+                "Beer",
+                "Beer",
+                "17",
+                "",
+                ""));
+        this.initializeTable();
+        this.initializeMouseEvent();
+    }
+
+    /* Go to the next page of the result */
+    public void goForward() {
+
     }
 
     /* Initialize the origin mapping for end-user */
