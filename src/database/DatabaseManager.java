@@ -54,10 +54,10 @@ public class DatabaseManager {
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
 
-        if (databaseType.equals("derby")) {
+        if (databaseType.toLowerCase().equals("derby")) {
             derby = true; //MAGIC!
             endQueryLine = "";
-        } else if (databaseType.equals("mysql") || databaseType.equals("MySQL")) {
+        } else if (databaseType.toLowerCase().equals("mysql")) {
             mysql = true; //MORE MAGIC!
             endQueryLine = ";";
         }
