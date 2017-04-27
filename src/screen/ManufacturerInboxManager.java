@@ -70,7 +70,7 @@ public class ManufacturerInboxManager extends Screen{
     public void newApplication(){
         LogManager.println("Creating a new application");
         Application app = new Application();
-        Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_1, "New Application", 1020, 487, app);
+        Main.screenManager.popoutScreen(EnumScreenType.PICK_FORM, "Pick Form Type", 600, 400, app);
         return;
     }
 

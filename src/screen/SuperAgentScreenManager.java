@@ -119,4 +119,6 @@ public class SuperAgentScreenManager extends Screen {
     public void launchAppScreen(MouseEvent mouseEvent) {
         screenManager.setScreen((EnumScreenType.SUPER_AGENT_APPLICATION));
     }
+
+
 }
