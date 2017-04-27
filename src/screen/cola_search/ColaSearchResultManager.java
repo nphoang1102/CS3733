@@ -26,7 +26,7 @@ import java.util.LinkedList;
 public class ColaSearchResultManager extends Screen {
     /* Class attributes */
     private DataSet mapOrigin = new BasicDataSet();
-    private String[] adStrings = new String[6];
+    private String[] adStrings = new String[9];
     private String keywords = "";
     private String searchType = "";
     private boolean isAdvance = false;
@@ -59,12 +59,7 @@ public class ColaSearchResultManager extends Screen {
         }
         else {
             this.isAdvance = true;
-            this.adStrings[0] = data.getValueForKey("searchCat1") + "";
-            this.adStrings[1] = data.getValueForKey("searchTerm1")+ "";
-            this.adStrings[2] = data.getValueForKey("searchCat2")+ "";
-            this.adStrings[3] = data.getValueForKey("searchTerm2")+ "";
-            this.adStrings[4] = data.getValueForKey("searchCat3")+ "";
-            this.adStrings[5] = data.getValueForKey("searchTerm3")+ "";
+            this.adStrings = (String[]) data.getValueForKey("advance");
         }
 
         /* Get the TableView stuff and result setup */
@@ -124,7 +119,10 @@ public class ColaSearchResultManager extends Screen {
                     this.adStrings[2],
                     this.adStrings[3],
                     this.adStrings[4],
-                    this.adStrings[5]);
+                    this.adStrings[5],
+                    this.adStrings[6],
+                    this.adStrings[7],
+                    this.adStrings[8]);
         }
         else {
             this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
