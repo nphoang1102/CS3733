@@ -118,9 +118,9 @@ public class ColaSearchResultManager extends Screen {
                     this.adStrings[1],
                     this.adStrings[2],
                     this.adStrings[3],
-//                    this.adStrings[4],
-//                    this.adStrings[5],
-//                    this.adStrings[6],
+                    this.adStrings[4],
+                    this.adStrings[5],
+                    this.adStrings[6],
                     this.adStrings[7],
                     this.adStrings[8]);
         }
