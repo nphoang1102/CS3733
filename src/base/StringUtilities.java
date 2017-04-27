@@ -93,6 +93,16 @@ public class StringUtilities {
         return ( ((int)Math.floor( Math.random()* 10000000)) + "");
     }
 
+    public static String mergeStringArrayWithDelimiter(String[] data, String delimiter){
+        String out = "";
+
+        for(int i = 0; i < data.length; i++){
+            out = out + data[i]+delimiter;
+        }
+
+        return out;
+    }
+
     public static String getDate(){
         DateFormat dateFormatYear = new SimpleDateFormat("yyyy");
         DateFormat dateFormatMonth = new SimpleDateFormat("/MM");
