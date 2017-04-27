@@ -103,6 +103,8 @@ public class ApplicationPage5Manager extends Screen{
             app.ManufacturerUsername = Main.getUsername();
             app.AgentUsername = "";
 
+            submit_button1.setDisable(true);
+
             database.DatabaseManager.submitApplication(app);
 
             LogManager.println("Submitting Application");
