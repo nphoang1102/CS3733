@@ -1,8 +1,6 @@
 package base;
 
-import database.DatabaseManager;
-import database.User;
-import database.UserAgent;
+import database.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import screen.ScreenManager;
@@ -26,6 +24,7 @@ public class Main extends Application{
     public static final int HEIGHT = 784;
     public static final String NAME = "COLA Database Search Tool";
 
+    private static DataSet config = new BasicDataSet();
 
     private static Class reference = Main.class;
 
@@ -50,6 +49,30 @@ public class Main extends Application{
     private void initialize(Stage primaryStage){
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
+
+        //Load the config file
+        String[] configData = StringUtilities.loadData(PATH+"/config.txt");
+        if(configData.length>0){
+            for(String line : configData){
+                String name = line.split("=")[0];
+                String data = line.split("=")[1];
+                config.addField(name, data);
+            }
+        }else{
+            LogManager.println("Config file not found, Creating new file.", EnumWarningType.ERROR);
+            StringUtilities.saveData("/config.txt", new String[]{
+                    "DatabaseType=",
+                    "DatabaseServer=",
+                    "DatabaseName=",
+                    "DatabaseUsername=",
+                    "DatabasePassword=",
+                    "FTPIP=",
+                    "FTPUsername=",
+                    "FTPPassword=",
+            });
+
+        }
+
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
@@ -124,6 +147,10 @@ public class Main extends Application{
 
     public static void setUser (User u){
         user = u;
+    }
+
+    public static Object getConfigData(String key){
+        return config.getValueForKey(key);
     }
 
    /* public static String getUserStatus(){

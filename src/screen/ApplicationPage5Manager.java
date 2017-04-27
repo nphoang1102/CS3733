@@ -102,14 +102,15 @@ public class ApplicationPage5Manager extends Screen{
             FTPClient client = new FTPClient();
             FileInputStream fis = null;
             try {
-                client.connect("72.93.244.26");
-                client.login("cadbo", "seafoamgreen");
+                client.connect(Main.getConfigData("FTPIP")+"");
+                client.login(Main.getConfigData("FTPUsername")+"", Main.getConfigData("FTPPassword")+"");
+                client.setFileType(FTPClient.BINARY_FILE_TYPE);
 
                 fis = new FileInputStream(filePath);
-                client.storeFile("TTB/alcohol/" + app.ApprovedTTBID + ".jpg", fis);
+                client.storeFile("TTB/alcohol/" + app.ApprovedTTBID + ".png", fis);
                 client.logout();
                 fis.close();
-                LogManager.println("Uploading image as:" + "TTB/alcohol/" + app.ApprovedTTBID + ".jpg");
+                LogManager.println("Uploading image as:" + "TTB/alcohol/" + app.ApprovedTTBID + ".png");
 
             } catch (IOException e) {
                 e.printStackTrace();
@@ -127,7 +128,7 @@ public class ApplicationPage5Manager extends Screen{
         String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
 
 
-        if(!filename.endsWith(".jpg")){
+        if(!filename.endsWith(".png")){
             return;
         }
 
