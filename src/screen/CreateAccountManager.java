@@ -34,7 +34,25 @@ public class CreateAccountManager extends Screen{
 
     EnumUserType userType;
 
-    String oldPassword="";
+    //observer stuff
+    private Subject subject;
+
+
+    public void startObserver(){
+        subject = new Subject();
+        new SecurityBarObserver(subject, security);
+    }
+
+    /**
+     * Value entered into the celsius box, update observers to convert into the other data types
+     */
+    public void notifyObservers(){
+        // Write this method
+        // You need to set the value of the subject to the input celsius value
+        subject.setValue(password.getText(), username.getText());
+    }
+
+
 
     private void clearFields(){
         username.clear();
@@ -69,17 +87,16 @@ public class CreateAccountManager extends Screen{
                 if(curPassword.equals(verPassword)) {
                     //record the account in the database
                     if (userType.equals(EnumUserType.AGENT)) {
-                        UserAgent tempUser = new UserAgent(user);
+                        UserAgent tempUser = new UserAgent("",user,"",Math.random()+"","false","pending");
+                        //String name, String username, String email, String ID, String isSuper, String status
+                        //UserAgent tempUser = new UserAgent(user);
                         //create new agent, with password
                         //DatabaseManager.addUser(tempUser, password.getText(), userType);
                         //set agent to pending
-                        tempUser.setStatus("pending");
+                        //tempUser.setStatus("pending");
                         tempUser.PasswordHash = password.getText();
 
-                        //Main.setUser(tempUser);
-
                         //send a new agent to the edit account screen
-                        //Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", tempUser);
                         Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", 800, 400,tempUser);
                     } else if (userType.equals(EnumUserType.MANUFACTURER)) {
                         UserManufacturer tempUser = new UserManufacturer(user);
@@ -152,65 +169,16 @@ public class CreateAccountManager extends Screen{
 
     @FXML
     private void updateSecurity(){
-        //show the progress bar
-        security.setVisible(true);
-        //record current password
-        String curPassword = password.getText();
-        //reset security level
-        double securityLevel = 0.0;
-        //check the password actually changed
-        if(!curPassword.equals(oldPassword)) {
-
-            LinkedList<String> badPasswords = new LinkedList<String>(Arrays.asList(
-                    "1234567890",
-                    "password",
-                    "qwerty",
-                    this.username.getText()
-            ));
-
-            //not a bad password
-            for(String s: badPasswords){
-                if(s.contains(curPassword)){
-                    securityLevel -= .15;
-                }
-            }
-            securityLevel += curPassword.length() / 10.0;
-
-            if (curPassword.matches(".*\\d+.*")) {
-                //password contains a number
-                //award quite a few points
-                securityLevel += .1;
-            }
-            if (curPassword.matches("^.*[^a-zA-Z0-9 ].*$")) {
-                //password has a symbol
-                //award a lot of points
-                securityLevel += .15;
-            }
-
-            //keep level in bounds
-            if(securityLevel < 0){
-                securityLevel = 0;
-            }else if(securityLevel > 1){
-                securityLevel = 1;
-            }
-            security.setProgress(securityLevel);
-            if (securityLevel <= .25) {
-                //low security
-                //make bar red
-                security.setStyle("-fx-accent: #ff0000; -fx-focus-color: #34a88b;");
-            } else if (securityLevel <= .7) {
-                security.setStyle("-fx-accent: #FFF100; -fx-focus-color: #34a88b;");
-            } else if (securityLevel > .7) {
-                security.setStyle("-fx-accent:  #34a88b; -fx-focus-color: #34a88b;");
-            }
-            //update old password
-            oldPassword = curPassword;
-        }
+        notifyObservers();
     }
 
     @Override
     public void onScreenFocused(DataSet data) {
+        //fire up the observer
+        startObserver();
+        //hide the security bar
         security.setVisible(false);
+        //clear all
         clearFields();
     }
 }

@@ -43,14 +43,16 @@ public class AgentVerificationManager extends Screen{
         if(!name.equals("")&&!email.equals("")&&!type.equals("")&&!userType.equals(null)){
             //cast the user passed in as a userAgent
             UserAgent tempAgent = (UserAgent) tempUser;
-            //add them to database
-            DatabaseManager.addUser(tempAgent, tempAgent.PasswordHash, userType);
+
             //set current user in main as this agent
             tempAgent.setSuperAgent(type);
             tempAgent.setUserType(userType);
             Main.setUser(tempAgent);
             tempAgent.name = name;
             tempAgent.email = email;
+
+            //add them to database
+            DatabaseManager.addUser(tempAgent, tempAgent.PasswordHash, userType);
 
             //set screen to agent home page if they don't want to be a super agent
             //set screen to super agent page if they do want to be a super agent
