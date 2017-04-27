@@ -82,18 +82,29 @@ public class ApplicationPageWineManager extends Screen{
         if(app.WineAppelation == null || app.WineAppelation.equals("")){
             allFilled = false;
             appellation_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            appellation_field.setStyle(null);
         }
+
         if(app.VintageDate == null || app.VintageDate.equals("")){
             allFilled = false;
             vintage_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            vintage_field.setStyle(null);
         }
+
         if(app.PH == null || app.PH.equals("")){
             allFilled = false;
             ph_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            ph_field.setStyle(null);
         }
+
         if(app.Grapes == null || app.Grapes.equals("")){
             allFilled = false;
             grapes_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            grapes_field.setStyle(null);
         }
 
         if(allFilled) {

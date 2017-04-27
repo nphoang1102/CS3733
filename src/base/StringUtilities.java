@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.Scanner;
 
 /**
  * Created by Bailey Sostek on 4/2/17.
@@ -59,6 +61,24 @@ public class StringUtilities {
         }
     }
 
+    public static String[] loadData(String path){
+        LinkedList<String> data = new LinkedList<String>();
+        try {
+            File file = new File(path);
+            Scanner in = new Scanner(file);
+            do{
+                data.add(in.nextLine());
+            }while(in.hasNext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[] outData = new String[data.size()];
+        for(int i=0; i<outData.length; i++){
+            outData[i] = data.get(i);
+        }
+        return outData;
+    }
+
     public static String getTTBID(){
         /*DateFormat dateFormat = new SimpleDateFormat("MMddyyyy");
         Date date = new Date();
@@ -71,6 +91,16 @@ public class StringUtilities {
         return (dateFormat.format(date)+ttbNum);*/
 
         return ( ((int)Math.floor( Math.random()* 10000000)) + "");
+    }
+
+    public static String mergeStringArrayWithDelimiter(String[] data, String delimiter){
+        String out = "";
+
+        for(int i = 0; i < data.length; i++){
+            out = out + data[i]+delimiter;
+        }
+
+        return out;
     }
 
     public static String getDate(){

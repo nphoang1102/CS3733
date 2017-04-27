@@ -11,6 +11,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import sun.rmi.runtime.Log;
 
@@ -196,7 +197,7 @@ public class EditableApplicationManager extends Screen {
             agent_field.setVisible(false);
             agent_label.setVisible(false);
         }
-        ProxyImage pImage = new ProxyImage(("alcohol/"+((Application) dataSet).ApprovedTTBID)+".jpg");
+        ProxyImage pImage = new ProxyImage(("alcohol/"+((Application) dataSet).ApprovedTTBID)+".png");
         pImage.displayImage(image);
     }
 
@@ -274,7 +275,7 @@ public class EditableApplicationManager extends Screen {
         String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
 
 
-        if(!filename.endsWith(".jpg")){
+        if(!filename.endsWith(".png")){
             return;
         }
 
@@ -283,14 +284,15 @@ public class EditableApplicationManager extends Screen {
         FTPClient client = new FTPClient();
         FileInputStream fis = null;
         try {
-            client.connect("72.93.244.26");
-            client.login("cadbo", "seafoamgreen");
+            client.connect(Main.getConfigData("FTPIP")+"");
+            client.login(Main.getConfigData("FTPUsername")+"", Main.getConfigData("FTPPassword")+"");
+            client.setFileType(FTP.BINARY_FILE_TYPE);
 
             fis = new FileInputStream(filename);
-            client.storeFile("TTB/alcohol/"+data.ApplicationNo+".jpg", fis);
+            client.storeFile("TTB/alcohol/"+data.ApplicationNo+".png", fis);
             client.logout();
             fis.close();
-            LogManager.println("Uploading image as:"+"TTB/alcohol/"+data.ApplicationNo+".jpg");
+            LogManager.println("Uploading image as:"+"TTB/alcohol/"+data.ApplicationNo+".png");
 
             ScreenManager.updateUserIcon();
 
@@ -336,6 +338,10 @@ public class EditableApplicationManager extends Screen {
         RejectionLabel.setVisible(false);
 
         label_button.setDisable(true);
+    }
+
+    public void surrenderApp(){
+        LogManager.println("Surrendering Application");
     }
 
     public void setBoxes(Application dataSet){
