@@ -38,7 +38,7 @@ public class DatabaseManager {
         UserNotFoundException(String username) {
             super("User " + username + " not found");
         }
-    }
+}
 
     public class IncorrectPasswordException extends Exception {
         IncorrectPasswordException(String username) {
