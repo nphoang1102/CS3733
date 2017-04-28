@@ -213,7 +213,7 @@ public class TopBarManager extends Screen{
 
     /* Legit check for the suggestive search */
     public boolean checkSuggest() {
-        if (this.searchBar.getText().length() > 1) return true;
+        if (this.searchBar.getText().length() == 3) return true;
         else this.needSuggRefresh = true;
         return false;
     }

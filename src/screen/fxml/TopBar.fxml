@@ -43,7 +43,7 @@
                   <Font name="Telugu Sangam MN" size="12.0" />
                </font>
             </Button>
-            <TextField fx:id="searchBar" layoutX="212.0" layoutY="15.0" onAction="#onEnter" onKeyTyped="#initSuggestiveSearch" prefHeight="33.0" prefWidth="368.0" promptText="What brand are you looking for?" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+            <TextField fx:id="searchBar" layoutX="212.0" layoutY="15.0" onAction="#onEnter" onKeyPressed="#initSuggestiveSearch" prefHeight="33.0" prefWidth="368.0" promptText="What brand are you looking for?" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
                <font>
                   <Font name="Telugu Sangam MN" size="12.0" />
                </font></TextField>
