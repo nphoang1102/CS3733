@@ -275,16 +275,16 @@ public class AdvanceColaSearchManager extends Screen {
 
     /* Initialize the origin mapping for end-user */
     private void setMapOrigin() {
-        this.mapOrigin.addField("american", "00" );
-        this.mapOrigin.addField("california", "01");
-        this.mapOrigin.addField("new york", "02");
-        this.mapOrigin.addField("new jersey","03");
-        this.mapOrigin.addField("illinois", "04");
-        this.mapOrigin.addField("virginia", "05");
-        this.mapOrigin.addField("michigan", "06");
-        this.mapOrigin.addField("washington", "07");
-        this.mapOrigin.addField("georgia", "08");
-        this.mapOrigin.addField("ohio", "09");
+        this.mapOrigin.addField("american", "0" );
+        this.mapOrigin.addField("california", "1");
+        this.mapOrigin.addField("new york", "2");
+        this.mapOrigin.addField("new jersey","3");
+        this.mapOrigin.addField("illinois", "4");
+        this.mapOrigin.addField("virginia", "5");
+        this.mapOrigin.addField("michigan", "6");
+        this.mapOrigin.addField("washington", "7");
+        this.mapOrigin.addField("georgia", "8");
+        this.mapOrigin.addField("ohio", "9");
         this.mapOrigin.addField("alabama", "10");
         this.mapOrigin.addField("arizona", "11");
         this.mapOrigin.addField("arkansas", "12");
