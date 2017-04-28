@@ -16,6 +16,7 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
+import org.apache.commons.lang3.*;
 
 public class DatabaseManager {
     /**
@@ -127,6 +128,9 @@ public class DatabaseManager {
         createTables();
         //...created the tables
 //        entryTest(); //Even god tests his database.
+
+//        CSV importTest = new CSV("C:\\import.csv");
+//        importTest.importAlcohol();
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -137,7 +141,7 @@ public class DatabaseManager {
         LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
-                    " TTBID VARCHAR(30) PRIMARY KEY,\n" + //TODO UNIQUE WTF
+                    " TTBID VARCHAR(30) PRIMARY KEY,\n" +
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " CompletedDate VARCHAR(20),\n" +
@@ -145,7 +149,7 @@ public class DatabaseManager {
                     " BrandName VARCHAR(100) NOT NULL,\n" +
                     " Class VARCHAR(50) NOT NULL,\n" +
                     " Origin VARCHAR(10) NOT NULL,\n" +
-                    " AlcoholType VARCHAR(10) NOT NULL,\n" +
+                    " AlcoholType VARCHAR(30) NOT NULL,\n" +
                     " AlcoholContent VARCHAR(30),\n" +
                     " VintageYear VARCHAR(10),\n" +
                     " PH VARCHAR(10)\n" +
@@ -239,11 +243,18 @@ public class DatabaseManager {
             System.exit(0); //(╯°□°）╯︵ ┻━┻
         }
     }
+    protected static String sanitize(String unsanitized){
+//        System.out.println("String thing: \\\'");
+        String sanitized = unsanitized.replace("\'", "\\'").replaceAll(";", "").replace("\"", "\\");
+//        System.out.println("Sanitizing " + unsanitized + " to " + sanitized);
+        return sanitized;
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
+        value = sanitize(value);
         String type = Main.screenManager.getSearchTerm();
         String value1 = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
@@ -286,6 +297,14 @@ public class DatabaseManager {
     //ENTER AT YOUR OWN RISK
 
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3, String cat4, String val4, String andor) {
+        cat1 = sanitize(cat1);
+        cat2 = sanitize(cat2);
+        cat3 = sanitize(cat3);
+        cat4 = sanitize(cat4);
+        val1 = sanitize(val1);
+        val2 = sanitize(val2);
+        val3 = sanitize(val3);
+        val4 = sanitize(val4);
 
         if (cat1.equals("BrandName") || cat1.equals("FancifulName")) {
             val1 = val1.toUpperCase();
@@ -360,8 +379,10 @@ public class DatabaseManager {
     }
 
     protected static void insertAlcohol(Alcohol alcohol){
+        alcohol.sanitize();
+        System.out.printf("Inserting alcohol with TBID %s, BrandName %s, and Fanciful name %s.", alcohol.TTBID, alcohol.BrandName, alcohol.FancifulName + "\n");
         try {
-            statement.executeUpdate("INSERT INTO Alcohol (" +
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO Alcohol (" +
                     "TTBID, " +
                     "PermitNo, " +
                     "SerialNo, " +
@@ -370,22 +391,24 @@ public class DatabaseManager {
                     "BrandName, " +
                     "Class, " +
                     "Origin, " +
-                    "Type, " +
+                    "AlcoholType, " +
                     "AlcoholContent, " +
                     "VintageYear, " +
                     "PH) VALUES ('" +
-                    alcohol.TTBID + "', '" +
+                    alcohol.TTBID.replaceAll( "[^\\d]", "" ) + "', '" +
                     alcohol.PermitNo + "', '" +
                     alcohol.SerialNo + "', '" +
                     alcohol.CompletedDate + "', '" +
                     alcohol.FancifulName.toUpperCase() + "', '" +
                     alcohol.BrandName.toUpperCase() + "', '" +
                     alcohol.PH + "', '" +
-                    alcohol.Origin + "', '" +
+                    sanitize(alcohol.Origin) + "', '" +
                     alcohol.Type + "', '" +
                     alcohol.AlcoholContent + "', '" +
                     alcohol.VintageYear + "', '" +
                     alcohol.PH + "')" + DatabaseManager.endQueryLine);
+            preparedStatement.executeUpdate();
+
         } catch (SQLException e) {
             LogManager.println("Failed to insert alcohol entry for TTBID " + alcohol.TTBID + ", Brandname " + alcohol.BrandName + ", and Fanciful name " + alcohol.FancifulName + ":", EnumWarningType.WARNING);
             LogManager.println(e.getMessage());
@@ -396,7 +419,6 @@ public class DatabaseManager {
     ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     private static LinkedList<DataSet> queryAlcohol(String queryStr) {
-
         LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
 
         try {
@@ -436,6 +458,7 @@ public class DatabaseManager {
     ///////////SUBMIT APPLICATIONS///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
+        application.sanitize();
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
         application.ApprovedTTBID = generateTTBID(); //Welcome to the new age.
         application.ApplicationNo = application.ApprovedTTBID;

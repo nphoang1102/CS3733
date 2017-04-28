@@ -1,6 +1,8 @@
 package database;
 
+import base.EnumWarningType;
 import base.LogManager;
+import base.Main;
 import com.opencsv.CSVWriter;
 import org.apache.commons.csv.*;
 
@@ -23,8 +25,9 @@ public class CSV {
     }
     private void createReader(){
         try {
+            LogManager.println("Creating CSV Reader for " + filePath +".", EnumWarningType.NOTE);
             reader = new FileReader(filePath);
-        } catch (IOException e) {
+        } catch (Exception e) {
             LogManager.println("Failed to create CSVReader for " + filePath + ": " + e.getMessage()/*,EnumWarningType.ERROR*/);
         }
     }
@@ -35,11 +38,12 @@ public class CSV {
 
     //    public String [][] read(){
     public void importAlcohol() {
-
+        createReader();
         try {
+            LogManager.println("Creating CSV Records for CSV Reader for " + filePath +".", EnumWarningType.NOTE);
             records = csvFormat.parse(reader);
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            LogManager.println("Failed to create CSV Reader: " + e.getMessage());
         }
         for (CSVRecord record : records) {
             Alcohol alcohol = new Alcohol();
@@ -54,7 +58,7 @@ public class CSV {
             alcohol.AlcoholContent = record.get("ABV");
             alcohol.VintageYear = record.get("Vintage");
             alcohol.PH = record.get("PH");
-        DatabaseManager.insertAlcohol(alcohol);
+            Main.databaseManager.insertAlcohol(alcohol);
         }
     }
 
