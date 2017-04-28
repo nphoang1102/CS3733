@@ -419,12 +419,12 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     private static LinkedList<DataSet> queryAlcohol(String queryStr) {
         LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
-        LogManager.println("Searching for alcohol: " + queryStr, EnumWarningType.NOTE);
+        LogManager.println("Searching alcohol table: " + queryStr, EnumWarningType.NOTE);
+        int count = 1;
         try {
             ResultSet getAlcohol = statement.executeQuery(queryStr);
-            int count = 1;
             while (getAlcohol.next()) {
-                System.out.println("Loading item " + count);
+//                System.out.println("Loading item " + count);
                 Alcohol alcohol = new Alcohol(); //Bottoms up!
                 alcohol.TTBID = getAlcohol.getString("TTBID");
                 alcohol.PermitNo = getAlcohol.getString("PermitNo");
@@ -446,6 +446,7 @@ public class DatabaseManager {
             LogManager.println("SQLState:" +e.getSQLState(), EnumWarningType.WARNING);
             return new LinkedList<>();
         }
+        LogManager.println("Loaded " + count + " alcohol items!", EnumWarningType.NOTE);
         return alcoholLinkedList;
 //        ヽ(´ー｀)ノ
     }
