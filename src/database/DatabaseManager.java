@@ -464,9 +464,9 @@ public class DatabaseManager {
     public static void submitApplication(Application application) {
         application.sanitize();
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-        application.ApprovedTTBID = generateTTBID(); //Welcome to the new age.
-        application.ApplicationNo = application.ApprovedTTBID;
-        String date = StringUtilities.getDate();
+//        application.ApprovedTTBID = generateTTBID();
+//        application.ApplicationNo = application.ApprovedTTBID;
+        String date = StringUtilities.getDate(); //Welcome to the new age.
         try {
             LogManager.println("Submitting new application.", EnumWarningType.NOTE);
 //            String status = "PENDING";
@@ -538,9 +538,7 @@ public class DatabaseManager {
 
         }
         try {
-            statement.executeUpdate("UPDATE Applications\n" +
-                    "SET DateOfSubmission = '" + date + "'\n" +
-                    "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET DateOfSubmission = '" + date + "' WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
         } catch (SQLException e) {
             //ಠ_ಠ
             LogManager.print("Could not set DateOfSubmission '" + date + "' on newly submitted application " + application.ApplicationNo + ": ");
