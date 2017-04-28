@@ -190,12 +190,13 @@ public class TopBarManager extends Screen{
         } else {
             imageLetter.setText("");
             BufferedImage bufferedImage;
+            String file = "/res/dot_empty_user.png";
             try {
-                bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot_empty_user.png"));
+                bufferedImage = ImageIO.read(new File(Main.PATH + file));
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 userIcon.setImage(image);
             } catch (Exception e) {
-                e.printStackTrace();
+                LogManager.println("Filed to load " + file + ": " + e.getMessage());
             }
         }
     }
