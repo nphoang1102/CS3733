@@ -191,16 +191,16 @@ public class ColaSearchResultManager extends Screen {
 
     /* Initialize the origin mapping for end-user */
     private void setMapOrigin() {
-        this.mapOrigin.addField("00", "American");
-        this.mapOrigin.addField("01", "California");
-        this.mapOrigin.addField("02", "New York");
-        this.mapOrigin.addField("03", "New Jersey");
-        this.mapOrigin.addField("04", "Illinois");
-        this.mapOrigin.addField("05", "Virginia");
-        this.mapOrigin.addField("06", "Michigan");
-        this.mapOrigin.addField("07", "Washington");
-        this.mapOrigin.addField("08", "Georgia");
-        this.mapOrigin.addField("09", "Ohio");
+        this.mapOrigin.addField("0", "American");
+        this.mapOrigin.addField("1", "California");
+        this.mapOrigin.addField("2", "New York");
+        this.mapOrigin.addField("3", "New Jersey");
+        this.mapOrigin.addField("4", "Illinois");
+        this.mapOrigin.addField("5", "Virginia");
+        this.mapOrigin.addField("6", "Michigan");
+        this.mapOrigin.addField("7", "Washington");
+        this.mapOrigin.addField("8", "Georgia");
+        this.mapOrigin.addField("9", "Ohio");
         this.mapOrigin.addField("10", "Alabama");
         this.mapOrigin.addField("11", "Arizona");
         this.mapOrigin.addField("12", "Arkansas");

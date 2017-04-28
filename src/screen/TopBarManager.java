@@ -213,17 +213,17 @@ public class TopBarManager extends Screen{
     }
 
     public void initSuggestiveSearch() {
-        this.suggestField.clear();
-        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
-        for (DataSet tempSet : databaseResult) {
-            Alcohol data = (Alcohol) tempSet;
-            if (!this.suggestField.contains(data.BrandName)) {
-                this.suggestField.add(data.BrandName);
-            }
-        }
-        TextFields.bindAutoCompletion(
-                this.searchBar,
-                this.suggestField
-        );
+//        this.suggestField.clear();
+//        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
+//        for (DataSet tempSet : databaseResult) {
+//            Alcohol data = (Alcohol) tempSet;
+//            if (!this.suggestField.contains(data.BrandName)) {
+//                this.suggestField.add(data.BrandName);
+//            }
+//        }
+//        TextFields.bindAutoCompletion(
+//                this.searchBar,
+//                this.suggestField
+//        );
     }
 }
