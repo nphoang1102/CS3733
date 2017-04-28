@@ -21,23 +21,20 @@ public class CSV {
         csvFormat = CSVFormat.RFC4180.withFirstRecordAsHeader();
         this.filePath = filePath;
     }
-
-    public void readApplication() {
-
-    }
-
-    public void readAlcohol() {
-//        String [] [] csv = read();
-
-    }
-
-    //    public String [][] read(){
-    public void read() {
+    private void createReader(){
         try {
             reader = new FileReader(filePath);
         } catch (IOException e) {
             LogManager.println("Failed to create CSVReader for " + filePath + ": " + e.getMessage()/*,EnumWarningType.ERROR*/);
         }
+    }
+    public void readApplication() {
+
+    }
+
+
+    //    public String [][] read(){
+    public void importAlcohol() {
 
         try {
             records = csvFormat.parse(reader);
@@ -45,26 +42,37 @@ public class CSV {
             e.printStackTrace();
         }
         for (CSVRecord record : records) {
-//            LogManager.printf("A = %s, B = %s, C = %s, D = %s", record.get("A"), record.get("B"), record.get("C"), record.get("D"));
-//            LogManager.println();
+            Alcohol alcohol = new Alcohol();
+            alcohol.TTBID = record.get("TTBID");
+            alcohol.PermitNo = record.get("Plant Registry");
+            alcohol.SerialNo = record.get("Serial Number");
+            alcohol.CompletedDate = record.get("Date Approved");
+            alcohol.FancifulName = record.get("Fanciful Name");
+            alcohol.BrandName = record.get("Brand Name");
+            alcohol.Origin = record.get("Origin");
+            alcohol.Type = record.get("Type");
+            alcohol.AlcoholContent = record.get("ABV");
+            alcohol.VintageYear = record.get("Vintage");
+            alcohol.PH = record.get("PH");
+        DatabaseManager.insertAlcohol(alcohol);
         }
     }
 
-    public void writeAlcohol(LinkedList<DataSet> list) {
-        String[][] data = new String[list.size() + 1][13];
+    public void exportAlcohol(LinkedList<DataSet> list) {
+        String[][] data = new String[list.size() + 1][12];
         data[0][0] = "TTBID";
-        data[0][1] = "Permit Number";
+        data[0][1] = "Plant Registry";
         data[0][2] = "Serial Number";
         data[0][3] = "Date Approved";
         data[0][4] = "Fanciful Name";
         data[0][5] = "Brand Name";
         data[0][6] = "Origin";
-        data[0][7] = "Class";
-        data[0][8] = "Type";
-        data[0][9] = "ABV";
-        data[0][10] = "Vintage";
-        data[0][11] = "PH";
-        data[0][12] = "Application Number";
+//        data[0][7] = "Class";
+        data[0][7] = "Type";
+        data[0][8] = "ABV";
+        data[0][9] = "Vintage";
+        data[0][10] = "PH";
+        data[0][11] = "Application Number";
         for (int i = 1; i < list.size(); i++) {
             Alcohol alcohol = (Alcohol) list.get(i);
             data[i][0] = alcohol.TTBID;
@@ -74,17 +82,17 @@ public class CSV {
             data[i][4] = alcohol.FancifulName;
             data[i][5] = alcohol.BrandName;
             data[i][6] = alcohol.Origin;
-            data[i][7] = alcohol.Class;
-            data[i][8] = alcohol.Type;
-            data[i][9] = alcohol.AlcoholContent;
-            data[i][10] = alcohol.VintageYear;
-            data[i][11] = alcohol.PH;
-            data[i][12] = alcohol.ApplicationNo;
+//            data[i][7] = alcohol.Class;
+            data[i][7] = alcohol.Type;
+            data[i][8] = alcohol.AlcoholContent;
+            data[i][9] = alcohol.VintageYear;
+            data[i][10] = alcohol.PH;
+            data[i][11] = alcohol.ApplicationNo;
         }
-        write(data, ',');
+        export(data, ',');
     }
 
-    public void writeApplications(LinkedList<DataSet> list) {
+    public void exportApplications(LinkedList<DataSet> list) {
         String[][] data = new String[list.size() + 1][31];
         data[0][0] = "Application Number";
         data[0][1] = "Serial Number";
@@ -151,10 +159,10 @@ public class CSV {
             data[0][29] = application.ReasonForRejection;
             data[0][30] = Integer.toString(application.revisionNo);
         }
-        write(data, ',');
+        export(data, ',');
     }
 
-    private void write(String[][] data, char delim) {
+    private void export(String[][] data, char delim) {
         try {
             writer = new CSVWriter(new FileWriter(filePath), delim);
             for (int i = 0; i < data.length; i++) {

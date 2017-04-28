@@ -28,7 +28,7 @@ public class DatabaseManager {
     private String databaseServer;
     private boolean derby = false; //Plz no
     private boolean mysql = false;
-    private static String endQueryLine;
+    protected static String endQueryLine;
 //    private boolean sqlite = false;
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -359,7 +359,38 @@ public class DatabaseManager {
 
     }
 
-
+    protected static void insertAlcohol(Alcohol alcohol){
+        try {
+            statement.executeUpdate("INSERT INTO Alcohol (" +
+                    "TTBID, " +
+                    "PermitNo, " +
+                    "SerialNo, " +
+                    "CompletedDate, " +
+                    "FancifulName, " +
+                    "BrandName, " +
+                    "Class, " +
+                    "Origin, " +
+                    "Type, " +
+                    "AlcoholContent, " +
+                    "VintageYear, " +
+                    "PH) VALUES ('" +
+                    alcohol.TTBID + "', '" +
+                    alcohol.PermitNo + "', '" +
+                    alcohol.SerialNo + "', '" +
+                    alcohol.CompletedDate + "', '" +
+                    alcohol.FancifulName.toUpperCase() + "', '" +
+                    alcohol.BrandName.toUpperCase() + "', '" +
+                    alcohol.PH + "', '" +
+                    alcohol.Origin + "', '" +
+                    alcohol.Type + "', '" +
+                    alcohol.AlcoholContent + "', '" +
+                    alcohol.VintageYear + "', '" +
+                    alcohol.PH + "')" + DatabaseManager.endQueryLine);
+        } catch (SQLException e) {
+            LogManager.println("Failed to insert alcohol entry for TTBID " + alcohol.TTBID + ", Brandname " + alcohol.BrandName + ", and Fanciful name " + alcohol.FancifulName + ":", EnumWarningType.WARNING);
+            LogManager.println(e.getMessage());
+        }
+    }
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ALCOHOL SEARCH////////////////////////////////////////////////////////
@@ -552,7 +583,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////SET STATUS////////////////////////////////////////////////////////////
+    ///////////SET AGENT STATUS//////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status) { //We're competing with facebook.
 
@@ -575,7 +606,7 @@ public class DatabaseManager {
     }
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////Clear Table///////////////////////////////////////////////////////////
+    ///////////CLEAR AGENT INBOX/////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
 
     public void clearInbox(String username) {
