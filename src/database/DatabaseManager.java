@@ -242,18 +242,13 @@ public class DatabaseManager {
             System.exit(0); //(╯°□°）╯︵ ┻━┻
         }
     }
-    protected static String sanitize(String unsanitized){
-//        System.out.println("String thing: \\\'");
-        String sanitized = unsanitized.replace("\'", "\\'").replaceAll(";", "").replace("\"", "\\");
-//        System.out.println("Sanitizing " + unsanitized + " to " + sanitized);
-        return sanitized;
-    }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> queryDatabase(EnumTableType table, String column, String value) {
-        value = sanitize(value);
+        value = StringUtilities.sanitize(value);
         String type = Main.screenManager.getSearchTerm();
         String value1 = value.toUpperCase();
         if (table.equals(EnumTableType.ALCOHOL)) {
@@ -296,14 +291,14 @@ public class DatabaseManager {
     //ENTER AT YOUR OWN RISK
 
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3, String cat4, String val4, String andor) {
-        cat1 = sanitize(cat1);
-        cat2 = sanitize(cat2);
-        cat3 = sanitize(cat3);
-        cat4 = sanitize(cat4);
-        val1 = sanitize(val1);
-        val2 = sanitize(val2);
-        val3 = sanitize(val3);
-        val4 = sanitize(val4);
+        cat1 = StringUtilities.sanitize(cat1);
+        cat2 = StringUtilities.sanitize(cat2);
+        cat3 = StringUtilities.sanitize(cat3);
+        cat4 = StringUtilities.sanitize(cat4);
+        val1 = StringUtilities.sanitize(val1);
+        val2 = StringUtilities.sanitize(val2);
+        val3 = StringUtilities.sanitize(val3);
+        val4 = StringUtilities.sanitize(val4);
 
         if (cat1.equals("BrandName") || cat1.equals("FancifulName")) {
             val1 = val1.toUpperCase();
@@ -401,7 +396,7 @@ public class DatabaseManager {
                     alcohol.FancifulName.toUpperCase() + "', '" +
                     alcohol.BrandName.toUpperCase() + "', '" +
                     alcohol.PH + "', '" +
-                    sanitize(alcohol.Origin) + "', '" +
+                    StringUtilities.sanitize(alcohol.Origin) + "', '" +
                     alcohol.Type + "', '" +
                     alcohol.AlcoholContent + "', '" +
                     alcohol.VintageYear + "', '" +
