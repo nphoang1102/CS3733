@@ -254,7 +254,7 @@ public class EditableApplicationManager extends Screen {
         app.ApplicationNo = data.ApplicationNo;
         app.ApprovedTTBID = data.ApprovedTTBID;
 
-        if(data.ApplicationStatus.equals("REJECTED")){
+        if(data.ApplicationStatus.equals("REJECTED") || data.ApplicationStatus.equals("NEEDS WORK")){
             app.ApplicationStatus = "PENDING";
         } else {
             app.ApplicationStatus = data.ApplicationStatus;

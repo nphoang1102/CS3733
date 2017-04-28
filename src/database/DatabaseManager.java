@@ -363,7 +363,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERATE TTBID////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    private static String generateTTBID() {
+    public static String generateTTBID() {
         return Long.toString(Math.round(Math.random() * 10000000)); //(;o;)
     }
 
@@ -372,7 +372,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-        application.ApprovedTTBID = generateTTBID(); //Welcome to the new age.
+        //application.ApprovedTTBID = generateTTBID(); //Moved to application page 5
         application.ApplicationNo = application.ApprovedTTBID;
         String date = StringUtilities.getDate();
         try {
