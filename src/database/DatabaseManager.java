@@ -16,7 +16,6 @@ import java.sql.SQLException;
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.concurrent.TimeUnit;
-import org.apache.commons.lang3.*;
 
 public class DatabaseManager {
     /**
