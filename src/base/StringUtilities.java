@@ -70,7 +70,8 @@ public class StringUtilities {
                 data.add(in.nextLine());
             }while(in.hasNext());
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            LogManager.println("Could not load file " + e.getMessage());
         }
         String[] outData = new String[data.size()];
         for(int i=0; i<outData.length; i++){
