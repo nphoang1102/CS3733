@@ -38,7 +38,7 @@ public class DatabaseManager {
         UserNotFoundException(String username) {
             super("User " + username + " not found");
         }
-    }
+}
 
     public class IncorrectPasswordException extends Exception {
         IncorrectPasswordException(String username) {
@@ -50,9 +50,9 @@ public class DatabaseManager {
     ///////////CONSTRUCTOR - CONNECTS TO DATABASE////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
-        databaseType = Main.getConfigData("DatabaseType")+"";
-        databaseName = Main.getConfigData("DatabaseName")+"";
-        databaseServer = Main.getConfigData("DatabaseServer")+"";
+        databaseType = "MySQL";
+        databaseName = "TTB";
+        databaseServer = "icarusnet.me";
 
         if (databaseType.equals("derby")) {
             derby = true; //MAGIC!
@@ -137,7 +137,7 @@ public class DatabaseManager {
         LogManager.print("Creating alcohol table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Alcohol(\n" +
-                    " TTBID VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
+                    " TTBID VARCHAR(30) PRIMARY KEY,\n" + //TODO UNIQUE WTF
                     " PermitNo VARCHAR(30) NOT NULL,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " CompletedDate VARCHAR(20),\n" +
@@ -157,10 +157,12 @@ public class DatabaseManager {
         LogManager.print("Creating applications table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Applications(\n" +
-                    " ApplicationNo VARCHAR(20) PRIMARY KEY UNIQUE,\n" +
+                    " ApplicationNo VARCHAR(20) PRIMARY KEY,\n" +
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
+                    " CT VARCHAR(15) NOT NULL,\n" +
+                    " O_R VARCHAR(15) NOT NULL,\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " RepName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
@@ -280,22 +282,10 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADVANCED SEARCH///////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3) {
 
-        if (cat1.equals("BrandName") || cat1.equals("FancifulName")) {
-            val1 = val1.toUpperCase(); //lowercase is lame.
-        }
-        if (cat2.equals("BrandName") || cat2.equals("FancifulName")) {
-            val2 = val2.toUpperCase();
-        }
-        if (cat3.equals("BrandName") || cat2.equals("FancifulName")) {
-            val3 = val3.toUpperCase();
-        }
+    //ENTER AT YOUR OWN RISK
 
-        String query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " LIKE '" + val1 + "%' OR " + cat1 + " LIKE '%" + val1 + "' OR " + cat1 + " LIKE '%" + val1 + "%'";
-        String query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%'";
-        String query3 = "SELECT * FROM Alcohol WHERE " + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%'";
-        String combinedQuery; //4 Cuils
+    public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3, String cat4, String val4, String andor) {
 
         if (cat1.equals("BrandName") || cat1.equals("FancifulName")) {
             val1 = val1.toUpperCase();
@@ -303,28 +293,72 @@ public class DatabaseManager {
         if (cat2.equals("BrandName") || cat2.equals("FancifulName")) {
             val2 = val2.toUpperCase();
         }
-        if (cat3.equals("BrandName") || cat2.equals("FancifulName")) {
+        if (cat3.equals("BrandName") || cat3.equals("FancifulName")) {
             val3 = val3.toUpperCase();
         }
-
-        try {
-            if (!val1.isEmpty() && val2.isEmpty() && val3.isEmpty()) {
-                combinedQuery = query1;
-            } else if (!val1.isEmpty() && !val2.isEmpty() && val3.isEmpty()) {
-                combinedQuery = query1 + "UNION " + query2;
-            } else if (!val1.isEmpty() && val2.isEmpty() && !val3.isEmpty()) {
-                combinedQuery = query1 + "UNION " + query3;
-            } else if (!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty()) {
-                combinedQuery = query1 + "UNION " + query2 + "UNION " + query3;
-            } else {
-                combinedQuery = "SELECT * FROM Alcohol"; //It's been a rough day.
-            }
-        } catch (Exception e) {
-            LogManager.println("No matches found!", EnumWarningType.WARNING);
-            return new LinkedList<>();
+        if (cat4.equals("BrandName") || cat4.equals("FancifulName")) {
+            val4 = val4.toUpperCase();
         }
-        return queryAlcohol(combinedQuery);
+        String query1 = "SELECT * FROM Alcohol WHERE (" + cat1 + " LIKE '" + val1 + "%' OR " + cat1 + " LIKE '%" + val1 + "' OR " + cat1 + " LIKE '%" + val1 + "%')";
+        String query2 = "SELECT * FROM Alcohol WHERE (" + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%')";
+        String query3 = "SELECT * FROM Alcohol WHERE (" + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%')";
+        String query4 = "SELECT * FROM Alcohol WHERE (" + cat4 + " LIKE '" + val4 + "%' OR " + cat4 + " LIKE '%" + val4 + "' OR " + cat4 + " LIKE '%" + val4 + "%')";
+        String combinedQuery;
+
+        if(andor.equals("or")) {
+            try {
+                if (!val1.isEmpty() && val2.isEmpty() && val3.isEmpty() && val4.isEmpty()) {
+                    combinedQuery = query1;
+                } else if (!val1.isEmpty() && !val2.isEmpty() && val3.isEmpty() && val4.isEmpty()) {
+                    combinedQuery = query1 + "UNION " + query2;
+                } else if (!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty() && val4.isEmpty()) {
+                    combinedQuery = query1 + "UNION " + query2 + "UNION " + query3;
+                } else if (!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty() && !val4.isEmpty()) {
+                    combinedQuery = query1 + "UNION " + query2 + "UNION " + query3 + "UNION " + query4;
+                } else {
+                    combinedQuery = "SELECT * FROM Alcohol";
+                }
+            } catch (Exception e) {
+                LogManager.println("No matches found!", EnumWarningType.WARNING);
+                return new LinkedList<>();
+            }
+
+            return queryAlcohol(combinedQuery);
+        }
+        else if (andor.equals("and")){
+            try {
+                if (!val1.isEmpty() && val2.isEmpty() && val3.isEmpty() && val4.isEmpty()) {
+                    combinedQuery = query1;
+
+                } else if (!val1.isEmpty() && !val2.isEmpty() && val3.isEmpty() && val4.isEmpty()) {
+                    combinedQuery = query1 + " AND (" + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%')";
+
+                } else if (!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty() && val4.isEmpty()) {
+                    combinedQuery = query1 + " AND (" + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%')"
+                            + " AND (" + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%') ";
+
+                } else if (!val1.isEmpty() && !val2.isEmpty() && !val3.isEmpty() && !val4.isEmpty()) {
+                    combinedQuery = query1 + " AND (" + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%')"
+                            + " AND (" + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%')"
+                            + " AND (" + cat4 + " LIKE '" + val4 + "%' OR " + cat4 + " LIKE '%" + val4 + "' OR " + cat4 + " LIKE '%" + val4 + "%')";
+
+                } else {
+                    combinedQuery = "SELECT * FROM Alcohol";
+                }
+            } catch (Exception e) {
+                LogManager.println("No matches found!", EnumWarningType.WARNING);
+                return new LinkedList<>();
+            }
+
+            return queryAlcohol(combinedQuery);
+        }
+        else {
+
+            return queryAlcohol("SELECT * FROM Alcohol");
+        }
+
     }
+
 
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -616,7 +650,7 @@ public class DatabaseManager {
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
-            //statement.executeUpdate("UPDATE Applications SET ApprovedTTBID = '" + TTBID + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
+            //statement.executeUpdate("UPDATE Applications SET AgentName = '" + Main.getUser().name + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -691,9 +725,9 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void rejectApplication(String ApplicationNo, String reasonForRejection) {
+    public static void rejectApplication(String ApplicationNo, String reasonForRejection, String status) {
         try {
-            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'REJECTED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = '" + status + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET ReasonForRejection = '"+ reasonForRejection + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
@@ -893,13 +927,13 @@ public class DatabaseManager {
 
 
     /////////////////////////////////////////////////////////////////////////////////
-    ///////////GET USER BY USERNAME//////////////////////////////////////////////////
+    ///////////LOG IN////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public User login(String username, String password) throws UserNotFoundException, IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
         ResultSet user;
         try {
             LogManager.print("Searching for an agent called " + username + "... ", EnumWarningType.NOTE);
-//            user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
+            //user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
 
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "'" + endQueryLine);
 
@@ -949,6 +983,7 @@ public class DatabaseManager {
     private void tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
         try {
             if (!PasswordStorage.verifyPassword(password, correctHash)) {
+                LogManager.println("Incorrect password entered for " + username);
                 throw new IncorrectPasswordException(username);
             }
         } catch (PasswordStorage.CannotPerformOperationException e) {

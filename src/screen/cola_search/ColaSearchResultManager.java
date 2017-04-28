@@ -40,14 +40,11 @@ public class ColaSearchResultManager extends Screen {
     }
 
     /* FXML objects */
-    @FXML
-    private TableView<ColaResult> searchResult;
-    @FXML
-    private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
-    @FXML
-    private Button saveToCsv, advanceSearch;
-    @FXML
-    private Pane colaSearchPanel;
+    @FXML private TableView<ColaResult> searchResult;
+    @FXML private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
+    @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
+    @FXML private Pane colaSearchPanel;
+    @FXML private Pagination pageination;
 
     /* Class methods */
     @Override
@@ -68,6 +65,8 @@ public class ColaSearchResultManager extends Screen {
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
+
+        /* Configure the pagination */
     }
 
     /* Setup properties for the columns in tableview */
@@ -111,6 +110,11 @@ public class ColaSearchResultManager extends Screen {
         Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
     }
 
+    /* Initialize the pagination */
+    public void initPage() {
+        this.pageination.setCurrentPageIndex(1);
+    }
+
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
         if (this.isAdvance) {
@@ -118,9 +122,9 @@ public class ColaSearchResultManager extends Screen {
                     this.adStrings[1],
                     this.adStrings[2],
                     this.adStrings[3],
-//                    this.adStrings[4],
-//                    this.adStrings[5],
-//                    this.adStrings[6],
+                    this.adStrings[4],
+                    this.adStrings[5],
+                    this.adStrings[6],
                     this.adStrings[7],
                     this.adStrings[8]);
         }
