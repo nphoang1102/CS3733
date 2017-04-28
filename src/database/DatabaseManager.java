@@ -538,9 +538,7 @@ public class DatabaseManager {
 
         }
         try {
-            statement.executeUpdate("UPDATE Applications\n" +
-                    "SET DateOfSubmission = '" + date + "'\n" +
-                    "WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET DateOfSubmission = '" + date + "' WHERE ApplicationNo = " + application.ApplicationNo + endQueryLine);
         } catch (SQLException e) {
             //ಠ_ಠ
             LogManager.print("Could not set DateOfSubmission '" + date + "' on newly submitted application " + application.ApplicationNo + ": ");
