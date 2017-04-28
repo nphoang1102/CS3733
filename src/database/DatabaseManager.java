@@ -419,10 +419,12 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     private static LinkedList<DataSet> queryAlcohol(String queryStr) {
         LinkedList<DataSet> alcoholLinkedList = new LinkedList<>();
-
+        LogManager.println("Searching for alcohol: " + queryStr, EnumWarningType.NOTE);
         try {
             ResultSet getAlcohol = statement.executeQuery(queryStr);
+            int count = 1;
             while (getAlcohol.next()) {
+                System.out.println("Loading item " + count);
                 Alcohol alcohol = new Alcohol(); //Bottoms up!
                 alcohol.TTBID = getAlcohol.getString("TTBID");
                 alcohol.PermitNo = getAlcohol.getString("PermitNo");
@@ -432,14 +434,16 @@ public class DatabaseManager {
                 alcohol.BrandName = getAlcohol.getString("BrandName");
                 alcohol.Class = getAlcohol.getString("Class");
                 alcohol.Origin = getAlcohol.getString("Origin");
-                alcohol.Type = getAlcohol.getString("Type");
+                alcohol.Type = getAlcohol.getString("AlcoholType");
                 alcohol.AlcoholContent = getAlcohol.getString("AlcoholContent");
                 alcohol.VintageYear = getAlcohol.getString("VintageYear");
                 alcohol.PH = getAlcohol.getString("PH");
                 alcoholLinkedList.add(alcohol);
+                count++;
             }
         } catch (SQLException e) {
-            LogManager.println("No matches!", EnumWarningType.WARNING);//Bummer, dude.
+            LogManager.println("Search failed!" +e.getMessage(), EnumWarningType.WARNING);//Bummer, dude.
+            LogManager.println("SQLState:" +e.getSQLState(), EnumWarningType.WARNING);
             return new LinkedList<>();
         }
         return alcoholLinkedList;
