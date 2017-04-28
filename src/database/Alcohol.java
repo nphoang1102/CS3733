@@ -1,6 +1,7 @@
 package database;
 
 import base.EnumTableType;
+import base.StringUtilities;
 
 /**
  * Created by Daniel Yun on 4/8/2017.
@@ -21,19 +22,19 @@ public class Alcohol extends DataSet{
     public String ApplicationNo;
 
     public void sanitize(){
-        TTBID = DatabaseManager.sanitize(TTBID);
-        PermitNo = DatabaseManager.sanitize(PermitNo);
-        SerialNo = DatabaseManager.sanitize(SerialNo);
-        CompletedDate = DatabaseManager.sanitize(CompletedDate);
-        FancifulName = DatabaseManager.sanitize(FancifulName);
-        BrandName = DatabaseManager.sanitize(BrandName);
-        Origin = DatabaseManager.sanitize(Origin);
-        Class = DatabaseManager.sanitize(Class);
-        Type = DatabaseManager.sanitize(Type);
-        AlcoholContent = DatabaseManager.sanitize(AlcoholContent);
-        VintageYear = DatabaseManager.sanitize(VintageYear);
-        PH = DatabaseManager.sanitize(PH);
-        ApplicationNo = DatabaseManager.sanitize(ApplicationNo);
+        TTBID = StringUtilities.sanitize(TTBID);
+        PermitNo = StringUtilities.sanitize(PermitNo);
+        SerialNo = StringUtilities.sanitize(SerialNo);
+        CompletedDate = StringUtilities.sanitize(CompletedDate);
+        FancifulName = StringUtilities.sanitize(FancifulName);
+        BrandName = StringUtilities.sanitize(BrandName);
+        Origin = StringUtilities.sanitize(Origin);
+        Class = StringUtilities.sanitize(Class);
+        Type = StringUtilities.sanitize(Type);
+        AlcoholContent = StringUtilities.sanitize(AlcoholContent);
+        VintageYear = StringUtilities.sanitize(VintageYear);
+        PH = StringUtilities.sanitize(PH);
+        ApplicationNo = StringUtilities.sanitize(ApplicationNo);
     }
 }
 

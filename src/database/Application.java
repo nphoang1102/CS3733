@@ -1,5 +1,7 @@
 package database;
 
+import base.Main;
+import base.StringUtilities;
 import javafx.scene.control.Label;
 
 import java.lang.reflect.Field;
@@ -55,35 +57,35 @@ public class Application extends DataSet {
     public String getDateOfSubmission() { return this.DateOfSubmission;}
 
     public void sanitize() {
-        ApplicationNo = DatabaseManager.sanitize(ApplicationNo);
-        SerialNo = DatabaseManager.sanitize(SerialNo);
-        ApplicationType = DatabaseManager.sanitize(ApplicationType);
-        ApplicationStatus = DatabaseManager.sanitize(ApplicationStatus);
-        ManufacturerUsername = DatabaseManager.sanitize(ManufacturerUsername);
-        RepName = DatabaseManager.sanitize(RepName);
-        AgentUsername = DatabaseManager.sanitize(AgentUsername);
-        AgentName = DatabaseManager.sanitize(AgentName);
-        RepID = DatabaseManager.sanitize(RepID);
-        PlantRegistry = DatabaseManager.sanitize(PlantRegistry);
-        Locality = DatabaseManager.sanitize(Locality);
-        Brand = DatabaseManager.sanitize(Brand);
-        FancifulName = DatabaseManager.sanitize(FancifulName);
-        AlcoholType = DatabaseManager.sanitize(AlcoholType);
-        ABV = DatabaseManager.sanitize(ABV);
-        Address = DatabaseManager.sanitize(Address);
-        Address2 = DatabaseManager.sanitize(Address2);
-        Formula = DatabaseManager.sanitize(Formula);
-        WineAppelation = DatabaseManager.sanitize(WineAppelation);
-        VintageDate = DatabaseManager.sanitize(VintageDate);
-        Grapes = DatabaseManager.sanitize(Grapes);
-        PH = DatabaseManager.sanitize(PH);
-        PhoneNo = DatabaseManager.sanitize(PhoneNo);
-        Email = DatabaseManager.sanitize(Email);
-        AdditionalInfo = DatabaseManager.sanitize(AdditionalInfo);
-        DateOfSubmission = DatabaseManager.sanitize(DateOfSubmission);
-        DateOfApproval = DatabaseManager.sanitize(DateOfApproval);
-        DateOfExpiration = DatabaseManager.sanitize(DateOfExpiration);
-        ApprovedTTBID = DatabaseManager.sanitize(ApprovedTTBID);
-        ReasonForRejection = DatabaseManager.sanitize(ReasonForRejection);
+        ApplicationNo = StringUtilities.sanitize(ApplicationNo);
+        SerialNo = StringUtilities.sanitize(SerialNo);
+        ApplicationType = StringUtilities.sanitize(ApplicationType);
+        ApplicationStatus = StringUtilities.sanitize(ApplicationStatus);
+        ManufacturerUsername = StringUtilities.sanitize(ManufacturerUsername);
+        RepName = StringUtilities.sanitize(RepName);
+//        AgentUsername = StringUtilities.sanitize(AgentUsername);
+//        AgentName = StringUtilities.sanitize(AgentName);
+        RepID = StringUtilities.sanitize(RepID);
+        PlantRegistry = StringUtilities.sanitize(PlantRegistry);
+        Locality = StringUtilities.sanitize(Locality);
+        Brand = StringUtilities.sanitize(Brand);
+        if(FancifulName != null){FancifulName = StringUtilities.sanitize(FancifulName);}
+        AlcoholType = StringUtilities.sanitize(AlcoholType);
+        ABV = StringUtilities.sanitize(ABV);
+        Address = StringUtilities.sanitize(Address);
+        if(Address2 != null){Address2 = StringUtilities.sanitize(Address2);}
+        Formula = StringUtilities.sanitize(Formula);
+        if(WineAppelation != null){WineAppelation = StringUtilities.sanitize(WineAppelation);}
+        if(VintageDate != null){VintageDate = StringUtilities.sanitize(VintageDate);}
+        if(Grapes != null){Grapes = StringUtilities.sanitize(Grapes);}
+        if(PH != null){PH = StringUtilities.sanitize(PH);}
+        PhoneNo = StringUtilities.sanitize(PhoneNo);
+        Email = StringUtilities.sanitize(Email);
+        if(AdditionalInfo != null){AdditionalInfo = StringUtilities.sanitize(AdditionalInfo);}
+//        DateOfSubmission = StringUtilities.sanitize(DateOfSubmission);
+//        DateOfApproval = StringUtilities.sanitize(DateOfApproval);
+//        DateOfExpiration = StringUtilities.sanitize(DateOfExpiration);
+        ApprovedTTBID = StringUtilities.sanitize(ApprovedTTBID);
+//        ReasonForRejection = StringUtilities.sanitize(ReasonForRejection);
     }
 }
