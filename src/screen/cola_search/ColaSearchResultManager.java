@@ -44,6 +44,7 @@ public class ColaSearchResultManager extends Screen {
     @FXML private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
     @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
     @FXML private Pane colaSearchPanel;
+    @FXML private Pagination pageination;
 
     /* Class methods */
     @Override
@@ -64,6 +65,8 @@ public class ColaSearchResultManager extends Screen {
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
+
+        /* Configure the pagination */
     }
 
     /* Setup properties for the columns in tableview */
@@ -105,6 +108,11 @@ public class ColaSearchResultManager extends Screen {
         data.addField("VintageYear", rowData.getYear());
         data.addField("PH", rowData.getPh());
         Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
+    }
+
+    /* Initialize the pagination */
+    public void initPage() {
+        this.pageination.setCurrentPageIndex(1);
     }
 
     /* Send the search keywords to the database and display reply from database */
@@ -179,30 +187,6 @@ public class ColaSearchResultManager extends Screen {
     public void toAdvanceSearch() {
         LogManager.println("Navigate to advance search screen from cola-search result screen");
         Main.screenManager.setScreen(EnumScreenType.COLA_ADVANCE_SEARCH);
-    }
-
-    /* Go to the previous page of the result */
-    public void goBack() {
-        this.resultTable.clear();
-        this.resultTable.add(new ColaResult("111",
-                "12",
-                "12",
-                "Today",
-                "Beer",
-                "Kim Un Un",
-                "01",
-                "Beer",
-                "Beer",
-                "17",
-                "",
-                ""));
-        this.initializeTable();
-        this.initializeMouseEvent();
-    }
-
-    /* Go to the next page of the result */
-    public void goForward() {
-
     }
 
     /* Initialize the origin mapping for end-user */
