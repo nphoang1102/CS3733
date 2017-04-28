@@ -146,6 +146,7 @@ public class AgentAppScreenManager extends Screen{
         method places the application into the public database with all the information.
      */
     public void rejectApp(MouseEvent mouseEvent) {
+        Application app = (Application) dataGlobal;
         String status = "REJECTED";
         String reason = "";
         if(!rejectReason.getText().isEmpty()){
