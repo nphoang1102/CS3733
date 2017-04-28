@@ -138,7 +138,12 @@ public class AdvanceColaSearchManager extends Screen {
 
     /* Check if the entry is legit or not */
     public boolean isLegit() {
-        if ( (!drop1.getValue().equals("")) && (field1.getText().equals("")) ) return false;
+        this.warning.setText("Some entries are invalid. Please check your entries and try again.");
+        if ( (!drop1.getValue().equals("")) && (field1.getText().equals("")) ) {
+            this.warning.setText("Search field cannot be blank.");
+            return false;
+        }
+        this.warning.setText("Please collapse all unused search fields or fill in everything.");
         switch (this.searchFields) {
             case 2:
                 if ( (drop2.getValue().equals("")) || (field2.getText().equals("")) ) return false;
@@ -153,7 +158,10 @@ public class AdvanceColaSearchManager extends Screen {
                 if ( (drop4.getValue().equals("")) || (field4.getText().equals("")) ) return false;
                 break;
         }
-        if (this.searchType.equals("")) return false;
+        if (this.searchType.equals("")) {
+            this.warning.setText("Please choose a search logic.");
+            return false;
+        }
         if (this.searchType.equals("and")) {
             String[] categories = new String[4];
             categories[0] = this.drop1.getValue()+"";
@@ -161,7 +169,10 @@ public class AdvanceColaSearchManager extends Screen {
             categories[2] = this.drop3.getValue()+"";
             categories[3] = this.drop4.getValue()+"";
             for (int i = 1; i < 4; i++) {
-                if ((categories[i].equals(categories[i-1])) && (!categories[i].equals(""))) return false;
+                if ((categories[i].equals(categories[i-1])) && (!categories[i].equals(""))) {
+                    this.warning.setText("Search categories cannot be the same.");
+                    return false;
+                }
             }
         }
         return true;

@@ -2,6 +2,8 @@ package database;
 
 import javafx.scene.control.Label;
 
+import java.lang.reflect.Field;
+
 /**
  * Created by Evan Goldstein on 4/6/17.
  */
@@ -51,4 +53,37 @@ public class Application extends DataSet {
     public String getAgentUsername(){ return this.AgentUsername;}
     public String getAgentName(){ return  this.AgentName;}
     public String getDateOfSubmission() { return this.DateOfSubmission;}
+
+    public void sanitize() {
+        ApplicationNo = DatabaseManager.sanitize(ApplicationNo);
+        SerialNo = DatabaseManager.sanitize(SerialNo);
+        ApplicationType = DatabaseManager.sanitize(ApplicationType);
+        ApplicationStatus = DatabaseManager.sanitize(ApplicationStatus);
+        ManufacturerUsername = DatabaseManager.sanitize(ManufacturerUsername);
+        RepName = DatabaseManager.sanitize(RepName);
+        AgentUsername = DatabaseManager.sanitize(AgentUsername);
+        AgentName = DatabaseManager.sanitize(AgentName);
+        RepID = DatabaseManager.sanitize(RepID);
+        PlantRegistry = DatabaseManager.sanitize(PlantRegistry);
+        Locality = DatabaseManager.sanitize(Locality);
+        Brand = DatabaseManager.sanitize(Brand);
+        FancifulName = DatabaseManager.sanitize(FancifulName);
+        AlcoholType = DatabaseManager.sanitize(AlcoholType);
+        ABV = DatabaseManager.sanitize(ABV);
+        Address = DatabaseManager.sanitize(Address);
+        Address2 = DatabaseManager.sanitize(Address2);
+        Formula = DatabaseManager.sanitize(Formula);
+        WineAppelation = DatabaseManager.sanitize(WineAppelation);
+        VintageDate = DatabaseManager.sanitize(VintageDate);
+        Grapes = DatabaseManager.sanitize(Grapes);
+        PH = DatabaseManager.sanitize(PH);
+        PhoneNo = DatabaseManager.sanitize(PhoneNo);
+        Email = DatabaseManager.sanitize(Email);
+        AdditionalInfo = DatabaseManager.sanitize(AdditionalInfo);
+        DateOfSubmission = DatabaseManager.sanitize(DateOfSubmission);
+        DateOfApproval = DatabaseManager.sanitize(DateOfApproval);
+        DateOfExpiration = DatabaseManager.sanitize(DateOfExpiration);
+        ApprovedTTBID = DatabaseManager.sanitize(ApprovedTTBID);
+        ReasonForRejection = DatabaseManager.sanitize(ReasonForRejection);
+    }
 }
