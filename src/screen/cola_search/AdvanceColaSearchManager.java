@@ -204,6 +204,7 @@ public class AdvanceColaSearchManager extends Screen {
                     + ", " + this.searchEntries[5] + " under " + this.searchEntries[4]
                     + ", " + this.searchEntries[7] + " under " + this.searchEntries[6]
                     + ", with the search logic of " + this.searchEntries[8]);
+            this.searchType = "";
             Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
         }
         else {
