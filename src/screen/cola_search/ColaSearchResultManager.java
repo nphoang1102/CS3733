@@ -40,14 +40,11 @@ public class ColaSearchResultManager extends Screen {
     }
 
     /* FXML objects */
-    @FXML
-    private TableView<ColaResult> searchResult;
-    @FXML
-    private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
-    @FXML
-    private Button saveToCsv, advanceSearch;
-    @FXML
-    private Pane colaSearchPanel;
+    @FXML private TableView<ColaResult> searchResult;
+    @FXML private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
+    @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
+    @FXML private Pane colaSearchPanel;
+    @FXML private Pagination pageination;
 
     /* Class methods */
     @Override
@@ -68,6 +65,8 @@ public class ColaSearchResultManager extends Screen {
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
+
+        /* Configure the pagination */
     }
 
     /* Setup properties for the columns in tableview */
@@ -109,6 +108,11 @@ public class ColaSearchResultManager extends Screen {
         data.addField("VintageYear", rowData.getYear());
         data.addField("PH", rowData.getPh());
         Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
+    }
+
+    /* Initialize the pagination */
+    public void initPage() {
+        this.pageination.setCurrentPageIndex(1);
     }
 
     /* Send the search keywords to the database and display reply from database */
