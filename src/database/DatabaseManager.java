@@ -306,6 +306,7 @@ public class DatabaseManager {
         if (cat4.equals("BrandName") || cat4.equals("FancifulName") || cat4.equals("AlcoholType")) {
             val4 = val4.toUpperCase();
         }
+
         String query1 = "SELECT * FROM Alcohol WHERE (" + cat1 + " LIKE '" + val1 + "%' OR " + cat1 + " LIKE '%" + val1 + "' OR " + cat1 + " LIKE '%" + val1 + "%')";
         String query2 = "SELECT * FROM Alcohol WHERE (" + cat2 + " LIKE '" + val2 + "%' OR " + cat2 + " LIKE '%" + val2 + "' OR " + cat2 + " LIKE '%" + val2 + "%')";
         String query3 = "SELECT * FROM Alcohol WHERE (" + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%')";
@@ -404,7 +405,7 @@ public class DatabaseManager {
                     alcohol.BrandName.toUpperCase() + "', '" +
                     alcohol.PH + "', '" +
                     StringUtilities.sanitize(alcohol.Origin) + "', '" +
-                    alcohol.Type + "', '" +
+                    alcohol.Type.toUpperCase() + "', '" +
                     alcohol.AlcoholContent + "', '" +
                     alcohol.VintageYear + "', '" +
                     alcohol.PH + "')" + DatabaseManager.endQueryLine);
