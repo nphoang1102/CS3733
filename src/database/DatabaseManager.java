@@ -756,7 +756,7 @@ public class DatabaseManager {
                         "BrandName, " +
                         "Class, " +
                         "Origin, " +
-                        "Type, " +
+                        "AlcoholType, " +
                         "AlcoholContent, " +
                         "VintageYear, " +
                         "PH) VALUES ('" +
