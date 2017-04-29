@@ -7,6 +7,7 @@ package screen;
 
 import base.*;
 import com.mysql.jdbc.StringUtils;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -96,12 +97,20 @@ public class CreateAccountManager extends Screen{
                         //tempUser.setStatus("pending");
                         tempUser.PasswordHash = password.getText();
 
-                        //send a new agent to the edit account screen
+                        //send a new agent to the edit account screen, clear all fields
+                        clearFields();
                         Main.screenManager.popoutScreen(EnumScreenType.AGENT_VERIFY, "Agent Verify", 800, 400,tempUser);
                     } else if (userType.equals(EnumUserType.MANUFACTURER)) {
                         UserManufacturer tempUser = new UserManufacturer(user);
                         //create new manufacturer, no password
-                        DatabaseManager.addUser(tempUser, password.getText(), userType);
+                        try {
+                            DatabaseManager.addUser(tempUser, password.getText(), userType);
+                        }catch(DatabaseManager.DuplicateUserException e){
+                            LogManager.println("caught DuplicateUserException");
+                            clearFields();
+                            accountError.setText(user + ", I'm sorry, but that account is already taken, try to be more original next time");
+                            return;
+                        }
 
                         Main.setUser(tempUser);
 
@@ -116,7 +125,7 @@ public class CreateAccountManager extends Screen{
                 //repopulate the field with their name
                 accountError.setText(user + ", select a box.");
             }
-        }else {//user didn't enter a username
+        }else {//user didn't enter a username or password
             accountError.setText("No username or password");
         }
         /* {

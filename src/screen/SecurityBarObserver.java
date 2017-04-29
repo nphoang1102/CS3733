@@ -47,7 +47,9 @@ public class SecurityBarObserver extends SecurityObserver{
                     "1111111",
                     "dragon",
                     "mustang",
-                    "letmein"
+                    "letmein",
+                    "baseball",
+                    "master"
             ));
 
             //not a bad password

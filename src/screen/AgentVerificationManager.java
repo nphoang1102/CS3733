@@ -2,13 +2,12 @@ package screen;
 
 import base.LogManager;
 import base.Main;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import database.DataSet;
 import database.DatabaseManager;
 import database.UserAgent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 
 /**
@@ -52,7 +51,23 @@ public class AgentVerificationManager extends Screen{
             tempAgent.email = email;
 
             //add them to database
-            DatabaseManager.addUser(tempAgent, tempAgent.PasswordHash, userType);
+            try {
+                DatabaseManager.addUser(tempAgent, tempAgent.PasswordHash, userType);
+            }catch(DatabaseManager.DuplicateUserException e){
+                //verifyError.setVisible(true);
+                verifyError.setText(name + ", I'm sorry, but that account is already taken, try to be more original next time");
+                Main.screenManager.setScreen(EnumScreenType.CREATE_ACCOUNT);
+                Main.screenManager.closeCurrentPopOut();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Duplicate User Error");
+                alert.setHeaderText("Can't have same user twice");
+                alert.setContentText(name + ", I'm sorry, but that account is already taken, try to be more original next time");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStylesheets().add(getClass().getResource("css/Error.css").toExternalForm());
+                dialogPane.getStyleClass().add("myDialog");
+                alert.showAndWait();
+                return;
+            }
 
             //set screen to agent home page if they don't want to be a super agent
             //set screen to super agent page if they do want to be a super agent
