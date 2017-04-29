@@ -4,10 +4,11 @@ import database.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import screen.ScreenManager;
+import sun.rmi.runtime.Log;
 
 import java.io.File;
 
-public class Main extends Application{
+public class Main extends Application {
 
     /*
         This is where all of the overall Entity Controllers go
@@ -46,65 +47,68 @@ public class Main extends Application{
     /*
         This is the initialization call, where all Managers are initialized
      */
-    private void initialize(Stage primaryStage){
+    private void initialize(Stage primaryStage) {
         //get the relative path
         PATH = StringUtilities.getRelativePath(reference);
 
         //Load the config file
-        String[] configData = StringUtilities.loadData(PATH+"/config.txt");
-        if(configData.length>0){
-            for(String line : configData){
-                String name = line.split("=")[0];
-                String data = line.split("=")[1];
-                config.addField(name, data);
-            }
-        }else{
-            LogManager.println("Config file not found, Creating new file.", EnumWarningType.ERROR);
-            StringUtilities.saveData("/config.txt", new String[]{
-                    "DatabaseType=",
-                    "DatabaseServer=",
-                    "DatabaseName=",
-                    "DatabaseUsername=",
-                    "DatabasePassword=",
-                    "FTPIP=",
-                    "FTPUsername=",
-                    "FTPPassword=",
-                    "ResponceEmailAddress=",
-                    "ResponceEmailPassword="
-            });
+        String[] configData = StringUtilities.loadData(PATH + "/config.txt");
+        try {
+            if (configData.length > 0) {
+                for (String line : configData) {
+                    String name = line.split("=")[0];
+                    String data = line.split("=")[1];
+                    config.addField(name, data);
+                }
+            } else {
+                LogManager.println("Config file not found, Creating new file.", EnumWarningType.ERROR);
+                StringUtilities.saveData("/config.txt", new String[]{
+                        "DatabaseType=",
+                        "DatabaseServer=",
+                        "DatabaseName=",
+                        "DatabaseUsername=",
+                        "DatabasePassword=",
+                        "FTPIP=",
+                        "FTPUsername=",
+                        "FTPPassword=",
+                        "ResponceEmailAddress=",
+                        "ResponceEmailPassword="
+                });
 
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            LogManager.println("Config file is empty! Cannot proceed.", EnumWarningType.ERROR);
         }
 
         //Initialize all Managers
         logManager = new LogManager();
         screenManager = new ScreenManager(primaryStage);
         databaseManager = new DatabaseManager();
-        screenManager.initializeTopBar();
+//        screenManager.initializeTopBar();
         //databaseManager.CreateTables();
         //databaseManager.entry();
         /*
             Check to see if local directories for Saves and Log files exist,
             if any directories are not found, create them.
         */
-        File logFolder = new File(PATH+LOG);
-        logManager.print("Looking for log Folder:"+PATH+LOG);
+        File logFolder = new File(PATH + LOG);
+        logManager.print("Looking for log Folder:" + PATH + LOG);
 
-        if(!logFolder.exists()){
+        if (!logFolder.exists()) {
             boolean result = false;
             logManager.println("");
-            logManager.print("Cannot find log folder ... Creating:"+PATH+LOG+" ... ");
-            try{
+            logManager.print("Cannot find log folder ... Creating:" + PATH + LOG + " ... ");
+            try {
                 logFolder.mkdir();
                 result = true;
-            }
-            catch(SecurityException se){
+            } catch (SecurityException se) {
                 logManager.println("Failure...");
-                logManager.println("File Permissions do not allow the directory:"+PATH+LOG+" to be created.");
+                logManager.println("File Permissions do not allow the directory:" + PATH + LOG + " to be created.");
             }
-            if(result) {
+            if (result) {
                 logManager.println("Success...");
             }
-        }else{
+        } else {
             logManager.println(" ... Found");
         }
     }
@@ -125,33 +129,33 @@ public class Main extends Application{
         main.launch(args);
     }
 
-    public static String getUsername(){
-        if(user != null){
+    public static String getUsername() {
+        if (user != null) {
             return user.getUsername();
         }
         return "";
     }
 
-    public static String getUserType(){
-        if(user != null){
+    public static String getUserType() {
+        if (user != null) {
             return user.getType().getTextualName();
         }
         return "";
     }
 
-    public static void logOutUser(){
+    public static void logOutUser() {
         user = null;
     }
 
-    public static User getUser(){
+    public static User getUser() {
         return user;
     }
 
-    public static void setUser (User u){
+    public static void setUser(User u) {
         user = u;
     }
 
-    public static Object getConfigData(String key){
+    public static Object getConfigData(String key) {
         return config.getValueForKey(key);
     }
 

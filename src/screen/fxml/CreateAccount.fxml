@@ -72,7 +72,7 @@
             <Font name="Telugu Sangam MN" size="18.0" />
          </font></CheckBox>
         <!-- delete the previous to remove comment <CheckBox fx:id="tickPublicUser" layoutX="641.0" layoutY="270.0" mnemonicParsing="false" onMouseClicked="#selectPublicUser" text="I am a public user" /> delete the following to remove comment-->
-      <Text fx:id="accountError" fill="#34a88b" layoutX="350.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="jjdjdjd" textAlignment="CENTER" wrappingWidth="580.6231689453125">
+      <Text fx:id="accountError" fill="#34a88b" layoutX="52.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="jjdjdjd" textAlignment="CENTER" wrappingWidth="1157.6231689453125">
          <font>
             <Font name="Telugu Sangam MN" size="24.0" />
          </font></Text>
