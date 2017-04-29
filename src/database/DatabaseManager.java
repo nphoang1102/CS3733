@@ -641,7 +641,7 @@ public class DatabaseManager {
 
     public void clearInbox(String username) {
         try {
-            statement.executeUpdate("UPDATE Applications SET" +
+            statement.executeUpdate("UPDATE Applications SET " +
                     "AgentUsername = '' " +
                     "WHERE AgentUsername = '" + username + "'" + endQueryLine);
         } catch (SQLException e) {
@@ -822,8 +822,11 @@ public class DatabaseManager {
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername) {
+        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username","AgentUsername");
+        UserAgent tempMan = (UserAgent) tempMans.getFirst();
         try {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + AgentUsername + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET AgentName = '" + tempMan.name + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
         } catch (SQLException e) {
             LogManager.println("agent does not exist", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
             e.printStackTrace();
@@ -884,6 +887,8 @@ public class DatabaseManager {
                     try {
                         //sets the applications agent as the agents username who was there
                         statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Applications SET AgentName = '" + Main.getUser().name + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+
                         //sets the manufacturers agent and day to the agent username and date passed in
                         statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
                         statement.executeUpdate("UPDATE Manufacturers SET AgentDate = '" + curDate + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
