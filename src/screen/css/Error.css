@@ -1,0 +1,21 @@
+.myDialog{
+    -fx-background-color: #dbdbdb;
+}
+.myDialog > *.button-bar > *.container{
+    -fx-background-color: #dbdbdb;
+}
+.myDialog > *.label.content{
+    -fx-font: 14px Telugu;
+    -fx-font-weight: bold;
+}
+.myDialog:header *.header-panel{
+    -fx-font: 14px Telugu;
+    -fx-background-color: #dbdbdb;
+}
+.myDialog:header *.header-panel *.label{
+    -fx-font-size: 18px;
+}
+.myDialog .button{
+    -fx-background-color: #939393;
+    -fx-text-fill: #ffffff;
+}

@@ -9,13 +9,13 @@ import java.util.HashMap;
  * Created by Evan Goldstein on 4/1/17.
  */
 public abstract class DataSet{
-    private HashMap<String, String> dataSet = new HashMap<String, String>();
+    private HashMap<String, Object> dataSet = new HashMap<String, Object>();
 
     public DataSet(){
 
     }
 
-    public void addField(String key, String obj){
+    public void addField(String key, Object obj){
         dataSet.put(key,  obj);
     }
 
@@ -23,7 +23,7 @@ public abstract class DataSet{
         return dataSet.containsKey(key);
     }
 
-    public String getValueForKey(String key){
+    public Object getValueForKey(String key){
         return dataSet.get(key);
     }
     

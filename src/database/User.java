@@ -30,6 +30,7 @@ public abstract class User extends DataSet {
     public String getEmail() {
         return this.email;
     }
+    public String getName() {return this.name;}
 
     public void setType(EnumUserType type){
         userType = type;

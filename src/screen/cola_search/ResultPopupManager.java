@@ -37,7 +37,7 @@ public class ResultPopupManager extends Screen {
         dis_serial.setText("Serial No: " + result.getValueForKey("SerialNo"));
         dis_date.setText("Permit completed date: " +result.getValueForKey("CompletedDate"));
         dis_fanName.setText("Fanciful name: " +result.getValueForKey("FancifulName"));
-        dis_brandName.setText(result.getValueForKey("BrandName"));
+        dis_brandName.setText(result.getValueForKey("BrandName") + "");
         dis_brandName.layoutXProperty().bind(window.widthProperty().subtract(dis_brandName.widthProperty()).divide(2));
         dis_origin.setText("Origin: " +result.getValueForKey("Origin"));
         dis_class.setText("Class: " +result.getValueForKey("Class"));
@@ -45,11 +45,11 @@ public class ResultPopupManager extends Screen {
         dis_alCon.setText("Alcohol content: "+ result.getValueForKey("AlcoholContent"));
         dis_year.setText("Vintage year: " + result.getValueForKey("VintageYear"));
         dis_ph.setText("pH level: " + result.getValueForKey("PH"));
-        ProxyImage userImage = new ProxyImage("alcohol/"+(dis_ID.getText().replaceAll("TTB ID: ", ""))+".jpg");
+        ProxyImage userImage = new ProxyImage("alcohol/"+(dis_ID.getText().replaceAll("TTB ID: ", ""))+".png");
         if(userImage!=null) {
             userImage.displayImage(image);
         }else{
-            LogManager.println("Label not found: alcohol/"+(dis_ID.getText().replaceAll("TTB ID: ", ""))+".jpg", EnumWarningType.WARNING);
+            LogManager.println("Label not found: alcohol/"+(dis_ID.getText().replaceAll("TTB ID: ", ""))+".png", EnumWarningType.WARNING);
         }
     }
 }
