@@ -5,6 +5,7 @@ import base.Main;
 import database.*;
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
+import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
@@ -91,9 +92,6 @@ public class LoginScreenManager extends Screen {
                     UserAgent tempAgent =(UserAgent)curUser;
 
 
-                   /* if(userName.equals("victor123")){
-                        u.setSuperAgent("true");
-                    }*/
                     if(tempAgent.getSuperAgent().equals("true")){
                         tempAgent.setUserType(EnumUserType.SUPER_AGENT);
                         Main.setUser(tempAgent);
@@ -163,9 +161,4 @@ public class LoginScreenManager extends Screen {
         }
     }
 
-    public void centerError(){
-        double center;
-        center = (background.getWidth()-error.getWrappingWidth())/2;
-        error.setTextAlignment(TextAlignment.CENTER);
-    }
 }
