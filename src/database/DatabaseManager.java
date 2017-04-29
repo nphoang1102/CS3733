@@ -258,11 +258,11 @@ public class DatabaseManager {
                     case "All":
                         return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%'" + endQueryLine);
                     case "Beer":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Malt Beverage' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     case "Wine":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     default:
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
