@@ -71,7 +71,7 @@ public class LoginScreenManager extends Screen {
                 } catch (DatabaseManager.IncorrectPasswordException e) {
                     error.visibleProperty().setValue(true);
                     error.setText("Incorrect password");
-                    e.printStackTrace();
+                    //e.printStackTrace();
                     return;
                 } catch (PasswordStorage.InvalidHashException e) {
                     e.printStackTrace();
