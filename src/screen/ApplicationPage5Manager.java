@@ -99,9 +99,10 @@ public class ApplicationPage5Manager extends Screen{
             app.ApplicationStatus = "PENDING";
             app.DateOfSubmission = StringUtilities.getDate();
             LogManager.println(app.DateOfSubmission);
-            app.DateOfExpiration = StringUtilities.getExpirationDate();
             app.ManufacturerUsername = Main.getUsername();
             app.AgentUsername = "";
+            app.ApprovedTTBID = DatabaseManager.generateTTBID();
+            app.ApplicationNo = app.ApprovedTTBID;
 
             submit_button1.setDisable(true);
 
