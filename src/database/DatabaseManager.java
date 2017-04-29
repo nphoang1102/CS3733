@@ -703,7 +703,6 @@ public class DatabaseManager {
     }
     public static void approveNewApplication(String ApplicationNum) {
         //String TTBID = generateTTBID();
-
         approveApplication(ApplicationNum, TTBID);
     }*/
 
