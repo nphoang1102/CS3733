@@ -711,69 +711,70 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNum);
-        assert approvedApplicationLinkedList != null; //THERE. ARE. FOUR! LIGHTS!
-        Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
-        String ApplicationNo = approvedApplication.ApplicationNo;
-        String SerialNo = approvedApplication.SerialNo;
-        String ApplicationType = approvedApplication.ApplicationType;
-        String ApplicationStatus = approvedApplication.ApplicationStatus;
-        String ManufacturerUsername = approvedApplication.ManufacturerUsername;
-        String RepName = approvedApplication.RepName;
-        String AgentUsername = approvedApplication.AgentUsername;
-        String AgentName = approvedApplication.AgentName;
-        String RepID = approvedApplication.RepID;
-        String PlantRegistry = approvedApplication.PlantRegistry;
-        String Locality = approvedApplication.Locality;
-        String Brand = approvedApplication.Brand;
-        String FancifulName = approvedApplication.FancifulName; //Fancy feast is delicious.
-        String AlcoholType = approvedApplication.AlcoholType; // WHAT ARE THEY SELLING??
-        String ABV = approvedApplication.ABV;
-        String Address = approvedApplication.Address;//Is this the real life?
-        String Address2 = approvedApplication.Address2;//Is this just fantasy?
-        String Formula = approvedApplication.Formula;
-        String WineAppelation = approvedApplication.WineAppelation;//Caught in a landslide
-        String VintageDate = approvedApplication.VintageDate;//NO ESCAPE FROM REALITY...
-        String Grapes = approvedApplication.Grapes;
-        String PH = approvedApplication.PH; //THEY'RE SELLING CHOCOLATE!!!
-        String PhoneNo = approvedApplication.PhoneNo;
-        String Email = approvedApplication.Email;
-        String AdditionalInfo = approvedApplication.AdditionalInfo;
-        String DateOfSubmission = approvedApplication.DateOfSubmission;
-        String CompletedDate = StringUtilities.getDate();
-        String DateOfExpiration = approvedApplication.DateOfExpiration;
-        String TTBID = approvedApplication.ApprovedTTBID;
-        String ReasonForRejection = approvedApplication.ReasonForRejection;
-        String Class = "";
+        if( approvedApplicationLinkedList != null && !approvedApplicationLinkedList.isEmpty()) { //THERE. ARE. FOUR! LIGHTS!
+            Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
+            String ApplicationNo = approvedApplication.ApplicationNo;
+            String SerialNo = approvedApplication.SerialNo;
+            String ApplicationType = approvedApplication.ApplicationType;
+            String ApplicationStatus = approvedApplication.ApplicationStatus;
+            String ManufacturerUsername = approvedApplication.ManufacturerUsername;
+            String RepName = approvedApplication.RepName;
+            String AgentUsername = approvedApplication.AgentUsername;
+            String AgentName = approvedApplication.AgentName;
+            String RepID = approvedApplication.RepID;
+            String PlantRegistry = approvedApplication.PlantRegistry;
+            String Locality = approvedApplication.Locality;
+            String Brand = approvedApplication.Brand;
+            String FancifulName = approvedApplication.FancifulName; //Fancy feast is delicious.
+            String AlcoholType = approvedApplication.AlcoholType; // WHAT ARE THEY SELLING??
+            String ABV = approvedApplication.ABV;
+            String Address = approvedApplication.Address;//Is this the real life?
+            String Address2 = approvedApplication.Address2;//Is this just fantasy?
+            String Formula = approvedApplication.Formula;
+            String WineAppelation = approvedApplication.WineAppelation;//Caught in a landslide
+            String VintageDate = approvedApplication.VintageDate;//NO ESCAPE FROM REALITY...
+            String Grapes = approvedApplication.Grapes;
+            String PH = approvedApplication.PH; //THEY'RE SELLING CHOCOLATE!!!
+            String PhoneNo = approvedApplication.PhoneNo;
+            String Email = approvedApplication.Email;
+            String AdditionalInfo = approvedApplication.AdditionalInfo;
+            String DateOfSubmission = approvedApplication.DateOfSubmission;
+            String CompletedDate = StringUtilities.getDate();
+            String DateOfExpiration = approvedApplication.DateOfExpiration;
+            String TTBID = approvedApplication.ApprovedTTBID;
+            String ReasonForRejection = approvedApplication.ReasonForRejection;
+            String Class = "";
 
-        try {
-            LogManager.println("INSERTING THINGS NOW!!!");
-            statement.executeUpdate("INSERT INTO Alcohol (" +
-                    "TTBID, " +
-                    "PermitNo, " +
-                    "SerialNo, " +
-                    "CompletedDate, " +
-                    "FancifulName, " +
-                    "BrandName, " +
-                    "Class, " +
-                    "Origin, " +
-                    "Type, " +
-                    "AlcoholContent, " +
-                    "VintageYear, " +
-                    "PH) VALUES ('" +
-                    TTBID + "', '" +
-                    PlantRegistry + "', '" +
-                    SerialNo + "', '" +
-                    CompletedDate + "', '" +
-                    FancifulName.toUpperCase() + "', '" +
-                    Brand.toUpperCase() + "', '" +
-                    PH + "', '" +
-                    Locality + "', '" +
-                    AlcoholType + "', '" +
-                    ABV + "', '" +
-                    VintageDate + "', '" +
-                    PH + "')" + endQueryLine);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                LogManager.println("INSERTING THINGS NOW!!!");
+                statement.executeUpdate("INSERT INTO Alcohol (" +
+                        "TTBID, " +
+                        "PermitNo, " +
+                        "SerialNo, " +
+                        "CompletedDate, " +
+                        "FancifulName, " +
+                        "BrandName, " +
+                        "Class, " +
+                        "Origin, " +
+                        "Type, " +
+                        "AlcoholContent, " +
+                        "VintageYear, " +
+                        "PH) VALUES ('" +
+                        TTBID + "', '" +
+                        PlantRegistry + "', '" +
+                        SerialNo + "', '" +
+                        CompletedDate + "', '" +
+                        FancifulName.toUpperCase() + "', '" +
+                        Brand.toUpperCase() + "', '" +
+                        PH + "', '" +
+                        Locality + "', '" +
+                        AlcoholType + "', '" +
+                        ABV + "', '" +
+                        VintageDate + "', '" +
+                        PH + "')" + endQueryLine);
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 
