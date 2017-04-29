@@ -70,12 +70,10 @@ public class LoginScreenManager extends Screen {
 //                    e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
-
-                    LogManager.println(curUser.PasswordHash + "<-- password hash");
-                    LogManager.println(curPass + "<-- password.getText");
-
+//                    LogManager.println(curUser.PasswordHash + "<-- password hash");
+//                    LogManager.println(curPass + "<-- password.getText");
                     error.visibleProperty().setValue(true);
-                    error.setText("Incorrect username or password");
+                    error.setText("Incorrect username or password.");
 //                    e.printStackTrace();
                     return;
                 } catch (PasswordStorage.InvalidHashException e) {

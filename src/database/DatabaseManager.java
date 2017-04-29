@@ -1033,12 +1033,12 @@ public class DatabaseManager {
                     }
                     System.out.println(passwordHash);
 //                    String passwordHash = "";
-                    System.out.println("checking password");
+//                    System.out.println("checking password");
                     if (PasswordStorage.verifyPassword(password, passwordHash)) {
-                        System.out.println("Password good");
+//                        System.out.println("Password good");
                         return manufacturer;
                     } else {
-                        System.out.println("Password bad");
+//                        System.out.println("Password bad");
                         throw new IncorrectPasswordException(username);
                     }
                 } else {
