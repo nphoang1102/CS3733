@@ -2,6 +2,7 @@ package database;
 
 import base.*;
 import com.mysql.jdbc.ResultSetImpl;
+import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import screen.EnumUserType;
 import sun.awt.image.ImageWatched;
 import sun.rmi.runtime.Log;
@@ -44,6 +45,10 @@ public class DatabaseManager {
         IncorrectPasswordException(String username) {
             super("Incorrect password for user " + username + "!"); //<HAL>I'm sorry Dave, but I'm afraid I can't do that.</HAL>
         }
+    }
+
+    public static class DuplicateUserException extends Exception{
+        DuplicateUserException() {super("User already exists");}
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -949,7 +954,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD USERS/////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void addUser(User user, String password, EnumUserType userType) {
+    public static void addUser(User user, String password, EnumUserType userType) throws DuplicateUserException{
 //        String table = "Agents";
 //        boolean Super = false;
         try {
@@ -966,16 +971,21 @@ public class DatabaseManager {
                             "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "', '" + status + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
+                }catch (MySQLIntegrityConstraintViolationException e){
+                    throw new DuplicateUserException();
                 }
             }
             if (userType.equals(EnumUserType.MANUFACTURER)) {
                 UserManufacturer manufacturer = (UserManufacturer) user;
+
                 try {
                     statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, PasswordHash, Company, FullName, RepID, Email, PlantRegistry, PhoneNo, Address2, Agent, AgentDate) VALUES " +
                             "('" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '', '', '', '', '', '', '', '', '')");
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
+                } catch (MySQLIntegrityConstraintViolationException e){
+                    throw new DuplicateUserException();
                 }
             }
 
