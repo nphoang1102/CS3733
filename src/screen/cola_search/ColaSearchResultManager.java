@@ -40,14 +40,11 @@ public class ColaSearchResultManager extends Screen {
     }
 
     /* FXML objects */
-    @FXML
-    private TableView<ColaResult> searchResult;
-    @FXML
-    private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
-    @FXML
-    private Button saveToCsv, advanceSearch;
-    @FXML
-    private Pane colaSearchPanel;
+    @FXML private TableView<ColaResult> searchResult;
+    @FXML private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
+    @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
+    @FXML private Pane colaSearchPanel;
+    @FXML private Pagination pageination;
 
     /* Class methods */
     @Override
@@ -68,6 +65,8 @@ public class ColaSearchResultManager extends Screen {
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
+
+        /* Configure the pagination */
     }
 
     /* Setup properties for the columns in tableview */
@@ -109,6 +108,11 @@ public class ColaSearchResultManager extends Screen {
         data.addField("VintageYear", rowData.getYear());
         data.addField("PH", rowData.getPh());
         Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
+    }
+
+    /* Initialize the pagination */
+    public void initPage() {
+        this.pageination.setCurrentPageIndex(1);
     }
 
     /* Send the search keywords to the database and display reply from database */
@@ -187,16 +191,16 @@ public class ColaSearchResultManager extends Screen {
 
     /* Initialize the origin mapping for end-user */
     private void setMapOrigin() {
-        this.mapOrigin.addField("00", "American");
-        this.mapOrigin.addField("01", "California");
-        this.mapOrigin.addField("02", "New York");
-        this.mapOrigin.addField("03", "New Jersey");
-        this.mapOrigin.addField("04", "Illinois");
-        this.mapOrigin.addField("05", "Virginia");
-        this.mapOrigin.addField("06", "Michigan");
-        this.mapOrigin.addField("07", "Washington");
-        this.mapOrigin.addField("08", "Georgia");
-        this.mapOrigin.addField("09", "Ohio");
+        this.mapOrigin.addField("0", "American");
+        this.mapOrigin.addField("1", "California");
+        this.mapOrigin.addField("2", "New York");
+        this.mapOrigin.addField("3", "New Jersey");
+        this.mapOrigin.addField("4", "Illinois");
+        this.mapOrigin.addField("5", "Virginia");
+        this.mapOrigin.addField("6", "Michigan");
+        this.mapOrigin.addField("7", "Washington");
+        this.mapOrigin.addField("8", "Georgia");
+        this.mapOrigin.addField("9", "Ohio");
         this.mapOrigin.addField("10", "Alabama");
         this.mapOrigin.addField("11", "Arizona");
         this.mapOrigin.addField("12", "Arkansas");
