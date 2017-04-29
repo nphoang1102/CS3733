@@ -778,6 +778,7 @@ public class DatabaseManager {
     }
 
     //HACK
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////REJECT APPLICATION////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -801,6 +802,21 @@ public class DatabaseManager {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + AgentUsername + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
         } catch (SQLException e) {
             LogManager.println("agent does not exist", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
+            e.printStackTrace();
+        }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////SURRENDER APPLICATION////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void surrenderApplication(String ApplicationNo, String reasonForRejection) {
+        try {
+            statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'SURRENDERED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+//            statement.executeUpdate("UPDATE Applications SET ReasonForRejection = '" + reasonForRejection + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
+        } catch (SQLException e) {
+            LogManager.println("Failed to surrender application. ", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
             e.printStackTrace();
         }
     }
