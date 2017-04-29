@@ -994,9 +994,13 @@ public class DatabaseManager {
 
                 LogManager.println("Found!");
 
-                tryPassword(username, password, user.getString("PasswordHash"));
-
-                return agent;
+//                tryPassword(username, password, user.getString("PasswordHash"));
+                if(PasswordStorage.verifyPassword(password, user.getString("PasswordHash"))){
+                    return agent;
+                }
+                else {
+                    throw new IncorrectPasswordException(username);
+                }
             } else {
                 LogManager.println("not found.");
                 LogManager.println("Searching for a manufacturer called " + username + "... ", EnumWarningType.NOTE);
@@ -1011,12 +1015,17 @@ public class DatabaseManager {
                     LogManager.println("Found!");
 
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
-                    try {
-                        tryPassword(username, password, user.getString("PasswordHash"));
+                    /*try {
+//                        tryPassword(username, password, user.getString("PasswordHash"));
                     } catch (Exception e) {
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+                    }*/
+                    if(PasswordStorage.verifyPassword(password, user.getString("PasswordHash"))){
+                        return manufacturer;
                     }
-                    return manufacturer;
+                    else {
+                        throw new IncorrectPasswordException(username);
+                    }
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
                     throw new UserNotFoundException(username);
@@ -1030,20 +1039,25 @@ public class DatabaseManager {
         return null;
     }
 
-    private void tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
-        try {
-            if (!PasswordStorage.verifyPassword(password, correctHash)) {
+    private boolean tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+        //try {
+            if (PasswordStorage.verifyPassword(password, correctHash)) {
                 LogManager.println("Incorrect password entered for " + username);
-                throw new IncorrectPasswordException(username);
+                return true;
             }
-        } catch (PasswordStorage.CannotPerformOperationException e) {
-            LogManager.println("Invalid stored password hash for user " + username + ".", EnumWarningType.ERROR);
-            throw new PasswordStorage.CannotPerformOperationException("Invalid stored password hash for user " + username + ".");
-        } catch (PasswordStorage.InvalidHashException e) {
-            //LogManager.printStackTrace(e.getStackTrace());
-            LogManager.println("Password hash validation failed for " + username + ".", EnumWarningType.ERROR);
-            throw new PasswordStorage.InvalidHashException("Password hash validation failed for user " + username + ".");
-        }
+
+            else {
+                return false;
+            }
+//        } catch (PasswordStorage.CannotPerformOperationException e) {
+//            LogManager.println("Password operation failed for " + username + ".", EnumWarningType.ERROR);
+//            throw new PasswordStorage.CannotPerformOperationException("Password operation failed for user " + username + ".");
+//        } catch (PasswordStorage.InvalidHashException e) {
+//            //LogManager.printStackTrace(e.getStackTrace());
+//            LogManager.println("Invalid stored has for " + username + ".", EnumWarningType.ERROR);
+//            throw new PasswordStorage.InvalidHashException("Invalid stored hash for " + username + ".");
+//        }
+
     }
 
     /////////////////////////////////////////////////////////////////////////////////
