@@ -57,12 +57,14 @@ public class AdvanceColaSearchManager extends Screen {
         this.setMapOrigin();
         this.warning.setVisible(false);
         this.checkOr.setSelected(false);
+        this.checkOr.setVisible(false);
         this.checkAnd.setSelected(false);
+        this.checkAnd.setVisible(false);
     }
 
     /* Initialize the choice boxes */
     public void searchByInitialize() {
-        ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+        ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "AlcoholType", "AlcoholContent", "VintageYear", "PH");
         drop1.setItems(searchByList);
         drop2.setItems(searchByList);
         drop3.setItems(searchByList);
@@ -90,7 +92,7 @@ public class AdvanceColaSearchManager extends Screen {
         this.plus2.setVisible(visibility);
         this.ex1.setVisible(visibility);
         if (visibility) {
-            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "AlcoholType", "AlcoholContent", "VintageYear", "PH");
             this.drop2.setItems(searchByList);
             this.drop2.setValue("");
             this.field2.clear();
@@ -105,7 +107,7 @@ public class AdvanceColaSearchManager extends Screen {
         this.plus3.setVisible(visibility);
         this.ex2.setVisible(visibility);
         if (visibility) {
-            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "AlcoholType", "AlcoholContent", "VintageYear", "PH");
             this.drop3.setItems(searchByList);
             this.drop3.setValue("");
             this.field3.clear();
@@ -121,7 +123,7 @@ public class AdvanceColaSearchManager extends Screen {
         this.drop4.setVisible(visibility);
         this.ex3.setVisible(visibility);
         if (visibility) {
-            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "Type", "AlcoholContent", "VintageYear", "PH");
+            ObservableList<String> searchByList = FXCollections.observableArrayList("TTBID", "PermitNo", "SerialNo", "CompletedDate", "FancifulName", "BrandName", "Origin", "Class", "AlcoholType", "AlcoholContent", "VintageYear", "PH");
             this.drop4.setItems(searchByList);
             this.drop4.setValue("");
             this.field4.clear();
@@ -160,7 +162,7 @@ public class AdvanceColaSearchManager extends Screen {
                 if ( (drop4.getValue().equals("")) || (field4.getText().equals("")) ) return false;
                 break;
         }
-        if (this.searchType.equals("")) {
+        if ( (this.searchType.equals("")) && (this.searchFields > 1) ) {
             this.warning.setText("Please choose a search logic.");
             return false;
         }
@@ -196,6 +198,7 @@ public class AdvanceColaSearchManager extends Screen {
             if (this.searchEntries[6].equals("Origin")) this.searchEntries[7] = this.mapOrigin.getValueForKey(this.field4.getText().toLowerCase()) + "";
             else this.searchEntries[7] = this.field4.getText();
             this.searchEntries[8] = this.searchType + "";
+            if (this.searchFields == 1) this.searchEntries[8] = "and";
             DataSet searchFields = new BasicDataSet();
             searchFields.addField("advance", this.searchEntries);
             searchFields.addField("isAdvance", "true");
@@ -205,6 +208,7 @@ public class AdvanceColaSearchManager extends Screen {
                     + ", " + this.searchEntries[7] + " under " + this.searchEntries[6]
                     + ", with the search logic of " + this.searchEntries[8]);
             this.searchType = "";
+            this.searchFields = 1;
             Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
         }
         else {
@@ -238,6 +242,8 @@ public class AdvanceColaSearchManager extends Screen {
     /* Add additional fields starts here */
     public void add1() {
         this.setAddField1(true);
+        this.checkAnd.setVisible(true);
+        this.checkOr.setVisible(true);
         this.searchFields = 2;
     }
 
@@ -256,6 +262,8 @@ public class AdvanceColaSearchManager extends Screen {
     public void rem1() {
         this.setAddField1(false);
         this.plus1.setVisible(true);
+        this.checkAnd.setVisible(false);
+        this.checkOr.setVisible(false);
         this.searchFields = 1;
     }
 
