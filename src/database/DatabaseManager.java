@@ -641,7 +641,7 @@ public class DatabaseManager {
 
     public void clearInbox(String username) {
         try {
-            statement.executeUpdate("UPDATE Applications SET" +
+            statement.executeUpdate("UPDATE Applications SET " +
                     "AgentUsername = '' " +
                     "WHERE AgentUsername = '" + username + "'" + endQueryLine);
         } catch (SQLException e) {
@@ -683,7 +683,7 @@ public class DatabaseManager {
             LogManager.print("Updating information for agent" + agent.username + "... ", EnumWarningType.NOTE);
             statement.executeUpdate("UPDATE Agents SET " +
                     "FullName = '" + agent.name + "', " +
-                    "Email = '" + agent.email + "', " +
+                    "Email = '" + agent.email + "' " +
                     "WHERE Username = '" + agent.username + "'" + endQueryLine);
             LogManager.println("Success!");
         } catch (SQLException e) {
@@ -691,7 +691,7 @@ public class DatabaseManager {
             LogManager.println(e.getMessage());
         }
     }
-    
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EDIT APPLICATIONS/////////////////////////////////////////////////////
