@@ -1,11 +1,11 @@
 package screen;
 
+import base.EnumWarningType;
 import base.LogManager;
 import base.Main;
 import database.*;
 import javafx.fxml.FXML;
 import javafx.geometry.VPos;
-import javafx.scene.Cursor;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.shape.Polygon;
@@ -67,7 +67,7 @@ public class LoginScreenManager extends Screen {
                 } catch (DatabaseManager.UserNotFoundException e) {
                     error.visibleProperty().setValue(true);
                     error.setText("Username does not exist");
-                    e.printStackTrace();
+//                    e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
                     error.visibleProperty().setValue(true);
@@ -75,24 +75,38 @@ public class LoginScreenManager extends Screen {
                     //e.printStackTrace();
                     return;
                 } catch (PasswordStorage.InvalidHashException e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
+                    LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                 } catch (PasswordStorage.CannotPerformOperationException e) {
+//                    e.printStackTrace();
+                    LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+                } catch (Exception e) {
+                    LogManager.println("Something has gone wrong with the login: " + e.getMessage());
                     e.printStackTrace();
                 }
                 //set user as current user in main
+                if (curUser == null) {
+                    error.visibleProperty().setValue(true);
+                    error.setText("Login failed. Pleas try again.");
+                    return;
+                }
+
                 Enum userType = curUser.getType();
                 if (userType.equals(EnumUserType.PUBLIC_USER)) {
                     Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
-                }else if (userType.equals(EnumUserType.MANUFACTURER)) {
+                } else if (userType.equals(EnumUserType.MANUFACTURER)) {
                     UserManufacturer tempManufacturer = (UserManufacturer) curUser;
                     Main.setUser(tempManufacturer);
                     Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-                }else if (userType.equals(EnumUserType.AGENT)) {
+                } else if (userType.equals(EnumUserType.AGENT)) {
                     //check if they're a super agent
-                    UserAgent tempAgent =(UserAgent)curUser;
+                    UserAgent tempAgent = (UserAgent) curUser;
 
 
-                    if(tempAgent.getSuperAgent().equals("true")){
+                   /* if(userName.equals("victor123")){
+                        u.setSuperAgent("true");
+                    }*/
+                    if (tempAgent.getSuperAgent().equals("true")) {
                         tempAgent.setUserType(EnumUserType.SUPER_AGENT);
                         Main.setUser(tempAgent);
                         Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
@@ -101,13 +115,13 @@ public class LoginScreenManager extends Screen {
                     //if not go to agent screen
                     Main.setUser(tempAgent);
                     Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
-                }else if(userType.equals(EnumUserType.SUPER_AGENT)){
-                    UserAgent tempAgent =(UserAgent)curUser;
+                } else if (userType.equals(EnumUserType.SUPER_AGENT)) {
+                    UserAgent tempAgent = (UserAgent) curUser;
                     Main.setUser(tempAgent);
                     Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
                 }
             }
-        }else{
+        } else {
             //print there is already a user signed in
             error.visibleProperty().setValue(true);
             //error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE'S ALREADY SOMEONE SIGNED IN, LOGOUT FIRST");
@@ -116,7 +130,7 @@ public class LoginScreenManager extends Screen {
     }
 
     @FXML
-    void aboutUsClicked(){
+    void aboutUsClicked() {
         Main.screenManager.setScreen(EnumScreenType.STATUS_SCREEN);
     }
 
@@ -126,11 +140,13 @@ public class LoginScreenManager extends Screen {
         this.loginClicked();
         return;
     }
+
     @FXML
-    void enterPassword(){
+    void enterPassword() {
         this.loginClicked();
         return;
     }
+
     @FXML
     void userSignUp() {
         //tell the screen manager to go to the create account screen
@@ -150,15 +166,20 @@ public class LoginScreenManager extends Screen {
         password.clear();
         error.visibleProperty().setValue(false);
         //check if user has a type
-        if(Main.getUserType().equals(null)){
+        if (Main.getUserType().equals(null)) {
             return;
-        }else if(Main.getUserType().equalsIgnoreCase("MANUFACTURER")){
+        } else if (Main.getUserType().equalsIgnoreCase("MANUFACTURER")) {
             Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
             return;
-        }else if(Main.getUserType().equalsIgnoreCase("AGENT")){
+        } else if (Main.getUserType().equalsIgnoreCase("AGENT")) {
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
             return;
         }
     }
 
+    public void centerError() {
+        double center;
+        center = (background.getWidth() - error.getWrappingWidth()) / 2;
+        error.setTextAlignment(TextAlignment.CENTER);
+    }
 }
