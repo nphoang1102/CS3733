@@ -262,9 +262,9 @@ public class DatabaseManager {
                     case "All":
                         return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%'" + endQueryLine);
                     case "Beer":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Malt Beverage' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'MALT BEVERAGE' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'MALT BEVERAGE' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'MALT BEVERAGE' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     case "Wine":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'WINE' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'WINE' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'WINE' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     default:
                         return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType <> 'MALT BEVERAGE') AND (AlcoholType <> 'WINE' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType <> 'MALT BEVERAGE' AND AlcoholType <> 'WINE' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType <> 'MALT BEVERAGE' AND AlcoholType <> 'WINE' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                 }
@@ -618,7 +618,6 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status) { //We're competing with facebook.
 
-
         if (status.equals("REMOVE")) {
             try {
                 statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
@@ -675,6 +674,25 @@ public class DatabaseManager {
         }
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////EDIT AGENTS//////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void updateAgents(UserAgent agent) {
+        try {
+            LogManager.print("Updating information for agent" + agent.username + "... ", EnumWarningType.NOTE);
+            statement.executeUpdate("UPDATE Agents SET " +
+                    "FullName = '" + agent.name + "', " +
+                    "Email = '" + agent.email + "', " +
+                    "WHERE Username = '" + agent.username + "'" + endQueryLine);
+            LogManager.println("Success!");
+        } catch (SQLException e) {
+            LogManager.print("Failed. ");
+            LogManager.println(e.getMessage());
+        }
+    }
+    
+
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EDIT APPLICATIONS/////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -703,7 +721,6 @@ public class DatabaseManager {
     }
     public static void approveNewApplication(String ApplicationNum) {
         //String TTBID = generateTTBID();
-
         approveApplication(ApplicationNum, TTBID);
     }*/
 
