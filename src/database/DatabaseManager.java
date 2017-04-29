@@ -867,7 +867,9 @@ public class DatabaseManager {
                         //sets the applications agent as the agents username who was there
                         statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
                         //sets the manufacturers agent and day to the agent username and date passed in
-                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Manufacturers SET AgentDate = '" + curDate + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
+
                         //increments the number of applications added to the inbox
                         i++;
                     } catch (SQLException e) {
