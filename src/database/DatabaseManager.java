@@ -266,7 +266,7 @@ public class DatabaseManager {
                     case "Wine":
                         return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     default:
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType <> 'MALT BEVERAGE') AND (AlcoholType <> 'WINE' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType <> 'MALT BEVERAGE' AND AlcoholType <> 'WINE' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType <> 'MALT BEVERAGE' AND AlcoholType <> 'WINE' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
