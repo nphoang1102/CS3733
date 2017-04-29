@@ -173,5 +173,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="pdfbox" level="project" />
   </component>
 </module>
