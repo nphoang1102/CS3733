@@ -81,13 +81,14 @@ public class LoginScreenManager extends Screen {
 //                    e.printStackTrace();
                     LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                 } catch (Exception e) {
-                    LogManager.println("Something has gone wrong with the login: " + e.getMessage());
                     e.printStackTrace();
+                    LogManager.println("Something has gone horribly wrong with the login: " + e.getMessage());
+                    error.visibleProperty().setValue(true);
+                    error.setText("Login failed. Pleas try again.");
+                    return;
                 }
                 //set user as current user in main
                 if (curUser == null) {
-                    error.visibleProperty().setValue(true);
-                    error.setText("Login failed. Pleas try again.");
                     return;
                 }
 

@@ -618,7 +618,6 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status) { //We're competing with facebook.
 
-
         if (status.equals("REMOVE")) {
             try {
                 statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
@@ -674,6 +673,25 @@ public class DatabaseManager {
             LogManager.println(e.getMessage());
         }
     }
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////EDIT AGENTS//////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void updateAgents(UserAgent agent) {
+        try {
+            LogManager.print("Updating information for agent" + agent.username + "... ", EnumWarningType.NOTE);
+            statement.executeUpdate("UPDATE Agents SET " +
+                    "FullName = '" + agent.name + "', " +
+                    "Email = '" + agent.email + "', " +
+                    "WHERE Username = '" + agent.username + "'" + endQueryLine);
+            LogManager.println("Success!");
+        } catch (SQLException e) {
+            LogManager.print("Failed. ");
+            LogManager.println(e.getMessage());
+        }
+    }
+    
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EDIT APPLICATIONS/////////////////////////////////////////////////////
