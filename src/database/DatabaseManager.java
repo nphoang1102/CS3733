@@ -76,7 +76,7 @@ public class DatabaseManager {
             return;
         }*/
 //        LogManager.println("    Driver registered!");
-        LogManager.print("Attempting connection to " + databaseType + " database... ");
+        LogManager.print("Attempting connection to " + databaseType + " database  at " + databaseServer + "... ");
         boolean noDB = true;
         int MAXTRIES = 10;
         int tries = 0;
@@ -243,7 +243,6 @@ public class DatabaseManager {
         }
     }
 
-
     /////////////////////////////////////////////////////////////////////////////////
     ///////////GENERIC DATABASE QUERY////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
@@ -259,11 +258,11 @@ public class DatabaseManager {
                     case "All":
                         return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%'" + endQueryLine);
                     case "Beer":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Malt Beverage' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     case "Wine":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     default:
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
@@ -459,9 +458,9 @@ public class DatabaseManager {
     public static void submitApplication(Application application) {
         application.sanitize();
         // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-        //application.ApprovedTTBID = generateTTBID(); //Moved to application page 5
-        application.ApplicationNo = application.ApprovedTTBID;
-        String date = StringUtilities.getDate();
+//        application.ApprovedTTBID = generateTTBID();
+//        application.ApplicationNo = application.ApprovedTTBID;
+        String date = StringUtilities.getDate(); //Welcome to the new age.
         try {
             LogManager.println("Submitting new application.", EnumWarningType.NOTE);
 //            String status = "PENDING";
@@ -995,9 +994,13 @@ public class DatabaseManager {
 
                 LogManager.println("Found!");
 
-                tryPassword(username, password, user.getString("PasswordHash"));
-
-                return agent;
+//                tryPassword(username, password, user.getString("PasswordHash"));
+                if(PasswordStorage.verifyPassword(password, user.getString("PasswordHash"))){
+                    return agent;
+                }
+                else {
+                    throw new IncorrectPasswordException(username);
+                }
             } else {
                 LogManager.println("not found.");
                 LogManager.println("Searching for a manufacturer called " + username + "... ", EnumWarningType.NOTE);
@@ -1012,12 +1015,17 @@ public class DatabaseManager {
                     LogManager.println("Found!");
 
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
-                    try {
-                        tryPassword(username, password, user.getString("PasswordHash"));
+                    /*try {
+//                        tryPassword(username, password, user.getString("PasswordHash"));
                     } catch (Exception e) {
                         LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+                    }*/
+                    if(PasswordStorage.verifyPassword(password, user.getString("PasswordHash"))){
+                        return manufacturer;
                     }
-                    return manufacturer;
+                    else {
+                        throw new IncorrectPasswordException(username);
+                    }
                 } else {
                     LogManager.println("User " + username + " not found.", EnumWarningType.WARNING);
                     throw new UserNotFoundException(username);
@@ -1031,20 +1039,25 @@ public class DatabaseManager {
         return null;
     }
 
-    private void tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
-        try {
-            if (!PasswordStorage.verifyPassword(password, correctHash)) {
+    private boolean tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
+        //try {
+            if (PasswordStorage.verifyPassword(password, correctHash)) {
                 LogManager.println("Incorrect password entered for " + username);
-                throw new IncorrectPasswordException(username);
+                return true;
             }
-        } catch (PasswordStorage.CannotPerformOperationException e) {
-            LogManager.println("Invalid stored password hash for user " + username + ".", EnumWarningType.ERROR);
-            throw new PasswordStorage.CannotPerformOperationException("Invalid stored password hash for user " + username + ".");
-        } catch (PasswordStorage.InvalidHashException e) {
-            //LogManager.printStackTrace(e.getStackTrace());
-            LogManager.println("Password hash validation failed for " + username + ".", EnumWarningType.ERROR);
-            throw new PasswordStorage.InvalidHashException("Password hash validation failed for user " + username + ".");
-        }
+
+            else {
+                return false;
+            }
+//        } catch (PasswordStorage.CannotPerformOperationException e) {
+//            LogManager.println("Password operation failed for " + username + ".", EnumWarningType.ERROR);
+//            throw new PasswordStorage.CannotPerformOperationException("Password operation failed for user " + username + ".");
+//        } catch (PasswordStorage.InvalidHashException e) {
+//            //LogManager.printStackTrace(e.getStackTrace());
+//            LogManager.println("Invalid stored has for " + username + ".", EnumWarningType.ERROR);
+//            throw new PasswordStorage.InvalidHashException("Invalid stored hash for " + username + ".");
+//        }
+
     }
 
     /////////////////////////////////////////////////////////////////////////////////
