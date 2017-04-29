@@ -76,7 +76,7 @@ public class DatabaseManager {
             return;
         }*/
 //        LogManager.println("    Driver registered!");
-        LogManager.print("Attempting connection to " + databaseType + " database... ");
+        LogManager.print("Attempting connection to " + databaseType + " database  at " + databaseServer + "... ");
         boolean noDB = true;
         int MAXTRIES = 10;
         int tries = 0;
@@ -538,7 +538,7 @@ public class DatabaseManager {
 
         }
         try {
-            statement.executeUpdate("UPDATE Applications SET DateOfSubmission = '" + date + "' WHERE ApplicationNo = " + "ApplicationNo" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET DateOfSubmission = '" + date + "' WHERE ApplicationNo = " + application.ApplicationNo + endQueryLine);
         } catch (SQLException e) {
             //ಠ_ಠ
             LogManager.print("Could not set DateOfSubmission '" + date + "' on newly submitted application " + application.ApplicationNo + ": ");
