@@ -290,10 +290,6 @@ public class DatabaseManager {
     //ENTER AT YOUR OWN RISK
 
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3, String cat4, String val4, String andor) {
-        cat1 = StringUtilities.sanitize(cat1);
-        cat2 = StringUtilities.sanitize(cat2);
-        cat3 = StringUtilities.sanitize(cat3);
-        cat4 = StringUtilities.sanitize(cat4);
         val1 = StringUtilities.sanitize(val1);
         val2 = StringUtilities.sanitize(val2);
         val3 = StringUtilities.sanitize(val3);
@@ -316,6 +312,19 @@ public class DatabaseManager {
         String query3 = "SELECT * FROM Alcohol WHERE (" + cat3 + " LIKE '" + val3 + "%' OR " + cat3 + " LIKE '%" + val3 + "' OR " + cat3 + " LIKE '%" + val3 + "%')";
         String query4 = "SELECT * FROM Alcohol WHERE (" + cat4 + " LIKE '" + val4 + "%' OR " + cat4 + " LIKE '%" + val4 + "' OR " + cat4 + " LIKE '%" + val4 + "%')";
         String combinedQuery;
+
+        if (cat1.equals("Origin")) {
+            query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "'";
+        }
+        if (cat2.equals("Origin")) {
+            query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "'";
+        }
+        if (cat3.equals("Origin")) {
+            query1 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "'";
+        }
+        if (cat4.equals("Origin")) {
+            query1 = "SELECT * FROM Alcohol WHERE " + cat4 + " = '" + val4 + "'";
+        }
 
         if(andor.equals("or")) {
             try {
