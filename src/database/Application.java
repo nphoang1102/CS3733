@@ -5,6 +5,8 @@ import base.StringUtilities;
 import javafx.scene.control.Label;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Evan Goldstein on 4/6/17.

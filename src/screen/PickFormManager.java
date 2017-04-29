@@ -77,7 +77,7 @@ public class PickFormManager extends Screen {
         PDDocumentCatalog docCatalog = document.getDocumentCatalog();
         PDAcroForm acroForm = docCatalog.getAcroForm();
         List<PDField> fields = acroForm.getFields();
-        System.out.println("Printing all fields");
+        //System.out.println("Printing all fields");
         for(PDField field : fields) {
             try {
                 processField(field, "|--", field.getPartialName());
@@ -86,6 +86,8 @@ public class PickFormManager extends Screen {
             }
         }
         //CREATE SUBMIT BUTTON
+        Main.screenManager.closeCurrentPopOut();
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_ADD_FORM,"View New Application", 1280, 720,pdfApp);
     }
 
     // COPIED FROM APACHE PDFBOX EXAMPLES
@@ -102,7 +104,7 @@ public class PickFormManager extends Screen {
                     sParent = sParent + "." + partialName;
                 }
             }
-            System.out.println(sLevel + sParent);
+            //System.out.println(sLevel + sParent);
 
             for (PDField child : ((PDNonTerminalField)field).getChildren())
             {
@@ -120,37 +122,58 @@ public class PickFormManager extends Screen {
             }
             outputString.append(" = ").append(fieldValue);
             outputString.append(",  type=").append(field.getClass().getName());
-            System.out.println(outputString);
+            //System.out.println(outputString);
             fillApplication(partialName,fieldValue);
         }
     }
 
     private void fillApplication(String partialName, String fieldValue) {
-        /*
-        if(pdfTerminalField.startsWith("|--Check Box22.Check Box22 =")) {
-            pdfApp.AlcoholType = pdfTerminalField.replace("|--Check Box22.Check Box22 =","").trim();
-        }else if(pdfTerminalField.startsWith("|--Check Box109.Check Box109 = Yes")) {
-            pdfApp.ApplicationType = "Certificate of Label Approval";
-        }else if(pdfTerminalField.startsWith("|--Check Box34.Check Box34 =")) {
-            pdfApp.Locality = pdfTerminalField.replace("|--Check Box34.Check Box34 =", "").
-                    replace(",  type=org.apache.pdfbox.pdmodel.interactive.form.PDCheckBox", "").trim();
-        }else if(pdfTerminalField.startsWith("|  |--9.  FORMULA =")) {
-            pdfApp.Formula = pdfTerminalField.replace("|  |--9.  FORMULA =","").
-                    replace(",  type=org.apache.pdfbox.pdmodel.interactive.form.PDTextField", "").trim();
-        }else if (pdfTerminalField.startsWith("|  |--11.  WINE APPELLATION (If on label) =")) {
-            pdfApp.WineAppelation = pdfTerminalField.replace("|  |--11.  WINE APPELLATION (If on label) =", "").
-                    replace(",  type=org.apache.pdfbox.pdmodel.interactive.form.PDTextField","").trim();
-        }else if(pdfTerminalField.startsWith("|  |--12.  PHONE NUMBER =")) {
-            pdfApp.PhoneNo = pdfTerminalField.replace("|  |--12.  PHONE NUMBER =", "").
-                    replace(",  type=org.apache.pdfbox.pdmodel.interactive.form.PDTextField" ,"").trim();
-        }
-        */
-        if(partialName.contains("9.  FORMULA")) {
+        if(partialName.contains("FORMULA")) {
             pdfApp.Formula = fieldValue;
-        }else if(partialName.contains("11.  WINE APPELLATION")) {
+        }else if(partialName.contains("WINE APPELLATION")) {
             pdfApp.WineAppelation = fieldValue;
-        }else if(false) {
-            return;
+        }else if(partialName.contains("PHONE NUMBER")) {
+            pdfApp.PhoneNo = fieldValue;
+        }else if(partialName.contains("EMAIL ADDRESS")) {
+            pdfApp.Email = fieldValue;
+        }else if(partialName.contains("FANCIFUL NAME")) {
+            pdfApp.FancifulName = fieldValue;
+        }else if(partialName.contains("BRAND NAME")) {
+            pdfApp.Brand = fieldValue;
+        }else if(partialName.contains("GRAPE VARIETAL(S)")) {
+            pdfApp.Grapes = fieldValue;
+        }else if(partialName.contains("NAME AND ADDRESS OF APPLICANT AS SHOWN ON PLANT REGISTRY, BASIC")) {
+            pdfApp.Address = fieldValue;
+        }else if(partialName.contains("MAILING ADDRESS, IF DIFFERENT")) {
+            pdfApp.Address2 = fieldValue;
+        }else if(partialName.equals(" (If any)")) {
+            pdfApp.RepID = fieldValue;
+        }else if(partialName.equals(" (Required)") ) {
+            pdfApp.PlantRegistry = fieldValue;
+        }else if(partialName.contains("SERIAL NUMBER 1")) {
+            pdfApp.SerialNo = fieldValue;
+        }else if(partialName.contains("SERIAL NUMBER 2")) {
+            pdfApp.SerialNo = pdfApp.SerialNo + fieldValue;
+        }else if(partialName.contains("SERIAL NUMBER 3")) {
+            pdfApp.SerialNo = pdfApp.SerialNo + fieldValue;
+        }else if(partialName.contains("SERIAL NUMBER 4")) {
+            pdfApp.SerialNo = pdfApp.SerialNo + fieldValue;
+        }else if(partialName.contains("ONLY IF IT DOES NOT APPEAR ON THE LABELS")) {
+            pdfApp.AdditionalInfo = fieldValue;
+        }else if (partialName.contains("PRINT NAME OF APPLICANT OR AUTHORIZED AGENT")) {
+            pdfApp.RepName = fieldValue;
+        }else if (partialName.contains("Check Box109") && fieldValue.equals("yes")) {
+            pdfApp.ApplicationType = "Certificate of Label Approval";
+        }else if (partialName.contains("Check Box22") && fieldValue.equals("Malt")) {
+            pdfApp.AlcoholType = "Beer";
+        }else if (partialName.contains("Check Box22") && fieldValue.equals("Spirits")) {
+            pdfApp.AlcoholType = "Distilled Spirits";
+        }else if (partialName.contains("Check Box22") && fieldValue.equals("Wine")) {
+            pdfApp.AlcoholType = "Wine";
+        }else if(partialName.contains("Check Box34")) {
+            pdfApp.Locality = fieldValue.trim();
         }
+        //System.out.println("Partial Name: " + partialName + " Field Value: " + fieldValue);
+
     }
 }
