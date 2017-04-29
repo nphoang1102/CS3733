@@ -84,6 +84,7 @@ public class TopBarManager extends Screen{
             searchTerm.setValue(data.getValueForKey("searchTerm"));
         }
         if(!lastFoucs.equals(Main.getUsername())) {
+            updateUserIcon();
             action.setVisible(true);
             if(Main.getUserType().equals(EnumUserType.SUPER_AGENT.getTextualName())){
                 action.setText("Inbox");
@@ -97,40 +98,10 @@ public class TopBarManager extends Screen{
             if (!Main.getUserType().isEmpty()) {
                 logIn.setText("Log Out");
                 //check if user has a custom image defined
-                ProxyImage userImage = new ProxyImage("users/"+Main.getUsername() + ".jpg");
-                if (!userImage.exists()) {
-                    System.out.println(userImage);
-                    //This method sets the image to the users type first letter.
-                    imageLetter.setText(Main.getUserType().substring(0, 1));
-                    if (imageLetter.getText().toUpperCase().equals("W")) {
-                        imageLetter.setLayoutX(userIcon.getX() + 19);
-                    } else {
-                        imageLetter.setLayoutX(userIcon.getX() + 23);
-                    }
-                    BufferedImage bufferedImage;
-                    try {
-                        bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
-                        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                        userIcon.setImage(image);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    LogManager.println("User:" + Main.getUsername() + " has a custom icon.");
-                    userImage.displayImage(userIcon);
-                }
             } else {
                 action.setVisible(false);
                 imageLetter.setText("");
                 logIn.setText("Log In");
-                BufferedImage bufferedImage;
-                try {
-                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot_empty_user.png"));
-                    Image image = SwingFXUtils.toFXImage(bufferedImage, null);
-                    userIcon.setImage(image);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
             }
         }
         lastFoucs = Main.getUsername();
@@ -194,9 +165,8 @@ public class TopBarManager extends Screen{
     public void updateUserIcon(){
         if (!Main.getUserType().isEmpty()) {
             //check if user has a custom image defined
-            ProxyImage userImage = new ProxyImage("users/"+Main.getUsername() + ".jpg");
+            ProxyImage userImage = new ProxyImage("users/"+Main.getUsername() + ".png");
             if (!userImage.exists()) {
-                System.out.println(userImage);
                 //This method sets the image to the users type first letter.
                 imageLetter.setText(Main.getUserType().substring(0, 1));
                 if (imageLetter.getText().toUpperCase().equals("W")) {
@@ -205,12 +175,14 @@ public class TopBarManager extends Screen{
                     imageLetter.setLayoutX(userIcon.getX() + 23);
                 }
                 BufferedImage bufferedImage;
+                String file = "/res/dot.png";
                 try {
-                    bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot.png"));
+                    bufferedImage = ImageIO.read(new File(Main.PATH + file));
                     Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                     userIcon.setImage(image);
                 } catch (Exception e) {
-                    e.printStackTrace();
+//                    e.printStackTrace();
+                    LogManager.println("Failed to load image " + file +". " +e.getMessage());
                 }
             } else {
                 imageLetter.setText("");
@@ -220,12 +192,13 @@ public class TopBarManager extends Screen{
         } else {
             imageLetter.setText("");
             BufferedImage bufferedImage;
+            String file = "/res/dot_empty_user.png";
             try {
-                bufferedImage = ImageIO.read(new File(Main.PATH + "/res/dot_empty_user.png"));
+                bufferedImage = ImageIO.read(new File(Main.PATH + file));
                 Image image = SwingFXUtils.toFXImage(bufferedImage, null);
                 userIcon.setImage(image);
             } catch (Exception e) {
-                e.printStackTrace();
+                LogManager.println("Filed to load " + file + ": " + e.getMessage());
             }
         }
     }
@@ -240,17 +213,17 @@ public class TopBarManager extends Screen{
     }
 
     public void initSuggestiveSearch() {
-        this.suggestField.clear();
-        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
-        for (DataSet tempSet : databaseResult) {
-            Alcohol data = (Alcohol) tempSet;
-            if (!this.suggestField.contains(data.BrandName)) {
-                this.suggestField.add(data.BrandName);
-            }
-        }
-        TextFields.bindAutoCompletion(
-                this.searchBar,
-                this.suggestField
-        );
+//        this.suggestField.clear();
+//        LinkedList<DataSet> databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName", "");
+//        for (DataSet tempSet : databaseResult) {
+//            Alcohol data = (Alcohol) tempSet;
+//            if (!this.suggestField.contains(data.BrandName)) {
+//                this.suggestField.add(data.BrandName);
+//            }
+//        }
+//        TextFields.bindAutoCompletion(
+//                this.searchBar,
+//                this.suggestField
+//        );
     }
 }

@@ -124,7 +124,7 @@ public class UserSettingsManager extends Screen {
         String filename = fileChooser.showOpenDialog(primaryStage).getAbsolutePath();
 
 
-        if(!filename.endsWith(".jpg")){
+        if(!filename.endsWith(".png")){
             return;
         }
 
@@ -140,15 +140,16 @@ public class UserSettingsManager extends Screen {
         FTPClient client = new FTPClient();
         FileInputStream fis = null;
         try {
-            client.connect("72.93.244.26");
-            client.login("cadbo", "seafoamgreen");
+            client.connect(Main.getConfigData("FTPIP")+"");
+            client.login(Main.getConfigData("FTPUsername")+"", Main.getConfigData("FTPPassword")+"");
+            client.setFileType(FTPClient.BINARY_FILE_TYPE);
 
             fis = new FileInputStream(filename);
 
-            client.storeFile("TTB/users/"+Main.getUsername()+".jpg", fis);
+            client.storeFile("TTB/users/"+Main.getUsername()+".png", fis);
             client.logout();
             fis.close();
-            LogManager.println("Uploading image as:"+"TTB/users/"+Main.getUsername()+".jpg");
+            LogManager.println("Uploading image as:"+"TTB/users/"+Main.getUsername()+".png");
 
             ScreenManager.updateUserIcon();
 
@@ -190,8 +191,10 @@ public class UserSettingsManager extends Screen {
 
         if(Main.getUser() instanceof  UserManufacturer) {
             UserManufacturer man = (UserManufacturer) Main.getUser();
-            firstName.setText(man.name.split(" ")[0]);
-            lastName.setText(man.name.split(" ")[1]);
+            if(!man.name.equals("") && man.name != null) {
+                firstName.setText(man.name.split(" ")[0]);
+                lastName.setText(man.name.split(" ")[1]);
+            }
             email.setText(man.email);
             phoneNumber.setText(man.PhoneNo);
             representativeIdNumber.setText(man.RepID);
