@@ -113,7 +113,6 @@ public class DatabaseManager {
                 tries++;
             }
 
-
         }
 
         try {
@@ -295,16 +294,16 @@ public class DatabaseManager {
         val3 = StringUtilities.sanitize(val3);
         val4 = StringUtilities.sanitize(val4);
 
-        if (cat1.equals("BrandName") || cat1.equals("FancifulName")) {
+        if (cat1.equals("BrandName") || cat1.equals("FancifulName") || cat1.equals("AlcoholType")) {
             val1 = val1.toUpperCase();
         }
-        if (cat2.equals("BrandName") || cat2.equals("FancifulName")) {
+        if (cat2.equals("BrandName") || cat2.equals("FancifulName") || cat2.equals("AlcoholType")) {
             val2 = val2.toUpperCase();
         }
-        if (cat3.equals("BrandName") || cat3.equals("FancifulName")) {
+        if (cat3.equals("BrandName") || cat3.equals("FancifulName") || cat3.equals("AlcoholType")) {
             val3 = val3.toUpperCase();
         }
-        if (cat4.equals("BrandName") || cat4.equals("FancifulName")) {
+        if (cat4.equals("BrandName") || cat4.equals("FancifulName") || cat4.equals("AlcoholType")) {
             val4 = val4.toUpperCase();
         }
         String query1 = "SELECT * FROM Alcohol WHERE (" + cat1 + " LIKE '" + val1 + "%' OR " + cat1 + " LIKE '%" + val1 + "' OR " + cat1 + " LIKE '%" + val1 + "%')";
