@@ -258,11 +258,11 @@ public class DatabaseManager {
                     case "All":
                         return queryAlcohol("SELECT * FROM Alcohol WHERE BrandName LIKE '" + value1 + "%' OR BrandName LIKE '%" + value1 + "' OR BrandName LIKE '%" + value1 + "%'" + endQueryLine);
                     case "Beer":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Beer' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Beer' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Malt Beverage' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Malt Beverage' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     case "Wine":
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE (Type = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE (AlcoholType = 'Wine' AND BrandName LIKE '" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType = 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                     default:
-                        return queryAlcohol("SELECT * FROM Alcohol WHERE Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (Type <> 'Beer' AND Type <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
+                        return queryAlcohol("SELECT * FROM Alcohol WHERE AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '" + value1 + "%' OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "%') OR (AlcoholType <> 'Malt Beverage' AND AlcoholType <> 'Wine' AND BrandName LIKE '%" + value1 + "')" + endQueryLine);
                 }
             }
         } else if (table.equals(EnumTableType.APPLICATION)) {
@@ -290,10 +290,6 @@ public class DatabaseManager {
     //ENTER AT YOUR OWN RISK
 
     public static LinkedList<DataSet> advancedSearch(String cat1, String val1, String cat2, String val2, String cat3, String val3, String cat4, String val4, String andor) {
-        cat1 = StringUtilities.sanitize(cat1);
-        cat2 = StringUtilities.sanitize(cat2);
-        cat3 = StringUtilities.sanitize(cat3);
-        cat4 = StringUtilities.sanitize(cat4);
         val1 = StringUtilities.sanitize(val1);
         val2 = StringUtilities.sanitize(val2);
         val3 = StringUtilities.sanitize(val3);
@@ -317,7 +313,20 @@ public class DatabaseManager {
         String query4 = "SELECT * FROM Alcohol WHERE (" + cat4 + " LIKE '" + val4 + "%' OR " + cat4 + " LIKE '%" + val4 + "' OR " + cat4 + " LIKE '%" + val4 + "%')";
         String combinedQuery;
 
-        if (andor.equals("or")) {
+        if (cat1.equals("Origin")) {
+            query1 = "SELECT * FROM Alcohol WHERE " + cat1 + " = '" + val1 + "'";
+        }
+        if (cat2.equals("Origin")) {
+            query2 = "SELECT * FROM Alcohol WHERE " + cat2 + " = '" + val2 + "'";
+        }
+        if (cat3.equals("Origin")) {
+            query1 = "SELECT * FROM Alcohol WHERE " + cat3 + " = '" + val3 + "'";
+        }
+        if (cat4.equals("Origin")) {
+            query1 = "SELECT * FROM Alcohol WHERE " + cat4 + " = '" + val4 + "'";
+        }
+
+        if(andor.equals("or")) {
             try {
                 if (!val1.isEmpty() && val2.isEmpty() && val3.isEmpty() && val4.isEmpty()) {
                     combinedQuery = query1;
