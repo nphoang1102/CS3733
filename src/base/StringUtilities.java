@@ -119,4 +119,9 @@ public class StringUtilities {
         Date date = new Date();
         return ""+(Integer.parseInt(dateFormatYear.format(date))+1)+dateFormatMonth.format(date)+dateFormatDay.format(date);
     }
+    public static String sanitize(String unsanitized){
+//        System.out.println("String thing: \\\'");
+        //        System.out.println("Sanitizing " + unsanitized + " to " + sanitized);
+        return unsanitized.replace("\'", "\\'").replaceAll(";", "").replace("\"", "\\");
+    }
 }
