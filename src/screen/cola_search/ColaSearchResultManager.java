@@ -11,9 +11,12 @@ import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import screen.EnumScreenType;
 import screen.Screen;
 import screen.cola_search.*;
@@ -33,6 +36,9 @@ public class ColaSearchResultManager extends Screen {
     private LinkedList<DataSet> databaseResult = new LinkedList();
     private ObservableList<ColaResult> resultTable = FXCollections.observableArrayList();
     private DataSet tempSet = new BasicDataSet();
+    private int resultLength = 0;
+    private int totalPage = 0;
+    private int lastIndex = 0;
 
     /* Class constructor */
     public ColaSearchResultManager() {
@@ -45,10 +51,15 @@ public class ColaSearchResultManager extends Screen {
     @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
     @FXML private Pane colaSearchPanel;
     @FXML private Pagination pageination;
+    @FXML private VBox box;
 
     /* Class methods */
     @Override
     public void onScreenFocused(DataSet data){
+        /* Resetting fields */
+        this.resultLength = 0;
+        this.totalPage = 0;
+
         /* Check for advance or general search */
         if (data.getValueForKey("isAdvance").equals("false")) {
             this.keywords = data.getValueForKey("Keywords")+ "";
@@ -67,6 +78,7 @@ public class ColaSearchResultManager extends Screen {
         this.initializeMouseEvent();
 
         /* Configure the pagination */
+        this.initPage();
     }
 
     /* Setup properties for the columns in tableview */
@@ -112,11 +124,30 @@ public class ColaSearchResultManager extends Screen {
 
     /* Initialize the pagination */
     public void initPage() {
-        this.pageination.setCurrentPageIndex(1);
+        int totalPage = this.resultLength / 12 + 1;
+        int displace = this.resultLength % 12;
+        if (displace > 0) this.lastIndex = this.resultLength / 12;
+        else this.lastIndex = this.resultLength / 12 - 1;
+        this.pageination.setCurrentPageIndex(0);
+        this.pageination.setMaxPageIndicatorCount(30);
+        this.pageination.setPageCount(totalPage);
+        this.pageination.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                if (pageIndex <= totalPage) {
+                    if (lastIndex == pageIndex)
+                    searchResult.setItems(FXCollections.observableArrayList(resultTable.subList(pageIndex * 12, pageIndex * 12 + displace)));
+                    else
+                        searchResult.setItems(FXCollections.observableArrayList(resultTable.subList(pageIndex * 12, pageIndex * 12 + 12)));
+                }
+                return new Label();
+            }
+        });
     }
 
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
+        LogManager.print("Start database query...");
         if (this.isAdvance) {
             this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
                     this.adStrings[1],
@@ -131,6 +162,8 @@ public class ColaSearchResultManager extends Screen {
         else {
             this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
         }
+        LogManager.println("done");
+        LogManager.print("Start populating table...");
         this.resultTable.clear();
         this.setMapOrigin();
         for (DataSet tempSet: this.databaseResult) {
@@ -150,10 +183,11 @@ public class ColaSearchResultManager extends Screen {
                     data.AlcoholContent,
                     data.VintageYear,
                     data.PH));
+            this.resultLength++;
         }
         this.searchResult.setEditable(false);
-        this.searchResult.getItems().setAll(resultTable);
         this.isAdvance = false;
+        LogManager.println("done");
     }
 
     /* Print search result into a CSV file on button click */
