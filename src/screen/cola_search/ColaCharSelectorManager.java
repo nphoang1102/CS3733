@@ -11,12 +11,14 @@ import javafx.scene.control.TextField;
 import screen.EnumScreenType;
 import screen.Screen;
 
+import java.util.LinkedList;
+
 /**
  * Created by Hoang Nguyen on 4/20/2017.
  */
 public class ColaCharSelectorManager extends Screen {
     /* Class attributes */
-    private ObservableList<ColaResult> resultTable = FXCollections.observableArrayList();
+    private LinkedList<DataSet> databaseResult = new LinkedList();
     private String delimiter = "";
 
     /* Class constructor */
@@ -33,7 +35,7 @@ public class ColaCharSelectorManager extends Screen {
     @Override
     public void onScreenFocused(DataSet data) {
         warning.setVisible(false);
-        this.resultTable = (ObservableList<ColaResult>) data.getValueForKey("ResultTable");
+        this.databaseResult = (LinkedList<DataSet>) data.getValueForKey("ResultTable");
     }
 
     /* Clear the error message */
@@ -49,7 +51,7 @@ public class ColaCharSelectorManager extends Screen {
             return;
         }
         IDataDownload downloadChar = new toChSV();
-        downloadChar.downloadData(this.resultTable, this.delimiter);
+        downloadChar.downloadData(this.databaseResult, this.delimiter);
         Main.screenManager.closeCurrentPopOut();
     }
 }
