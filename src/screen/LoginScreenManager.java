@@ -46,85 +46,68 @@ public class LoginScreenManager extends Screen {
     //fxml methods
     @FXML
     void loginClicked() {
-        if (Main.getUsername().equals("")) {
-            error.setVisible(true);
-            this.userName = usernameField.getText();
-            String curPass = password.getText();
-//            this.usernameField.clear();
-            this.password.clear();
+        //clear any previous error messages
+        error.visibleProperty().setValue(false);
 
-            if (userName.equals("")) {
-                error.setText("A username is required.");
-                LogManager.println("need a username");
-            }
-            /*else if(userName.equals("test")){
-                error.setText("Test");
-            }*/
-            else {
-                User curUser = null;
-                try {
-                    this.error.visibleProperty().setValue(true);
-                    curUser = Main.databaseManager.login(userName, curPass);
-//                    setErrorText("Loading. Please wait.");
-                } catch (DatabaseManager.UserNotFoundException e) {
-                    error.setText("Username does not exist");
-                    return;
-                } catch (DatabaseManager.IncorrectPasswordException e) {
-                    error.setText("Incorrect password");
-                    return;
-                } catch (PasswordStorage.InvalidHashException e) {
-                    error.setText("Incorrect password");
-                    LogManager.println(e.getMessage(), EnumWarningType.ERROR);
-                } catch (PasswordStorage.CannotPerformOperationException e) {
-//                    e.printStackTrace();
-                    LogManager.println(e.getMessage(), EnumWarningType.ERROR);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    LogManager.println("Something has gone horribly wrong with the login: " + e.getMessage());
-                    error.visibleProperty().setValue(true);
-                    error.setText("Login failed. Pleas try again.");
-                    return;
-                }
-                //set user as current user in main
-                if (curUser == null) {
-                    return;
-                }
+        this.userName = usernameField.getText();
+        String curPass = password.getText();
+        this.usernameField.clear();
+        this.password.clear();
 
-                Enum userType = curUser.getType();
-                if (userType.equals(EnumUserType.PUBLIC_USER)) {
-                    Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
-                } else if (userType.equals(EnumUserType.MANUFACTURER)) {
-                    UserManufacturer tempManufacturer = (UserManufacturer) curUser;
-                    Main.setUser(tempManufacturer);
-                    Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
-                } else if (userType.equals(EnumUserType.AGENT)) {
-                    //check if they're a super agent
-                    UserAgent tempAgent = (UserAgent) curUser;
-
-
-                   /* if(userName.equals("victor123")){
-                        u.setSuperAgent("true");
-                    }*/
-                    if (tempAgent.getSuperAgent().equals("true")) {
-                        tempAgent.setUserType(EnumUserType.SUPER_AGENT);
-                        Main.setUser(tempAgent);
-                        Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
-                        return;
-                    }
-                    //if not go to agent screen
-                    Main.setUser(tempAgent);
-                    Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
-                } else if (userType.equals(EnumUserType.SUPER_AGENT)) {
-                    UserAgent tempAgent = (UserAgent) curUser;
-                    Main.setUser(tempAgent);
-                    Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
-                }
-            }
-        } else {
-            //print there is already a user signed in
+        if (userName.equals("")) {
+            //print to screen, tell user to enter username, exit
             error.visibleProperty().setValue(true);
-            //error.setText("NICE TRY "+ usernameField.getText().toUpperCase()+" BUT THERE'S ALREADY SOMEONE SIGNED IN, LOGOUT FIRST");
-            error.setText("Sorry, there's already someone signed in");
+            error.setText("Please enter a username");
+            LogManager.println("need a username");
+            return;
+        }
+
+        User curUser = null;
+
+        //login
+        try {
+            curUser = Main.databaseManager.login(userName, curPass);
+        } catch (DatabaseManager.UserNotFoundException e) {
+            error.visibleProperty().setValue(true);
+            error.setText("Username does not exist");
+//                    e.printStackTrace();
+            return;
+        } catch (DatabaseManager.IncorrectPasswordException e) {
+            error.visibleProperty().setValue(true);
+            error.setText("Incorrect password");
+            //e.printStackTrace();
+            return;
+        } catch (PasswordStorage.InvalidHashException e) {
+//                    e.printStackTrace();
+            LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+        } catch (PasswordStorage.CannotPerformOperationException e) {
+//                    e.printStackTrace();
+            LogManager.println(e.getMessage(), EnumWarningType.ERROR);
+        } catch (Exception e) {
+            e.printStackTrace();
+            LogManager.println("Something has gone horribly wrong with the login: " + e.getMessage());
+            error.visibleProperty().setValue(true);
+            error.setText("Login failed. Please try again.");
+            return;
+        }
+        //set user as current user in main
+        if (curUser == null) {
+            error.visibleProperty().setValue(true);
+            error.setText("Login failed. Please try again.");
+            return;
+        }
+
+        Main.setUser(curUser);
+
+        Enum userType = curUser.getType();
+        if (userType.equals(EnumUserType.PUBLIC_USER)) {
+            Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT);
+        } else if (userType.equals(EnumUserType.MANUFACTURER)) {
+            Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+        } else if (userType.equals(EnumUserType.AGENT)) {
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        } else if (userType.equals(EnumUserType.SUPER_AGENT)) {
+            Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
         }
     }
 
@@ -132,7 +115,6 @@ public class LoginScreenManager extends Screen {
     void aboutUsClicked() {
         Main.screenManager.setScreen(EnumScreenType.STATUS_SCREEN);
     }
-
 
     @FXML
     void enterHit() {
@@ -174,15 +156,5 @@ public class LoginScreenManager extends Screen {
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
             return;
         }
-    }
-
-    public void centerError() {
-        double center;
-        center = (background.getWidth() - error.getWrappingWidth()) / 2;
-        error.setTextAlignment(TextAlignment.CENTER);
-    }
-
-    private void setErrorText(String error) {
-            this.error.setText(error);
     }
 }
