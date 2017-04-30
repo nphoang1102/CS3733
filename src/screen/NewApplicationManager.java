@@ -230,7 +230,7 @@ public class NewApplicationManager extends Screen {
 
     public void submit() {
         Application app = newApplication;
-        app.AlcoholType = app_type_box.getValue();
+        app.AlcoholType = product_type_box.getValue();
         app.Locality = product_source_box.getValue();
         app.ApplicationType = app_type_box.getValue();
         app.ABV = abv_field.getText();
