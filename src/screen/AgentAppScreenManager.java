@@ -105,6 +105,7 @@ public class AgentAppScreenManager extends Screen{
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
+
             String manufacturerUsername = app.getManufacturerUsername();
             LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
 
@@ -166,6 +167,10 @@ public class AgentAppScreenManager extends Screen{
             Main.databaseManager.forwardApplication(app.ApplicationNo, agentID);
         }catch(Exception e){
             LogManager.println("there was an error forwarding the message");
+            DataSet data = new BasicDataSet();
+            data.addField("Message", "There is no agent with that username");
+            Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "no such user", 400, 150,data);
+            return;
         }
         Main.screenManager.closeCurrentPopOut();
         Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);

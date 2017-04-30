@@ -832,8 +832,8 @@ public class DatabaseManager {
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername) {
-        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username", "AgentUsername");
-        UserAgent tempMan = (UserAgent) tempMans.getFirst();
+UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username",AgentUsername);
+         tempMan = (UserAgent) tempMans.getFirst();
         try {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + AgentUsername + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentName = '" + tempMan.name + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
