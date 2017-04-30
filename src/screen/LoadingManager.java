@@ -1,4 +1,4 @@
-package screen.cola_search;
+package screen;
 
 import base.*;
 import database.Alcohol;
@@ -26,7 +26,7 @@ import java.util.concurrent.Callable;
 /**
  * Created by Hoang Nguyen on 4/4/2017.
  */
-public class ColaSearchResultManager extends Screen {
+public class LoadingManager extends Screen {
     /* Class attributes */
     private DataSet mapOrigin = new BasicDataSet();
     private String[] adStrings = new String[9];
@@ -41,7 +41,7 @@ public class ColaSearchResultManager extends Screen {
     private int lastIndex = 0;
 
     /* Class constructor */
-    public ColaSearchResultManager() {
+    public LoadingManager() {
         super(EnumScreenType.COLA_SEARCH_RESULT);
     }
 
