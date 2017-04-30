@@ -1,11 +1,13 @@
 package screen.cola_search;
 
-import base.*;
+import base.EnumTableType;
+import base.LogManager;
+import base.Main;
+import base.StringUtilities;
 import database.Alcohol;
 import database.BasicDataSet;
 import database.DataSet;
 import database.DatabaseManager;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,11 +19,9 @@ import javafx.scene.layout.VBox;
 import javafx.util.Callback;
 import screen.EnumScreenType;
 import screen.Screen;
-import screen.ScreenManager;
 import screen.cola_search.*;
 
 import java.util.LinkedList;
-import java.util.concurrent.Callable;
 
 /**
  * Created by Hoang Nguyen on 4/4/2017.
@@ -71,40 +71,32 @@ public class ColaSearchResultManager extends Screen {
             this.adStrings = (String[]) data.getValueForKey("advance");
         }
 
-        MultiThreadedCallback thread = new MultiThreadedCallback(new Callable() {
-            @Override
-            public Object call() throws Exception {
-                return databaseQuery();
-            }
-        });
+        /* Get the TableView stuff and result setup */
+        this.initializeTable();
 
-        Main.listenForThreadToFinish(thread, new Callable() {
-            @Override
-            public Object call() throws Exception {
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        databaseResult = thread.data;
-                        int displace = databaseResult.size() % 12;
-                        /* Resetting fields */
-                        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
-                    }
-                });
-                return null;
-            }
-        });
+        /* Configuration for the mouse click event */
+        this.initializeMouseEvent();
 
+        /* Configure the pagination */
+        this.initPage();
     }
 
     /* Custom on screen for asynchronous stuffs */
     public void onScreenFocused(LinkedList<DataSet> data) {
-        /* Accepting the list of result from the database */
+        /* Resetting fields */
         this.databaseResult.clear();
+        /* Accepting the list of result from the database */
         this.databaseResult = data;
-
         /* Resetting fields */
         this.resultLength = 0;
         this.totalPage = 0;
+
+        /* Get the TableView stuff and result setup */
+        this.initializeTable();
+
+        /* Configuration for the mouse click event */
+        this.initializeMouseEvent();
+
 
         /* Initialize table, mouse click event and pagination */
         this.initPage();
@@ -172,29 +164,25 @@ public class ColaSearchResultManager extends Screen {
         });
     }
 
-    /* Send the search keywords to the database and display reply from database */
-    public LinkedList<DataSet> databaseQuery() {
-        LinkedList<DataSet> data = new LinkedList<DataSet>();
-        if (this.isAdvance) {
-            data =  DatabaseManager.advancedSearch(this.adStrings[0] ,
-                    this.adStrings[1],
-                    this.adStrings[2],
-                    this.adStrings[3],
-                    this.adStrings[4],
-                    this.adStrings[5],
-                    this.adStrings[6],
-                    this.adStrings[7],
-                    this.adStrings[8]);
-            this.databaseResult = data;
-        }
-        else {
-            data = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
-            this.databaseResult = data;
-        }
-        this.setMapOrigin();
-        this.isAdvance = false;
-        return data;
-    }
+//    /* Send the search keywords to the database and display reply from database */
+//    public void databaseQuery() {
+//        if (this.isAdvance) {
+//            this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
+//                    this.adStrings[1],
+//                    this.adStrings[2],
+//                    this.adStrings[3],
+//                    this.adStrings[4],
+//                    this.adStrings[5],
+//                    this.adStrings[6],
+//                    this.adStrings[7],
+//                    this.adStrings[8]);
+//        }
+//        else {
+//            this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
+//        }
+//        this.setMapOrigin();
+//        this.isAdvance = false;
+//    }
 
     /* Populate the table based on the search result */
     public void populateTable(int start, int end) {

@@ -1,24 +1,10 @@
 package screen;
 
 import base.*;
-import database.Alcohol;
 import database.BasicDataSet;
 import database.DataSet;
 import database.DatabaseManager;
 import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.Node;
-import javafx.scene.control.*;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
-import javafx.util.Callback;
-import screen.EnumScreenType;
-import screen.Screen;
-import screen.ScreenManager;
-import screen.cola_search.*;
 
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
@@ -34,31 +20,22 @@ public class LoadingManager extends Screen {
     private String searchType = "";
     private boolean isAdvance = false;
     private LinkedList<DataSet> databaseResult = new LinkedList();
-    private ObservableList<ColaResult> resultTable = FXCollections.observableArrayList();
-    private DataSet tempSet = new BasicDataSet();
-    private int resultLength = 0;
-    private int totalPage = 0;
-    private int lastIndex = 0;
+
 
     /* Class constructor */
     public LoadingManager() {
         super(EnumScreenType.COLA_SEARCH_RESULT);
     }
 
-    /* FXML objects */
-    @FXML private TableView<ColaResult> searchResult;
-    @FXML private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
-    @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
-    @FXML private Pane colaSearchPanel;
-    @FXML private Pagination pageination;
-    @FXML private VBox box;
-
     /* Class methods */
     @Override
     public void onScreenFocused(DataSet data){
-        /* Resetting fields */
-        this.resultLength = 0;
-        this.totalPage = 0;
+        MultiThreadedCallback thread = new MultiThreadedCallback(new Callable() {
+            @Override
+            public Object call() throws Exception {
+                return databaseQuery();
+            }
+        });
 
         /* Check for advance or general search */
         if (data.getValueForKey("isAdvance").equals("false")) {
@@ -70,13 +47,6 @@ public class LoadingManager extends Screen {
             this.adStrings = (String[]) data.getValueForKey("advance");
         }
 
-        MultiThreadedCallback thread = new MultiThreadedCallback(new Callable() {
-            @Override
-            public Object call() throws Exception {
-                return databaseQuery();
-            }
-        });
-
         Main.listenForThreadToFinish(thread, new Callable() {
             @Override
             public Object call() throws Exception {
@@ -84,78 +54,15 @@ public class LoadingManager extends Screen {
                     @Override
                     public void run() {
                         databaseResult = thread.data;
-                        int displace = databaseResult.size() % 12;
-                        /* Resetting fields */
-                        Main.screenManager.setScreen(EnumScreenType.LOG_IN);
+                        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, databaseResult);
                     }
                 });
                 return null;
             }
         });
-
     }
 
-    /* Setup properties for the columns in tableview */
-    public void initializeTable() {
-        this.coLid.setCellValueFactory(new PropertyValueFactory("id"));
-        this.coLsource.setCellValueFactory(new PropertyValueFactory("source"));
-        this.coLalcoholType.setCellValueFactory(new PropertyValueFactory("type"));
-        this.coLname.setCellValueFactory(new PropertyValueFactory("name"));
-    }
 
-    /* Initialize the mouse click event on table rows */
-    public void initializeMouseEvent() {
-        searchResult.setRowFactory( tv -> {
-            TableRow<ColaResult> row = new TableRow();
-            row.setOnMouseClicked(event -> {
-                if ((event.getClickCount() == 2) && (! row.isEmpty())) {
-                    ColaResult rowData = row.getItem();
-                    this.initializePopup(rowData);
-                }
-            });
-            return row;
-        });
-    }
-
-    /* Setup popup window here */
-    public void initializePopup(ColaResult rowData) {
-        DataSet data = new BasicDataSet();
-        String title = "Additional information for " + rowData.getName() + " - " + rowData.getFname();
-        data.addField("TTBID", rowData.getId());
-        data.addField("PermitNo", rowData.getPermit());
-        data.addField("SerialNo", rowData.getSerial());
-        data.addField("CompletedDate", rowData.getDate());
-        data.addField("FancifulName", rowData.getFname());
-        data.addField("BrandName", rowData.getName());
-        data.addField("Origin", rowData.getSource());
-        data.addField("Class", rowData.getAclass());
-        data.addField("Type", rowData.getType());
-        data.addField("AlcoholContent", rowData.getAlCon());
-        data.addField("VintageYear", rowData.getYear());
-        data.addField("PH", rowData.getPh());
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
-    }
-
-    /* Initialize the pagination */
-    public void initPage() {
-        int totalPage = this.databaseResult.size() / 12 + 1;
-        int displace = this.databaseResult.size() % 12;
-        if (displace > 0) this.lastIndex = this.databaseResult.size() / 12;
-        else this.lastIndex = this.databaseResult.size() / 12 - 1;
-        this.pageination.setCurrentPageIndex(0);
-        this.pageination.setMaxPageIndicatorCount(30);
-        this.pageination.setPageCount(totalPage);
-        this.pageination.setPageFactory(new Callback<Integer, Node>() {
-            @Override
-            public Node call(Integer pageIndex) {
-                if (pageIndex <= totalPage) {
-                    if (lastIndex == pageIndex) populateTable(pageIndex * 12, pageIndex * 12 + displace);
-                    else populateTable(pageIndex * 12, pageIndex * 12 + 12);
-                }
-                return new Label();
-            }
-        });
-    }
 
     /* Send the search keywords to the database and display reply from database */
     public LinkedList<DataSet> databaseQuery() {
@@ -179,64 +86,6 @@ public class LoadingManager extends Screen {
         this.setMapOrigin();
         this.isAdvance = false;
         return data;
-    }
-
-    /* Populate the table based on the search result */
-    public void populateTable(int start, int end) {
-        this.resultTable.clear();
-        for (int i = start; i < end; i++) {
-            Alcohol data = (Alcohol) this.databaseResult.get(i);
-            String mapSource = "";
-            if (this.mapOrigin.getValueForKey(data.Origin) == null) mapSource = data.Origin;
-            else mapSource = this.mapOrigin.getValueForKey(data.Origin)+ "";
-            this.resultTable.add(new ColaResult(data.TTBID,
-                    data.PermitNo,
-                    data.SerialNo,
-                    data.CompletedDate,
-                    data.FancifulName,
-                    data.BrandName,
-                    mapSource,
-                    data.Class,
-                    data.Type,
-                    data.AlcoholContent,
-                    data.VintageYear,
-                    data.PH));
-        }
-        this.searchResult.setItems(this.resultTable);
-        this.searchResult.setEditable(false);
-    }
-
-    /* Print search result into a CSV file on button click */
-    public void toCSV() {
-        IDataDownload downloadCSV = new toCSV();
-        downloadCSV.downloadData(this.databaseResult, ",");
-        DataSet message = new BasicDataSet();
-        message.addField("Message", "Search result saved to /searchResult.csv");
-        Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
-    }
-
-    /* Print search result into a tab-delimited text file */
-    public void toTab() {
-        IDataDownload downloadTab = new toTSV();
-        downloadTab.downloadData(this.databaseResult, "\t");
-        DataSet message = new BasicDataSet();
-        message.addField("Message", "Search result saved to /searchResult-tab.tsv");
-        Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
-    }
-
-    /* Print search result into a character-delimited text file */
-    public void toChar() {
-//        IDataDownload downloadChar = new toChSV();
-//        downloadChar.downloadData(this.resultTable);
-        DataSet data = new BasicDataSet();
-        data.addField("ResultTable", this.databaseResult);
-        Main.screenManager.popoutScreen(EnumScreenType.COLA_CHARACTER_SELECTION, "Character configuration", 450, 250, data);
-    }
-
-    /* Navigate to advance search screen on mouse click */
-    public void toAdvanceSearch() {
-        LogManager.println("Navigate to advance search screen from cola-search result screen");
-        Main.screenManager.setScreen(EnumScreenType.COLA_ADVANCE_SEARCH);
     }
 
     /* Initialize the origin mapping for end-user */
