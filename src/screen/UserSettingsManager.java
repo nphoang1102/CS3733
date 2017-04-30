@@ -76,16 +76,18 @@ public class UserSettingsManager extends Screen {
         if(type.equals(EnumUserType.MANUFACTURER)){
             UserManufacturer man = (UserManufacturer) Main.getUser();
 
-            LogManager.println(man.name);
-            LogManager.println(man.PhoneNo);
-            LogManager.println(man.RepID);
-            LogManager.println(man.PlantRegistry);
-            LogManager.println(man.email);
+            LogManager.println(man.name + "<- name");
+            LogManager.println(man.PhoneNo + "<- phone number");
+            LogManager.println(man.RepID + "<-rep ID");
+            LogManager.println(man.PlantRegistry + "<- plant reg");
+            LogManager.println(man.email+ "<- email");
 
             man.name = firstName.getText()+" "+lastName.getText();
             man.PhoneNo = phoneNumber.getText();
             man.RepID = representativeIdNumber.getText();
             man.PlantRegistry = plantRegistryBasicPermitNumber.getText();
+            man.Company = company.getText();
+            man.BreweryPermitNumber = breweryPermitNumber.getText();
             man.email = email.getText();
 
             LogManager.println(man.name);
@@ -97,10 +99,14 @@ public class UserSettingsManager extends Screen {
             DatabaseManager.updateManufacturer(man);
         }else if(type.equals(EnumUserType.AGENT)){
             UserAgent agent = (UserAgent) Main.getUser();
-            agent.email = email.getText();
-            agent.name = (firstName.getText() + lastName.getText());
-            agent.setSuperAgent(String.valueOf(tickSuperAgent.selectedProperty().getValue()));
 
+            LogManager.println(agent.name + "<- name");
+            LogManager.println(agent.email+ "<- email");
+
+            agent.email = email.getText();
+            agent.name = (firstName.getText() + " " + lastName.getText());
+            agent.setSuperAgent(String.valueOf(tickSuperAgent.selectedProperty().getValue()));
+            DatabaseManager.updateAgents(agent);
         }
     }
 
@@ -160,6 +166,7 @@ public class UserSettingsManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet data) {
+        clearFields();
 //        FileChooser fileChooser = new FileChooser();
 //        fileChooser.setTitle("Open Resource File");
 //        fileChooser.showOpenDialog(stage);
@@ -193,12 +200,33 @@ public class UserSettingsManager extends Screen {
             UserManufacturer man = (UserManufacturer) Main.getUser();
             if(!man.name.equals("") && man.name != null) {
                 firstName.setText(man.name.split(" ")[0]);
-                lastName.setText(man.name.split(" ")[1]);
+                //try to fill in the last name field
+                try {
+                    lastName.setText(man.name.split(" ")[1]);
+                }catch(java.lang.ArrayIndexOutOfBoundsException e){
+                    LogManager.println(" user does not have a last name");
+                }
             }
             email.setText(man.email);
             phoneNumber.setText(man.PhoneNo);
+            company.setText(man.Company);
             representativeIdNumber.setText(man.RepID);
+            breweryPermitNumber.setText(man.BreweryPermitNumber);
             plantRegistryBasicPermitNumber.setText(man.PlantRegistry);
+        }
+
+        if(Main.getUser() instanceof  UserAgent){
+            UserAgent agent = (UserAgent) Main.getUser();
+            if(!agent.name.equals("") && agent.name != null) {
+                firstName.setText(agent.name.split(" ")[0]);
+                //try to fill in the last name field
+                try {
+                    lastName.setText(agent.name.split(" ")[1]);
+                }catch(java.lang.ArrayIndexOutOfBoundsException e){
+                    LogManager.println(" user does not have a last name");
+                }
+            }
+            email.setText(agent.email);
         }
     }
 
@@ -210,5 +238,16 @@ public class UserSettingsManager extends Screen {
         }else{
             Main.getUser().setType(null);
         }
+    }
+
+    private void clearFields(){
+        firstName.clear();
+        lastName.clear();
+        company.clear();
+        email.clear();
+        breweryPermitNumber.clear();
+        phoneNumber.clear();
+        representativeIdNumber.clear();
+        plantRegistryBasicPermitNumber.clear();
     }
 }

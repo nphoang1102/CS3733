@@ -12,6 +12,7 @@ public class UserManufacturer extends User {
     public String RepID;
     public String PlantRegistry;
     public String PhoneNo;
+    public String BreweryPermitNumber;
     public String Agent;
     public String AgentDate;
 
@@ -24,6 +25,7 @@ public class UserManufacturer extends User {
         RepID= "";
         PlantRegistry= "";
         PhoneNo = "";
+        BreweryPermitNumber = "";
         super.userType = EnumUserType.MANUFACTURER;
         Agent = "";
         AgentDate = "";
