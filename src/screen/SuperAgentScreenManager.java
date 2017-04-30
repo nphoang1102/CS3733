@@ -30,7 +30,7 @@ public class SuperAgentScreenManager extends Screen {
     private ChoiceBox statusType;
 
     @FXML
-    private Button goButton;
+    private Button goButton, appScreenButton;
 
     @FXML
     private Label agentStatus, isPending;
@@ -51,7 +51,13 @@ public class SuperAgentScreenManager extends Screen {
 
     @Override
     public void onScreenFocused(DataSet data) {
-        LogManager.println(Main.getUsername());
+
+        agentTable.setVisible(true);
+        statusType.setVisible(true);
+        goButton.setVisible(true);
+        agentStatus.setVisible(true);
+        appScreenButton.setVisible(true);
+        isPending.setVisible(true);
 
         UserAgent thisAgent = (UserAgent) Main.getUser();
 
@@ -89,7 +95,7 @@ public class SuperAgentScreenManager extends Screen {
                             if (tempResult.getstatus().equals("pending")) {
                                 screenManager.popoutScreen(EnumScreenType.AGENT_PENDING, "Agent Application Page", 325, 250, tempResult);
                             } else {
-                                screenManager.popoutScreen(EnumScreenType.AGENT_INBOX, "View Agent Page", tempResult);
+                                screenManager.setScreen(EnumScreenType.AGENT_INBOX, tempResult);
                             }
 
                     }
@@ -103,22 +109,22 @@ public class SuperAgentScreenManager extends Screen {
             statusType.setVisible(false);
             goButton.setVisible(false);
             agentStatus.setVisible(false);
+            appScreenButton.setVisible(false);
         }
     }
 
     public void loadTable(MouseEvent mouseEvent) {
-        String tempType = (String) statusType.getValue();
-        LinkedList<DataSet> results =  DatabaseManager.queryDatabase(EnumTableType.AGENT,"Status",tempType);
-        if(results.size() > 0) {
-            for (DataSet tempData : results) {
-                agents.add(tempData);
-            }
-        }
+
         DataSet data = new BasicDataSet();
         data.addField("agentStatus", (statusType.getValue() + ""));
         String toPrint =  " under type " + statusType.getValue();
         LogManager.println(toPrint);
         Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT, data);
+    }
+
+
+    public void launchAppScreen(MouseEvent mouseEvent) {
+        screenManager.setScreen((EnumScreenType.SUPER_AGENT_APPLICATION));
     }
 
 

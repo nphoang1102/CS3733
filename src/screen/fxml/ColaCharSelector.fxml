@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="450.0" style="-fx-background-color: #dbdbdb;" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="screen.cola_search.ColaCharSelectorManager">
+   <children>
+      <TextField fx:id="deChar" layoutX="25.0" layoutY="30.0" onAction="#onClick" onMouseClicked="#onCheck" prefHeight="45.0" prefWidth="400.0" promptText="Please input the delimiter character" style="-fx-focus-color: #34a88b; -fx-faint-focus-color: transparent;">
+         <font>
+            <Font name="Telugu Sangam MN" size="15.0" />
+         </font>
+      </TextField>
+      <Button fx:id="export" layoutX="102.0" layoutY="166.0" mnemonicParsing="false" onMouseClicked="#onClick" style="-fx-background-color: #939393;" text="Export to /searchResult-char.txt" textFill="WHITE">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="15.0" />
+         </font>
+      </Button>
+      <Label fx:id="warning" layoutX="138.0" layoutY="105.0" text="*Please input something" textFill="#34a88b">
+         <font>
+            <Font name="Telugu Sangam MN Bold" size="15.0" />
+         </font>
+      </Label>
+   </children>
+</Pane>

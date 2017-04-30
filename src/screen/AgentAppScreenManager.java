@@ -1,19 +1,21 @@
 package screen;
 
-import base.LogManager;
-import base.Main;
-import database.Application;
-import database.DataSet;
-import database.DatabaseManager;
-import database.UserAgent;
+import Email.EmailManager;
+import base.*;
+import database.*;
+import database.images.ProxyImage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
-import javax.swing.text.html.ImageView;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import java.util.LinkedList;
+import java.util.Properties;
 
 /**
  * Created by ${Jack} on 4/2/2017.
@@ -26,13 +28,13 @@ public class AgentAppScreenManager extends Screen{
     Label repId, brewNo, productSrc, productType, brandName, applicantName, appNameAndAdd, alternateAdd, phoneNum, emailAdd, appDate, ttbId, fancyName, formula, wineVarietal, wineAppellation, appType, alcContent, pHLevel, vintageYear;
 
     @FXML
-    TextArea rejectReason, newAgentID;
+    TextArea rejectReason, newAgentID, sendBackReason;
 
     @FXML
-    javafx.scene.image.ImageView theLabel;
+    ImageView theLabel;
     //all the Buttons on the screen
     @FXML
-    Button acceptButton, rejectButton, forwardButton;
+    Button acceptButton, rejectButton, forwardButton, sendBackButton;
 
     public AgentAppScreenManager() {
         super(EnumScreenType.AGENT_APP_SCREEN);
@@ -74,6 +76,23 @@ public class AgentAppScreenManager extends Screen{
         pHLevel.setText(application.PH);
         vintageYear.setText(application.VintageDate);
 
+        String temp = Main.getUserType();
+        System.out.println(temp);
+
+
+
+        if(temp.equals("Super User")){
+            acceptButton.setVisible(false);
+            rejectButton.setVisible(false);
+            forwardButton.setVisible(false);
+            rejectReason.setVisible(false);
+            newAgentID.setVisible(false);
+            sendBackButton.setVisible(false);
+            sendBackReason.setVisible(false);
+        }
+
+        ProxyImage image = new ProxyImage("alcohol/"+application.ApplicationNo+".png");
+        image.displayImage(theLabel);
 
     }
 
@@ -85,9 +104,44 @@ public class AgentAppScreenManager extends Screen{
     public void acceptApp(MouseEvent mouseEvent) {
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
-            DatabaseManager.approveApplication(app.ApplicationNo);
+            DatabaseManager.approveApplication(app.ApplicationNo, StringUtilities.getDate(), StringUtilities.getExpirationDate());
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+            app.ApplicationStatus = "APPROVED";
+
+
+            String manufacturerUsername = app.getManufacturerUsername();
+            LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
+
+            if(manufacturerDataSet.size()<=0){
+                LogManager.println("Manufacturer:"+manufacturerUsername+" does not exist!", EnumWarningType.WARNING);
+                return;
+            }
+
+            // Recipient's email ID needs to be mentioned.
+            String to = "";//change accordingly
+
+            UserManufacturer manufacturer = null;
+            if(manufacturerDataSet.getFirst()!=null){
+                manufacturer = (UserManufacturer)manufacturerDataSet.getFirst();
+                //Check for email
+                if(!manufacturer.getEmail().isEmpty()){
+                    to = manufacturer.getEmail();
+                }else{
+                    LogManager.println("Manufacturer:"+manufacturerUsername+" does not have an email address.", EnumWarningType.WARNING);
+                    return;
+                }
+            }
+
+            LinkedList<DataSet> agentDataSet = DatabaseManager.queryDatabase(EnumTableType.AGENT, "Username", Main.getUsername());
+            app.AgentName = ((UserAgent)agentDataSet.getFirst()).getName();
+            String email = ((UserAgent)agentDataSet.getFirst()).getEmail();
+
+            //Send an email
+            EmailManager.sendEmail(to, "Your Application has been Accepted.", new String[]{
+                    "Your "+app.ApplicationType+" submitted on "+app.DateOfSubmission+" has been "+app.ApplicationStatus+"!",
+                    "If you want to contact your representative, contact "+app.AgentName+" @ "+ email+"."
+            });
         }
     }
 
@@ -97,15 +151,16 @@ public class AgentAppScreenManager extends Screen{
         method places the application into the public database with all the information.
      */
     public void rejectApp(MouseEvent mouseEvent) {
-        if(dataGlobal!=null){
-            Application app = (Application) dataGlobal;
-            if(!rejectReason.getText().isEmpty()){
-                app.ReasonForRejection = rejectReason.getText();
-            }
-            DatabaseManager.rejectApplication(app.ApplicationNo, app.ReasonForRejection);
-            Main.screenManager.closeCurrentPopOut();
-            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        Application app = (Application) dataGlobal;
+        String status = "REJECTED";
+        String reason = "";
+        if(!rejectReason.getText().isEmpty()){
+            reason = rejectReason.getText();
         }
+
+
+
+        updateDatabase(status, reason);
     }
 
     public void forwardApp(MouseEvent mouseEvent) {
@@ -119,11 +174,70 @@ public class AgentAppScreenManager extends Screen{
             Main.databaseManager.forwardApplication(app.ApplicationNo, agentID);
         }catch(Exception e){
             LogManager.println("there was an error forwarding the message");
+            DataSet data = new BasicDataSet();
+            data.addField("Message", "There is no agent with that username");
+            Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "no such user", 400, 150,data);
+            return;
         }
         Main.screenManager.closeCurrentPopOut();
         Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
     }
 
 
+    public void sendBackApp(MouseEvent mouseEvent) {
+        String status = "NEEDS WORK";
+        String reason = "";
+        if(!sendBackReason.getText().isEmpty()){
+            reason = sendBackReason.getText();
+        }
 
+        updateDatabase(status, reason);
+    }
+
+    private void updateDatabase(String status, String reason){
+        if(dataGlobal!=null){
+            Application app = (Application) dataGlobal;
+            app.ReasonForRejection = reason;
+
+            DatabaseManager.rejectApplication(app.ApplicationNo, reason, status);
+            Main.screenManager.closeCurrentPopOut();
+            Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        }
+
+        if(dataGlobal!=null) {
+            Application app = (Application) dataGlobal;
+            String manufacturerUsername = app.getManufacturerUsername();
+            LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
+
+            if (manufacturerDataSet.size() <= 0) {
+                LogManager.println("Manufacturer:" + manufacturerUsername + " does not exist!", EnumWarningType.WARNING);
+                return;
+            }
+
+            // Recipient's email ID needs to be mentioned.
+            String to = "";//change accordingly
+
+            UserManufacturer manufacturer = null;
+            if (manufacturerDataSet.getFirst() != null) {
+                manufacturer = (UserManufacturer) manufacturerDataSet.getFirst();
+                //Check for email
+                if (!manufacturer.getEmail().isEmpty()) {
+                    to = manufacturer.getEmail();
+                } else {
+                    LogManager.println("Manufacturer:" + manufacturerUsername + " does not have an email address.", EnumWarningType.WARNING);
+                    return;
+                }
+            }
+
+            String tempStatus;
+            if(status.equals("NEEDS WORK")){
+                tempStatus = "sent back";
+            }else{
+                tempStatus = "Rejected";
+            }
+            //Send an email
+            EmailManager.sendEmail(to, "Your Application has been " + tempStatus + ".", new String[]{app.ReasonForRejection});
+        }
+
+    }
 }

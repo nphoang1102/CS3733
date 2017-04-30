@@ -3,6 +3,7 @@ package screen;
 /**
  * Created by ${Victor} on 4/2/2017.
  */
+import Email.EmailManager;
 import base.*;
 import database.*;
 import javafx.collections.FXCollections;
@@ -173,8 +174,8 @@ public class AgentInboxManager extends Screen{
 
     public void setAgentStatus(MouseEvent mouseEvent) {
         String statusType = (String) agentStatus.getValue();
-        if(statusType.equals("REMOVE")){
-            Main.databaseManager.clearInbox(thisUser.getUsername());
+        if(statusType.equals("REMOVE") || statusType.equals("Suspend")){
+            Main.databaseManager.clearInbox(tempUser.getUsername());
         }
         if (statusType.equals("Activate")) {
             statusType = "active";
@@ -184,12 +185,28 @@ public class AgentInboxManager extends Screen{
             statusType = "REMOVE";
         }
         DatabaseManager.setAgentStatus(tempUser.getUsername(), statusType);
-        Main.screenManager.closeCurrentPopOut();
+        if(!statusType.equals("REMOVE")){
+            LinkedList<DataSet> agentDataSet = DatabaseManager.queryDatabase(EnumTableType.AGENT, "Username", tempUser.getUsername());
+            if(agentDataSet.size()>0) {
+                UserAgent agent = (UserAgent) agentDataSet.getFirst();
+                if (!agent.getEmail().isEmpty()) {
+                    switch(statusType) {
+                        case "active":
+                            EmailManager.sendEmail(agent.getEmail(), "Your Agent status has been approved.", new String[]{"Welcome to the TTB by TTBrother!"});
+                        case "suspended":
+                            EmailManager.sendEmail(agent.getEmail(), "Your Agent status has been suspended.", new String[]{"Get your shit together please."});
+                    }
+
+                }
+            }
+        }
+
         Main.screenManager.setScreen(EnumScreenType.SUPER_AGENT);
     }
 
     public void wipeInbox(MouseEvent mouseEvent) {
-        Main.databaseManager.clearInbox(thisUser.getUsername());
+        Main.databaseManager.clearInbox(tempUser.getUsername());
+        screenManager.setScreen(EnumScreenType.AGENT_INBOX, tempUser);
     }
 }
 
