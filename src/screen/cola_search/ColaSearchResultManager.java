@@ -129,7 +129,7 @@ public class ColaSearchResultManager extends Screen {
         if (displace > 0) this.lastIndex = this.resultLength / 12;
         else this.lastIndex = this.resultLength / 12 - 1;
         this.pageination.setCurrentPageIndex(0);
-        this.pageination.setMaxPageIndicatorCount(totalPage);
+        this.pageination.setMaxPageIndicatorCount(30);
         this.pageination.setPageCount(totalPage);
         this.pageination.setPageFactory(new Callback<Integer, Node>() {
             @Override
