@@ -83,6 +83,7 @@ public class ColaSearchResultManager extends Screen {
 
     /* Custom on screen for asynchronous stuffs */
     public void onScreenFocused(LinkedList<DataSet> data) {
+        this.setMapOrigin();
         /* Resetting fields */
         this.databaseResult.clear();
         /* Accepting the list of result from the database */
@@ -188,6 +189,9 @@ public class ColaSearchResultManager extends Screen {
     public void populateTable(int start, int end) {
         this.resultTable.clear();
         for (int i = start; i < end; i++) {
+            if(i >= databaseResult.size()){
+                return;
+            }
             Alcohol data = (Alcohol) this.databaseResult.get(i);
             String mapSource = "";
             if (this.mapOrigin.getValueForKey(data.Origin) == null) mapSource = data.Origin;
