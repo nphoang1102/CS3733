@@ -40,7 +40,8 @@ public enum EnumScreenType {
     SUPER_AGENT_APPLICATION("SuperAgentApplications.fxml"),
     NOTIFICATION_SCREEN("Notification.fxml"),
     COLA_CHARACTER_SELECTION("ColaCharSelector.fxml"),
-    PICK_FORM("pickform.fxml")
+    PICK_FORM("pickform.fxml"),
+    LOADING("Loading.fxml"),
     ;
 
     private String scene;
