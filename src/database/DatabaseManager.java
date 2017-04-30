@@ -681,9 +681,12 @@ public class DatabaseManager {
     public static void updateAgents(UserAgent agent) {
         try {
             LogManager.print("Updating information for agent" + agent.username + "... ", EnumWarningType.NOTE);
+            LogManager.println(agent.username + " <--usernme");
+            LogManager.println(agent.email + " <--- email");
+            LogManager.println(agent.name + " <---name");
             statement.executeUpdate("UPDATE Agents SET " +
                     "FullName = '" + agent.name + "', " +
-                    "Email = '" + agent.email + "', " +
+                    "Email = '" + agent.email + "' " +
                     "WHERE Username = '" + agent.username + "'" + endQueryLine);
             LogManager.println("Success!");
         } catch (SQLException e) {
