@@ -84,7 +84,7 @@ public class DatabaseManager {
             return;
         }*/
 //        LogManager.println("    Driver registered!");
-        LogManager.print("Attempting connection to " + databaseType + " database  at " + databaseServer + "... ");
+        LogManager.println("Attempting connection to " + databaseType + " database  at " + databaseServer + "... ");
         boolean noDB = true;
         int MAXTRIES = 10;
         int tries = 0;
@@ -98,7 +98,7 @@ public class DatabaseManager {
             /*else if(sqlite){
                 connection = DriverManager.getConnection("jdbc:sqlite:TTB.db");
             }*/
-                LogManager.println("Connection established!");
+                LogManager.println("Database connection established!", EnumWarningType.NOTE);
                 noDB = false;
             } catch (SQLException e) { //BOOKER, CATCH!
                 LogManager.println("");
@@ -738,7 +738,7 @@ public class DatabaseManager {
 
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
-            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL, SET DateOfApproval = '" + DateOfApproval + "', SET DateOfExpiration = '" + DateOfExpiration + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL, DateOfApproval = '" + DateOfApproval + "', DateOfExpiration = '" + DateOfExpiration + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
             //statement.executeUpdate("UPDATE Applications SET AgentName = '" + Main.getUser().name + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
