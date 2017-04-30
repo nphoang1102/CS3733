@@ -19,7 +19,7 @@ public class AgentVerificationManager extends Screen{
     }
     @FXML private TextField fullNameField, emailField;
 
-    @FXML private CheckBox tickSuperAgent, tickAgent;
+    @FXML private CheckBox tickSuperAgent;
 
     @FXML private Button submitButton;
 
@@ -27,9 +27,9 @@ public class AgentVerificationManager extends Screen{
 
     String name = "";//fullNameField.getText();
     String email ="";// emailField.getText();
-    String type = "";
+    String type = "false";
     DataSet tempUser;
-    EnumUserType userType;
+    EnumUserType userType = EnumUserType.AGENT;
 
     @FXML
     private void submit(){
@@ -39,7 +39,7 @@ public class AgentVerificationManager extends Screen{
         name = fullNameField.getText();
         email = fullNameField.getText();
         //check to see all fields are filled in
-        if(!name.equals("")&&!email.equals("")&&!type.equals("")&&!userType.equals(null)){
+        if(!name.equals("")&&!email.equals("")&&!userType.equals(null)){
             //cast the user passed in as a userAgent
             UserAgent tempAgent = (UserAgent) tempUser;
 
@@ -96,18 +96,18 @@ public class AgentVerificationManager extends Screen{
         //check if the agent box is currently selected
         if(tickSuperAgent.selectedProperty().getValue()) {
             //untick others
-            tickAgent.setSelected(false);
-            tickAgent.setIndeterminate(false);
+//            tickAgent.setSelected(false);
+//            tickAgent.setIndeterminate(false);
             type = "true";
             userType=(EnumUserType.SUPER_AGENT);
         }else{
-            type = "";
-            userType = null;
+            type = "false";
+            userType = EnumUserType.AGENT;
         }
     }
 
     @FXML
-    private void selectAgent(){
+    /*private void selectAgent(){
         //check if the agent box is currently selected
         if(tickAgent.selectedProperty().getValue()) {
             //untick others
@@ -119,11 +119,12 @@ public class AgentVerificationManager extends Screen{
             type = "";
             userType = null;
         }
-    }
+    }*/
 
     @Override
     public void onScreenFocused(DataSet data) {
         this.tempUser = data;
+        submitButton.requestFocus();
         verifyError.setVisible(false);
     }
 }

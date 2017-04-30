@@ -58,6 +58,7 @@ public class DatabaseManager {
         databaseType = "MySQL";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
+//        databaseServer = "10.0.0.240";
 
         if (databaseType.toLowerCase().equals("derby")) {
             derby = true; //MAGIC!
@@ -226,6 +227,7 @@ public class DatabaseManager {
                     " RepID VARCHAR(50) NOT NULL,\n" +
                     " Email VARCHAR(50) NOT NULL,\n" +
                     " PlantRegistry VARCHAR(50) NOT NULL,\n" +
+                    " BreweryPermitNo VARCHAR(50) NOT NULL,\n" +
                     " PhoneNo VARCHAR(20) NOT NULL,\n" +
                     " Address2 VARCHAR(50) NOT NULL,\n" +
                     " Agent VARCHAR(30),\n" +
@@ -574,6 +576,7 @@ public class DatabaseManager {
                 manufacturer.name = searchManufacturers.getString("FullName");
                 manufacturer.RepID = searchManufacturers.getString("RepID");
                 manufacturer.PlantRegistry = searchManufacturers.getString("PlantRegistry");
+                manufacturer.BreweryPermitNo = searchManufacturers.getString("BreweryPermitNo");
                 manufacturer.PhoneNo = searchManufacturers.getString("PhoneNo");
                 manufacturer.Agent = searchManufacturers.getString("Agent");
                 manufacturer.AgentDate = searchManufacturers.getString("AgentDate");
@@ -663,8 +666,10 @@ public class DatabaseManager {
             statement.executeUpdate("UPDATE Manufacturers SET " +
                     "FullName = '" + manufacturer.name + "', " + //WHOOOOO ARE YOU? OOH OHH, OOH OOH...
                     "RepID = '" + manufacturer.RepID + "', " +
+                    "Company = '" + manufacturer.Company + "', " +
                     "Email = '" + manufacturer.email + "', " +
                     "PlantRegistry = '" + manufacturer.PlantRegistry + "', " +
+                    "BreweryPermitNo = '" + manufacturer.BreweryPermitNo + "', " +
                     "PhoneNo = '" + manufacturer.PhoneNo + "' " +
                     "WHERE Username = '" + manufacturer.username + "'" + endQueryLine);
             LogManager.println("Success!");
@@ -694,7 +699,7 @@ public class DatabaseManager {
             LogManager.println(e.getMessage());
         }
     }
-    
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EDIT APPLICATIONS/////////////////////////////////////////////////////
@@ -705,7 +710,7 @@ public class DatabaseManager {
                 statement.executeUpdate("DELETE FROM Alcohol WHERE TTBID = '" + application.ApprovedTTBID + "'" + endQueryLine);
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
-                approveApplication(application.ApplicationNo);
+                approveApplication(application.ApplicationNo, application.DateOfApproval, application.DateOfExpiration);
             } else {
                 statement.executeUpdate("DELETE FROM Applications WHERE ApplicationNo = '" + application.ApplicationNo + "'" + endQueryLine);
                 submitApplication(application);
@@ -727,11 +732,11 @@ public class DatabaseManager {
         approveApplication(ApplicationNum, TTBID);
     }*/
 
-    public static void approveApplication(String ApplicationNum) {
+    public static void approveApplication(String ApplicationNum, String DateOfApproval, String DateOfExpiration) {
 
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'APPROVED' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
-            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL, SET DateOfApproval = '" + DateOfApproval + "', SET DateOfExpiration = '" + DateOfExpiration + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
             //statement.executeUpdate("UPDATE Applications SET AgentName = '" + Main.getUser().name + "' WHERE ApplicationNo = '" + ApplicationNum + "'" + endQueryLine);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -739,37 +744,37 @@ public class DatabaseManager {
         LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNum);
         if( approvedApplicationLinkedList != null && !approvedApplicationLinkedList.isEmpty()) { //THERE. ARE. FOUR! LIGHTS!
             Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
-            String ApplicationNo = approvedApplication.ApplicationNo;
+//            String ApplicationNo = approvedApplication.ApplicationNo;
             String SerialNo = approvedApplication.SerialNo;
-            String ApplicationType = approvedApplication.ApplicationType;
-            String ApplicationStatus = approvedApplication.ApplicationStatus;
-            String ManufacturerUsername = approvedApplication.ManufacturerUsername;
-            String RepName = approvedApplication.RepName;
-            String AgentUsername = approvedApplication.AgentUsername;
-            String AgentName = approvedApplication.AgentName;
-            String RepID = approvedApplication.RepID;
+//            String ApplicationType = approvedApplication.ApplicationType;
+//            String ApplicationStatus = approvedApplication.ApplicationStatus;
+//            String ManufacturerUsername = approvedApplication.ManufacturerUsername;
+//            String RepName = approvedApplication.RepName;
+//            String AgentUsername = approvedApplication.AgentUsername;
+//            String AgentName = approvedApplication.AgentName;
+//            String RepID = approvedApplication.RepID;
             String PlantRegistry = approvedApplication.PlantRegistry;
             String Locality = approvedApplication.Locality;
             String Brand = approvedApplication.Brand;
             String FancifulName = approvedApplication.FancifulName; //Fancy feast is delicious.
             String AlcoholType = approvedApplication.AlcoholType; // WHAT ARE THEY SELLING??
             String ABV = approvedApplication.ABV;
-            String Address = approvedApplication.Address;//Is this the real life?
-            String Address2 = approvedApplication.Address2;//Is this just fantasy?
-            String Formula = approvedApplication.Formula;
-            String WineAppelation = approvedApplication.WineAppelation;//Caught in a landslide
+//            String Address = approvedApplication.Address;//Is this the real life?
+//            String Address2 = approvedApplication.Address2;//Is this just fantasy?
+//            String Formula = approvedApplication.Formula;
+//            String WineAppelation = approvedApplication.WineAppelation;//Caught in a landslide
             String VintageDate = approvedApplication.VintageDate;//NO ESCAPE FROM REALITY...
-            String Grapes = approvedApplication.Grapes;
+//            String Grapes = approvedApplication.Grapes;
             String PH = approvedApplication.PH; //THEY'RE SELLING CHOCOLATE!!!
-            String PhoneNo = approvedApplication.PhoneNo;
-            String Email = approvedApplication.Email;
-            String AdditionalInfo = approvedApplication.AdditionalInfo;
-            String DateOfSubmission = approvedApplication.DateOfSubmission;
-            String CompletedDate = StringUtilities.getDate();
-            String DateOfExpiration = approvedApplication.DateOfExpiration;
+//            String PhoneNo = approvedApplication.PhoneNo;
+//            String Email = approvedApplication.Email;
+//            String AdditionalInfo = approvedApplication.AdditionalInfo;
+//            String DateOfSubmission = approvedApplication.DateOfSubmission;
+//            String CompletedDate = StringUtilities.getDate();
+//            String DateOfExpiration = approvedApplication.DateOfExpiration;
             String TTBID = approvedApplication.ApprovedTTBID;
-            String ReasonForRejection = approvedApplication.ReasonForRejection;
-            String Class = "";
+//            String ReasonForRejection = approvedApplication.ReasonForRejection;
+//            String Class = "";
 
             try {
                 LogManager.println("INSERTING THINGS NOW!!!");
@@ -789,7 +794,7 @@ public class DatabaseManager {
                         TTBID + "', '" +
                         PlantRegistry + "', '" +
                         SerialNo + "', '" +
-                        CompletedDate + "', '" +
+                        DateOfApproval + "', '" +
                         FancifulName.toUpperCase() + "', '" +
                         Brand.toUpperCase() + "', '" +
                         PH + "', '" +
@@ -1070,15 +1075,8 @@ public class DatabaseManager {
                 if (manufacturerRS.next()) {
                     manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                     LogManager.println("Found!");
-//                    System.out.println("setting manufacturer");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
-                    /*try {
-//                        tryPassword(username, password, user.getString("PasswordHash"));
-                    } catch (Exception e) {
-                        LogManager.println(e.getMessage(), EnumWarningType.ERROR);
-                    }*/
                     String passwordHash = "";
-//                    System.out.println("Getting password hash");
                     try {
                         manufacturerRS = statement.executeQuery("SELECT * FROM Manufacturers WHERE Username = '" + username + "'" + endQueryLine);
                         manufacturerRS.next();
@@ -1086,7 +1084,7 @@ public class DatabaseManager {
                     } catch (Exception e) {
                         System.out.println("Failed to get password hash! " + e.getMessage());
                     }
-                    System.out.println(passwordHash);
+//                    System.out.println(passwordHash);
 //                    String passwordHash = "";
 //                    System.out.println("checking password");
                     if (PasswordStorage.verifyPassword(password, passwordHash)) {
