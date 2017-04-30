@@ -209,7 +209,7 @@ public class AdvanceColaSearchManager extends Screen {
                     + ", with the search logic of " + this.searchEntries[8]);
             this.searchType = "";
             this.searchFields = 1;
-            Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, searchFields);
+            Main.screenManager.setScreen(EnumScreenType.LOADING, searchFields);
         }
         else {
             this.warning.setVisible(true);

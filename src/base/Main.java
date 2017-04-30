@@ -7,6 +7,8 @@ import screen.ScreenManager;
 import sun.rmi.runtime.Log;
 
 import java.io.File;
+import java.lang.reflect.Method;
+import java.util.concurrent.Callable;
 
 public class Main extends Application {
 
@@ -141,6 +143,22 @@ public class Main extends Application {
             return user.getType().getTextualName();
         }
         return "";
+    }
+
+    public static void listenForThreadToFinish(MultiThreadedCallback thread, Callable func){
+        Thread t = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while(thread.thread.isAlive()){}
+                try {
+                    System.out.println("Calling function:"+func.toString());
+                    func.call();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t.start();
     }
 
     public static void logOutUser() {

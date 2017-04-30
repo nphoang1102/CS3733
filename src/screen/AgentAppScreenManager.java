@@ -3,16 +3,17 @@ package screen;
 import Email.EmailManager;
 import base.*;
 import database.*;
+import database.images.ProxyImage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.swing.text.html.ImageView;
 import java.util.LinkedList;
 import java.util.Properties;
 
@@ -30,7 +31,7 @@ public class AgentAppScreenManager extends Screen{
     TextArea rejectReason, newAgentID, sendBackReason;
 
     @FXML
-    javafx.scene.image.ImageView theLabel;
+    ImageView theLabel;
     //all the Buttons on the screen
     @FXML
     Button acceptButton, rejectButton, forwardButton, sendBackButton;
@@ -90,6 +91,8 @@ public class AgentAppScreenManager extends Screen{
             sendBackReason.setVisible(false);
         }
 
+        ProxyImage image = new ProxyImage("alcohol/"+application.ApplicationNo+".png");
+        image.displayImage(theLabel);
 
     }
 
@@ -104,6 +107,7 @@ public class AgentAppScreenManager extends Screen{
             DatabaseManager.approveApplication(app.ApplicationNo, StringUtilities.getDate(), StringUtilities.getExpirationDate());
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+            app.ApplicationStatus = "APPROVED";
 
 
             String manufacturerUsername = app.getManufacturerUsername();
@@ -129,11 +133,14 @@ public class AgentAppScreenManager extends Screen{
                 }
             }
 
+            LinkedList<DataSet> agentDataSet = DatabaseManager.queryDatabase(EnumTableType.AGENT, "Username", Main.getUsername());
+            app.AgentName = ((UserAgent)agentDataSet.getFirst()).getName();
+            String email = ((UserAgent)agentDataSet.getFirst()).getEmail();
+
             //Send an email
             EmailManager.sendEmail(to, "Your Application has been Accepted.", new String[]{
                     "Your "+app.ApplicationType+" submitted on "+app.DateOfSubmission+" has been "+app.ApplicationStatus+"!",
-                    "This application will expire on "+app.DateOfExpiration+".",
-                    "If you want to bitch to someone about about this application, contact:"+app.AgentName+"."
+                    "If you want to contact your representative, contact "+app.AgentName+" @ "+ email+"."
             });
         }
     }

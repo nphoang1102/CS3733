@@ -6,18 +6,12 @@ package screen;
  */
 
 import base.*;
-import com.mysql.jdbc.StringUtils;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
-import sun.management.Agent;
+import screen.Subject;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 
 public class CreateAccountManager extends Screen{
     public CreateAccountManager() {
