@@ -191,7 +191,7 @@ public class ColaSearchResultManager extends Screen {
     /* Print search result into a CSV file on button click */
     public void toCSV() {
         IDataDownload downloadCSV = new toCSV();
-        downloadCSV.downloadData(this.resultTable, ",");
+        downloadCSV.downloadData(this.databaseResult, ",");
         DataSet message = new BasicDataSet();
         message.addField("Message", "Search result saved to /searchResult.csv");
         Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
@@ -200,7 +200,7 @@ public class ColaSearchResultManager extends Screen {
     /* Print search result into a tab-delimited text file */
     public void toTab() {
         IDataDownload downloadTab = new toTSV();
-        downloadTab.downloadData(this.resultTable, "\t");
+        downloadTab.downloadData(this.databaseResult, "\t");
         DataSet message = new BasicDataSet();
         message.addField("Message", "Search result saved to /searchResult-tab.tsv");
         Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
@@ -211,7 +211,7 @@ public class ColaSearchResultManager extends Screen {
 //        IDataDownload downloadChar = new toChSV();
 //        downloadChar.downloadData(this.resultTable);
         DataSet data = new BasicDataSet();
-        data.addField("ResultTable",this.resultTable);
+        data.addField("ResultTable", this.databaseResult);
         Main.screenManager.popoutScreen(EnumScreenType.COLA_CHARACTER_SELECTION, "Character configuration", 450, 250, data);
     }
 
