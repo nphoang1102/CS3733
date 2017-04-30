@@ -25,6 +25,7 @@ public class UserManufacturer extends User {
         RepID= "";
         PlantRegistry= "";
         PhoneNo = "";
+        BreweryPermitNo = "";
         super.userType = EnumUserType.MANUFACTURER;
         Agent = "";
         AgentDate = "";
