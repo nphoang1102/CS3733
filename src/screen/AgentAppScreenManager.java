@@ -101,7 +101,7 @@ public class AgentAppScreenManager extends Screen{
     public void acceptApp(MouseEvent mouseEvent) {
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
-            DatabaseManager.approveApplication(app.ApplicationNo);
+            DatabaseManager.approveApplication(app.ApplicationNo, StringUtilities.getDate(), StringUtilities.getExpirationDate());
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
 
