@@ -88,13 +88,22 @@ public class SecurityBarObserver extends SecurityObserver{
                 //make bar red
                 progressBar.setStyle("-fx-accent: #ff0000; -fx-focus-color: #34a88b;");
             } else if (securityLevel <= .7) {
+                //yellow
                 progressBar.setStyle("-fx-accent: #FFF100; -fx-focus-color: #34a88b;");
             } else if (securityLevel > .7) {
+                //orange
                 progressBar.setStyle("-fx-accent:  #34a88b; -fx-focus-color: #34a88b;");
             }
             //update old password
             oldPassword = curPassword;
         }
+
+    }
+
+    public void RedToGreen(double input){
+        input *= 100;
+        int color = 0x000000;
+
 
     }
 }
