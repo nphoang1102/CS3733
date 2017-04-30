@@ -87,7 +87,7 @@ public class PickFormManager extends Screen {
         }
         //CREATE SUBMIT BUTTON
         Main.screenManager.closeCurrentPopOut();
-        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_ADD_FORM,"View New Application", 1280, 720,pdfApp);
+        Main.screenManager.popoutScreen(EnumScreenType.MANUFACTURER_ADD_FORM,"View New Application", 1000, 600,pdfApp);
     }
 
     // COPIED FROM APACHE PDFBOX EXAMPLES
