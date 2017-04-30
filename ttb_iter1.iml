@@ -184,5 +184,15 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="pdfbox" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file:///usr/lib/jvm/jdk1.8.0_121/db/lib" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+        <jarDirectory url="file:///usr/lib/jvm/jdk1.8.0_121/db/lib" recursive="false" />
+      </library>
+    </orderEntry>
   </component>
 </module>

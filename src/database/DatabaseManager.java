@@ -57,6 +57,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public DatabaseManager() {
         databaseType = "MySQL";
+//        databaseType = "derby";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
 //        databaseServer = "10.0.0.240";
@@ -71,8 +72,12 @@ public class DatabaseManager {
             LogManager.println("Unknown database type!", EnumWarningType.ERROR);
             return;
         }
-
-        LogManager.println("Attempting connection to " + databaseType + " database  at " + databaseServer + "... ");
+        if (mysql) {
+            LogManager.println("Attempting connection to MySQL database " + databaseName + "at " + databaseServer + "... ");
+        }
+        if (derby) {
+            LogManager.println("Attempting connection to internal derby database  at " + databaseName + "... ");
+        }
         boolean noDB = true;
         int MAXTRIES = 10;
         int tries = 0;
@@ -87,11 +92,11 @@ public class DatabaseManager {
                 noDB = false;
             } catch (SQLException e) { //BOOKER, CATCH!
                 LogManager.println("");
-                LogManager.print("Database connection failed. ", EnumWarningType.ERROR);
+                LogManager.println("Database connection failed: " + e.getMessage(), EnumWarningType.ERROR);
                 if (derby) {
                     LogManager.println("There may already be a connection to the database."); //Derby is monogamous.
                 } else if (mysql) {
-                    LogManager.println("");
+//                    LogManager.println("");
                 }
                 if (tries == MAXTRIES) {
                     LogManager.println("Giving up.", EnumWarningType.ERROR);
@@ -155,8 +160,8 @@ public class DatabaseManager {
                     " SerialNo VARCHAR(30) NOT NULL,\n" +
                     " ApplicationType VARCHAR(30) NOT NULL,\n" +
                     " ApplicationStatus VARCHAR(15) NOT NULL,\n" +
-                    " CT VARCHAR(15) NOT NULL,\n" +
-                    " O_R VARCHAR(15) NOT NULL,\n" +
+                    " CT VARCHAR(15),\n" +
+                    " O_R VARCHAR(15),\n" +
                     " ManufacturerUsername VARCHAR(20),\n" +
                     " RepName VARCHAR(30),\n" +
                     " AgentUsername VARCHAR(30),\n" +
@@ -206,7 +211,7 @@ public class DatabaseManager {
         LogManager.print("Creating manufacturers table... ", EnumWarningType.NOTE);
         try {
             statement.executeUpdate("CREATE TABLE Manufacturers(\n" +
-                    " Username VARCHAR(30) PRIMARY KEY UNIQUE,\n" +
+                    " Username VARCHAR(30) PRIMARY KEY,\n" +
                     " PasswordHash VARCHAR(75) NOT NULL,\n" +
                     " Company VARCHAR(100) NOT NULL,\n" +
                     " FullName VARCHAR(50) NOT NULL,\n" +
@@ -657,17 +662,15 @@ public class DatabaseManager {
     public static void updateAgents(UserAgent agent) {
         try {
             LogManager.print("Updating information for agent" + agent.username + "... ", EnumWarningType.NOTE);
-            LogManager.println(agent.username + " <--usernme");
-            LogManager.println(agent.email + " <--- email");
-            LogManager.println(agent.name + " <---name");
+            LogManager.println("Username: " + agent.username);
+            LogManager.println("Full Name: " + agent.name);
+            LogManager.println("Email: " + agent.email);
             statement.executeUpdate("UPDATE Agents SET " +
                     "FullName = '" + agent.name + "', " +
                     "Email = '" + agent.email + "' " +
                     "WHERE Username = '" + agent.username + "'" + endQueryLine);
-            LogManager.println("Success!");
         } catch (SQLException e) {
-            LogManager.print("Failed. ");
-            LogManager.println(e.getMessage());
+            LogManager.print("Failed: " + e.getMessage());
         }
     }
 
@@ -930,8 +933,21 @@ public class DatabaseManager {
                         SuperAgent = "true";
                     }
                     String status = "pending";
-                    statement.executeUpdate("INSERT INTO Agents" + " (ID, username, PasswordHash, FullName, Email, SuperAgent, Status) VALUES " +
-                            "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "', '" + status + "')");
+                    statement.executeUpdate("INSERT INTO Agents" + " (ID, " +
+                            "username, " +
+                            "PasswordHash, " +
+                            "FullName, " +
+                            "Email, " +
+                            "SuperAgent, " +
+                            "Status" +
+                            ") VALUES ('" +
+                            agent.ID + "',  '" +
+                            agent.username + "', '" +
+                            PasswordStorage.createHash(password) + "', '" +
+                            agent.name + "', '" +
+                            agent.email + "', '" +
+                            SuperAgent + "', '" +
+                            status + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
                 } catch (MySQLIntegrityConstraintViolationException e) {
@@ -942,8 +958,23 @@ public class DatabaseManager {
                 UserManufacturer manufacturer = (UserManufacturer) user;
 
                 try {
-                    statement.executeUpdate("INSERT INTO Manufacturers" + " (Username, PasswordHash, Company, FullName, RepID, Email, PlantRegistry, PhoneNo, Address2, Agent, AgentDate) VALUES " +
-                            "('" + manufacturer.username + "', '" + PasswordStorage.createHash(password) + "', '', '', '', '', '', '', '', '', '')");
+                    statement.executeUpdate("INSERT INTO Manufacturers" + " (" +
+                            "Username, " +
+                            "PasswordHash, " +
+                            "Company, " +
+                            "FullName, " +
+                            "RepID, " +
+                            "Email, " +
+                            "PlantRegistry, " +
+                            "PhoneNo, " +
+                            "Address2, " +
+                            "Agent, " +
+                            "AgentDate, " +
+                            "BreweryPermitNo" +
+                            ") VALUES ('" +
+                            manufacturer.username + "', " +
+                            PasswordStorage.createHash(password) +
+                            "'', '', '', '', '', '', '', '', '', '', '')");
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
