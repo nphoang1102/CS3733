@@ -58,6 +58,7 @@ public class DatabaseManager {
         databaseType = "MySQL";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
+//        databaseServer = "10.0.0.240";
 
         if (databaseType.toLowerCase().equals("derby")) {
             derby = true; //MAGIC!
@@ -694,7 +695,7 @@ public class DatabaseManager {
             LogManager.println(e.getMessage());
         }
     }
-    
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EDIT APPLICATIONS/////////////////////////////////////////////////////
@@ -1070,15 +1071,8 @@ public class DatabaseManager {
                 if (manufacturerRS.next()) {
                     manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                     LogManager.println("Found!");
-//                    System.out.println("setting manufacturer");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
-                    /*try {
-//                        tryPassword(username, password, user.getString("PasswordHash"));
-                    } catch (Exception e) {
-                        LogManager.println(e.getMessage(), EnumWarningType.ERROR);
-                    }*/
                     String passwordHash = "";
-//                    System.out.println("Getting password hash");
                     try {
                         manufacturerRS = statement.executeQuery("SELECT * FROM Manufacturers WHERE Username = '" + username + "'" + endQueryLine);
                         manufacturerRS.next();
@@ -1086,7 +1080,7 @@ public class DatabaseManager {
                     } catch (Exception e) {
                         System.out.println("Failed to get password hash! " + e.getMessage());
                     }
-                    System.out.println(passwordHash);
+//                    System.out.println(passwordHash);
 //                    String passwordHash = "";
 //                    System.out.println("checking password");
                     if (PasswordStorage.verifyPassword(password, passwordHash)) {
