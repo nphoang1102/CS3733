@@ -160,32 +160,7 @@ public class AgentAppScreenManager extends Screen{
             reason = rejectReason.getText();
         }
 
-        String manufacturerUsername = app.getManufacturerUsername();
-        LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
 
-        if(manufacturerDataSet.size()<=0){
-            LogManager.println("Manufacturer:"+manufacturerUsername+" does not exist!", EnumWarningType.WARNING);
-            return;
-        }
-
-        // Recipient's email ID needs to be mentioned.
-        String to = "";//change accordingly
-
-        UserManufacturer manufacturer = null;
-        if(manufacturerDataSet.getFirst()!=null){
-            manufacturer = (UserManufacturer)manufacturerDataSet.getFirst();
-            //Check for email
-            if(!manufacturer.getEmail().isEmpty()){
-                to = manufacturer.getEmail();
-            }else{
-                LogManager.println("Manufacturer:"+manufacturerUsername+" does not have an email address.", EnumWarningType.WARNING);
-                return;
-            }
-        }
-
-
-        //Send an email
-        EmailManager.sendEmail(to, "Your Application has been Rejected.", new String[]{app.ReasonForRejection});
 
         updateDatabase(status, reason);
     }
@@ -225,6 +200,41 @@ public class AgentAppScreenManager extends Screen{
             DatabaseManager.rejectApplication(app.ApplicationNo, reason, status);
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+        }
+
+        if(dataGlobal!=null) {
+            Application app = (Application) dataGlobal;
+            String manufacturerUsername = app.getManufacturerUsername();
+            LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
+
+            if (manufacturerDataSet.size() <= 0) {
+                LogManager.println("Manufacturer:" + manufacturerUsername + " does not exist!", EnumWarningType.WARNING);
+                return;
+            }
+
+            // Recipient's email ID needs to be mentioned.
+            String to = "";//change accordingly
+
+            UserManufacturer manufacturer = null;
+            if (manufacturerDataSet.getFirst() != null) {
+                manufacturer = (UserManufacturer) manufacturerDataSet.getFirst();
+                //Check for email
+                if (!manufacturer.getEmail().isEmpty()) {
+                    to = manufacturer.getEmail();
+                } else {
+                    LogManager.println("Manufacturer:" + manufacturerUsername + " does not have an email address.", EnumWarningType.WARNING);
+                    return;
+                }
+            }
+
+            String tempStatus;
+            if(status.equals("NEEDS WORK")){
+                tempStatus = "sent back";
+            }else{
+                tempStatus = "Rejected";
+            }
+            //Send an email
+            EmailManager.sendEmail(to, "Your Application has been " + tempStatus + ".", new String[]{app.ReasonForRejection});
         }
 
     }

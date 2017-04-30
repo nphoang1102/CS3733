@@ -37,7 +37,7 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor></Button>
-      <TextField fx:id="usernameField" layoutX="392.0" layoutY="263.0" onAction="#enterHit" prefHeight="50.0" prefWidth="230.0" promptText="Username" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
+      <TextField fx:id="usernameField" layoutX="392.0" layoutY="263.0" onAction="#enterHit" prefHeight="50.0" prefWidth="444.0" promptText="Username" style="-fx-faint-focus-color: transparent; -fx-focus-color: #34a88b ;">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
@@ -48,7 +48,7 @@
             <Cursor fx:constant="TEXT" />
          </cursor>
       </TextField>
-      <Button layoutX="636.0" layoutY="263.0" mnemonicParsing="false" onMouseClicked="#userSignUp" prefHeight="50" prefWidth="160.0" style="-fx-background-color: #34a88b; -fx-focus-color: #34a88b;" text="Sign Up" textFill="WHITE">
+      <Button layoutX="540.0" layoutY="548.0" mnemonicParsing="false" onMouseClicked="#userSignUp" prefHeight="50" prefWidth="160.0" style="-fx-background-color: #34a88b; -fx-focus-color: #34a88b;" text="Sign Up" textFill="WHITE">
          <font>
             <Font name="Telugu Sangam MN" size="18.0" />
          </font>
