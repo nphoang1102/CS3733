@@ -83,6 +83,7 @@ public class ColaSearchResultManager extends Screen {
 
     /* Custom on screen for asynchronous stuffs */
     public void onScreenFocused(LinkedList<DataSet> data) {
+        this.setMapOrigin();
         /* Resetting fields */
         this.databaseResult.clear();
         /* Accepting the list of result from the database */

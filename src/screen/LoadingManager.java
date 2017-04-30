@@ -4,8 +4,19 @@ import base.*;
 import database.BasicDataSet;
 import database.DataSet;
 import database.DatabaseManager;
+import javafx.animation.Animation;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.util.Duration;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.LinkedList;
 import java.util.concurrent.Callable;
 
@@ -21,6 +32,11 @@ public class LoadingManager extends Screen {
     private boolean isAdvance = false;
     private LinkedList<DataSet> databaseResult = new LinkedList();
 
+    @FXML
+    Label loading;
+    @FXML
+    ImageView image;
+
 
     /* Class constructor */
     public LoadingManager() {
@@ -30,6 +46,29 @@ public class LoadingManager extends Screen {
     /* Class methods */
     @Override
     public void onScreenFocused(DataSet data){
+
+        loading.setVisible(true);
+        image.setVisible(false);
+
+        BufferedImage bufferedImage;
+        String file = "/res/bottle.png";
+        try {
+            bufferedImage = ImageIO.read(new File(Main.PATH + file));
+            Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+            this.image.setImage(image);
+//            this.image.setVisible(true);
+        } catch (Exception e) {
+//                    e.printStackTrace();
+            LogManager.println("Failed to load image " + file +". " +e.getMessage());
+        }
+
+        RotateTransition rt = new RotateTransition(Duration.millis(3000), loading);
+        rt.setByAngle(360);
+        rt.setCycleCount(Animation.INDEFINITE);
+        rt.setAutoReverse(false);
+
+        rt.play();
+
         MultiThreadedCallback thread = new MultiThreadedCallback(new Callable() {
             @Override
             public Object call() throws Exception {
