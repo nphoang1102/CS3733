@@ -108,25 +108,25 @@ public class CreateAccountManager extends Screen{
                         }catch(DatabaseManager.DuplicateUserException e){
                             LogManager.println("caught DuplicateUserException");
                             clearFields();
-                            accountError.setText(user + ", I'm sorry, but that account is already taken, try to be more original next time");
+                            accountError.setText("Sorry, that username is already taken.");
                             return;
                         }
 
                         Main.setUser(tempUser);
-
-                        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+                        Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
+                        //Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
                     }
                 }else{//passwords don't match
-                    accountError.setText(user + ", make sure you enter the same password");
+                    accountError.setText("Passwords do not match.");
                     password.clear();
                     passwordVerify.clear();
                 }
             } else { //they didn't select a box
                 //repopulate the field with their name
-                accountError.setText(user + ", select a box.");
+                accountError.setText( "Please select an account type.");
             }
         }else {//user didn't enter a username or password
-            accountError.setText("No username or password");
+            accountError.setText("Please enter a username and a password.");
         }
         /* {
             //if name is taken, return to the make account screen

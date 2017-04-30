@@ -1,10 +1,7 @@
 package screen;
 
 import Email.EmailManager;
-import base.EnumTableType;
-import base.EnumWarningType;
-import base.LogManager;
-import base.Main;
+import base.*;
 import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -104,9 +101,10 @@ public class AgentAppScreenManager extends Screen{
     public void acceptApp(MouseEvent mouseEvent) {
         if(dataGlobal!=null){
             Application app = (Application) dataGlobal;
-            DatabaseManager.approveApplication(app.ApplicationNo);
+            DatabaseManager.approveApplication(app.ApplicationNo, StringUtilities.getDate(), StringUtilities.getExpirationDate());
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
+
 
             String manufacturerUsername = app.getManufacturerUsername();
             LinkedList<DataSet> manufacturerDataSet = DatabaseManager.queryDatabase(EnumTableType.MANUFACTURER, "Username", manufacturerUsername);
@@ -169,6 +167,10 @@ public class AgentAppScreenManager extends Screen{
             Main.databaseManager.forwardApplication(app.ApplicationNo, agentID);
         }catch(Exception e){
             LogManager.println("there was an error forwarding the message");
+            DataSet data = new BasicDataSet();
+            data.addField("Message", "There is no agent with that username");
+            Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "no such user", 400, 150,data);
+            return;
         }
         Main.screenManager.closeCurrentPopOut();
         Main.screenManager.setScreen(EnumScreenType.AGENT_INBOX);
