@@ -93,19 +93,11 @@ public class SuperAgentApplicationManager extends Screen {
             return row;
         });
 
-
-
-
     }
 
     public void SortApplications(MouseEvent mouseEvent) {
         String tempType = (String) appStatusBox.getValue();
-/*        LinkedList<DataSet> results =  DatabaseManager.queryDatabase(EnumTableType.APPLICATION,"ApplicationStatus",tempType);
-        if(results.size() > 0) {
-            for (DataSet tempData : results) {
-                applications.add(tempData);
-            }
-        }*/
+
         DataSet data = new BasicDataSet();
         data.addField("appStatus", (appStatusBox.getValue() + ""));
         String toPrint =  " under type " + appStatusBox.getValue();

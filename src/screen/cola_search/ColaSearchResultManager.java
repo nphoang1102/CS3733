@@ -11,9 +11,12 @@ import database.DatabaseManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.util.Callback;
 import screen.EnumScreenType;
 import screen.Screen;
 import screen.cola_search.*;
@@ -33,6 +36,9 @@ public class ColaSearchResultManager extends Screen {
     private LinkedList<DataSet> databaseResult = new LinkedList();
     private ObservableList<ColaResult> resultTable = FXCollections.observableArrayList();
     private DataSet tempSet = new BasicDataSet();
+    private int resultLength = 0;
+    private int totalPage = 0;
+    private int lastIndex = 0;
 
     /* Class constructor */
     public ColaSearchResultManager() {
@@ -40,18 +46,21 @@ public class ColaSearchResultManager extends Screen {
     }
 
     /* FXML objects */
-    @FXML
-    private TableView<ColaResult> searchResult;
-    @FXML
-    private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
-    @FXML
-    private Button saveToCsv, advanceSearch;
-    @FXML
-    private Pane colaSearchPanel;
+    @FXML private TableView<ColaResult> searchResult;
+    @FXML private TableColumn<ColaResult, String> coLid, coLsource, coLalcoholType, coLname;
+    @FXML private Button saveToCsv, advanceSearch, saveToTab, saveToChar, prevPage, nextPage;
+    @FXML private Pane colaSearchPanel;
+    @FXML private Pagination pageination;
+    @FXML private VBox box;
 
     /* Class methods */
     @Override
     public void onScreenFocused(DataSet data){
+        /* Resetting fields */
+        this.databaseResult.clear();
+        this.resultLength = 0;
+        this.totalPage = 0;
+
         /* Check for advance or general search */
         if (data.getValueForKey("isAdvance").equals("false")) {
             this.keywords = data.getValueForKey("Keywords")+ "";
@@ -64,10 +73,33 @@ public class ColaSearchResultManager extends Screen {
 
         /* Get the TableView stuff and result setup */
         this.initializeTable();
-        this.databaseQuery();
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
+
+        /* Configure the pagination */
+        this.initPage();
+    }
+
+    /* Custom on screen for asynchronous stuffs */
+    public void onScreenFocused(LinkedList<DataSet> data) {
+        /* Resetting fields */
+        this.databaseResult.clear();
+        /* Accepting the list of result from the database */
+        this.databaseResult = data;
+        /* Resetting fields */
+        this.resultLength = 0;
+        this.totalPage = 0;
+
+        /* Get the TableView stuff and result setup */
+        this.initializeTable();
+
+        /* Configuration for the mouse click event */
+        this.initializeMouseEvent();
+
+
+        /* Initialize table, mouse click event and pagination */
+        this.initPage();
     }
 
     /* Setup properties for the columns in tableview */
@@ -111,26 +143,52 @@ public class ColaSearchResultManager extends Screen {
         Main.screenManager.popoutScreen(EnumScreenType.COLA_RESULT_POPUP, title, 800, 556, data);
     }
 
-    /* Send the search keywords to the database and display reply from database */
-    public void databaseQuery() {
-        if (this.isAdvance) {
-            this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
-                    this.adStrings[1],
-                    this.adStrings[2],
-                    this.adStrings[3],
-                    this.adStrings[4],
-                    this.adStrings[5],
-                    this.adStrings[6],
-                    this.adStrings[7],
-                    this.adStrings[8]);
-        }
-        else {
-            this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
-        }
+    /* Initialize the pagination */
+    public void initPage() {
+        int totalPage = this.databaseResult.size() / 12 + 1;
+        int displace = this.databaseResult.size() % 12;
+        if (displace > 0) this.lastIndex = this.databaseResult.size() / 12;
+        else this.lastIndex = this.databaseResult.size() / 12 - 1;
+        this.pageination.setCurrentPageIndex(0);
+        this.pageination.setMaxPageIndicatorCount(30);
+        this.pageination.setPageCount(totalPage);
+        this.pageination.setPageFactory(new Callback<Integer, Node>() {
+            @Override
+            public Node call(Integer pageIndex) {
+                if (pageIndex <= totalPage) {
+                    if (lastIndex == pageIndex) populateTable(pageIndex * 12, pageIndex * 12 + displace);
+                    else populateTable(pageIndex * 12, pageIndex * 12 + 12);
+                }
+                return new Label();
+            }
+        });
+    }
+
+//    /* Send the search keywords to the database and display reply from database */
+//    public void databaseQuery() {
+//        if (this.isAdvance) {
+//            this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
+//                    this.adStrings[1],
+//                    this.adStrings[2],
+//                    this.adStrings[3],
+//                    this.adStrings[4],
+//                    this.adStrings[5],
+//                    this.adStrings[6],
+//                    this.adStrings[7],
+//                    this.adStrings[8]);
+//        }
+//        else {
+//            this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
+//        }
+//        this.setMapOrigin();
+//        this.isAdvance = false;
+//    }
+
+    /* Populate the table based on the search result */
+    public void populateTable(int start, int end) {
         this.resultTable.clear();
-        this.setMapOrigin();
-        for (DataSet tempSet: this.databaseResult) {
-            Alcohol data = (Alcohol) tempSet;
+        for (int i = start; i < end; i++) {
+            Alcohol data = (Alcohol) this.databaseResult.get(i);
             String mapSource = "";
             if (this.mapOrigin.getValueForKey(data.Origin) == null) mapSource = data.Origin;
             else mapSource = this.mapOrigin.getValueForKey(data.Origin)+ "";
@@ -147,15 +205,14 @@ public class ColaSearchResultManager extends Screen {
                     data.VintageYear,
                     data.PH));
         }
+        this.searchResult.setItems(this.resultTable);
         this.searchResult.setEditable(false);
-        this.searchResult.getItems().setAll(resultTable);
-        this.isAdvance = false;
     }
 
     /* Print search result into a CSV file on button click */
     public void toCSV() {
         IDataDownload downloadCSV = new toCSV();
-        downloadCSV.downloadData(this.resultTable, ",");
+        downloadCSV.downloadData(this.databaseResult, ",");
         DataSet message = new BasicDataSet();
         message.addField("Message", "Search result saved to /searchResult.csv");
         Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
@@ -164,7 +221,7 @@ public class ColaSearchResultManager extends Screen {
     /* Print search result into a tab-delimited text file */
     public void toTab() {
         IDataDownload downloadTab = new toTSV();
-        downloadTab.downloadData(this.resultTable, "\t");
+        downloadTab.downloadData(this.databaseResult, "\t");
         DataSet message = new BasicDataSet();
         message.addField("Message", "Search result saved to /searchResult-tab.tsv");
         Main.screenManager.popoutScreen(EnumScreenType.NOTIFICATION_SCREEN, "Search result saved successfully", 400, 150, message);
@@ -175,7 +232,7 @@ public class ColaSearchResultManager extends Screen {
 //        IDataDownload downloadChar = new toChSV();
 //        downloadChar.downloadData(this.resultTable);
         DataSet data = new BasicDataSet();
-        data.addField("ResultTable",this.resultTable);
+        data.addField("ResultTable", this.databaseResult);
         Main.screenManager.popoutScreen(EnumScreenType.COLA_CHARACTER_SELECTION, "Character configuration", 450, 250, data);
     }
 
@@ -187,16 +244,16 @@ public class ColaSearchResultManager extends Screen {
 
     /* Initialize the origin mapping for end-user */
     private void setMapOrigin() {
-        this.mapOrigin.addField("00", "American");
-        this.mapOrigin.addField("01", "California");
-        this.mapOrigin.addField("02", "New York");
-        this.mapOrigin.addField("03", "New Jersey");
-        this.mapOrigin.addField("04", "Illinois");
-        this.mapOrigin.addField("05", "Virginia");
-        this.mapOrigin.addField("06", "Michigan");
-        this.mapOrigin.addField("07", "Washington");
-        this.mapOrigin.addField("08", "Georgia");
-        this.mapOrigin.addField("09", "Ohio");
+        this.mapOrigin.addField("0", "American");
+        this.mapOrigin.addField("1", "California");
+        this.mapOrigin.addField("2", "New York");
+        this.mapOrigin.addField("3", "New Jersey");
+        this.mapOrigin.addField("4", "Illinois");
+        this.mapOrigin.addField("5", "Virginia");
+        this.mapOrigin.addField("6", "Michigan");
+        this.mapOrigin.addField("7", "Washington");
+        this.mapOrigin.addField("8", "Georgia");
+        this.mapOrigin.addField("9", "Ohio");
         this.mapOrigin.addField("10", "Alabama");
         this.mapOrigin.addField("11", "Arizona");
         this.mapOrigin.addField("12", "Arkansas");

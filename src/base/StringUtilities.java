@@ -70,7 +70,8 @@ public class StringUtilities {
                 data.add(in.nextLine());
             }while(in.hasNext());
         } catch (Exception e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            LogManager.println("Could not load file " + e.getMessage());
         }
         String[] outData = new String[data.size()];
         for(int i=0; i<outData.length; i++){
@@ -93,6 +94,16 @@ public class StringUtilities {
         return ( ((int)Math.floor( Math.random()* 10000000)) + "");
     }
 
+    public static String mergeStringArrayWithDelimiter(String[] data, String delimiter){
+        String out = "";
+
+        for(int i = 0; i < data.length; i++){
+            out = out + data[i]+delimiter;
+        }
+
+        return out;
+    }
+
     public static String getDate(){
         DateFormat dateFormatYear = new SimpleDateFormat("yyyy");
         DateFormat dateFormatMonth = new SimpleDateFormat("/MM");
@@ -107,5 +118,10 @@ public class StringUtilities {
         DateFormat dateFormatDay = new SimpleDateFormat("/dd");
         Date date = new Date();
         return ""+(Integer.parseInt(dateFormatYear.format(date))+1)+dateFormatMonth.format(date)+dateFormatDay.format(date);
+    }
+    public static String sanitize(String unsanitized){
+//        System.out.println("String thing: \\\'");
+        //        System.out.println("Sanitizing " + unsanitized + " to " + sanitized);
+        return unsanitized.replace("\'", "\\'").replaceAll(";", "").replace("\"", "\\");
     }
 }

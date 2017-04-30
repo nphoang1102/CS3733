@@ -136,24 +136,39 @@ public class ApplicationPage2Manager extends Screen {
         if (app.Brand == null || app.Brand.equals("")) {
             allFilled = false;
             brand_name_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            brand_name_field.setStyle(null);
         }
+
         if (app.Formula == null || app.Formula.equals("")) {
             allFilled = false;
             formula_field.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            formula_field.setStyle(null);
         }
+
         if (app.AlcoholType == null) {
             allFilled = false;
             product_type_box.setStyle("-fx-border-color: #ff0800;");
             LogManager.println("Alcohol type can't be null!");
+        } else{
+            product_type_box.setStyle(null);
         }
+
         if (app.Locality == null) {
             allFilled = false;
             product_source_box.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            product_source_box.setStyle(null);
         }
+
         if (app.ApplicationType == null) {
             allFilled = false;
             app_type_box.setStyle("-fx-border-color: #ff0800;");
+        } else{
+            app_type_box.setStyle(null);
         }
+
         if (allFilled) {
             Main.screenManager.closeCurrentPopOut();
             Main.screenManager.popoutScreen(EnumScreenType.APPLICATION_PAGE_3, "Page 3", 1020, 487, app);

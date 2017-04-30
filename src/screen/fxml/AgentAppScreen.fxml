@@ -78,30 +78,45 @@
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="259.0" prefWidth="160.0" style="-fx-background-color: #373737; -fx-border-color: #34a88b; -fx-border-width: 2;">
           <children>
-            <Button fx:id="rejectButton" layoutX="19.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#rejectApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Reject">
+            <Button fx:id="rejectButton" layoutX="22.0" layoutY="312.0" mnemonicParsing="false" onMouseClicked="#rejectApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Reject">
               <font>
                 <Font name="Telugu Sangam MN" size="15.0" />
               </font></Button>
-            <Button fx:id="acceptButton" layoutX="19.0" layoutY="45.0" mnemonicParsing="false" onMouseClicked="#acceptApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Accept">
+            <Button fx:id="acceptButton" layoutX="19.0" layoutY="14.0" mnemonicParsing="false" onMouseClicked="#acceptApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Accept">
               <font>
                 <Font name="Telugu Sangam MN" size="15.0" />
               </font>
             </Button>
-            <TextArea fx:id="rejectReason" layoutX="7.0" layoutY="148.0" prefHeight="419.0" prefWidth="185.0" promptText="Reason for Rejection (Required)">
+            <TextArea fx:id="rejectReason" layoutX="9.0" layoutY="359.0" prefHeight="168.0" prefWidth="185.0" promptText="Reason for Rejection (Required)">
               <font>
                 <Font name="Telugu Sangam MN" size="15.0" />
               </font>
             </TextArea>
-                  <Button fx:id="forwardButtong" layoutX="21.0" layoutY="578.0" mnemonicParsing="false" onMouseClicked="#forwardApp" prefHeight="41.0" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Forward">
+                  <Button fx:id="forwardButton" layoutX="22.0" layoutY="537.0" mnemonicParsing="false" onMouseClicked="#forwardApp" prefHeight="41.0" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Forward">
                      <font>
                         <Font name="Telugu Sangam MN" size="15.0" />
                      </font>
                   </Button>
-                  <TextArea fx:id="newAgentID" layoutX="4.0" layoutY="635.0" prefHeight="41.0" prefWidth="191.0" promptText="Agent Username">
+                  <TextArea fx:id="newAgentID" layoutX="7.0" layoutY="586.0" prefHeight="41.0" prefWidth="185.0" promptText="Agent Username">
                      <font>
                         <Font name="Telugu Sangam MN" size="15.0" />
                      </font>
                   </TextArea>
+                  <Button fx:id="sendBackButton" layoutX="19.0" layoutY="66.0" mnemonicParsing="false" onMouseClicked="#sendBackApp" prefWidth="160.0" style="-fx-background-color: #939393; -fx-text-fill: WHITE;" text="Send Back">
+                     <font>
+                        <Font name="Telugu Sangam MN" size="15.0" />
+                     </font>
+                  </Button>
+                  <TextArea fx:id="sendBackReason" layoutX="9.0" layoutY="118.0" prefHeight="185.0" prefWidth="185.0" promptText="Reason for Send Back (Required)">
+                     <font>
+                        <Font name="Telugu Sangam MN" size="15.0" />
+                     </font>
+                  </TextArea>
+                  <TextField layoutX="9.0" layoutY="656.0" prefHeight="25.0" prefWidth="185.0" promptText="CD/OR">
+                     <font>
+                        <Font name="Telugu Sangam MN" size="15.0" />
+                     </font>
+                  </TextField>
           </children>
         </AnchorPane>
       </items>
