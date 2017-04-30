@@ -11,6 +11,7 @@ public class UserManufacturer extends User {
     public String Company;
     public String RepID;
     public String PlantRegistry;
+    public String BreweryPermitNo;
     public String PhoneNo;
     public String Agent;
     public String AgentDate;

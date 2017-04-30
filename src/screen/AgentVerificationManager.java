@@ -19,7 +19,7 @@ public class AgentVerificationManager extends Screen{
     }
     @FXML private TextField fullNameField, emailField;
 
-    @FXML private CheckBox tickSuperAgent, tickAgent;
+    @FXML private CheckBox tickSuperAgent;
 
     @FXML private Button submitButton;
 
@@ -96,8 +96,8 @@ public class AgentVerificationManager extends Screen{
         //check if the agent box is currently selected
         if(tickSuperAgent.selectedProperty().getValue()) {
             //untick others
-            tickAgent.setSelected(false);
-            tickAgent.setIndeterminate(false);
+//            tickAgent.setSelected(false);
+//            tickAgent.setIndeterminate(false);
             type = "true";
             userType=(EnumUserType.SUPER_AGENT);
         }else{
@@ -107,7 +107,7 @@ public class AgentVerificationManager extends Screen{
     }
 
     @FXML
-    private void selectAgent(){
+    /*private void selectAgent(){
         //check if the agent box is currently selected
         if(tickAgent.selectedProperty().getValue()) {
             //untick others
@@ -119,7 +119,7 @@ public class AgentVerificationManager extends Screen{
             type = "";
             userType = null;
         }
-    }
+    }*/
 
     @Override
     public void onScreenFocused(DataSet data) {
