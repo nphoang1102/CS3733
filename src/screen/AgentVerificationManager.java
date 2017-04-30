@@ -26,7 +26,7 @@ public class AgentVerificationManager extends Screen{
     @FXML private Text verifyError;
 
     String name = "";//fullNameField.getText();
-    String email ="";// emailField.getText();
+    String email ="";//emailField.getText();
     String type = "false";
     DataSet tempUser;
     EnumUserType userType = EnumUserType.AGENT;
@@ -37,7 +37,7 @@ public class AgentVerificationManager extends Screen{
         verifyError.setVisible(false);
         //record name and email (type is set separately)
         name = fullNameField.getText();
-        email = fullNameField.getText();
+        email = emailField.getText();
         //check to see all fields are filled in
         if(!name.equals("")&&!email.equals("")&&!userType.equals(null)){
             //cast the user passed in as a userAgent

@@ -8,6 +8,8 @@ import javafx.scene.control.TextArea;
 import java.util.Arrays;
 import java.util.LinkedList;
 
+import static oracle.jrockit.jfr.events.Bits.intValue;
+
 public class SecurityBarObserver extends SecurityObserver{
 
     private String username ="";
@@ -52,13 +54,13 @@ public class SecurityBarObserver extends SecurityObserver{
                     "master"
             ));
 
-            //not a bad password
+            //deduct points for bad passwords
             for(String s: badPasswords){
-                if(s.contains(curPassword)){
+                if((s.length()!= 0)&& (s.contains(curPassword))){
                     securityLevel -= .15;
                 }
             }
-            securityLevel += curPassword.length() / 30.0;
+            securityLevel += curPassword.length() / 25.0;
 
 
             if (curPassword.matches(".*\\d+.*")) {
@@ -82,28 +84,45 @@ public class SecurityBarObserver extends SecurityObserver{
             }else if(securityLevel > 1){
                 securityLevel = 1;
             }
+
             progressBar.setProgress(securityLevel);
-            if (securityLevel <= .25) {
-                //low security
-                //make bar red
-                progressBar.setStyle("-fx-accent: #ff0000; -fx-focus-color: #34a88b;");
-            } else if (securityLevel <= .7) {
-                //yellow
-                progressBar.setStyle("-fx-accent: #FFF100; -fx-focus-color: #34a88b;");
-            } else if (securityLevel > .7) {
-                //orange
-                progressBar.setStyle("-fx-accent:  #34a88b; -fx-focus-color: #34a88b;");
-            }
+            updateColor(securityLevel);
             //update old password
             oldPassword = curPassword;
         }
 
     }
 
-    public void RedToGreen(double input){
-        input *= 100;
-        int color = 0x000000;
+    public String zeroPadHex(String input){
+        if(input.length() == 1){
+            input = "0"+input;
+        }
+        return input;
+    }
 
-
+    public void updateColor(Double input){
+        //convert security value to a whole number
+        input = input*100;
+        String color;
+        //map values 0 to 510 (with rounding)
+        int mapped = intValue((input*5.1)+.5);
+        String redVal;
+        String greenVal;
+        String blueVal = "00";
+        //less than 255, keep red constant, vary green
+        //over 255, vary red, keep green constant
+        if(mapped<=255){
+            //increase green value
+            redVal = Integer.toHexString(255);
+            greenVal = Integer.toHexString(mapped);
+            greenVal = zeroPadHex(greenVal);
+        }else{
+            //start decreasing red value
+            redVal = Integer.toHexString(510-mapped);
+            greenVal = Integer.toHexString(255);
+            redVal = zeroPadHex(redVal);
+        }
+        color =  redVal+greenVal+blueVal;
+        progressBar.setStyle("-fx-accent: #"+color+"; -fx-focus-color: #34a88b;");
     }
 }
