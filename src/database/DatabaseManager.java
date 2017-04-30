@@ -58,6 +58,7 @@ public class DatabaseManager {
         databaseType = "MySQL";
         databaseName = "TTB";
         databaseServer = "icarusnet.me";
+//        databaseServer = "10.0.0.240";
 
         if (databaseType.toLowerCase().equals("derby")) {
             derby = true; //MAGIC!
@@ -618,7 +619,6 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void setAgentStatus(String username, String status) { //We're competing with facebook.
 
-
         if (status.equals("REMOVE")) {
             try {
                 statement.executeUpdate("DELETE FROM Agents WHERE Username = '" + username + "' ");
@@ -642,7 +642,7 @@ public class DatabaseManager {
 
     public void clearInbox(String username) {
         try {
-            statement.executeUpdate("UPDATE Applications SET" +
+            statement.executeUpdate("UPDATE Applications SET " +
                     "AgentUsername = '' " +
                     "WHERE AgentUsername = '" + username + "'" + endQueryLine);
         } catch (SQLException e) {
@@ -674,6 +674,28 @@ public class DatabaseManager {
             LogManager.println(e.getMessage());
         }
     }
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    ///////////EDIT AGENTS//////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////
+    public static void updateAgents(UserAgent agent) {
+        try {
+            LogManager.print("Updating information for agent" + agent.username + "... ", EnumWarningType.NOTE);
+            LogManager.println(agent.username + " <--usernme");
+            LogManager.println(agent.email + " <--- email");
+            LogManager.println(agent.name + " <---name");
+            statement.executeUpdate("UPDATE Agents SET " +
+                    "FullName = '" + agent.name + "', " +
+                    "Email = '" + agent.email + "' " +
+                    "WHERE Username = '" + agent.username + "'" + endQueryLine);
+            LogManager.println("Success!");
+        } catch (SQLException e) {
+            LogManager.print("Failed. ");
+            LogManager.println(e.getMessage());
+        }
+    }
+
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EDIT APPLICATIONS/////////////////////////////////////////////////////
@@ -804,8 +826,11 @@ public class DatabaseManager {
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername) {
+        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username","AgentUsername");
+        UserAgent tempMan = (UserAgent) tempMans.getFirst();
         try {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + AgentUsername + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
+            statement.executeUpdate("UPDATE Applications SET AgentName = '" + tempMan.name + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
         } catch (SQLException e) {
             LogManager.println("agent does not exist", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
             e.printStackTrace();
@@ -866,8 +891,12 @@ public class DatabaseManager {
                     try {
                         //sets the applications agent as the agents username who was there
                         statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Applications SET AgentName = '" + Main.getUser().name + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
+
                         //sets the manufacturers agent and day to the agent username and date passed in
-                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
+                        statement.executeUpdate("UPDATE Manufacturers SET AgentDate = '" + curDate + "' WHERE Username = '" + tempMan.username + "'" + endQueryLine);
+
                         //increments the number of applications added to the inbox
                         i++;
                     } catch (SQLException e) {
@@ -1042,15 +1071,8 @@ public class DatabaseManager {
                 if (manufacturerRS.next()) {
                     manufacturerLinkedList = queryDatabase(EnumTableType.MANUFACTURER, "Username", username);
                     LogManager.println("Found!");
-//                    System.out.println("setting manufacturer");
                     UserManufacturer manufacturer = (UserManufacturer) manufacturerLinkedList.getFirst();
-                    /*try {
-//                        tryPassword(username, password, user.getString("PasswordHash"));
-                    } catch (Exception e) {
-                        LogManager.println(e.getMessage(), EnumWarningType.ERROR);
-                    }*/
                     String passwordHash = "";
-//                    System.out.println("Getting password hash");
                     try {
                         manufacturerRS = statement.executeQuery("SELECT * FROM Manufacturers WHERE Username = '" + username + "'" + endQueryLine);
                         manufacturerRS.next();
@@ -1058,7 +1080,7 @@ public class DatabaseManager {
                     } catch (Exception e) {
                         System.out.println("Failed to get password hash! " + e.getMessage());
                     }
-                    System.out.println(passwordHash);
+//                    System.out.println(passwordHash);
 //                    String passwordHash = "";
 //                    System.out.println("checking password");
                     if (PasswordStorage.verifyPassword(password, passwordHash)) {
