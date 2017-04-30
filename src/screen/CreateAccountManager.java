@@ -108,13 +108,13 @@ public class CreateAccountManager extends Screen{
                         }catch(DatabaseManager.DuplicateUserException e){
                             LogManager.println("caught DuplicateUserException");
                             clearFields();
-                            accountError.setText(user + ", I'm sorry, but that account is already taken, try to be more original next time");
+                            accountError.setText(user + ", I'm sorry, but that account is already taken");
                             return;
                         }
 
                         Main.setUser(tempUser);
-
-                        Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
+                        Main.screenManager.setScreen(EnumScreenType.EDIT_ACCOUNT);
+                        //Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
                     }
                 }else{//passwords don't match
                     accountError.setText(user + ", make sure you enter the same password");
