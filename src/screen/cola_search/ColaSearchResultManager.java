@@ -38,6 +38,7 @@ public class ColaSearchResultManager extends Screen {
     private DataSet tempSet = new BasicDataSet();
     private int resultLength = 0;
     private int totalPage = 0;
+    private int lastIndex = 0;
 
     /* Class constructor */
     public ColaSearchResultManager() {
@@ -125,14 +126,8 @@ public class ColaSearchResultManager extends Screen {
     public void initPage() {
         int totalPage = this.resultLength / 12 + 1;
         int displace = this.resultLength % 12;
-        int lastIndex = 0;
-        if (displace > 0) {
-            lastIndex = this.resultLength / 12;
-        } else {
-            lastIndex = this.resultLength / 12 - 1;
-
-        }
-
+        if (displace > 0) this.lastIndex = this.resultLength / 12;
+        else this.lastIndex = this.resultLength / 12 - 1;
         this.pageination.setCurrentPageIndex(0);
         this.pageination.setMaxPageIndicatorCount(totalPage);
         this.pageination.setPageCount(totalPage);
@@ -140,13 +135,14 @@ public class ColaSearchResultManager extends Screen {
             @Override
             public Node call(Integer pageIndex) {
                 if (pageIndex <= totalPage) {
-//                    if (lastIndex == pageIndex)
+                    if (lastIndex == pageIndex)
                     searchResult.setItems(FXCollections.observableArrayList(resultTable.subList(pageIndex * 12, pageIndex * 12 + displace)));
+                    else
+                        searchResult.setItems(FXCollections.observableArrayList(resultTable.subList(pageIndex * 12, pageIndex * 12 + 12)));
                 }
-                return null;
+                return new Label();
             }
         });
-//        this.box.getChildren().addAll(this.searchResult);
     }
 
     /* Send the search keywords to the database and display reply from database */
