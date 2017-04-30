@@ -30,7 +30,6 @@ public class DatabaseManager {
     private boolean derby = false; //Plz no
     private boolean mysql = false;
     protected static String endQueryLine;
-//    private boolean sqlite = false;
 
     /////////////////////////////////////////////////////////////////////////////////
     ///////////EXCEPTIONS////////////////////////////////////////////////////////////
@@ -68,22 +67,11 @@ public class DatabaseManager {
         } else if (databaseType.toLowerCase().equals("mysql")) {
             mysql = true; //MORE MAGIC!
             endQueryLine = ";";
-        }
-        /*else if(database.equals("sqlite") || database.equals("SQLite")){
-            sqlite = true
-        }*/
-        else {
+        } else {
             LogManager.println("Unknown database type!", EnumWarningType.ERROR);
             return;
         }
-       /* try {
-            Class.forName("org.apache.derby.jdbc.EmbeddedDriver");
-        } catch (ClassNotFoundException e) {
-            LogManager.println("Java DB Driver not found. Add the classpath to your module.");
-            e.printStackTrace();
-            return;
-        }*/
-//        LogManager.println("    Driver registered!");
+
         LogManager.println("Attempting connection to " + databaseType + " database  at " + databaseServer + "... ");
         boolean noDB = true;
         int MAXTRIES = 10;
@@ -95,9 +83,6 @@ public class DatabaseManager {
                 } else if (mysql) {
                     connection = DriverManager.getConnection("jdbc:mysql://" + databaseServer + "/" + databaseName + "?" + "user=cadborosaurus&password=JT6N0x5dm09OgpPU");
                 }
-            /*else if(sqlite){
-                connection = DriverManager.getConnection("jdbc:sqlite:TTB.db");
-            }*/
                 LogManager.println("Database connection established!", EnumWarningType.NOTE);
                 noDB = false;
             } catch (SQLException e) { //BOOKER, CATCH!
@@ -116,7 +101,6 @@ public class DatabaseManager {
                 try {
                     TimeUnit.SECONDS.sleep(5);
                 } catch (InterruptedException e1) {
-//                    e1.printStackTrace();
                 }
                 tries++;
             }
@@ -279,11 +263,9 @@ public class DatabaseManager {
             if (column.equals("")) {
                 return queryManufacturers("SELECT * FROM Manufacturers");
             } else {
-//                LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
                 return queryManufacturers("SELECT * FROM Manufacturers WHERE " + column + " = '" + value + "'" + endQueryLine);
             }
         } else if (table.equals(EnumTableType.AGENT)) {
-//            LogManager.println("SEARCHING FOR MANUFACTURER " + column + " = " + value);
             return queryAgents("SELECT * FROM Agents WHERE " + column + " = '" + value + "'" + endQueryLine);
         }
         //You asked for a hamburger. I...
@@ -473,13 +455,9 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     public static void submitApplication(Application application) {
         application.sanitize();
-        // OLD PARAMETERS: String Manufacturer, String PermitNo, String Status, String AlcoholType, String AgentID, String Source, String Brand, String Address, String Address2, String Volume, String ABV, String PhoneNo, String AppType, String VintageDate, String PH, String ApplicantName, String DateSubmitted, String DBAorTrade, String Email
-//        application.ApprovedTTBID = generateTTBID();
-//        application.ApplicationNo = application.ApprovedTTBID;
         String date = StringUtilities.getDate(); //Welcome to the new age.
         try {
             LogManager.println("Submitting new application.", EnumWarningType.NOTE);
-//            String status = "PENDING";
             statement.executeUpdate("INSERT INTO Applications " +
                     "(ApplicationNo, " +
                     "SerialNo, " +
@@ -506,9 +484,6 @@ public class DatabaseManager {
                     "PhoneNo, " +
                     "Email, " +
                     "AdditionalInfo, " +
-//                    "DateOfSubmission," +
-//                    "DateOfApproval," +
-//                    "DateOfExpiration," +
                     "ApprovedTTBID," +
                     "ReasonForRejection" +
                     ") VALUES ('"
@@ -537,9 +512,6 @@ public class DatabaseManager {
                     + application.PhoneNo + "', '"
                     + application.Email + "', '"
                     + application.AdditionalInfo + "', '"
-//                    + application.DateOfSubmission + "', '"
-//                    + application.DateOfApproval + "', '"
-//                    + application.DateOfExpiration + "', '"
                     + application.ApprovedTTBID + "', '"
                     + application.ReasonForRejection
                     + "')" + endQueryLine);
@@ -563,10 +535,8 @@ public class DatabaseManager {
         LinkedList<DataSet> manufacturers = new LinkedList<>();
         try {
             ResultSet searchManufacturers = statement.executeQuery(query);
-//            LogManager.println("queryManufacturers() has run the query: " + query, EnumWarningType.NOTE);
             while (searchManufacturers.next()) {
                 String username = searchManufacturers.getString("Username");
-//                LogManager.println("queryManufacturers() is adding the user " + username + " to a list that is now ", EnumWarningType.NOTE);
                 UserManufacturer manufacturer = new UserManufacturer(query);
                 manufacturer.Company = searchManufacturers.getString("Company");
                 manufacturer.username = username;
@@ -583,7 +553,6 @@ public class DatabaseManager {
                 manufacturer.Agent = searchManufacturers.getString("Agent");
                 manufacturer.AgentDate = searchManufacturers.getString("AgentDate");
                 manufacturers.add(manufacturer); //One to beam up.
-//                LogManager.print(manufacturers.size() + "items long.");
             }
             searchManufacturers.close();
         } catch (SQLException e) {
@@ -725,15 +694,6 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////APPROVE APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    /*public static void reapproveApplication(String ApplicationNum, String TTBID) {
-        //String TTBID = generateTTBID();
-        approveApplication(ApplicationNum, TTBID);
-    }
-    public static void approveNewApplication(String ApplicationNum) {
-        //String TTBID = generateTTBID();
-        approveApplication(ApplicationNum, TTBID);
-    }*/
-
     public static void approveApplication(String ApplicationNum, String DateOfApproval, String DateOfExpiration) {
 
         try {
@@ -746,37 +706,16 @@ public class DatabaseManager {
         LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNum);
         if (approvedApplicationLinkedList != null && !approvedApplicationLinkedList.isEmpty()) { //THERE. ARE. FOUR! LIGHTS!
             Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
-//            String ApplicationNo = approvedApplication.ApplicationNo;
             String SerialNo = approvedApplication.SerialNo;
-//            String ApplicationType = approvedApplication.ApplicationType;
-//            String ApplicationStatus = approvedApplication.ApplicationStatus;
-//            String ManufacturerUsername = approvedApplication.ManufacturerUsername;
-//            String RepName = approvedApplication.RepName;
-//            String AgentUsername = approvedApplication.AgentUsername;
-//            String AgentName = approvedApplication.AgentName;
-//            String RepID = approvedApplication.RepID;
             String PlantRegistry = approvedApplication.PlantRegistry;
             String Locality = approvedApplication.Locality;
             String Brand = approvedApplication.Brand;
             String FancifulName = approvedApplication.FancifulName; //Fancy feast is delicious.
             String AlcoholType = approvedApplication.AlcoholType; // WHAT ARE THEY SELLING??
             String ABV = approvedApplication.ABV;
-//            String Address = approvedApplication.Address;//Is this the real life?
-//            String Address2 = approvedApplication.Address2;//Is this just fantasy?
-//            String Formula = approvedApplication.Formula;
-//            String WineAppelation = approvedApplication.WineAppelation;//Caught in a landslide
             String VintageDate = approvedApplication.VintageDate;//NO ESCAPE FROM REALITY...
-//            String Grapes = approvedApplication.Grapes;
             String PH = approvedApplication.PH; //THEY'RE SELLING CHOCOLATE!!!
-//            String PhoneNo = approvedApplication.PhoneNo;
-//            String Email = approvedApplication.Email;
-//            String AdditionalInfo = approvedApplication.AdditionalInfo;
-//            String DateOfSubmission = approvedApplication.DateOfSubmission;
-//            String CompletedDate = StringUtilities.getDate();
-//            String DateOfExpiration = approvedApplication.DateOfExpiration;
             String TTBID = approvedApplication.ApprovedTTBID;
-//            String ReasonForRejection = approvedApplication.ReasonForRejection;
-//            String Class = "";
 
             try {
                 LogManager.println("INSERTING THINGS NOW!!!");
@@ -832,8 +771,9 @@ public class DatabaseManager {
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername) {
-UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username",AgentUsername);
-         tempMan = (UserAgent) tempMans.getFirst();
+        UserAgent tempMan;
+        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username", AgentUsername);
+        tempMan = (UserAgent) tempMans.getFirst();
         try {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + AgentUsername + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentName = '" + tempMan.name + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
@@ -849,9 +789,7 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
     public static void surrenderApplication(String ApplicationNo, String reasonForRejection) {
         try {
             statement.executeUpdate("UPDATE Applications SET ApplicationStatus = 'SURRENDERED' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
-//            statement.executeUpdate("UPDATE Applications SET ReasonForRejection = '" + reasonForRejection + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
             statement.executeUpdate("UPDATE Applications SET AgentUsername = NULL WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
-            //stmt.executeUpdate("INSERT INTO Alcohol (TTBID, PermitNo, SerialNo, CompletedDate, FancifulName, BrandName, Origin, Class, Type) VALUES (" + TTBID + " " + PermitNo + " " + SerialNo + " " + Date + " " + FancifulName + " " + BrandName + " " + Origin + " " + Class + " " + Type + ")");
         } catch (SQLException e) {
             LogManager.println("Failed to surrender application. ", EnumWarningType.ERROR); //I'm sorry Dave, but I'm afraid I can't do that.
             e.printStackTrace();
@@ -862,7 +800,6 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
     ///////////GET APPLICATIONS IN AGENT'S INBOX/////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static LinkedList<DataSet> getApplicationsByAgent(String agent) {
-//        LinkedList<Application> dataSets = new LinkedList<>();
         return queryApplications("SELECT * FROM Applications WHERE AgentUsername = '" + agent + "';");
     }
 
@@ -910,20 +847,7 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
                     }
                     //checks if the manufacturer doesnt have an agent
                 }
-                /*else if(tempMan.Agent.equals("")){
-                    //adds the application to the inbox on the second pass
-                    if(!isFirst){
-                        //same as above
-                        addToInbox.add((Application) applicationLinkedList.get(i));
-                        try {
-                            statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + username + "' WHERE ApplicationNo = '" + tempApp.ApplicationNo + "'" + endQueryLine);
-                            statement.executeUpdate("UPDATE Manufacturers SET Agent = '" + username + "' WHERE Username = '" + tempMan.Agent + "'" + endQueryLine);
-                            i++;
-                        } catch (SQLException e) {
-                            LogManager.println("Error setting agent on application " + ((Application) applicationLinkedList.get(i)).ApplicationNo + " !", EnumWarningType.ERROR);
-                        }
-                    }
-                }*/
+
                 //if the user has an agent it does not add it to the inbox
             } catch (Exception e) {
                 //list of applications changed
@@ -983,14 +907,6 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
                 application.ApprovedTTBID = getApplications.getString("ApprovedTTBID");
                 application.ReasonForRejection = getApplications.getString("ReasonForRejection");
                 applicationLinkedList.add(application);
-//                String thisApplicationNo = getApplications.getString("ApplicationNo");
-/*                if (!setAgent.equals("")) {
-                    try {
-                        statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + setAgent + "' WHERE ApplicationNo = '" + thisApplicationNo + "';");
-                    } catch (SQLException e) {
-                        LogManager.println("Error setting agent on application " + thisApplicationNo + " !", EnumWarningType.ERROR);
-                    }
-                }*/
             }
         } catch (SQLException e) {
             LogManager.println("Empty result set! Is the applications table empty?", EnumWarningType.WARNING);
@@ -1004,10 +920,8 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
     ///////////ADD USERS/////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public static void addUser(User user, String password, EnumUserType userType) throws DuplicateUserException {
-//        String table = "Agents";
-//        boolean Super = false;
+
         try {
-            //if(userType.equals(EnumUserType.SUPER_AGENT)){table = "Agents"; Super = true;}
             if (userType.equals(EnumUserType.AGENT) || userType.equals(EnumUserType.SUPER_AGENT)) {
                 try {
                     UserAgent agent = (UserAgent) user;
@@ -1051,7 +965,6 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
         ResultSet user;
         try {
             LogManager.print("Searching for an agent called " + username + "... ", EnumWarningType.NOTE);
-            //user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "';");
 
             user = statement.executeQuery("SELECT * FROM Agents WHERE username = '" + username + "'" + endQueryLine);
 
@@ -1062,7 +975,6 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
 
                 LogManager.println("Found!");
 
-//                tryPassword(username, password, user.getString("PasswordHash"));
                 if (PasswordStorage.verifyPassword(password, user.getString("PasswordHash"))) {
                     return agent;
                 } else {
@@ -1086,14 +998,9 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
                     } catch (Exception e) {
                         System.out.println("Failed to get password hash! " + e.getMessage());
                     }
-//                    System.out.println(passwordHash);
-//                    String passwordHash = "";
-//                    System.out.println("checking password");
                     if (PasswordStorage.verifyPassword(password, passwordHash)) {
-//                        System.out.println("Password good");
                         return manufacturer;
                     } else {
-//                        System.out.println("Password bad");
                         throw new IncorrectPasswordException(username);
                     }
                 } else {
@@ -1110,22 +1017,12 @@ UserAgent tempMan;        LinkedList<DataSet> tempMans = queryDatabase(EnumTable
     }
 
     private boolean tryPassword(String username, String password, String correctHash) throws IncorrectPasswordException, PasswordStorage.InvalidHashException, PasswordStorage.CannotPerformOperationException {
-        //try {
         if (PasswordStorage.verifyPassword(password, correctHash)) {
             LogManager.println("Incorrect password entered for " + username);
             return true;
         } else {
             return false;
         }
-//        } catch (PasswordStorage.CannotPerformOperationException e) {
-//            LogManager.println("Password operation failed for " + username + ".", EnumWarningType.ERROR);
-//            throw new PasswordStorage.CannotPerformOperationException("Password operation failed for user " + username + ".");
-//        } catch (PasswordStorage.InvalidHashException e) {
-//            //LogManager.printStackTrace(e.getStackTrace());
-//            LogManager.println("Invalid stored has for " + username + ".", EnumWarningType.ERROR);
-//            throw new PasswordStorage.InvalidHashException("Invalid stored hash for " + username + ".");
-//        }
-
     }
 
     /////////////////////////////////////////////////////////////////////////////////
