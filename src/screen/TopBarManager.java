@@ -149,7 +149,7 @@ public class TopBarManager extends Screen{
         data.addField("isAdvance", "false");
         String toPrint = "User searches for " + searchBar.getText() + " under type " + searchTerm.getValue();
         LogManager.println(toPrint);
-        Main.screenManager.setScreen(EnumScreenType.COLA_SEARCH_RESULT, data);
+        Main.screenManager.setScreen(EnumScreenType.LOADING, data);
     }
 
     public String getSearchTerm(){

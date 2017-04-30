@@ -6,18 +6,12 @@ package screen;
  */
 
 import base.*;
-import com.mysql.jdbc.StringUtils;
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import database.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.shape.Polygon;
 import javafx.scene.text.Text;
-import sun.management.Agent;
+import screen.Subject;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 
 public class CreateAccountManager extends Screen{
     public CreateAccountManager() {
@@ -108,7 +102,7 @@ public class CreateAccountManager extends Screen{
                         }catch(DatabaseManager.DuplicateUserException e){
                             LogManager.println("caught DuplicateUserException");
                             clearFields();
-                            accountError.setText(user + ", I'm sorry, but that account is already taken");
+                            accountError.setText("Sorry, that username is already taken.");
                             return;
                         }
 
@@ -117,16 +111,16 @@ public class CreateAccountManager extends Screen{
                         //Main.screenManager.setScreen(EnumScreenType.MANUFACTURER_SCREEN);
                     }
                 }else{//passwords don't match
-                    accountError.setText(user + ", make sure you enter the same password");
+                    accountError.setText("Passwords do not match.");
                     password.clear();
                     passwordVerify.clear();
                 }
             } else { //they didn't select a box
                 //repopulate the field with their name
-                accountError.setText(user + ", select a box.");
+                accountError.setText( "Please select an account type.");
             }
         }else {//user didn't enter a username or password
-            accountError.setText("No username or password");
+            accountError.setText("Please enter a username and a password.");
         }
         /* {
             //if name is taken, return to the make account screen

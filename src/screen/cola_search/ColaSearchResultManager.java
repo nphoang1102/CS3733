@@ -57,6 +57,7 @@ public class ColaSearchResultManager extends Screen {
     @Override
     public void onScreenFocused(DataSet data){
         /* Resetting fields */
+        this.databaseResult.clear();
         this.resultLength = 0;
         this.totalPage = 0;
 
@@ -72,12 +73,33 @@ public class ColaSearchResultManager extends Screen {
 
         /* Get the TableView stuff and result setup */
         this.initializeTable();
-        this.databaseQuery();
 
         /* Configuration for the mouse click event */
         this.initializeMouseEvent();
 
         /* Configure the pagination */
+        this.initPage();
+    }
+
+    /* Custom on screen for asynchronous stuffs */
+    public void onScreenFocused(LinkedList<DataSet> data) {
+        this.setMapOrigin();
+        /* Resetting fields */
+        this.databaseResult.clear();
+        /* Accepting the list of result from the database */
+        this.databaseResult = data;
+        /* Resetting fields */
+        this.resultLength = 0;
+        this.totalPage = 0;
+
+        /* Get the TableView stuff and result setup */
+        this.initializeTable();
+
+        /* Configuration for the mouse click event */
+        this.initializeMouseEvent();
+
+
+        /* Initialize table, mouse click event and pagination */
         this.initPage();
     }
 
@@ -143,30 +165,33 @@ public class ColaSearchResultManager extends Screen {
         });
     }
 
-    /* Send the search keywords to the database and display reply from database */
-    public void databaseQuery() {
-        if (this.isAdvance) {
-            this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
-                    this.adStrings[1],
-                    this.adStrings[2],
-                    this.adStrings[3],
-                    this.adStrings[4],
-                    this.adStrings[5],
-                    this.adStrings[6],
-                    this.adStrings[7],
-                    this.adStrings[8]);
-        }
-        else {
-            this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
-        }
-        this.setMapOrigin();
-        this.isAdvance = false;
-    }
+//    /* Send the search keywords to the database and display reply from database */
+//    public void databaseQuery() {
+//        if (this.isAdvance) {
+//            this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
+//                    this.adStrings[1],
+//                    this.adStrings[2],
+//                    this.adStrings[3],
+//                    this.adStrings[4],
+//                    this.adStrings[5],
+//                    this.adStrings[6],
+//                    this.adStrings[7],
+//                    this.adStrings[8]);
+//        }
+//        else {
+//            this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
+//        }
+//        this.setMapOrigin();
+//        this.isAdvance = false;
+//    }
 
     /* Populate the table based on the search result */
     public void populateTable(int start, int end) {
         this.resultTable.clear();
         for (int i = start; i < end; i++) {
+            if(i >= databaseResult.size()){
+                return;
+            }
             Alcohol data = (Alcohol) this.databaseResult.get(i);
             String mapSource = "";
             if (this.mapOrigin.getValueForKey(data.Origin) == null) mapSource = data.Origin;

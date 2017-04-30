@@ -9,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import screen.cola_search.ColaSearchResultManager;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -90,6 +91,48 @@ public class ScreenManager {
             topBarScreen.onScreenFocused(new BasicDataSet());
         }
         screenStates.addFirst(new State(type, data, topBarData));
+    }
+
+    public void setScreen(EnumScreenType type, LinkedList<DataSet> data){
+        if(Main.getUser()!=null){
+            if(type.equals(EnumScreenType.LOG_IN)){
+                return;
+            }
+            if(type.equals(EnumScreenType.CREATE_ACCOUNT)){
+                return;
+            }
+        }
+        DataSet topBarData = topBarScreen.generateTopBarData();
+        if(!type.equals(EnumScreenType.TOP_BAR)){
+            LogManager.println("Setting screen to:" + type.toString());
+            Scene scene;
+            if(loadedScenes.containsKey(type.toString())){
+                scene = loadedScenes.get(type.toString());
+                topBarScreen.setScreen(loadedScenes.get(type.toString()));
+                if(type.equals(EnumScreenType.COLA_SEARCH_RESULT)) {
+                    ((ColaSearchResultManager)loadedScreens.get(type.toString())).onScreenFocused(data);
+                }else{
+                    loadedScreens.get(type.toString()).onScreenFocused(data.getFirst());
+                }
+            }else{
+                FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/screen/fxml/" + type.getFXMLFile()));
+                try {
+                    scene = new Scene(loader.load(), Main.WIDTH, Main.HEIGHT);
+                    loadedScenes.put(type.toString(), scene);
+                    topBarScreen.setScreen(loadedScenes.get(type.toString()));
+                    Screen theScreen = (Screen)loader.getController();
+                    loadedScreens.put(type.toString(), theScreen);
+                    if(type.equals(EnumScreenType.COLA_SEARCH_RESULT)) {
+                        ((ColaSearchResultManager)theScreen).onScreenFocused(data);
+                    }else{
+                        theScreen.onScreenFocused(data.getFirst());
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            topBarScreen.onScreenFocused(new BasicDataSet());
+        }
     }
 
     public void popoutScreen(EnumScreenType type, String name, DataSet data){
