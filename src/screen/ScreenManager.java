@@ -133,7 +133,7 @@ public class ScreenManager {
             }
             topBarScreen.onScreenFocused(new BasicDataSet());
         }
-        screenStates.addFirst(new State(type, data.getFirst(), topBarData));
+//        screenStates.addFirst(new State(type, data.getFirst(), topBarData));
     }
 
     public void popoutScreen(EnumScreenType type, String name, DataSet data){
