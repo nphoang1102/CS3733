@@ -47,8 +47,10 @@ public class DatabaseManager {
         }
     }
 
-    public static class DuplicateUserException extends Exception{
-        DuplicateUserException() {super("User already exists");}
+    public static class DuplicateUserException extends Exception {
+        DuplicateUserException() {
+            super("User already exists");
+        }
     }
 
     /////////////////////////////////////////////////////////////////////////////////
@@ -333,7 +335,7 @@ public class DatabaseManager {
             query1 = "SELECT * FROM Alcohol WHERE " + cat4 + " = '" + val4 + "'";
         }
 
-        if(andor.equals("or")) {
+        if (andor.equals("or")) {
             try {
                 if (!val1.isEmpty() && val2.isEmpty() && val3.isEmpty() && val4.isEmpty()) {
                     combinedQuery = query1;
@@ -742,7 +744,7 @@ public class DatabaseManager {
             e.printStackTrace();
         }
         LinkedList<DataSet> approvedApplicationLinkedList = queryDatabase(EnumTableType.APPLICATION, "ApplicationNo", ApplicationNum);
-        if( approvedApplicationLinkedList != null && !approvedApplicationLinkedList.isEmpty()) { //THERE. ARE. FOUR! LIGHTS!
+        if (approvedApplicationLinkedList != null && !approvedApplicationLinkedList.isEmpty()) { //THERE. ARE. FOUR! LIGHTS!
             Application approvedApplication = (Application) approvedApplicationLinkedList.getFirst();
 //            String ApplicationNo = approvedApplication.ApplicationNo;
             String SerialNo = approvedApplication.SerialNo;
@@ -830,7 +832,7 @@ public class DatabaseManager {
     ///////////FORWARD APPLICATION///////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
     public void forwardApplication(String ApplicationNo, String AgentUsername) {
-        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username","AgentUsername");
+        LinkedList<DataSet> tempMans = queryDatabase(EnumTableType.AGENT, "Username", "AgentUsername");
         UserAgent tempMan = (UserAgent) tempMans.getFirst();
         try {
             statement.executeUpdate("UPDATE Applications SET AgentUsername = '" + AgentUsername + "' WHERE ApplicationNo = '" + ApplicationNo + "'" + endQueryLine);
@@ -1001,7 +1003,7 @@ public class DatabaseManager {
     /////////////////////////////////////////////////////////////////////////////////
     ///////////ADD USERS/////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////
-    public static void addUser(User user, String password, EnumUserType userType) throws DuplicateUserException{
+    public static void addUser(User user, String password, EnumUserType userType) throws DuplicateUserException {
 //        String table = "Agents";
 //        boolean Super = false;
         try {
@@ -1018,7 +1020,7 @@ public class DatabaseManager {
                             "('" + agent.ID + "',  '" + agent.username + "', '" + PasswordStorage.createHash(password) + "', '" + agent.name + "', '" + agent.email + "', '" + SuperAgent + "', '" + status + "')");
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
-                }catch (MySQLIntegrityConstraintViolationException e){
+                } catch (MySQLIntegrityConstraintViolationException e) {
                     throw new DuplicateUserException();
                 }
             }
@@ -1031,7 +1033,7 @@ public class DatabaseManager {
 
                 } catch (PasswordStorage.CannotPerformOperationException e) {
                     e.printStackTrace();
-                } catch (MySQLIntegrityConstraintViolationException e){
+                } catch (MySQLIntegrityConstraintViolationException e) {
                     throw new DuplicateUserException();
                 }
             }
