@@ -119,13 +119,14 @@ public class ApplicationPage5Manager extends Screen{
                 client.setFileType(FTPClient.BINARY_FILE_TYPE);
 
                 fis = new FileInputStream(filePath);
+
                 client.storeFile("TTB/alcohol/" + app.ApprovedTTBID + ".png", fis);
                 client.logout();
                 fis.close();
                 LogManager.println("Uploading image as:" + "TTB/alcohol/" + app.ApprovedTTBID + ".png");
 
-            } catch (IOException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                LogManager.println("failed to get file " + filePath + ": " + e.getMessage());
             }
 
             Main.screenManager.closeCurrentPopOut();

@@ -52,6 +52,13 @@ public class SuperAgentScreenManager extends Screen {
     @Override
     public void onScreenFocused(DataSet data) {
 
+        agentTable.setVisible(true);
+        statusType.setVisible(true);
+        goButton.setVisible(true);
+        agentStatus.setVisible(true);
+        appScreenButton.setVisible(true);
+        isPending.setVisible(true);
+
         UserAgent thisAgent = (UserAgent) Main.getUser();
 
             if (data.hasKey("agentStatus")) {
