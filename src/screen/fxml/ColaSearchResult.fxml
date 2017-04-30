@@ -50,6 +50,6 @@
                 <TableColumn fx:id="coLname" prefWidth="580.0" resizable="false" text="Brand Name" />
             </columns>
         </TableView>
-      <Pagination fx:id="pageination" layoutX="5.0" layoutY="590.0" prefHeight="75.0" prefWidth="1270.0" style="-fx-background-color: #34a88b; -fx-max-page-indicator-count: 30; -fx-page-information-visible: true; -fx-tooltip-visible: false;" />
+      <Pagination fx:id="pageination" layoutX="5.0" layoutY="590.0" prefHeight="75.0" prefWidth="1270.0" stylesheets="@../css/Pagination.css" />
     </children>
 </Pane>

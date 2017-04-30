@@ -1,0 +1,25 @@
+.pagination{
+    -fx-base: #373737;
+    -fx-max-page-indicator-count: 30;
+    -fx-page-information-visible: true;
+    -fx-tooltip-visible: false;
+}
+
+.pagination .toggle-button , .mypage .button{
+    -fx-background-radius:15px;
+    -fx-padding: 0px;
+    -fx-accent: #34a88b;
+    -fx-focus-color: #34a88b;
+}
+
+.pagination .button{
+    -fx-padding: 5 15 5 16px;
+    -fx-accent: #34a88b;
+    -fx-focus-color: #34a88b;
+}
+
+.pagination .label {
+    -fx-text-fill:white;
+    -fx-font-family: "Telugu Sangam MN";
+    -fx-font-size: 10px;
+}
