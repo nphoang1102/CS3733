@@ -57,6 +57,7 @@ public class ColaSearchResultManager extends Screen {
     @Override
     public void onScreenFocused(DataSet data){
         /* Resetting fields */
+        this.databaseResult.clear();
         this.resultLength = 0;
         this.totalPage = 0;
 
@@ -78,6 +79,20 @@ public class ColaSearchResultManager extends Screen {
         this.initializeMouseEvent();
 
         /* Configure the pagination */
+        this.initPage();
+    }
+
+    /* Custom on screen for asynchronous stuffs */
+    public void onScreenFocused(LinkedList<DataSet> data) {
+        /* Accepting the list of result from the database */
+        this.databaseResult.clear();
+        this.databaseResult = data;
+
+        /* Resetting fields */
+        this.resultLength = 0;
+        this.totalPage = 0;
+
+        /* Initialize table, mouse click event and pagination */
         this.initPage();
     }
 
