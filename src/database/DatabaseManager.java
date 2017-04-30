@@ -641,7 +641,7 @@ public class DatabaseManager {
 
     public void clearInbox(String username) {
         try {
-            statement.executeUpdate("UPDATE Applications SET" +
+            statement.executeUpdate("UPDATE Applications SET " +
                     "AgentUsername = '' " +
                     "WHERE AgentUsername = '" + username + "'" + endQueryLine);
         } catch (SQLException e) {
