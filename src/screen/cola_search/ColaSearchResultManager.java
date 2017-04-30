@@ -124,10 +124,10 @@ public class ColaSearchResultManager extends Screen {
 
     /* Initialize the pagination */
     public void initPage() {
-        int totalPage = this.resultLength / 12 + 1;
-        int displace = this.resultLength % 12;
-        if (displace > 0) this.lastIndex = this.resultLength / 12;
-        else this.lastIndex = this.resultLength / 12 - 1;
+        int totalPage = this.databaseResult.size() / 12 + 1;
+        int displace = this.databaseResult.size() % 12;
+        if (displace > 0) this.lastIndex = this.databaseResult.size() / 12;
+        else this.lastIndex = this.databaseResult.size() / 12 - 1;
         this.pageination.setCurrentPageIndex(0);
         this.pageination.setMaxPageIndicatorCount(30);
         this.pageination.setPageCount(totalPage);
@@ -135,10 +135,8 @@ public class ColaSearchResultManager extends Screen {
             @Override
             public Node call(Integer pageIndex) {
                 if (pageIndex <= totalPage) {
-                    if (lastIndex == pageIndex)
-                    searchResult.setItems(FXCollections.observableArrayList(resultTable.subList(pageIndex * 12, pageIndex * 12 + displace)));
-                    else
-                        searchResult.setItems(FXCollections.observableArrayList(resultTable.subList(pageIndex * 12, pageIndex * 12 + 12)));
+                    if (lastIndex == pageIndex) populateTable(pageIndex * 12, pageIndex * 12 + displace);
+                    else populateTable(pageIndex * 12, pageIndex * 12 + 12);
                 }
                 return new Label();
             }
@@ -147,7 +145,6 @@ public class ColaSearchResultManager extends Screen {
 
     /* Send the search keywords to the database and display reply from database */
     public void databaseQuery() {
-        LogManager.print("Start database query...");
         if (this.isAdvance) {
             this.databaseResult = DatabaseManager.advancedSearch(this.adStrings[0] ,
                     this.adStrings[1],
@@ -162,12 +159,15 @@ public class ColaSearchResultManager extends Screen {
         else {
             this.databaseResult = DatabaseManager.queryDatabase(EnumTableType.ALCOHOL, "BrandName" , this.keywords);
         }
-        LogManager.println("done");
-        LogManager.print("Start populating table...");
-        this.resultTable.clear();
         this.setMapOrigin();
-        for (DataSet tempSet: this.databaseResult) {
-            Alcohol data = (Alcohol) tempSet;
+        this.isAdvance = false;
+    }
+
+    /* Populate the table based on the search result */
+    public void populateTable(int start, int end) {
+        this.resultTable.clear();
+        for (int i = start; i < end; i++) {
+            Alcohol data = (Alcohol) this.databaseResult.get(i);
             String mapSource = "";
             if (this.mapOrigin.getValueForKey(data.Origin) == null) mapSource = data.Origin;
             else mapSource = this.mapOrigin.getValueForKey(data.Origin)+ "";
@@ -183,11 +183,9 @@ public class ColaSearchResultManager extends Screen {
                     data.AlcoholContent,
                     data.VintageYear,
                     data.PH));
-            this.resultLength++;
         }
+        this.searchResult.setItems(this.resultTable);
         this.searchResult.setEditable(false);
-        this.isAdvance = false;
-        LogManager.println("done");
     }
 
     /* Print search result into a CSV file on button click */
