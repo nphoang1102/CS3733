@@ -46,36 +46,34 @@ public class LoginScreenManager extends Screen {
     //fxml methods
     @FXML
     void loginClicked() {
-
-        //clear any previous error messages
-        error.visibleProperty().setValue(false);
         if (Main.getUsername().equals("")) {
+            error.setVisible(true);
             this.userName = usernameField.getText();
             String curPass = password.getText();
-            this.usernameField.clear();
+//            this.usernameField.clear();
             this.password.clear();
 
             if (userName.equals("")) {
-                //print to screen, tell user to enter username, exit
-                error.visibleProperty().setValue(true);
-                error.setText("PLEASE ENTER A USERNAME");
+                error.setText("A username is required.");
                 LogManager.println("need a username");
-            } else {
+            }
+            /*else if(userName.equals("test")){
+                error.setText("Test");
+            }*/
+            else {
                 User curUser = null;
                 try {
+                    this.error.visibleProperty().setValue(true);
                     curUser = Main.databaseManager.login(userName, curPass);
+//                    setErrorText("Loading. Please wait.");
                 } catch (DatabaseManager.UserNotFoundException e) {
-                    error.visibleProperty().setValue(true);
                     error.setText("Username does not exist");
-//                    e.printStackTrace();
                     return;
                 } catch (DatabaseManager.IncorrectPasswordException e) {
-                    error.visibleProperty().setValue(true);
                     error.setText("Incorrect password");
-                    //e.printStackTrace();
                     return;
                 } catch (PasswordStorage.InvalidHashException e) {
-//                    e.printStackTrace();
+                    error.setText("Incorrect password");
                     LogManager.println(e.getMessage(), EnumWarningType.ERROR);
                 } catch (PasswordStorage.CannotPerformOperationException e) {
 //                    e.printStackTrace();
@@ -182,5 +180,9 @@ public class LoginScreenManager extends Screen {
         double center;
         center = (background.getWidth() - error.getWrappingWidth()) / 2;
         error.setTextAlignment(TextAlignment.CENTER);
+    }
+
+    private void setErrorText(String error) {
+            this.error.setText(error);
     }
 }
